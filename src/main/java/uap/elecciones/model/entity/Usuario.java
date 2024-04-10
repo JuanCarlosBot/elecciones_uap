@@ -32,7 +32,7 @@ public class Usuario implements Serializable{
     @Column
     private String estado;
     @Column
-    private String user;
+    private String usuario;
     @Column
     private String pass;
     @Column
