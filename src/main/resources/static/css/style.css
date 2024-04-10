@@ -73,6 +73,10 @@ padding: 0
 .mg-b-40{
 	margin-bottom:40px;
 }
+.mg-b-40-login{
+	margin-top: 200px;
+	margin-bottom:40px;
+}
 .mg-tb-30{
 	margin:30px 0px;
 }
@@ -3508,6 +3512,9 @@ ul.profile-contact-menu {
 }
 .content-inner-all {
     margin-left: 200px;
+	transition: all 0.3s;
+}
+.content-inner-all-login {
 	transition: all 0.3s;
 }
 .header-drl-controller-btn.btn-info{

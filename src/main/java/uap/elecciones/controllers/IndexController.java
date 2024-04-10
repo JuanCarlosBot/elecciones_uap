@@ -12,8 +12,5 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping(value = "/inicio",method = RequestMethod.GET)
-    public String Pagina_Inincio(){
-        return "menu_principal";
-    }
+   
 }

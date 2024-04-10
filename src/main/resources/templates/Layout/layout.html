@@ -3,7 +3,7 @@
 <head th:fragment="head">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Dashboard v.2.0 | Adminpro - Admin Template</title>
+    <title>ADMIN | UAP </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- favicon
@@ -80,7 +80,7 @@
                 <div class="sidebar-header">
                     <a href="#"><img src="img/message/1.jpg" alt="" />
                     </a>
-                    <h3>Andrar Son</h3>
+                    <h3 th:if="${session.usuario != null}" th:text="${session.persona.nombres}">Andrar Son</h3>
                     <p>Developer</p>
                     <strong>AP+</strong>
                 </div>
@@ -247,7 +247,7 @@
                                                 </li>
                                                 <li><a href="#"><span class="adminpro-icon adminpro-settings author-log-ic"></span>Settings</a>
                                                 </li>
-                                                <li><a href="#"><span class="adminpro-icon adminpro-locked author-log-ic"></span>Log Out</a>
+                                                <li><a th:href="${'../../../../cerrar_sesion'}"><span class="adminpro-icon adminpro-locked author-log-ic"></span>Cerrar Sesion</a>
                                                 </li>
                                             </ul>
                                         </li>

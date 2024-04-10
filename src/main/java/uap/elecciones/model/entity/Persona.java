@@ -57,7 +57,7 @@ public class Persona implements Serializable {
 	private Docente docente;
 
     @JsonIgnore
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona", fetch = FetchType.EAGER)
 	private List<Usuario> usuarios;
 
 }
