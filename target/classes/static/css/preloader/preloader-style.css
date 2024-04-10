@@ -39,6 +39,18 @@
  -webkit-animation: animate_25 3s infinite ease-in-out;
  animation: animate_25 3s infinite ease-in-out;
 }
+.preloader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo semi-transparente para el preloader */
+    z-index: 9999; /* Asegura que el preloader esté por encima de otros elementos */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .tsperloader:nth-child(24) {
  bottom: 0px;
  left: 60px;
@@ -4521,8 +4533,8 @@ top: 23px;
 
 #ts-preloader-absolute30 {
 	position: absolute;
-	left: 60%;
-	top: 74%;
+	left: 50%;
+	top: 50%;
 	height: 200px;
 	width: 200px;
 	margin-top: -100px;
