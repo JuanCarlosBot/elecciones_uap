@@ -43,12 +43,26 @@
     <!-- normalize CSS
 		============================================ -->
     <link rel="stylesheet" href="../../../../css/normalize.css">
+    <!-- modals CSS
+		============================================ -->
+    <link rel="stylesheet" href="../../../../css/modals.css">
     <!-- charts CSS
 		============================================ -->
     <link rel="stylesheet" href="../../../../css/c3.min.css">
+    <link rel="stylesheet" href="../../../../css/form.css">
     <!-- style CSS
 		============================================ -->
     <link rel="stylesheet" href="../../../../css/style.css">
+     <!-- select2 CSS
+		============================================ -->
+    <link rel="stylesheet" href="../../../../css/select2/select2.min.css">
+    <!-- chosen CSS
+        ============================================ -->
+    <link rel="stylesheet" href="../../../../css/chosen/bootstrap-chosen.css">
+    <!-- ionRangeSlider CSS
+        ============================================ -->
+    <link rel="stylesheet" href="../../../../css/ionRangeSlider/ion.rangeSlider.css">
+    <link rel="stylesheet" href="../../../../css/ionRangeSlider/ion.rangeSlider.skinFlat.css">
     <!-- responsive CSS
 		============================================ -->
     <link rel="stylesheet" href="../../../../css/responsive.css">
@@ -78,11 +92,11 @@
         <div th:fragment="left_sidebar" class="left-sidebar-pro">
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <a href="#"><img src="img/message/1.jpg" alt="" />
+                    <a href="#"><img src="../../../../img/message/1.jpg" alt="" />
                     </a>
-                    <h3 th:if="${session.usuario != null}" th:text="${session.persona.nombres}">Andrar Son</h3>
-                    <p>Developer</p>
-                    <strong>AP+</strong>
+                    <h3 th:if="${session.usuario != null}" th:text="${session.persona.nombres }">Andrar Son</h3>
+                    <p th:if="${session.usuario != null}" th:text="${session.persona.apellidos }">Developer</p>
+                    <strong>UAP</strong>
                 </div>
                 <div class="left-custom-menu-adp-wrap">
                     <ul class="nav navbar-nav left-sidebar-menu-pro">
@@ -91,17 +105,19 @@
                                     class="fa big-icon fa-home"></i> <span class="mini-dn">Home</span> <span
                                     class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                                <a href="dashboard.html" class="dropdown-item">Dashboard v.1</a>
+                                <a href="#" class="dropdown-item">Dashboard v.1</a>
                     
                             </div>
                         </li>
                         <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                 class="nav-link dropdown-toggle"><i class="fa big-icon fa-envelope"></i> <span
-                                    class="mini-dn">Mailbox</span>
+                                    class="mini-dn">Usuario</span>
                                 <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                                <a href="inbox.html" class="dropdown-item">Inbox</a>
-                    
+                                <a th:href="${'../../../../admin/usuario'}" class="dropdown-item">Registro Usuario</a>
+                                <a href="inbox.html" class="dropdown-item">Lista Usuarios</a>
+                                <a href="inbox.html" class="dropdown-item">Registro Persona</a>
+                                <a href="inbox.html" class="dropdown-item">Lista Personas</a>
                             </div>
                         </li>
                         <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
@@ -1506,6 +1522,30 @@
     <script src="../../../../js/counterup/jquery.counterup.min.js"></script>
     <script src="../../../../js/counterup/waypoints.min.js"></script>
     <script src="../../../../js/counterup/counterup-active.js"></script>
+    <!-- select2 JS
+		============================================ -->
+    <script src="../../../../js/select2/select2.full.min.js"></script>
+    <script src="../../../../js/select2/select2-active.js"></script>
+    <!-- input-mask JS
+		============================================ -->
+    <script src="../../../../js/input-mask/jasny-bootstrap.min.js"></script>
+    <!-- chosen JS
+		============================================ -->
+    <script src="../../../../js/chosen/chosen.jquery.js"></script>
+    <script src="../../../../js/chosen/chosen-active.js"></script>
+    <!-- ionRangeSlider JS
+		============================================ -->
+    <script src="../../../../js/ionRangeSlider/ion.rangeSlider.min.js"></script>
+    <script src="../../../../js/ionRangeSlider/ion.rangeSlider.active.js"></script>
+    <!-- rangle-slider JS
+        ============================================ -->
+    <script src="../../../../js/rangle-slider/jquery-ui-1.10.4.custom.min.js"></script>
+    <script src="../../../../js/rangle-slider/jquery-ui-touch-punch.min.js"></script>
+    <script src="../../../../js/rangle-slider/rangle-active.js"></script>
+    <!-- knob JS
+        ============================================ -->
+    <script src="../../../../js/knob/jquery.knob.js"></script>
+    <script src="../../../../js/knob/knob-active.js"></script>
     <!-- jvectormap JS
 		============================================ -->
     <script src="../../../../js/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
@@ -1515,6 +1555,11 @@
 		============================================ -->
     <script src="../../../../js/peity/jquery.peity.min.js"></script>
     <script src="../../../../js/peity/peity-active.js"></script>
+    <!-- form validate JS
+    ============================================ -->
+    <script src="../../../../js/jquery.form.min.js"></script>
+    <script src="../../../../js/jquery.validate.min.js"></script>
+    <script src="../../../../js/form-active.js"></script>
     <!-- sparkline JS
 		============================================ -->
     <script src="../../../../js/sparkline/jquery.sparkline.min.js"></script>
