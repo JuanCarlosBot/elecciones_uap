@@ -24,7 +24,7 @@ public class AsignacionHabilitado implements Serializable {
     private static final long serialVersionUID = 2629195288020321924L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_votante_habilitado;
+    private Long id_asignacion_habilitado;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)

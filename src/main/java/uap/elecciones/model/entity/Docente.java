@@ -56,6 +56,6 @@ public class Docente implements Serializable{
 
     @JsonIgnore
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "docente", fetch = FetchType.LAZY)
-	private Docente docente;
+	private VotanteHabilitado votante_habilitado;
 
 }
