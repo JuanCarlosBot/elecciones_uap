@@ -27,7 +27,6 @@ import lombok.Setter;
 @Table(name="votante_habilitado")
 @Getter
 @Setter
-
 public class VotanteHabilitado implements Serializable{
 
     private static final long serialVersionUID = 2629195288020321924L;
@@ -52,6 +51,6 @@ public class VotanteHabilitado implements Serializable{
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "votante_habilitado", fetch = FetchType.LAZY)
-	private List<AsisgnacionHabilitado> asignacion_habilitado;
+	private List<AsignacionHabilitado> asignacion_habilitado;
     
 }

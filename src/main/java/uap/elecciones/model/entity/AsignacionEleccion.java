@@ -27,7 +27,6 @@ import lombok.Setter;
 @Table(name="asignacion_eleccion")
 @Getter
 @Setter
-
 public class AsignacionEleccion implements Serializable {
     
     private static final long serialVersionUID = 2629195288020321924L;

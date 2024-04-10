@@ -19,8 +19,7 @@ import lombok.Setter;
 @Table(name="asignacion_habilitado")
 @Getter
 @Setter
-
-public class AsisgnacionHabilitado implements Serializable {
+public class AsignacionHabilitado implements Serializable {
     
     private static final long serialVersionUID = 2629195288020321924L;
     @Id

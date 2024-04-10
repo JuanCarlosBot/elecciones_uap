@@ -21,7 +21,6 @@ import lombok.Setter;
 @Table(name="nivel")
 @Getter
 @Setter
-
 public class Nivel implements Serializable{
     
     private static final long serialVersionUID = 2629195288020321924L;

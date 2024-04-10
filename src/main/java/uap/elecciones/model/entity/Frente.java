@@ -24,7 +24,6 @@ import lombok.Setter;
 @Table(name="frente")
 @Getter
 @Setter
-
 public class Frente implements Serializable {
     
     private static final long serialVersionUID = 2629195288020321924L;
