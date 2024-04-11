@@ -1286,7 +1286,7 @@ ul.comment-action-st li a{
 	margin-top: 0px;
 }
 .custom-datatable-overright .form-control, .custom-datatable-overright .btn{
-	border-radius: 0px;
+	border-radius: 10px;
 }
 .custom-datatable-overright .fixed-table-toolbar .btn-group > .btn-group:last-child > .btn{
 	border-top-right-radius: 0px;

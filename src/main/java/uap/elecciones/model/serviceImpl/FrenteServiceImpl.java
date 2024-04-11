@@ -2,6 +2,7 @@ package uap.elecciones.model.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.IFrenteDao;
@@ -11,7 +12,8 @@ import uap.elecciones.model.service.IFrenteService;
 @Service
 public class FrenteServiceImpl implements IFrenteService{
 
-    IFrenteDao frenteDao;
+    @Autowired
+    private IFrenteDao frenteDao;
 
     @Override
     public List<Frente> findAll() {

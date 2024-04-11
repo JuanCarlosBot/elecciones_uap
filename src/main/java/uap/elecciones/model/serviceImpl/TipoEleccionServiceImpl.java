@@ -2,6 +2,7 @@ package uap.elecciones.model.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.ITipoEleccionDao;
@@ -11,7 +12,8 @@ import uap.elecciones.model.service.ITipoEleccionService;
 @Service
 public class TipoEleccionServiceImpl implements ITipoEleccionService{
 
-    ITipoEleccionDao tipoEleccionDao;
+    @Autowired
+    private ITipoEleccionDao tipoEleccionDao;
 
     @Override
     public List<TipoEleccion> findAll() {

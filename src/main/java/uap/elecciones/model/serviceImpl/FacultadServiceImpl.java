@@ -2,6 +2,7 @@ package uap.elecciones.model.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.IFacultadDao;
@@ -11,7 +12,8 @@ import uap.elecciones.model.service.IFacultadService;
 @Service
 public class FacultadServiceImpl implements IFacultadService{
 
-    IFacultadDao facultadDao;
+    @Autowired
+    private IFacultadDao facultadDao;
 
     @Override
     public List<Facultad> findAll() {

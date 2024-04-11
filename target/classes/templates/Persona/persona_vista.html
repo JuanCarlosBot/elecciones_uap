@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="../../../../no-js" lang="en">
 <head th:replace="Layout/layout :: head">
+   
 </head>
 
 <body class="materialdesign">
@@ -34,7 +35,7 @@
                                         <ul class="breadcome-menu">
                                             <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">USUARIO</span>
+                                            <li><span class="bread-blod">PERSONA</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -214,7 +215,7 @@
                                         <ul class="breadcome-menu">
                                             <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">USUARIO</span>
+                                            <li><span class="bread-blod">PERSONA</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -230,7 +231,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-3"></div>
-                        <form action="../../../../admin/usuario_form" method="post" id="adminpro-register-form" class="adminpro-form" th:object="${usuario}">
+                        <form action="../../../../admin/persona_form" method="post" id="adminpro-register-form" class="adminpro-form" th:object="${persona}">
                             <div class="col-lg-6">
                                 <div class="login-bg">
                                     <div class="row">
@@ -244,28 +245,28 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="login-title">
-                                                <h1>Registro Usuario</h1>
+                                                <h1>Registro Persona</h1>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="login-input-head">
-                                                <p>Usuario </p>
+                                                <p>Nombres y Apellidos </p>
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="login-input-area register-mg-rt">
-                                                        <input type="hidden" th:field="*{id_usuario}">
-                                                        <input type="text" th:field="*{nom_usuario}" placeholder="Usuario" required/>
+                                                        <input type="hidden" th:field="*{id_persona}">
+                                                        <input type="text" th:field="*{nombres}" placeholder="Nombres" required/>
                                                         <i class="fa fa-user login-user"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="login-input-area">
-                                                        <input type="text" th:field="*{pass}" placeholder="Contraseña" required/>
+                                                        <input type="text" th:field="*{apellidos}" placeholder="Apellidos" required/>
                                                         <i class="fa fa-user login-user"></i>
                                                     </div>
                                                 </div>
@@ -275,23 +276,42 @@
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="login-input-head">
-                                                <p>Persona Asignada </p>
+                                                <p>Carnet de Identidad (C.I) </p>
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <select name="id_persona" style="width: 100%" id="s1" class="js-states form-control" required>
+                                            <div class="login-input-area">
+                                                <input type="text" th:field="*{ci}" placeholder="Carnet de Identidad" required/>
+                                                <i class="fa fa-user login-user"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>Nacionalidad </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <select name="nacionalidad" style="width: 100%" id="s1" class="js-states form-control" required>
                                                 <option selected disable hidden ></option>
-                                                <th:block th:each="p : ${personas}">
-                                                    <th:block th:if="${usuario.persona != null}">
-                                                        <option th:if="${usuario.persona.id_persona != p.id_persona}" th:value="${p.id_persona}"
-                                                            th:text="${p.nombres +' '+p.apellidos}"></option>
-                                                        <option th:if="${usuario.persona.id_persona == p.id_persona}" th:value="${p.id_persona}"
-                                                            th:text="${p.nombres +' '+p.apellidos}" selected></option>
-                                                    </th:block>
-                                                    <th:block th:if="${usuario.persona == null}">
-                                                        <option th:value="${p.id_persona}" th:text="${p.nombres +' '+p.apellidos}"></option>
-                                                    </th:block>
-                                                </th:block>
+                                                <option  value="BOLIVIA"> BOLIVIA</option>
+                                                <option  value="BRASIL"> BRASIL</option>
+                                                <option  value="PERU"> PERU</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>Genero </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <select name="sexo" style="width: 100%" id="s2" class="js-states form-control" required>
+                                                <option selected disable hidden ></option>
+                                                <option  value="M"> MASCULINO</option>
+                                                <option  value="F"> FEMENINO</option>
                                             </select>
                                         </div>
                                     </div>
@@ -322,7 +342,11 @@
     <div th:replace="Layout/layout :: scripts"></div>
     <script>
         $("#s1").select2({
-         placeholder: "Seleccione Persona...",
+         placeholder: "Seleccione Nacionalidad...",
+         allowClear: true
+     });
+        $("#s2").select2({
+         placeholder: "Seleccione Nacionalidad...",
          allowClear: true
      });
      </script>

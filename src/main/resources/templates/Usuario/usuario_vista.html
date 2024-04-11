@@ -258,13 +258,14 @@
                                             <div class="row">
                                                 <div class="col-lg-6">
                                                     <div class="login-input-area register-mg-rt">
-                                                        <input type="text" th:field="*{nom_usuario}" placeholder="Usuario" />
+                                                        <input type="hidden" th:field="*{id_usuario}">
+                                                        <input type="text" th:field="*{nom_usuario}" placeholder="Usuario" required/>
                                                         <i class="fa fa-user login-user"></i>
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                     <div class="login-input-area">
-                                                        <input type="text" th:field="*{pass}" placeholder="Contraseña" />
+                                                        <input type="text" th:field="*{pass}" placeholder="Contraseña" required/>
                                                         <i class="fa fa-user login-user"></i>
                                                     </div>
                                                 </div>

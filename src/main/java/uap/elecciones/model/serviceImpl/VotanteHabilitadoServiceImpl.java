@@ -2,6 +2,7 @@ package uap.elecciones.model.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.IVotanteHabilitadoDao;
@@ -11,7 +12,8 @@ import uap.elecciones.model.service.IVotanteHabilitadoService;
 @Service
 public class VotanteHabilitadoServiceImpl implements IVotanteHabilitadoService{
 
-    IVotanteHabilitadoDao votanteHabilitadoDao;
+    @Autowired
+    private IVotanteHabilitadoDao votanteHabilitadoDao;
 
     @Override
     public List<VotanteHabilitado> findAll() {

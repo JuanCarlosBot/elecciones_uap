@@ -2,6 +2,7 @@ package uap.elecciones.model.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.IMesaDao;
@@ -11,7 +12,8 @@ import uap.elecciones.model.service.IMesaService;
 @Service
 public class MesaServiceImpl implements IMesaService{
 
-    IMesaDao mesaDao;
+    @Autowired
+    private IMesaDao mesaDao;
 
     @Override
     public List<Mesa> findAll() {

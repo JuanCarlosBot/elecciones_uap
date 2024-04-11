@@ -2,6 +2,7 @@ package uap.elecciones.model.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.INivelDao;
@@ -11,7 +12,8 @@ import uap.elecciones.model.service.INivelService;
 @Service
 public class NivelServiceImpl implements INivelService{
 
-    INivelDao nivelDao;
+    @Autowired
+    private INivelDao nivelDao;
 
     @Override
     public List<Nivel> findAll() {
