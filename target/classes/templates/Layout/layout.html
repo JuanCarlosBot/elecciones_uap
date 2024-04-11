@@ -53,9 +53,7 @@
     <!-- style CSS
 		============================================ -->
     <link rel="stylesheet" href="../../../../css/style.css">
-     <!-- select2 CSS
-		============================================ -->
-    <link rel="stylesheet" href="../../../../css/select2/select2.min.css">
+    
     <!-- chosen CSS
         ============================================ -->
     <link rel="stylesheet" href="../../../../css/chosen/bootstrap-chosen.css">
@@ -69,6 +67,9 @@
     <!-- modernizr JS
 		============================================ -->
     <script src="../../../../js/vendor/modernizr-2.8.3.min.js"></script>
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css" rel="stylesheet"/>
 </head>
 
 <body class="materialdesign">
@@ -92,10 +93,10 @@
         <div th:fragment="left_sidebar" class="left-sidebar-pro">
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <a href="#"><img src="../../../../img/message/1.jpg" alt="" />
+                    <a href="#"><img src="../../../../img/logo/LOGO_UAP_NEGRO _R.webp" alt="" />
                     </a>
                     <h3 th:if="${session.usuario != null}" th:text="${session.persona.nombres }">Andrar Son</h3>
-                    <p th:if="${session.usuario != null}" th:text="${session.persona.apellidos }">Developer</p>
+                    <!-- <p th:if="${session.usuario != null}" th:text="${session.persona.apellidos }">Developer</p> -->
                     <strong>UAP</strong>
                 </div>
                 <div class="left-custom-menu-adp-wrap">
@@ -1587,6 +1588,9 @@
     <!-- main JS
 		============================================ -->
     <script src="../../../../js/main.js"></script>
+    <!-- Select2 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    
     </div>
     
 </body>

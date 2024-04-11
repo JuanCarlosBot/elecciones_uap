@@ -7,6 +7,6 @@ import uap.elecciones.model.entity.Usuario;
 
 public interface IUsuarioDao extends CrudRepository<Usuario,Long>{
     
-    @Query("select us from Usuario us where us.usuario=?1 and us.pass=?2")
+    @Query("select us from Usuario us where us.nom_usuario=?1 and us.pass=?2")
     public Usuario getUsuario(String usuario,String pass);
 }
