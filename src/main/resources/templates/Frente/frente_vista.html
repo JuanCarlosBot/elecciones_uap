@@ -329,10 +329,10 @@
                                             data-toolbar="#toolbar">
                                             <thead>
                                                 <tr>
-                                                    <th data-field="id">ID</th>
-                                                    <th data-field="name">Frente</th>
-                                                    <th data-field="email">Sigla</th>
-                                                    <th data-field="action">Accion</th>
+                                                    <th >ID</th>
+                                                    <th >Frente</th>
+                                                    <th >Sigla</th>
+                                                    <th >Accion</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -367,19 +367,7 @@
     <div th:replace="Layout/layout :: footer" class="footer-copyright-area">
     </div>
     <!-- Footer End-->
-    <script>
-       // Obtener el enlace "Cancel" por su ID y agregar un evento click
-        document.getElementById('cancelButton').addEventListener('click', function() {
-            // Obtener el modal por su ID y cerrarlo
-            $('#PrimaryModalalert').modal('hide');
-        });
-
-        // Obtener el enlace "Cerrar" por su clase y agregar un evento click
-        document.querySelector('.modal-close-area a.close').addEventListener('click', function() {
-            // Obtener el modal por su ID y cerrarlo
-            $('#PrimaryModalalert').modal('hide');
-        });
-    </script>
+    
     <div th:replace="Layout/layout :: scripts"></div>
     
 </body>

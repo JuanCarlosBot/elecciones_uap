@@ -36,6 +36,8 @@ public class AsignacionEleccion implements Serializable {
     @Column
     private String gestion;
     @Column
+    private String estado;
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha_registro;
 

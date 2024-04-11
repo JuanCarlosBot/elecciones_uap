@@ -29,9 +29,12 @@ public class UsuarioController {
     private IPersonaService personaService;
     
     @RequestMapping(value = "/usuario",method = RequestMethod.GET)
-    public String Vista_Usuario(Model model,RedirectAttributes flash, HttpServletRequest request){
+    public String Vista_Usuario(Model model,RedirectAttributes flash, HttpServletRequest request,@RequestParam(name = "succes",required = false)String succes){
         if (request.getSession().getAttribute("usuario") != null) {
             
+            if (succes != null) {
+                model.addAttribute("succes", succes);
+            }
             model.addAttribute("usuario", new Usuario());
             model.addAttribute("personas", personaService.findAll());
             return "Usuario/usuario_vista";
@@ -56,10 +59,13 @@ public class UsuarioController {
         }
     }
 
-    @RequestMapping(value = "/lista_usuarios")
-    private String Lista_Usuarios(Model model,RedirectAttributes flash, HttpServletRequest request){
+    @RequestMapping(value = "/lista_usuarios",method = RequestMethod.GET)
+    private String Lista_Usuarios(Model model,RedirectAttributes flash, HttpServletRequest request,@RequestParam(name = "succes",required = false)String succes){
         if (request.getSession().getAttribute("usuario") != null) {
             
+            if (succes != null) {
+                model.addAttribute("succes", succes);
+            }
             model.addAttribute("usuarios", usuarioService.findAll());
 
             return "Usuario/lista_usuarios";

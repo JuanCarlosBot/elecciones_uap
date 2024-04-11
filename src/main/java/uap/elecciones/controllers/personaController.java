@@ -9,6 +9,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
@@ -24,9 +25,13 @@ public class personaController {
     private IPersonaService personaService;
 
     @RequestMapping(value = "/persona",method = RequestMethod.GET)
-    public String Vista_Persona(Model model,RedirectAttributes flash, HttpServletRequest request){
+    public String Vista_Persona(Model model,RedirectAttributes flash, HttpServletRequest request,@RequestParam(name = "succes",required = false)String succes){
         if (request.getSession().getAttribute("usuario") != null) {
             
+
+            if (succes != null) {
+                model.addAttribute("succes", succes);
+            }
             model.addAttribute("persona", new Persona());
             
             return "Persona/persona_vista";
@@ -44,6 +49,11 @@ public class personaController {
             persona.setFecha_registro(new Date());
             personaService.save(persona);
 
+            if (persona.getId_persona() == null) {
+                flash.addAttribute("succes", "Registro Agregado Con Exito!");
+            } else {
+                flash.addAttribute("succes", "Registro Editado Con Exito!");
+            }
             return "redirect:/admin/persona";
         } else {
             return "redirect:/login";

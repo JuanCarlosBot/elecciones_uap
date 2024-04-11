@@ -29,6 +29,8 @@ public class Nivel implements Serializable{
     private Long id_nivel;
     @Column
     private String nombre_nivel;
+    @Column
+    private String estado;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nivel", fetch = FetchType.LAZY)

@@ -29,6 +29,8 @@ public class TipoEleccion implements Serializable {
     private Long id_tipo_eleccion;
     @Column
     private String nombre_tipo_eleccion;
+    @Column
+    private String estado;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "tipo_eleccion", fetch = FetchType.LAZY)
