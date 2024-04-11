@@ -226,7 +226,7 @@
             </div>
             <!-- Breadcome End-->
            <!-- Static Table Start -->
-           <div class="data-table-area mg-b-15">
+        <div class="data-table-area mg-b-15">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
@@ -250,13 +250,17 @@
                                             <option value="selected">Export Selected</option>
                                         </select>
                                     </div>
-                                    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true" data-toolbar="#toolbar">
+                                    <table id="table" data-toggle="table" data-pagination="true" data-search="true"
+                                        data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                        data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                        data-toolbar="#toolbar">
                                         <thead>
-                                            <tr >
+                                            <tr>
                                                 <th data-field="id">ID</th>
-                                                <th data-field="name" >Usuario</th>
-                                                <th data-field="email" >Contraseña</th>
-                                                <th data-field="phone" >Persona</th>
+                                                <th data-field="name">Usuario</th>
+                                                <th data-field="email">Contraseña</th>
+                                                <th data-field="phone">Persona</th>
                                                 <th data-field="action">Accion</th>
                                             </tr>
                                         </thead>
@@ -265,11 +269,17 @@
                                                 <td th:text="${num.count}">1</td>
                                                 <td th:text="${u.nom_usuario}">Web Development</td>
                                                 <td th:text="${u.pass}">admin@uttara.com</td>
-                                                <td th:if="${u.persona != null}" th:text="${u.persona.nombres +' '+ u.persona.apellidos}">+</td>
-                                                <td th:if="${u.persona == null}" th:text="${'USUARIO SIN PERSONA ASIGNADA'}">+</td>
-                                                <td style="text-align: center;" >
-                                                    <a type="button" th:href="${'../../../../admin/editar_usuario/'+u.id_usuario}" class="btn btn-custon-rounded-three btn-success"> Editar</a>
-                                                    <a type="button" th:href="${'../../../../admin/eliminar_usuario/'+u.id_usuario}" class="btn btn-custon-rounded-three btn-danger"> Eliminar</a>
+                                                <td th:if="${u.persona != null}"
+                                                    th:text="${u.persona.nombres +' '+ u.persona.apellidos}">+</td>
+                                                <td th:if="${u.persona == null}" th:text="${'USUARIO SIN PERSONA ASIGNADA'}">+
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    <a type="button"
+                                                        th:href="${'../../../../admin/editar_usuario/'+u.id_usuario}"
+                                                        class="btn btn-custon-rounded-three btn-success"> Editar</a>
+                                                    <a type="button"
+                                                        th:href="${'../../../../admin/eliminar_usuario/'+u.id_usuario}"
+                                                        class="btn btn-custon-rounded-three btn-danger"> Eliminar</a>
                                                 </td>
                                             </tr>
                                         </tbody>

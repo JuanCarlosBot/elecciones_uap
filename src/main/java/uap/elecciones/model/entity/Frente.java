@@ -35,6 +35,8 @@ public class Frente implements Serializable {
     @Column
     private String sigla;
     @Column
+    private String estado;
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha_registro;
 

@@ -27,6 +27,7 @@
     <!-- mCustomScrollbar CSS
 		============================================ -->
     <link rel="stylesheet" href="../../../../css/jquery.mCustomScrollbar.min.css">
+    <link rel="stylesheet" href="../../../../css/adminpro-custon-icon.css">
     <!-- animate CSS
 		============================================ -->
     <link rel="stylesheet" href="../../../../css/animate.css">
@@ -49,6 +50,7 @@
     <!-- modals CSS
 		============================================ -->
     <link rel="stylesheet" href="../../../../css/modals.css">
+    <link rel="stylesheet" href="../../../../css/tabs.css">
     <!-- charts CSS
 		============================================ -->
     <link rel="stylesheet" href="../../../../css/c3.min.css">
@@ -77,10 +79,7 @@
 </head>
 
 <body class="materialdesign">
-    <!--[if lt IE 8]>
-            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-    <!-- Header top area start-->
+    
     <div th:fragment="preloader" class="preloader-wrapper">
         <div class="preloader-single shadow-reset">
             <div class="ts_preloading_box">
@@ -92,7 +91,13 @@
             </div>
         </div>
     </div>
-    
+    <div th:if="${succes != null}" th:fragment="alert" class="alert alert-success alert-success-style1">
+        <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+            <span class="icon-sc-cl" aria-hidden="true">&times;</span>
+        </button>
+        <span class="adminpro-icon adminpro-checked-pro admin-check-sucess"></span>
+        <p th:text="${succes}"><strong>Success!</strong> Indicates a successful or positive action.</p>
+    </div>
     <div class="wrapper-pro">
         <div th:fragment="left_sidebar" class="left-sidebar-pro">
             <nav id="sidebar">
@@ -126,10 +131,10 @@
                             </div>
                         </li>
                         <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-flask"></i> <span class="mini-dn">Interface</span>
+                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-flask"></i> <span class="mini-dn">Asignacion</span>
                                 <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                                <a href="google-map.html" class="dropdown-item">Google Map</a>
+                                <a th:href="${'../../../../admin/frente'}" class="dropdown-item">Registro Frente</a>
                     
                             </div>
                         </li>
