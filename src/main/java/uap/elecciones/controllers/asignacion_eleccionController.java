@@ -84,18 +84,43 @@ public class asignacion_eleccionController {
             String yearAsString = String.valueOf(year);
 
             asignacionEleccion.setEstado("A");
-            asignacionEleccion.setGestion(yearAsString);
-            asignacionEleccion.setFecha_registro(new Date());
             asignacionEleccion.setFrente(frenteService.findOne(id_frente));
             asignacionEleccion.setNivel(nivelService.findOne(id_nivel));
             asignacionEleccion.setTipo_eleccion(tipoEleccionService.findOne(id_tipoeleccion));
-            asignacionEleccionService.save(asignacionEleccion);
 
             if (asignacionEleccion.getId_asignacion_eleccion() == null) {
+                asignacionEleccion.setGestion(yearAsString);
+                asignacionEleccion.setFecha_registro(new Date());
                 flash.addAttribute("succes", "Registro Agregado Con Exito!");
             } else {
                 flash.addAttribute("succes", "Registro Editado Con Exito!");
             }
+            asignacionEleccionService.save(asignacionEleccion);
+            return "redirect:/admin/asignacion_eleccion";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+    @RequestMapping(value = "/det_asignacion_mesa_form", method = RequestMethod.POST)
+    private String Form_Det_Asignacion_Mesa(Model model,
+            @RequestParam(name = "id_asignacion_eleccion", required = false) Long id_asignacion_eleccion,
+            @RequestParam(name = "id_mesa", required = false) Long id_mesa,
+            @Validated @ModelAttribute("det_asignacion") DetalleAsignacionMesa detalleAsignacionMesa, RedirectAttributes flash,
+            HttpServletRequest request) {
+
+        if (request.getSession().getAttribute("usuario") != null) {
+
+            detalleAsignacionMesa.setEstado("A");
+            detalleAsignacionMesa.setAsignacion_eleccion(asignacionEleccionService.findOne(id_asignacion_eleccion));
+            detalleAsignacionMesa.setMesa(mesaService.findOne(id_mesa));
+            if (detalleAsignacionMesa.getId_detalle_asignacion_mesa() == null) {
+                detalleAsignacionMesa.setFecha_registro(new Date());
+                flash.addAttribute("succes", "Registro Agregado Con Exito!");
+            } else {
+                flash.addAttribute("succes", "Registro Editado Con Exito!");
+            }
+            detalleAsignacionMesaService.save(detalleAsignacionMesa);
             return "redirect:/admin/asignacion_eleccion";
         } else {
             return "redirect:/login";

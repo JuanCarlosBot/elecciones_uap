@@ -33,9 +33,9 @@
                                     </div>
                                     <div class="col-lg-6">
                                         <ul class="breadcome-menu">
-                                            <li><a href="#">ASIGNACION</a> <span class="bread-slash">/</span>
+                                            <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">ASIGNACION ELECCION</span>
+                                            <li><span class="bread-blod">MESA</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -213,9 +213,9 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
                                         <ul class="breadcome-menu">
-                                            <li><a href="#">ASIGNACION</a> <span class="bread-slash">/</span>
+                                            <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">ASIGNACION ELECCION</span>
+                                            <li><span class="bread-blod">MESA</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -230,9 +230,8 @@
             <div class="login-form-area mg-t-30 mg-b-15">
                 <div class="container-fluid">
                     <div class="row">
-                        
                         <div class="col-lg-3"></div>
-                        <form action="../../../../admin/asignacion_eleccion_form" method="post" id="adminpro-register-form" class="adminpro-form" th:object="${asignacion}">
+                        <form action="../../../../admin/mesa_form" method="post" id="adminpro-register-form" class="adminpro-form" th:object="${mesa}">
                             <div class="col-lg-6">
                                 <div class="login-bg">
                                     <div class="row">
@@ -245,186 +244,46 @@
                                         </div>
                                     </div>
                                     <div class="row">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="login-title">
-                                                    <h1>Registro Asignacion Eleccion</h1>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p>Frente </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <input type="hidden" th:field="${asignacion.id_asignacion_eleccion}">
-                                            <select name="id_frente" style="width: 100%" id="s1" class="js-states form-control" required>
-                                                <option selected disable hidden ></option>
-                                                <th:block th:each="f : ${frentes}" th:if="${f.estado != 'X'}">
-                                                    <th:block th:if="${asignacion.frente != null}">
-                                                        <option th:if="${asignacion.frente.id_frente != f.id_frente}" th:value="${f.id_frente}"
-                                                            th:text="${f.nombre_frente}"></option>
-                                                        <option th:if="${asignacion.frente.id_frente == f.id_frente}" th:value="${f.id_frente}"
-                                                            th:text="${f.nombre_frente}" selected></option>
-                                                    </th:block>
-                                                    <th:block th:if="${asignacion.frente == null}">
-                                                        <option th:value="${f.id_frente}" th:text="${f.nombre_frente}"></option>
-                                                    </th:block>
-                                                </th:block>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p>Nivel </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <select name="id_nivel" style="width: 100%" id="s2" class="js-states form-control" required>
-                                                <option selected disable hidden ></option>
-                                                <th:block th:each="n : ${niveles}" th:if="${n.estado != 'X'}">
-                                                    <th:block th:if="${asignacion.nivel != null}">
-                                                        <option th:if="${asignacion.nivel.id_nivel != n.id_nivel}" th:value="${n.id_nivel}"
-                                                            th:text="${n.nombre_nivel}"></option>
-                                                        <option th:if="${asignacion.nivel.id_nivel == n.id_nivel}" th:value="${n.id_nivel}"
-                                                            th:text="${n.nombre_nivel}" selected></option>
-                                                    </th:block>
-                                                    <th:block th:if="${asignacion.nivel == null}">
-                                                        <option th:value="${n.id_nivel}" th:text="${n.nombre_nivel}"></option>
-                                                    </th:block>
-                                                </th:block>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p>Tipo Eleccion </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <select name="id_tipoeleccion" style="width: 100%" id="s3" class="js-states form-control" required>
-                                                <option selected disable hidden ></option>
-                                                <th:block th:each="tp : ${tipo_elecciones}" th_if="${tp.estado != 'X'}">
-                                                    <th:block th:if="${asignacion.tipo_eleccion != null}">
-                                                        <option th:if="${asignacion.tipo_eleccion.id_tipo_eleccion != tp.id_tipo_eleccion}" th:value="${tp.id_tipo_eleccion}"
-                                                            th:text="${tp.nombre_tipo_eleccion}"></option>
-                                                        <option th:if="${asignacion.tipo_eleccion.id_tipo_eleccion == tp.id_tipo_eleccion}" th:value="${tp.id_tipo_eleccion}"
-                                                            th:text="${tp.nombre_tipo_eleccion }" selected></option>
-                                                    </th:block>
-                                                    <th:block th:if="${asignacion.tipo_eleccion == null}">
-                                                        <option th:value="${tp.id_tipo_eleccion}" th:text="${tp.nombre_tipo_eleccion}"></option>
-                                                    </th:block>
-                                                </th:block>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                    
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-8">
-                                            <div class="login-button-pro">
-                                                <button type="submit" class="login-button login-button-lg">Registrar</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                        <div class="col-lg-3"></div>
-                        
-                    </div>
-                    
-                </div>
-                
-            </div>
-            <div class="login-form-area mg-t-30 mg-b-15">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-3"></div>
-                        <form action="../../../../admin/det_asignacion_mesa_form" method="post" id="adminpro-register-form" class="adminpro-form" th:object="${det_asignacion}">
-                            <div class="col-lg-6">
-                                <div class="login-bg">
-                                    <div class="row">
                                         <div class="col-lg-12">
-                                            <div th:replace="Layout/layout :: alert"></div>
-                                            <!-- <div class="logo">
-                                                <a href="#"><img src="../../../../img/logo/UAP_DIGITAL_NORMAL.webp" alt="" width="300" height="200"/>
-                                                </a>
-                                            </div> -->
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <div class="login-title">
-                                                    <h1>Registro Asignacion Mesa</h1>
-                                                </div>
+                                            <div class="login-title">
+                                                <h1>Registro Mesa</h1>
                                             </div>
                                         </div>
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p>Frente Asignado</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <input type="hidden" th:field="${det_asignacion.id_detalle_asignacion_mesa}">
-                                            <select name="id_asignacion_eleccion" style="width: 100%" id="s4" class="js-states form-control" required>
-                                                <option selected disable hidden ></option>
-                                                <th:block th:each="el : ${asignacion_elecciones}" th:if="${el.estado != 'X'}">
-                                                    <th:block th:if="${det_asignacion.asignacion_eleccion != null}">
-                                                        <option th:if="${det_asignacion.asignacion_eleccion.id_asignacion_eleccion != el.id_asignacion_eleccion}" th:value="${el.id_asignacion_eleccion}"
-                                                        th:text="${el.frente.nombre_frente}"></option>
-                                                        <option th:if="${det_asignacion.asignacion_eleccion.id_asignacion_eleccion == el.id_asignacion_eleccion}" th:value="${el.id_asignacion_eleccion}"
-                                                        th:text="${el.frente.nombre_frente}" selected></option>
-                                                    </th:block>
-                                                    <th:block th:if="${det_asignacion.asignacion_eleccion == null}">
-                                                        <option th:value="${el.id_asignacion_eleccion}" th:text="${el.frente.nombre_frente}"></option>
-                                                    </th:block>
-                                                </th:block>
-                                            </select>
-                                        </div>
                                     </div>
+                                    
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="login-input-head">
-                                                <p>Mesa</p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <select name="id_mesa" style="width: 100%" id="s5" class="js-states form-control" required>
-                                                <option selected disable hidden ></option>
-                                                <th:block th:each="m : ${mesas}" th:if="${m.estado != 'X'}">
-                                                    <th:block th:if="${det_asignacion.mesa != null}">
-                                                        <option th:if="${det_asignacion.mesa.id_nivel != m.id_mesa}" th:value="${m.id_mesa}"
-                                                        th:text="${m.nombre_mesa}"></option>
-                                                        <option th:if="${det_asignacion.mesa.id_nivel == m.id_mesa}" th:value="${m.id_mesa}"
-                                                        th:text="${m.nombre_mesa}" selected></option>
-                                                    </th:block>
-                                                    <th:block th:if="${det_asignacion.mesa == null}">
-                                                        <option th:value="${m.id_mesa}" th:text="${m.nombre_mesa}"></option>
-                                                    </th:block>
-                                                </th:block>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p>Descripción </p>
+                                                <p>Nombre Mesa </p>
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="login-input-area">
-                                                <input type="text" th:field="*{descripcion}" placeholder="Descripción..." required/>
+                                                <input type="hidden" >
+                                                <input type="text" th:field="*{nombre_mesa}" placeholder="Descripción" required/>
                                                 <i class="fa fa-user login-user"></i>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>Cantidad Votantes </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="touchspin-inner">
+                                                <div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix"
+                                                        style="display: none;"></span>
+                                                    <input class="touchspin3 form-control" type="number" th:field="*{cant_votantes}" min="1"
+                                                        placeholder="Carnet de Identidad" value="" name="demo3" style="display: block;"><span
+                                                        class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
                                         <div class="col-lg-4"></div>
                                         <div class="col-lg-8">
                                             <div class="login-button-pro">
@@ -436,20 +295,18 @@
                             </div>
                         </form>
                         <div class="col-lg-3"></div>
-                        
                     </div>
-                    
                 </div>
-                
             </div>
-            <!-- <div class="data-table-area mg-b-15">
+          
+            <div class="data-table-area mg-b-15">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="sparkline13-list shadow-reset">
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
-                                        <h1>LISTA <span class="table-project-n">DE</span> ASIGNACION ELECCION</h1>
+                                        <h1>LISTA <span class="table-project-n">DE</span> MESAS</h1>
                                         <div class="sparkline13-outline-icon">
                                             <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
                                             <span><i class="fa fa-wrench"></i></span>
@@ -474,27 +331,23 @@
                                             <thead>
                                                 <tr>
                                                     <th >ID</th>
-                                                    <th >Gestion</th>
-                                                    <th >Frente</th>
-                                                    <th >Nivel</th>
-                                                    <th >Tipo Eleccion</th>
+                                                    <th >NOmbre Mesa</th>
+                                                    <th >Cantidad de Votantes</th>
                                                     <th >Accion</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr th:each="ae, num : ${asignacion_elecciones}" th:if="${ae.estado != 'X'}">
-                                                    <td th:text="${num.count}"></td>
-                                                    <td th:text="${ae.gestion}"></td>
-                                                    <td th:if="${ae.frente != null}" th:text="${ae.frente.nombre_frente}"></td>
-                                                    <td th:if="${ae.nivel != null}" th:text="${ae.nivel.nombre_nivel}"></td>
-                                                    <td th:if="${ae.tipo_eleccion != null}" th:text="${ae.tipo_eleccion.nombre_tipo_eleccion}"></td>
+                                                <tr th:each="m, num : ${mesas}" th:if="${m.estado != 'X'}">
+                                                    <td th:text="${num.count}">1</td>
+                                                    <td th:text="${m.nombre_mesa}">Web Development</td>
+                                                    <td th:text="${m.cant_votantes}">admin@uttara.com</td>
                                                     
                                                     <td style="text-align: center;">
                                                         <a type="button"
-                                                            th:href="${'../../../../admin/editar_asignacion_eleccion/'+ae.id_asignacion_eleccion}"
+                                                            th:href="${'../../../../admin/editar_frente/'+m.id_mesa}"
                                                             class="btn btn-custon-rounded-three btn-success"> Editar</a>
                                                         <a type="button"
-                                                            th:href="${'../../../../admin/eliminar_asignacion_eleccion/'+ae.id_asignacion_eleccion}"
+                                                            th:href="${'../../../../admin/eliminar_frente/'+m.id_mesa}"
                                                             class="btn btn-custon-rounded-three btn-danger"> Eliminar</a>
                                                     </td>
                                                 </tr>
@@ -506,38 +359,21 @@
                         </div>
                     </div>
                 </div>
-               
-            </div> -->
+            </div>
         </div>
     </div>
-    
     <!-- Footer Start-->
     <div th:replace="Layout/layout :: footer" class="footer-copyright-area">
     </div>
     <!-- Footer End-->
-    
+
     <div th:replace="Layout/layout :: scripts"></div>
     <script>
         $("#s1").select2({
-         placeholder: "Seleccione Frente...",
+         placeholder: "Seleccione Nacionalidad...",
          allowClear: true
      });
-        $("#s2").select2({
-         placeholder: "Seleccione Nivel...",
-         allowClear: true
-     });
-        $("#s3").select2({
-         placeholder: "Seleccione Tipo Eleccion...",
-         allowClear: true
-     });
-        $("#s4").select2({
-         placeholder: "Seleccione Frente Asignado...",
-         allowClear: true
-     });
-        $("#s5").select2({
-         placeholder: "Seleccione Mesa...",
-         allowClear: true
-     });
+        
      </script>
 </body>
 

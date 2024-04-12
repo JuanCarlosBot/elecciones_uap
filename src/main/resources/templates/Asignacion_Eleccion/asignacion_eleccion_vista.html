@@ -345,7 +345,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-3"></div>
-                        <form action="../../../../admin/det_asignacion_eleccion_form" method="post" id="adminpro-register-form" class="adminpro-form" th:object="${det_asignacion}">
+                        <form action="../../../../admin/det_asignacion_mesa_form" method="post" id="adminpro-register-form" class="adminpro-form" th:object="${det_asignacion}">
                             <div class="col-lg-6">
                                 <div class="login-bg">
                                     <div class="row">
@@ -375,14 +375,14 @@
                                             <select name="id_asignacion_eleccion" style="width: 100%" id="s4" class="js-states form-control" required>
                                                 <option selected disable hidden ></option>
                                                 <th:block th:each="el : ${asignacion_elecciones}" th:if="${el.estado != 'X'}">
-                                                    <th:block th:if="${asignacion.frente != null}">
-                                                        <option th:if="${asignacion.frente.id_frente != f.id_frente}" th:value="${f.id_frente}"
-                                                            th:text="${f.nombre_frente}"></option>
-                                                        <option th:if="${asignacion.frente.id_frente == f.id_frente}" th:value="${f.id_frente}"
-                                                            th:text="${f.nombre_frente}" selected></option>
+                                                    <th:block th:if="${det_asignacion.asignacion_eleccion != null}">
+                                                        <option th:if="${det_asignacion.asignacion_eleccion.id_asignacion_eleccion != el.id_asignacion_eleccion}" th:value="${el.id_asignacion_eleccion}"
+                                                        th:text="${el.frente.nombre_frente}"></option>
+                                                        <option th:if="${det_asignacion.asignacion_eleccion.id_asignacion_eleccion == el.id_asignacion_eleccion}" th:value="${el.id_asignacion_eleccion}"
+                                                        th:text="${el.frente.nombre_frente}" selected></option>
                                                     </th:block>
-                                                    <th:block th:if="${asignacion.frente == null}">
-                                                        <option th:value="${f.id_frente}" th:text="${f.nombre_frente}"></option>
+                                                    <th:block th:if="${det_asignacion.asignacion_eleccion == null}">
+                                                        <option th:value="${el.id_asignacion_eleccion}" th:text="${el.frente.nombre_frente}"></option>
                                                     </th:block>
                                                 </th:block>
                                             </select>
@@ -395,23 +395,35 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <select name="id_nivel" style="width: 100%" id="s5" class="js-states form-control" required>
+                                            <select name="id_mesa" style="width: 100%" id="s5" class="js-states form-control" required>
                                                 <option selected disable hidden ></option>
-                                                <th:block th:each="n : ${niveles}" th:if="${n.estado != 'X'}">
-                                                    <th:block th:if="${asignacion.nivel != null}">
-                                                        <option th:if="${asignacion.nivel.id_nivel != n.id_nivel}" th:value="${n.id_nivel}"
-                                                            th:text="${n.nombre_nivel}"></option>
-                                                        <option th:if="${asignacion.nivel.id_nivel == n.id_nivel}" th:value="${n.id_nivel}"
-                                                            th:text="${n.nombre_nivel}" selected></option>
+                                                <th:block th:each="m : ${mesas}" th:if="${m.estado != 'X'}">
+                                                    <th:block th:if="${det_asignacion.mesa != null}">
+                                                        <option th:if="${det_asignacion.mesa.id_nivel != m.id_mesa}" th:value="${m.id_mesa}"
+                                                        th:text="${m.nombre_mesa}"></option>
+                                                        <option th:if="${det_asignacion.mesa.id_nivel == m.id_mesa}" th:value="${m.id_mesa}"
+                                                        th:text="${m.nombre_mesa}" selected></option>
                                                     </th:block>
-                                                    <th:block th:if="${asignacion.nivel == null}">
-                                                        <option th:value="${n.id_nivel}" th:text="${n.nombre_nivel}"></option>
+                                                    <th:block th:if="${det_asignacion.mesa == null}">
+                                                        <option th:value="${m.id_mesa}" th:text="${m.nombre_mesa}"></option>
                                                     </th:block>
                                                 </th:block>
                                             </select>
                                         </div>
                                     </div>
-                                    
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>Descripción </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="login-input-area">
+                                                <input type="text" th:field="*{descripcion}" placeholder="Descripción..." required/>
+                                                <i class="fa fa-user login-user"></i>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="row">
                                         <div class="col-lg-4"></div>
                                         <div class="col-lg-8">
