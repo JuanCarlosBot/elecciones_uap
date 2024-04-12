@@ -17,6 +17,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpServletRequest;
 import uap.elecciones.model.entity.AsignacionEleccion;
 import uap.elecciones.model.entity.DetalleAsignacionMesa;
+import uap.elecciones.model.entity.Mesa;
 import uap.elecciones.model.service.IAsignacionEleccionService;
 import uap.elecciones.model.service.IDetalleAsignacionMesaService;
 import uap.elecciones.model.service.IFrenteService;
@@ -48,11 +49,12 @@ public class asignacion_eleccionController {
 
     @RequestMapping(value = "/asignacion_eleccion", method = RequestMethod.GET)
     public String Vista_Asignacion_Eleccion(Model model, RedirectAttributes flash, HttpServletRequest request,
-            @RequestParam(name = "succes", required = false) String succes) {
+            @RequestParam(name = "succes", required = false) String succes,@RequestParam(name = "succes2", required = false) String succes2) {
         if (request.getSession().getAttribute("usuario") != null) {
 
-            if (succes != null) {
+            if (succes != null || succes2 != null) {
                 model.addAttribute("succes", succes);
+                model.addAttribute("succes2", succes2);
             }
             model.addAttribute("asignacion", new AsignacionEleccion());
             model.addAttribute("det_asignacion", new DetalleAsignacionMesa());
@@ -61,6 +63,15 @@ public class asignacion_eleccionController {
             model.addAttribute("tipo_elecciones", tipoEleccionService.findAll());
             model.addAttribute("asignacion_elecciones", asignacionEleccionService.findAll());
             model.addAttribute("mesas", mesaService.findAll());
+            model.addAttribute("det_asignaciones", detalleAsignacionMesaService.findAll());
+
+            for (Mesa mesa : mesaService.findAll()) {
+                System.out.println(mesa.getNombre_mesa());
+                for (DetalleAsignacionMesa detalleAsignacionMesa : mesa.getDetalle_asignacion_mesa()) {
+                    System.out.println(detalleAsignacionMesa.getAsignacion_eleccion().getFrente().getNombre_frente());
+                    // model.addAttribute("dam", succes2);
+                }
+            }
             return "Asignacion_Eleccion/asignacion_eleccion_vista";
         } else {
             return "redirect:/login";
@@ -116,9 +127,9 @@ public class asignacion_eleccionController {
             detalleAsignacionMesa.setMesa(mesaService.findOne(id_mesa));
             if (detalleAsignacionMesa.getId_detalle_asignacion_mesa() == null) {
                 detalleAsignacionMesa.setFecha_registro(new Date());
-                flash.addAttribute("succes", "Registro Agregado Con Exito!");
+                flash.addAttribute("succes2", "Registro Agregado Con Exito!");
             } else {
-                flash.addAttribute("succes", "Registro Editado Con Exito!");
+                flash.addAttribute("succes2", "Registro Editado Con Exito!");
             }
             detalleAsignacionMesaService.save(detalleAsignacionMesa);
             return "redirect:/admin/asignacion_eleccion";

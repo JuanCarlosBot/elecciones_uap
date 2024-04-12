@@ -259,7 +259,7 @@
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="login-input-area">
-                                                <input type="hidden" >
+                                                <input type="hidden" th:field="*{id_mesa}">
                                                 <input type="text" th:field="*{nombre_mesa}" placeholder="Descripción" required/>
                                                 <i class="fa fa-user login-user"></i>
                                             </div>
@@ -272,13 +272,11 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <div class="touchspin-inner">
-                                                <div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix"
-                                                        style="display: none;"></span>
-                                                    <input class="touchspin3 form-control" type="number" th:field="*{cant_votantes}" min="1"
-                                                        placeholder="Carnet de Identidad" value="" name="demo3" style="display: block;"><span
-                                                        class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
-                                                </div>
+                                            <div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix"
+                                                    style="display: none;"></span>
+                                                <input class="touchspin3 form-control" type="number" th:field="*{cant_votantes}" min="1"
+                                                    placeholder="Carnet de Identidad" value="" name="demo3" style="display: block;"><span
+                                                    class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
                                             </div>
                                         </div>
                                     </div>
@@ -331,7 +329,7 @@
                                             <thead>
                                                 <tr>
                                                     <th >ID</th>
-                                                    <th >NOmbre Mesa</th>
+                                                    <th >Nombre Mesa</th>
                                                     <th >Cantidad de Votantes</th>
                                                     <th >Accion</th>
                                                 </tr>
@@ -344,10 +342,10 @@
                                                     
                                                     <td style="text-align: center;">
                                                         <a type="button"
-                                                            th:href="${'../../../../admin/editar_frente/'+m.id_mesa}"
+                                                            th:href="${'../../../../admin/editar_mesa/'+m.id_mesa}"
                                                             class="btn btn-custon-rounded-three btn-success"> Editar</a>
                                                         <a type="button"
-                                                            th:href="${'../../../../admin/eliminar_frente/'+m.id_mesa}"
+                                                            th:href="${'../../../../admin/eliminar_mesa/'+m.id_mesa}"
                                                             class="btn btn-custon-rounded-three btn-danger"> Eliminar</a>
                                                     </td>
                                                 </tr>

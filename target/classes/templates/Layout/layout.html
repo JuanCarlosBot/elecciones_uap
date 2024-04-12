@@ -98,6 +98,13 @@
         <span class="adminpro-icon adminpro-checked-pro admin-check-sucess"></span>
         <p th:text="${succes}"><strong>Success!</strong> Indicates a successful or positive action.</p>
     </div>
+    <div th:if="${succes2 != null}" th:fragment="alert2" class="alert alert-success alert-success-style1">
+        <button type="button" class="close sucess-op" data-dismiss="alert" aria-label="Close">
+            <span class="icon-sc-cl" aria-hidden="true">&times;</span>
+        </button>
+        <span class="adminpro-icon adminpro-checked-pro admin-check-sucess"></span>
+        <p th:text="${succes2}"><strong>Success!</strong> Indicates a successful or positive action.</p>
+    </div>
     <div class="wrapper-pro">
         <div th:fragment="left_sidebar" class="left-sidebar-pro">
             <nav id="sidebar">

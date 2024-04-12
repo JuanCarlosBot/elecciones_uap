@@ -350,7 +350,7 @@
                                 <div class="login-bg">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <div th:replace="Layout/layout :: alert"></div>
+                                            <div th:replace="Layout/layout :: alert2"></div>
                                             <!-- <div class="logo">
                                                 <a href="#"><img src="../../../../img/logo/UAP_DIGITAL_NORMAL.webp" alt="" width="300" height="200"/>
                                                 </a>
@@ -377,12 +377,12 @@
                                                 <th:block th:each="el : ${asignacion_elecciones}" th:if="${el.estado != 'X'}">
                                                     <th:block th:if="${det_asignacion.asignacion_eleccion != null}">
                                                         <option th:if="${det_asignacion.asignacion_eleccion.id_asignacion_eleccion != el.id_asignacion_eleccion}" th:value="${el.id_asignacion_eleccion}"
-                                                        th:text="${el.frente.nombre_frente}"></option>
+                                                        th:text="${el.frente.nombre_frente +' - '+el.nivel.nombre_nivel +' - '+el.tipo_eleccion.nombre_tipo_eleccion}"></option>
                                                         <option th:if="${det_asignacion.asignacion_eleccion.id_asignacion_eleccion == el.id_asignacion_eleccion}" th:value="${el.id_asignacion_eleccion}"
-                                                        th:text="${el.frente.nombre_frente}" selected></option>
+                                                        th:text="${el.frente.nombre_frente +' - '+el.nivel.nombre_nivel +' - '+el.tipo_eleccion.nombre_tipo_eleccion}" selected></option>
                                                     </th:block>
                                                     <th:block th:if="${det_asignacion.asignacion_eleccion == null}">
-                                                        <option th:value="${el.id_asignacion_eleccion}" th:text="${el.frente.nombre_frente}"></option>
+                                                        <option th:value="${el.id_asignacion_eleccion}" th:text="${el.frente.nombre_frente +' - '+el.nivel.nombre_nivel +' - '+el.tipo_eleccion.nombre_tipo_eleccion}"></option>
                                                     </th:block>
                                                 </th:block>
                                             </select>
@@ -436,20 +436,17 @@
                             </div>
                         </form>
                         <div class="col-lg-3"></div>
-                        
                     </div>
-                    
                 </div>
-                
             </div>
-            <!-- <div class="data-table-area mg-b-15">
+            <div class="data-table-area mg-b-15">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="sparkline13-list shadow-reset">
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
-                                        <h1>LISTA <span class="table-project-n">DE</span> ASIGNACION ELECCION</h1>
+                                        <h1>LISTA <span class="table-project-n">DE</span> MESAS ASIGNADAS</h1>
                                         <div class="sparkline13-outline-icon">
                                             <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
                                             <span><i class="fa fa-wrench"></i></span>
@@ -474,27 +471,39 @@
                                             <thead>
                                                 <tr>
                                                     <th >ID</th>
-                                                    <th >Gestion</th>
-                                                    <th >Frente</th>
+                                                    <th >Nombre Mesa</th>
+                                                    <th >Frentes</th>
                                                     <th >Nivel</th>
                                                     <th >Tipo Eleccion</th>
                                                     <th >Accion</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr th:each="ae, num : ${asignacion_elecciones}" th:if="${ae.estado != 'X'}">
-                                                    <td th:text="${num.count}"></td>
-                                                    <td th:text="${ae.gestion}"></td>
-                                                    <td th:if="${ae.frente != null}" th:text="${ae.frente.nombre_frente}"></td>
-                                                    <td th:if="${ae.nivel != null}" th:text="${ae.nivel.nombre_nivel}"></td>
-                                                    <td th:if="${ae.tipo_eleccion != null}" th:text="${ae.tipo_eleccion.nombre_tipo_eleccion}"></td>
+                                                <tr th:each="ms, num : ${mesas}" th:if="${ms.estado != 'X'}">
+                                                    <td th:text="${num.count}">1</td>
+                                                    <td th:text="${ms.nombre_mesa}"></td>
+                                                    <td >
+                                                        <ul th:each="dam, num : ${ms.detalle_asignacion_mesa}" >
+                                                            <li th:text="${dam.asignacion_eleccion.frente.nombre_frente}"></li>
+                                                        </ul>
+                                                    </td>
+                                                    <td >
+                                                        <ul th:each="dam, num : ${ms.detalle_asignacion_mesa}">
+                                                            <li th:text="${dam.asignacion_eleccion.nivel.nombre_nivel}"></li>
+                                                        </ul>
+                                                    </td>
+                                                    <td >
+                                                        <ul th:each="dam, num : ${ms.detalle_asignacion_mesa}">
+                                                            <li th:text="${dam.asignacion_eleccion.tipo_eleccion.nombre_tipo_eleccion}"></li>
+                                                        </ul>
+                                                    </td>
                                                     
                                                     <td style="text-align: center;">
                                                         <a type="button"
-                                                            th:href="${'../../../../admin/editar_asignacion_eleccion/'+ae.id_asignacion_eleccion}"
+                                                            th:href="${'../../../../admin/editar_det_asignacion/'+ms.id_mesa}"
                                                             class="btn btn-custon-rounded-three btn-success"> Editar</a>
                                                         <a type="button"
-                                                            th:href="${'../../../../admin/eliminar_asignacion_eleccion/'+ae.id_asignacion_eleccion}"
+                                                            th:href="${'../../../../admin/eliminar_det_asignacion/'+ms.id_mesa}"
                                                             class="btn btn-custon-rounded-three btn-danger"> Eliminar</a>
                                                     </td>
                                                 </tr>
@@ -506,8 +515,7 @@
                         </div>
                     </div>
                 </div>
-               
-            </div> -->
+            </div>
         </div>
     </div>
     
