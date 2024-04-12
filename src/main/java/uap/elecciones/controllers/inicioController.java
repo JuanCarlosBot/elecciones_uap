@@ -8,7 +8,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import uap.elecciones.model.entity.Persona;
-import uap.elecciones.model.entity.Usuario;
 
 @Controller
 @RequestMapping(value = "/admin")

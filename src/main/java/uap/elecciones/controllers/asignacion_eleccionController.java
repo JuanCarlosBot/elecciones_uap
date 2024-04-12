@@ -16,8 +16,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import uap.elecciones.model.entity.AsignacionEleccion;
+import uap.elecciones.model.entity.DetalleAsignacionMesa;
 import uap.elecciones.model.service.IAsignacionEleccionService;
+import uap.elecciones.model.service.IDetalleAsignacionMesaService;
 import uap.elecciones.model.service.IFrenteService;
+import uap.elecciones.model.service.IMesaService;
 import uap.elecciones.model.service.INivelService;
 import uap.elecciones.model.service.ITipoEleccionService;
 
@@ -37,6 +40,12 @@ public class asignacion_eleccionController {
     @Autowired
     private IAsignacionEleccionService asignacionEleccionService;
 
+    @Autowired
+    private IDetalleAsignacionMesaService detalleAsignacionMesaService;
+
+    @Autowired
+    private IMesaService mesaService;
+
     @RequestMapping(value = "/asignacion_eleccion", method = RequestMethod.GET)
     public String Vista_Asignacion_Eleccion(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
@@ -46,10 +55,12 @@ public class asignacion_eleccionController {
                 model.addAttribute("succes", succes);
             }
             model.addAttribute("asignacion", new AsignacionEleccion());
+            model.addAttribute("det_asignacion", new DetalleAsignacionMesa());
             model.addAttribute("frentes", frenteService.findAll());
             model.addAttribute("niveles", nivelService.findAll());
             model.addAttribute("tipo_elecciones", tipoEleccionService.findAll());
             model.addAttribute("asignacion_elecciones", asignacionEleccionService.findAll());
+            model.addAttribute("mesas", mesaService.findAll());
             return "Asignacion_Eleccion/asignacion_eleccion_vista";
         } else {
             return "redirect:/login";
@@ -113,6 +124,7 @@ public class asignacion_eleccionController {
             AsignacionEleccion asignacionEleccion = asignacionEleccionService.findOne(id);
             asignacionEleccion.setEstado("X");
             asignacionEleccionService.save(asignacionEleccion);
+            flash.addAttribute("succes", "Registro Eliminado Con Exito!");
             return "redirect:/admin/asignacion_eleccion";
         } else {
             return "redirect:/login";
