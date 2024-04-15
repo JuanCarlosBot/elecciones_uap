@@ -90,11 +90,14 @@ public class facultadController {
             Facultad f = facultadService.findOne(id_facultad);
 
             List <VotanteHabilitado> vhs = new ArrayList<>();
-            
+            List <VotanteHabilitado> vhs2 = new ArrayList<>();
+      
             for (Carrera c : f.getCarreras()) {
                 
                 for (Estudiante e : c.getEstudiantes()) {
-                    if (e.getVotante_habilitado().getEstado_mesa() == null) {
+                    if (e.getVotante_habilitado().getEstado_mesa().equals("M")) {
+                        vhs2.add(e.getVotante_habilitado());
+                    }else if (e.getVotante_habilitado().getEstado_mesa() == null){
                         vhs.add(e.getVotante_habilitado());
                     }
                     
@@ -102,9 +105,10 @@ public class facultadController {
             }
             
             Collections.sort(vhs, Comparator.comparing(VotanteHabilitado -> VotanteHabilitado.getEstudiante().getPersona().getApellidos()));
-
+        
             
             model.addAttribute("habilitados_fac", vhs);
+            model.addAttribute("habilitados_fac2", vhs2);
             model.addAttribute("mesas", mesaService.findAll());
             model.addAttribute("id_fac", id_facultad);
             return "Facultad/lista_selec_estudiantes";
