@@ -1,7 +1,6 @@
 <!doctype html>
 <html class="../../../../no-js" lang="en">
 <head th:replace="Layout/layout :: head">
-   
 </head>
 
 <body class="materialdesign">
@@ -35,7 +34,7 @@
                                         <ul class="breadcome-menu">
                                             <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">MESA</span>
+                                            <li><span class="bread-blod">LISTA USUARIO</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -215,7 +214,7 @@
                                         <ul class="breadcome-menu">
                                             <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">MESA</span>
+                                            <li><span class="bread-blod">USUARIO</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -226,138 +225,112 @@
                 </div>
             </div>
             <!-- Breadcome End-->
-            <!-- Register Start-->
-            <div class="login-form-area mg-t-30 mg-b-15">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-3"></div>
-                        <form action="../../../../admin/mesa_form" method="post" id="adminpro-register-form" class="adminpro-form" th:object="${mesa}">
-                            <div class="col-lg-6">
-                                <div class="login-bg">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div th:replace="Layout/layout :: alert"></div>
-                                            <div class="logo">
-                                                <a href="#"><img src="../../../../img/logo/UAP_DIGITAL_NORMAL.webp" alt="" width="300" height="200"/>
-                                                </a>
-                                            </div>
-                                        </div>
+           <!-- Static Table Start -->
+         
+           <div class="income-order-visit-user-area">
+            <div class="container-fluid">
+                <div class="row">
+                    <th:block th:each="f : ${facultades}">
+                    <div class="col-lg-3">
+                        <div class="income-dashone-total shadow-reset nt-mg-b-30">
+                            <div class="income-title">
+                                <div class="main-income-head">
+                                    <h2 ><a th:text="${f.nombre_facultad}" th:href="@{'/admin/seleccion_estudiantes/'+${f.id_facultad}}"></a></h2>
+                                    <!-- <div class="main-income-phara">
+                                        <p>Monthly</p>
+                                    </div> -->
+                                </div>
+                            </div>
+                            <div class="income-dashone-pro">
+                                <div class="income-rate-total">
+                                    <div class="price-adminpro-rate">
+                                        <h3><span class="counter" th:text="${f.cantidad_est}">60888200</span></h3>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="login-title">
-                                                <h1>Registro Mesa</h1>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p>Nombre Mesa </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="login-input-area">
-                                                <input type="hidden" th:field="*{id_mesa}">
-                                                <input type="text" th:field="*{nombre_mesa}" placeholder="Descripción" required/>
-                                                <i class="fa fa-user login-user"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p>Cantidad Votantes </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix"
-                                                    style="display: none;"></span>
-                                                <input class="touchspin3 form-control" type="number" th:field="*{cant_votantes}" min="1"
-                                                    placeholder="Carnet de Identidad" value="" name="demo3" style="display: block;"><span
-                                                    class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="row">
-                                        <div class="col-lg-4"></div>
-                                        <div class="col-lg-8">
-                                            <div class="login-button-pro">
-                                                <button type="submit" class="login-button login-button-lg">Registrar</button>
-                                            </div>
-                                        </div>
+                                    <!-- <div class="price-graph">
+                                        <span id="sparkline1"></span>
+                                    </div> -->
+                                </div>
+                                <div class="income-range">
+                                    <p>Total Estudiantes</p>
+                                    <!-- <span class="income-percentange">98% <i class="fa fa-bolt"></i></span> -->
+                                </div>
+                                <div class="clear"></div>
+                            </div>
+                        </div>
+                    </div>
+                    </th:block>
+                </div>
+            </div>
+        </div>
+        <div class="data-table-area mg-b-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="sparkline13-list shadow-reset">
+                            <div th:replace="Layout/layout :: alert"></div>
+                            <div class="sparkline13-hd">
+                                <div class="main-sparkline13-hd">
+                                    <h1>LISTA <span class="table-project-n">DE</span> FACULTADES</h1>
+                                    <div class="sparkline13-outline-icon">
+                                        <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                        <span><i class="fa fa-wrench"></i></span>
+                                        <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
                                     </div>
                                 </div>
                             </div>
-                        </form>
-                        <div class="col-lg-3"></div>
-                    </div>
-                </div>
-            </div>
-          
-            <div class="data-table-area mg-b-15">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="sparkline13-list shadow-reset">
-                                <div class="sparkline13-hd">
-                                    <div class="main-sparkline13-hd">
-                                        <h1>LISTA <span class="table-project-n">DE</span> MESAS</h1>
-                                        <div class="sparkline13-outline-icon">
-                                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
-                                            <span><i class="fa fa-wrench"></i></span>
-                                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
-                                        </div>
+                            <div class="sparkline13-graph">
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <div id="toolbar">
+                                        <select class="form-control">
+                                            <option value="">Export Basic</option>
+                                            <option value="all">Export All</option>
+                                            <option value="selected">Export Selected</option>
+                                        </select>
                                     </div>
-                                </div>
-                                <div class="sparkline13-graph">
-                                    <div class="datatable-dashv1-list custom-datatable-overright">
-                                        <div id="toolbar">
-                                            <select class="form-control">
-                                                <option value="">Export Basic</option>
-                                                <option value="all">Export All</option>
-                                                <option value="selected">Export Selected</option>
-                                            </select>
-                                        </div>
-                                        <table id="table" data-toggle="table" data-pagination="true" data-search="true"
-                                            data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
-                                            data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
-                                            data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
-                                            data-toolbar="#toolbar">
-                                            <thead>
-                                                <tr>
-                                                    <th >ID</th>
-                                                    <th >Nombre Mesa</th>
-                                                    <th >Cantidad de Votantes</th>
-                                                    <th >Accion</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="m, num : ${mesas}" th:if="${m.estado != 'X' && m.estado != 'O'}">
-                                                    <td th:text="${num.count}">1</td>
-                                                    <td th:text="${m.nombre_mesa}">Web Development</td>
-                                                    <td th:text="${m.cant_votantes}">admin@uttara.com</td>
-                                                    
-                                                    <td style="text-align: center;">
-                                                        <a type="button"
-                                                            th:href="${'../../../../admin/editar_mesa/'+m.id_mesa}"
-                                                            class="btn btn-custon-rounded-three btn-success"> Editar</a>
-                                                        <a type="button"
-                                                            th:href="${'../../../../admin/eliminar_mesa/'+m.id_mesa}"
-                                                            class="btn btn-custon-rounded-three btn-danger"> Eliminar</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
+                                    <table id="table" data-toggle="table" data-pagination="true" data-search="true"
+                                        data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                        data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                        data-toolbar="#toolbar">
+                                        <thead>
+                                            <tr>
+                                                <th data-field="id">ID</th>
+                                                <th data-field="name">Usuario</th>
+                                                <th data-field="email">Contraseña</th>
+                                                <th data-field="phone">Persona</th>
+                                                <th data-field="action">Accion</th>
+                                            </tr>
+                                        </thead>
+                                        <!-- <tbody>
+                                            <tr th:each="u, num : ${usuarios}" th:if="${u.estado != 'X'}">
+                                                <td th:text="${num.count}">1</td>
+                                                <td th:text="${u.nom_usuario}">Web Development</td>
+                                                <td th:text="${u.pass}">admin@uttara.com</td>
+                                                <td th:if="${u.persona != null}"
+                                                    th:text="${u.persona.nombres +' '+ u.persona.apellidos}">+</td>
+                                                <td th:if="${u.persona == null}" th:text="${'USUARIO SIN PERSONA ASIGNADA'}">+
+                                                </td>
+                                                <td style="text-align: center;">
+                                                    <a type="button"
+                                                        th:href="${'../../../../admin/editar_usuario/'+u.id_usuario}"
+                                                        class="btn btn-custon-rounded-three btn-success"> Editar</a>
+                                                    <a type="button"
+                                                        th:href="${'../../../../admin/eliminar_usuario/'+u.id_usuario}"
+                                                        class="btn btn-custon-rounded-three btn-danger"> Eliminar</a>
+                                                </td>
+                                            </tr>
+                                        </tbody> -->
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- Static Table End -->
+          
+            
         </div>
     </div>
     <!-- Footer Start-->
@@ -366,13 +339,7 @@
     <!-- Footer End-->
 
     <div th:replace="Layout/layout :: scripts"></div>
-    <script>
-        $("#s1").select2({
-         placeholder: "Seleccione Nacionalidad...",
-         allowClear: true
-     });
-        
-     </script>
+    
 </body>
 
 </html>

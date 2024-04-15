@@ -36,6 +36,8 @@ public class Facultad implements Serializable {
     private String sigla;
     @Column
     private String estado;
+    @Column
+    private Integer cantidad_est;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)

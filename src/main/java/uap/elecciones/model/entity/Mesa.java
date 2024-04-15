@@ -44,4 +44,8 @@ public class Mesa implements Serializable{
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mesa", fetch = FetchType.LAZY)
 	private List<DetalleAsignacionMesa> detalle_asignacion_mesa;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "mesa", fetch = FetchType.LAZY)
+	private List<AsignacionHabilitado> asignacionHabilitados;
+
 }

@@ -2,6 +2,7 @@ package uap.elecciones.model.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.IAsignacionHabilitadoDao;
@@ -11,7 +12,8 @@ import uap.elecciones.model.service.IAsignacionHabilitadoService;
 @Service
 public class AsignacionHabilitadoServiceImpl implements IAsignacionHabilitadoService{
 
-    IAsignacionHabilitadoDao asignacionHabilitadoDao;
+    @Autowired
+    private IAsignacionHabilitadoDao asignacionHabilitadoDao;
 
     @Override
     public List<AsignacionHabilitado> findAll() {

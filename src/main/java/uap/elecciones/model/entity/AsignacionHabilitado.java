@@ -35,6 +35,11 @@ public class AsignacionHabilitado implements Serializable {
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_mesa")
+    private Mesa mesa;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_votante_habilitado")
     private VotanteHabilitado votante_habilitado;
 

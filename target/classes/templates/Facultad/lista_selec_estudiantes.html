@@ -1,7 +1,6 @@
 <!doctype html>
 <html class="../../../../no-js" lang="en">
 <head th:replace="Layout/layout :: head">
-   
 </head>
 
 <body class="materialdesign">
@@ -35,7 +34,7 @@
                                         <ul class="breadcome-menu">
                                             <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">MESA</span>
+                                            <li><span class="bread-blod">LISTA USUARIO</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -215,7 +214,7 @@
                                         <ul class="breadcome-menu">
                                             <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">MESA</span>
+                                            <li><span class="bread-blod">USUARIO</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -226,12 +225,12 @@
                 </div>
             </div>
             <!-- Breadcome End-->
-            <!-- Register Start-->
             <div class="login-form-area mg-t-30 mg-b-15">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-3"></div>
-                        <form action="../../../../admin/mesa_form" method="post" id="adminpro-register-form" class="adminpro-form" th:object="${mesa}">
+                        <form th:action="@{/admin/asignacion_habilitado_post}" method="post" id="adminpro-register-form" class="adminpro-form" >
+                            <input type="hidden" id="id_fac" name="id_fac" th:value="${id_fac}">
                             <div class="col-lg-6">
                                 <div class="login-bg">
                                     <div class="row">
@@ -246,7 +245,29 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="login-title">
-                                                <h1>Registro Mesa</h1>
+                                                <h1>Registro Persona</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>Rango de Vontantes </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="row">
+                                                <div class="col-lg-6">
+                                                    <div class="login-input-area register-mg-rt">
+                                                        <input class="form-control" type="number" min="1" id="num_1" name="num_1"  placeholder="1" required/>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="login-input-area">
+                                                        
+                                                        <input class="form-control" type="number" min="1" max="200" id="num_2" name="num_2"  placeholder="200" required/>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -254,30 +275,16 @@
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="login-input-head">
-                                                <p>Nombre Mesa </p>
+                                                <p>Mesa </p>
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <div class="login-input-area">
-                                                <input type="hidden" th:field="*{id_mesa}">
-                                                <input type="text" th:field="*{nombre_mesa}" placeholder="Descripción" required/>
-                                                <i class="fa fa-user login-user"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p>Cantidad Votantes </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="input-group bootstrap-touchspin"><span class="input-group-addon bootstrap-touchspin-prefix"
-                                                    style="display: none;"></span>
-                                                <input class="touchspin3 form-control" type="number" th:field="*{cant_votantes}" min="1"
-                                                    placeholder="Carnet de Identidad" value="" name="demo3" style="display: block;"><span
-                                                    class="input-group-addon bootstrap-touchspin-postfix" style="display: none;"></span>
-                                            </div>
+                                            <select name="id_mesa" style="width: 100%" id="s1" class="js-states form-control"  required>
+                                                <option selected disable hidden ></option>
+                                                
+                                                <option th:each="m : ${mesas}" th:if="${m.estado != 'X' && m.estado != 'O'}" th:text="${m.nombre_mesa}"  th:value="${m.id_mesa}"> </option>
+                                               
+                                            </select>
                                         </div>
                                     </div>
                                     
@@ -296,68 +303,64 @@
                     </div>
                 </div>
             </div>
-          
-            <div class="data-table-area mg-b-15">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="sparkline13-list shadow-reset">
-                                <div class="sparkline13-hd">
-                                    <div class="main-sparkline13-hd">
-                                        <h1>LISTA <span class="table-project-n">DE</span> MESAS</h1>
-                                        <div class="sparkline13-outline-icon">
-                                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
-                                            <span><i class="fa fa-wrench"></i></span>
-                                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
-                                        </div>
+         
+        <div class="data-table-area mg-b-15">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="sparkline13-list shadow-reset">
+                            <div th:replace="Layout/layout :: alert"></div>
+                            <div class="sparkline13-hd">
+                                <div class="main-sparkline13-hd">
+                                    <h1>LISTA <span class="table-project-n">DE</span> FACULTADES</h1>
+                                    <div class="sparkline13-outline-icon">
+                                        <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                        <span><i class="fa fa-wrench"></i></span>
+                                        <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
                                     </div>
                                 </div>
-                                <div class="sparkline13-graph">
-                                    <div class="datatable-dashv1-list custom-datatable-overright">
-                                        <div id="toolbar">
-                                            <select class="form-control">
-                                                <option value="">Export Basic</option>
-                                                <option value="all">Export All</option>
-                                                <option value="selected">Export Selected</option>
-                                            </select>
-                                        </div>
-                                        <table id="table" data-toggle="table" data-pagination="true" data-search="true"
-                                            data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
-                                            data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
-                                            data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
-                                            data-toolbar="#toolbar">
-                                            <thead>
-                                                <tr>
-                                                    <th >ID</th>
-                                                    <th >Nombre Mesa</th>
-                                                    <th >Cantidad de Votantes</th>
-                                                    <th >Accion</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr th:each="m, num : ${mesas}" th:if="${m.estado != 'X' && m.estado != 'O'}">
-                                                    <td th:text="${num.count}">1</td>
-                                                    <td th:text="${m.nombre_mesa}">Web Development</td>
-                                                    <td th:text="${m.cant_votantes}">admin@uttara.com</td>
-                                                    
-                                                    <td style="text-align: center;">
-                                                        <a type="button"
-                                                            th:href="${'../../../../admin/editar_mesa/'+m.id_mesa}"
-                                                            class="btn btn-custon-rounded-three btn-success"> Editar</a>
-                                                        <a type="button"
-                                                            th:href="${'../../../../admin/eliminar_mesa/'+m.id_mesa}"
-                                                            class="btn btn-custon-rounded-three btn-danger"> Eliminar</a>
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                            </div>
+                            <div class="sparkline13-graph">
+                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                    <div id="toolbar">
+                                        <select class="form-control">
+                                            <option value="">Export Basic</option>
+                                            <option value="all">Export All</option>
+                                            <option value="selected">Export Selected</option>
+                                        </select>
                                     </div>
+                                    <table id="table" data-toggle="table" data-pagination="true" data-search="true"
+                                        data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                        data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                        data-toolbar="#toolbar">
+                                        <thead>
+                                            <tr>
+                                                <th >ID</th>
+                                                <th >Apellido y Nombres</th>
+                                                <th >Carrera</th>
+                                                
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr th:each="fh, num : ${habilitados_fac}" >
+                                                <td th:text="${fh.id_votante_habilitado}"></td>
+                                                <td th:text="${fh.estudiante.persona.apellidos +' '+fh.estudiante.persona.nombres }"></td>
+                                                <td th:if="${fh.estudiante.carreras != null}" th:text="${fh.estudiante.carreras[0].nombre_carrera}">
+                                                  
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+        <!-- Static Table End -->
+          
+            
         </div>
     </div>
     <!-- Footer Start-->
@@ -367,11 +370,36 @@
 
     <div th:replace="Layout/layout :: scripts"></div>
     <script>
+        $(document).ready(function(){
+            // Función para capturar los IDs de la columna "ID" según los parámetros de los inputs
+            function capturarIDs() {
+                var num1 = parseInt($('#num_1').val());
+                var num2 = parseInt($('#num_2').val());
+                var ids = [];
+                
+                $('#table tbody tr').each(function() {
+                    var id = parseInt($(this).find('td:first').text());
+                    if (id >= num1 && id <= num2) {
+                        ids.push(id);
+                    }
+                });
+
+                // Mostrar los IDs capturados
+                console.log("IDs capturados:", ids);
+            }
+
+            // Ejecutar la función al hacer clic en un botón de filtro
+            $('#filtrar').click(function(){
+                capturarIDs();
+            });
+        });
+    </script>
+    <script>
         $("#s1").select2({
          placeholder: "Seleccione Nacionalidad...",
          allowClear: true
      });
-        
+       
      </script>
 </body>
 

@@ -2,6 +2,7 @@ package uap.elecciones.model.serviceImpl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.ICarreraDao;
@@ -11,7 +12,8 @@ import uap.elecciones.model.service.ICarreraService;
 @Service
 public class CarreraServiceImpl implements ICarreraService{
 
-    ICarreraDao carreraDao;
+    @Autowired
+    private ICarreraDao carreraDao;
 
     @Override
     public List<Carrera> findAll() {
