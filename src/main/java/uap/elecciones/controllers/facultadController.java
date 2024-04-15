@@ -22,6 +22,7 @@ import uap.elecciones.model.entity.AsignacionHabilitado;
 import uap.elecciones.model.entity.Carrera;
 import uap.elecciones.model.entity.Estudiante;
 import uap.elecciones.model.entity.Facultad;
+import uap.elecciones.model.entity.Mesa;
 import uap.elecciones.model.entity.VotanteHabilitado;
 import uap.elecciones.model.service.IAsignacionEleccionService;
 import uap.elecciones.model.service.IAsignacionHabilitadoService;
@@ -89,7 +90,6 @@ public class facultadController {
             Facultad f = facultadService.findOne(id_facultad);
 
             List <VotanteHabilitado> vhs = new ArrayList<>();
-            List <VotanteHabilitado> vhs2 = new ArrayList<>();
             
             for (Carrera c : f.getCarreras()) {
                 
@@ -104,7 +104,6 @@ public class facultadController {
             Collections.sort(vhs, Comparator.comparing(VotanteHabilitado -> VotanteHabilitado.getEstudiante().getPersona().getApellidos()));
 
             model.addAttribute("habilitados_fac", vhs);
-            // model.addAttribute("habilitados_fac2", vhs2);
             model.addAttribute("mesas", mesaService.findAll());
             model.addAttribute("id_fac", id_facultad);
             return "Facultad/lista_selec_estudiantes";
@@ -129,7 +128,10 @@ public class facultadController {
                     for (Long id : id_asignacion_habilitado) {
                         AsignacionHabilitado asignacionHabilitado = new AsignacionHabilitado();
                         asignacionHabilitado.setEstado("A");
-                        asignacionHabilitado.setMesa(mesaService.findOne(id_mesa));
+                        Mesa mesa = mesaService.findOne(id_mesa);
+                        mesa.setEstado("O"); // O mesa Ocupada
+                        mesaService.save(mesa);
+                        asignacionHabilitado.setMesa(mesa);
                         VotanteHabilitado votanteHabilitado = votanteHabilitadoService.findOne(id);
                         votanteHabilitado.setEstado_mesa("M");
                         votanteHabilitadoService.save(votanteHabilitado);
@@ -141,7 +143,6 @@ public class facultadController {
                 }
             }
             
-           
             return "redirect:/admin/seleccion_estudiantes/"+id_fac;
         } else {
             return "redirect:/login";
