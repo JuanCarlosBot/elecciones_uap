@@ -103,6 +103,7 @@ public class facultadController {
             
             Collections.sort(vhs, Comparator.comparing(VotanteHabilitado -> VotanteHabilitado.getEstudiante().getPersona().getApellidos()));
 
+            
             model.addAttribute("habilitados_fac", vhs);
             model.addAttribute("mesas", mesaService.findAll());
             model.addAttribute("id_fac", id_facultad);
