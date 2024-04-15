@@ -257,17 +257,13 @@
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="row">
-                                                <div class="col-lg-6">
+                                                <div class="col-lg-12">
                                                     <div class="login-input-area register-mg-rt">
-                                                        <input class="form-control" type="number" min="1" id="num_1" name="num_1"  placeholder="1" required/>
+                                                        <input class="form-control" type="number" min="1" max="200" id="num_1" name="num_1"  placeholder="min 1 y max 200" required/>
+                                                        <input type="hidden"  id="id_asignacion_habilitado" name="id_asignacion_habilitado"  required/>
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-6">
-                                                    <div class="login-input-area">
-                                                        
-                                                        <input class="form-control" type="number" min="1" max="200" id="num_2" name="num_2"  placeholder="200" required/>
-                                                    </div>
-                                                </div>
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -369,28 +365,18 @@
     <!-- Footer End-->
 
     <div th:replace="Layout/layout :: scripts"></div>
-    <script>
-        $(document).ready(function(){
-            // Función para capturar los IDs de la columna "ID" según los parámetros de los inputs
-            function capturarIDs() {
-                var num1 = parseInt($('#num_1').val());
-                var num2 = parseInt($('#num_2').val());
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            $(' #num_1').on('change', function() {
+                var end = parseInt($('#num_1').val());
+                var habilitados = /*[[${habilitados_fac}]]*/ [];
+
                 var ids = [];
-                
-                $('#table tbody tr').each(function() {
-                    var id = parseInt($(this).find('td:first').text());
-                    if (id >= num1 && id <= num2) {
-                        ids.push(id);
-                    }
-                });
-
-                // Mostrar los IDs capturados
-                console.log("IDs capturados:", ids);
-            }
-
-            // Ejecutar la función al hacer clic en un botón de filtro
-            $('#filtrar').click(function(){
-                capturarIDs();
+                for (var i = 0; i < end && i < habilitados.length; i++) {
+                    ids.push(habilitados[i].id_votante_habilitado);
+                }
+                var idsValue = JSON.stringify(ids); // Convertir la lista de IDs a una cadena JSON
+                $('#id_asignacion_habilitado').val(idsValue);
             });
         });
     </script>
@@ -399,7 +385,6 @@
          placeholder: "Seleccione Nacionalidad...",
          allowClear: true
      });
-       
      </script>
 </body>
 

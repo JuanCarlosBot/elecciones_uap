@@ -36,6 +36,8 @@ public class VotanteHabilitado implements Serializable{
     @Column
     private String estado;
     @Column
+    private String estado_mesa;
+    @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha_registro;
 
