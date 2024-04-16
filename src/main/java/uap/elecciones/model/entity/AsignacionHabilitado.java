@@ -28,6 +28,8 @@ public class AsignacionHabilitado implements Serializable {
     private Long id_asignacion_habilitado;
     @Column
     private String estado;
+    @Column
+    private String delegado;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_detalle_asignacion_mesa")

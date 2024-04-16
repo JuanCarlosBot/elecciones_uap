@@ -333,15 +333,24 @@
                                         <thead>
                                             <tr>
                                                 <th >ID</th>
+                                                <th >Facultad</th>
+                                                <th >Carrera</th>
                                                 <th >Apellido y Nombres</th>
-                                                
+                                                <th >Mesa</th>
+                                                <th >Delegados</th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr th:each="ce, num : ${carrera.estudiantes}" th:if="${ce.votante_habilitado.estado_mesa != 'X' && ce.votante_habilitado.estado_mesa != 'M'}">
+                                            <tr th:each="ce, num : ${carrera.estudiantes}" th:if="${ce.votante_habilitado.estado_mesa != 'X'}">
                                                 <td th:text="${ce.votante_habilitado.id_votante_habilitado}"></td>
+                                                <td th:text="${ce.carreras[0].facultad.nombre_facultad }"></td>
+                                                <td th:text="${ce.carreras[0].nombre_carrera }"></td>
                                                 <td th:text="${ce.persona.nombres }"></td>
-                                                
+                                                <td th:if="${ce.votante_habilitado.asignacion_habilitado.size() > 0 }"
+                                                    th:text="${ce.votante_habilitado.asignacion_habilitado[0].mesa.nombre_mesa }"></td>
+                                                <td th:unless="${ce.votante_habilitado.asignacion_habilitado.size() > 0 }" th:text="${'SIN ASIGNAR'}"></td>
+
+                                                <td th:if="${ce.votante_habilitado.asignacion_habilitado.size() > 0 }" th:text="${ce.votante_habilitado.asignacion_habilitado[0].delegado }"></td>
                                             </tr>
                                         </tbody>
                                     </table>

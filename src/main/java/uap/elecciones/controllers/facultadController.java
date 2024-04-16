@@ -127,7 +127,7 @@ public class facultadController {
 
     @PostMapping(value = "/asignacion_habilitado_post")
     public String asignacion_habilitado_post(Model model,RedirectAttributes flash, HttpServletRequest request,
-    @RequestParam(name = "id_car" ,required = false)Long id_car,
+    @RequestParam(name = "id_fac" ,required = false)Long id_car,
     @RequestParam(name = "num_1" ,required = false)Integer num1,
     @RequestParam(name = "id_asignacion_habilitado", required = false) String id_asignacion_habilitadoStr,
     @RequestParam(name = "id_mesa",required = false)Long id_mesa){
