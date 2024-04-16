@@ -47,4 +47,8 @@ public class Anfora implements Serializable{
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "anfora", fetch = FetchType.LAZY)
 	private List<DetalleAnfora> detalleAnforas;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_conteo_total")
+    private ConteoTotal conteo_total;
 }
