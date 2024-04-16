@@ -12,4 +12,7 @@ public interface IAsignacionHabilitadoService {
 	public AsignacionHabilitado findOne(Long id);
 
 	public void delete(Long id);
+
+	List<Object[]> lista_asignados_habilitados(Long id_carrera);
+
 }

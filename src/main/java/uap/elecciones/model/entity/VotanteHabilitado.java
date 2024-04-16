@@ -33,8 +33,7 @@ public class VotanteHabilitado implements Serializable{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_votante_habilitado;
-    @Column
-    private String estado;
+    
     @Column
     private String estado_mesa;
     @Column

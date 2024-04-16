@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
+import uap.elecciones.model.dao.IAsignacionHabilitadoDao;
 import uap.elecciones.model.entity.AsignacionHabilitado;
 import uap.elecciones.model.entity.Carrera;
 import uap.elecciones.model.entity.Estudiante;
@@ -49,6 +50,9 @@ public class facultadController {
 
     @Autowired
     private IAsignacionHabilitadoService asignacionHabilitadoService;
+
+    @Autowired
+    private IAsignacionHabilitadoDao asignacionHabilitadoDao;
     
     @RequestMapping(value = "/lista_facultades",method = RequestMethod.GET)
     private String Lista_Facultades(Model model,RedirectAttributes flash, HttpServletRequest request,@RequestParam(name = "succes",required = false)String succes){
@@ -90,12 +94,20 @@ public class facultadController {
             }
             
             Carrera carrera = carreraService.findOne(id_carrera);
-            // List <VotanteHabilitado> vh = new ArrayList<>();
             
-            // for (VotanteHabilitado votanteHabilitado : vh) {
+            model.addAttribute("list_asignados", asignacionHabilitadoService.lista_asignados_habilitados(id_carrera));
+            List<VotanteHabilitado> vh = new ArrayList<>();
+            for (Estudiante e : carrera.getEstudiantes()) {
+                if (e.getVotante_habilitado().getEstado_mesa() ==null) {
+                    vh.add(e.getVotante_habilitado());
+                }
                 
+            }
+            System.out.println(vh.size());
+            // for (VotanteHabilitado v : vh) {
+            //     System.out.println(v.getEstado_mesa());
             // }
-            model.addAttribute("carrera", carrera);
+            model.addAttribute("carrera", vh);
             model.addAttribute("mesas", mesaService.findAll());
             model.addAttribute("id_fac", id_carrera);
             return "Facultad/lista_selec_estudiantes";
@@ -140,7 +152,6 @@ public class facultadController {
     
                     for (Long id : id_asignacion_habilitado) {
                         AsignacionHabilitado asignacionHabilitado = new AsignacionHabilitado();
-                        asignacionHabilitado.setEstado("A");
                         Mesa mesa = mesaService.findOne(id_mesa);
                         mesa.setEstado("O"); // O mesa Ocupada
                         mesaService.save(mesa);

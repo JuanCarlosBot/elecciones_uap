@@ -26,8 +26,7 @@ public class AsignacionHabilitado implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_asignacion_habilitado;
-    @Column
-    private String estado;
+    
     @Column
     private String delegado;
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
