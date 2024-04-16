@@ -89,8 +89,6 @@ public class anforaController {
                 model.addAttribute("succes", succes);
             }
            
-        
-
             return "Anfora/anfora_vista_frentes";
         } else {
             return "redirect:/login";

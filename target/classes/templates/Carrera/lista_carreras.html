@@ -34,7 +34,7 @@
                                         <ul class="breadcome-menu">
                                             <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">LISTA FACULTADES</span>
+                                            <li><span class="bread-blod">LISTA CARRERRAS</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -214,7 +214,7 @@
                                         <ul class="breadcome-menu">
                                             <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
                                             </li>
-                                            <li><span class="bread-blod">USUARIO</span>
+                                            <li><span class="bread-blod">LISTA CARRERRAS</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -230,20 +230,20 @@
         <div class="income-order-visit-user-area">
             <div class="container-fluid">
                 <div class="row">
-                    <th:block th:each="f : ${facultades}">
+                    <th:block th:each="c : ${carreras}" th:if="${c.estado != 'X' && c.estudiantes.size() > 0}" >
                         <div class="col-lg-3">
                             <div class="income-dashone-total shadow-reset nt-mg-b-30">
                                 <div class="income-title">
                                     <div class="main-income-head">
-                                        <h2><a th:text="${f.nombre_facultad}"
-                                                th:href="@{'/admin/seleccion_estudiantes/'+${f.id_facultad}}"></a></h2>
-                                        
+                                        <h2><a th:text="${c.nombre_carrera}"
+                                                th:href="@{'/admin/seleccion_estudiantes/'+${c.id_carrera}}"></a></h2>
+                    
                                     </div>
                                 </div>
                                 <div class="income-dashone-pro">
                                     <div class="income-rate-total">
                                         <div class="price-adminpro-rate">
-                                            <h3><span class="counter" th:text="${f.cantidad_est}"></span></h3>
+                                            <h3><span class="counter" th:text="${c.estudiantes.size()}"></span></h3>
                                         </div>
                                     </div>
                                     <div class="income-range">
@@ -253,41 +253,11 @@
                                 </div>
                             </div>
                         </div>
-                    </th:block><br>
-                    
+                    </th:block>
                 </div>
             </div>
         </div>
 
-        <div class="income-order-visit-user-area">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-3">
-                        <div class="income-dashone-total shadow-reset nt-mg-b-30">
-                            <div class="income-title">
-                                <div class="main-income-head">
-                                    <h2><a th:text="${'TOTAL DE ESTUDIANTES HABILITADOS'}"></a></h2>
-                    
-                                </div>
-                            </div>
-                            <div class="income-dashone-pro">
-                                <div class="income-rate-total">
-                                    <div class="price-adminpro-rate">
-                                        <h3><span class="counter" th:text="${total_est}"></span></h3>
-                                    </div>
-                    
-                                </div>
-                                <div class="income-range">
-                                    <p>Total Estudiantes</p>
-                                </div>
-                                <div class="clear"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
         </div>
     </div>
     <!-- Footer Start-->
