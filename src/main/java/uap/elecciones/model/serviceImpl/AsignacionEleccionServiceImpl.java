@@ -1,6 +1,7 @@
 package uap.elecciones.model.serviceImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,5 +39,13 @@ public class AsignacionEleccionServiceImpl implements IAsignacionEleccionService
         // TODO Auto-generated method stub
         asignacionEleccionDao.deleteById(id);
     }
+
+    @Override
+    public List<Map<Object, String>> getListaFrentes(String gestion, Long idNivel, Long idTipo) {
+        // TODO Auto-generated method stub
+        return asignacionEleccionDao.getListaFrentes(gestion, idNivel, idTipo);
+    }
+
+  
     
 }
