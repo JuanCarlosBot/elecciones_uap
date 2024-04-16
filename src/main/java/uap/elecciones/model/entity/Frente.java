@@ -51,4 +51,8 @@ public class Frente implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "frente", fetch = FetchType.LAZY)
 	private List<DetalleAnfora> detalleAnforas;
 
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "frente", fetch = FetchType.LAZY)
+	private List<VotoTotalFrente> votoTotalFrentes;
+
 }

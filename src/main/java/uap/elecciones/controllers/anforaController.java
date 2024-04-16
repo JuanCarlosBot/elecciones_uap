@@ -23,6 +23,7 @@ import uap.elecciones.model.entity.Frente;
 import uap.elecciones.model.entity.Mesa;
 import uap.elecciones.model.entity.Nivel;
 import uap.elecciones.model.entity.Persona;
+import uap.elecciones.model.entity.VotoTotalFrente;
 import uap.elecciones.model.service.IAnforaService;
 import uap.elecciones.model.service.IConteoTotalService;
 import uap.elecciones.model.service.IDetalleAnforaService;
@@ -121,6 +122,7 @@ public class anforaController {
             String nombreFacultad = (String) facultadObject;
             List<ConteoTotal> listConteo = conteoTotalService.findAll();
             ConteoTotal conteoTotal = new ConteoTotal();
+            VotoTotalFrente votoTotalFrente = new VotoTotalFrente();
 
             if (listConteo.size() == 0) {
 
@@ -138,6 +140,7 @@ public class anforaController {
                         conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
                         conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
                         conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
+                        conteoTotal.setFacultad(nombreFacultad);
                         conteoTotalService.save(conteoTotal);
                     }
                 }
@@ -147,6 +150,7 @@ public class anforaController {
                         conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
                         conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
                         conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
+                        conteoTotal.setFacultad(nombreFacultad);
                         conteoTotalService.save(conteoTotal);
                         System.out.println("No entro en el igual");
                     }
@@ -162,30 +166,58 @@ public class anforaController {
             anfora.setConteo_total(conteoTotal);
             anforaService.save(anfora);
 
+            
+            List<VotoTotalFrente> listVotosTotalFrente = votoTotalFrenteService.findAll();
             // Iterar sobre los parámetros de la solicitud
-            Enumeration<String> parameterNames = request.getParameterNames();
-            while (parameterNames.hasMoreElements()) {
-                String paramName = parameterNames.nextElement();
-                if (paramName.startsWith("cantidadVotantes_")) {
-                    // Obtener el valor del parámetro
-                    String paramValue = request.getParameter(paramName);
+        Enumeration<String> parameterNames = request.getParameterNames();
+        while (parameterNames.hasMoreElements()) {
+            String paramName = parameterNames.nextElement();
+            if (paramName.startsWith("cantidadVotantes_")) {
+                // Obtener el valor del parámetro
+                String paramValue = request.getParameter(paramName);
 
-                    // Obtener el frenteId a partir del paramName
-                    Long frenteId = Long.parseLong(paramName.substring("cantidadVotantes_".length()));
+                // Obtener el frenteId a partir del paramName
+                Long frenteId = Long.parseLong(paramName.substring("cantidadVotantes_".length()));
 
-                    // Obtener el frente usando el frenteId proporcionado
-                    Frente frente = frenteService.findOne(frenteId);
+                // Obtener el frente usando el frenteId proporcionado
+                Frente frente = frenteService.findOne(frenteId);
 
-                    // Crear un nuevo DetalleAnfora y establecer sus valores
-                    DetalleAnfora detalleAnfora = new DetalleAnfora();
-                    detalleAnfora.setAnfora(anfora);
-                    detalleAnfora.setFrente(frente);
-                    detalleAnfora.setCant_votantes(Integer.parseInt(paramValue));
+                // Crear un nuevo DetalleAnfora y establecer sus valores
+                DetalleAnfora detalleAnfora = new DetalleAnfora();
+                detalleAnfora.setAnfora(anfora);
+                detalleAnfora.setFrente(frente);
+                detalleAnfora.setCant_votantes(Integer.parseInt(paramValue));
 
-                    // Guardar el DetalleAnfora en la base de datos
-                    detalleAnforaService.save(detalleAnfora);
+                // Iterar sobre la lista de VotoTotalFrente
+                boolean existeVotoTotalFrente = false;
+                for (VotoTotalFrente votoTotalFrente2 : listVotosTotalFrente) {
+                    // Verificar si ya existe un registro para el frente actual
+                    if (votoTotalFrente2.getFrente().getId_frente() == frenteId) {
+                        // Actualizar el registro existente
+                        votoTotalFrente2.setVoto_total_frente(
+                                votoTotalFrente2.getVoto_total_frente() + detalleAnfora.getCant_votantes());
+                        votoTotalFrente2.setConteo_total(conteoTotal);
+                        votoTotalFrente2.setFrente(frente);
+                        votoTotalFrenteService.save(votoTotalFrente2);
+                        existeVotoTotalFrente = true;
+                        break; // Salir del bucle, ya se actualizó el registro
+                    }
                 }
+
+                // Si no se encontró un registro existente, crear uno nuevo
+                if (!existeVotoTotalFrente) {
+                    VotoTotalFrente nuevoVotoTotalFrente = new VotoTotalFrente();
+                    nuevoVotoTotalFrente.setFrente(frente);
+                    nuevoVotoTotalFrente.setVoto_total_frente(detalleAnfora.getCant_votantes());
+                    nuevoVotoTotalFrente.setConteo_total(conteoTotal);
+                    votoTotalFrenteService.save(nuevoVotoTotalFrente);
+                }
+
+                // Guardar el DetalleAnfora en la base de datos
+                detalleAnfora.setVoto_total_frente(votoTotalFrente);
+                detalleAnforaService.save(detalleAnfora);
             }
+        }
 
             return "redirect:/admin/inicio";
         } else {

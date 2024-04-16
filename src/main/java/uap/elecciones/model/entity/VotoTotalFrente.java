@@ -42,6 +42,11 @@ public class VotoTotalFrente implements Serializable{
     @JoinColumn(name = "id_conteo_total")
     private ConteoTotal conteo_total;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_frente")
+    private Frente frente;
+
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "voto_total_frente", fetch = FetchType.LAZY)
 	private List<DetalleAnfora> detalle_anforas;
