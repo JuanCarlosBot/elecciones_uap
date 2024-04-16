@@ -16,16 +16,20 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
 import uap.elecciones.model.entity.Anfora;
+import uap.elecciones.model.entity.ConteoTotal;
 import uap.elecciones.model.entity.DetalleAnfora;
+import uap.elecciones.model.entity.Facultad;
 import uap.elecciones.model.entity.Frente;
 import uap.elecciones.model.entity.Mesa;
 import uap.elecciones.model.entity.Nivel;
 import uap.elecciones.model.entity.Persona;
 import uap.elecciones.model.service.IAnforaService;
+import uap.elecciones.model.service.IConteoTotalService;
 import uap.elecciones.model.service.IDetalleAnforaService;
 import uap.elecciones.model.service.IFrenteService;
 import uap.elecciones.model.service.IMesaService;
 import uap.elecciones.model.service.INivelService;
+import uap.elecciones.model.service.IVotoTotalFrenteService;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -45,6 +49,12 @@ public class anforaController {
 
     @Autowired
     private IDetalleAnforaService detalleAnforaService;
+
+    @Autowired
+    private IConteoTotalService conteoTotalService;
+
+    @Autowired
+    private IVotoTotalFrenteService votoTotalFrenteService;
 
        @RequestMapping(value = "/anfora",method = RequestMethod.GET)
     public String Vista_Anfora(Model model,RedirectAttributes flash, HttpServletRequest request,@RequestParam(name = "succes",required = false)String succes){
@@ -111,15 +121,51 @@ public class anforaController {
             if (succes != null) {
                 model.addAttribute("succes", succes);
             }
+           
             Mesa mesa = mesaService.findOne(mesaId);
+
+            Object facultadObject = anforaService.mesaPorFacultad(mesaId);
+            String nombreFacultad = (String) facultadObject;
+            List<ConteoTotal> listConteo = conteoTotalService.findAll();
+            ConteoTotal conteoTotal = new ConteoTotal();
+
+            if (listConteo.size() == 0) {
+            
+            conteoTotal.setBlanco_total(cant_voto_blanco);
+            conteoTotal.setNulo_total(cant_voto_nulo);
+            conteoTotal.setVoto_valido_total(cant_voto_valido);
+            conteoTotal.setFacultad(nombreFacultad);
+            conteoTotalService.save(conteoTotal);
+
+            }else {
+
+					for (ConteoTotal conteoTotal2 : listConteo) {
+						if (nombreFacultad.equals(conteoTotal2.getFacultad())) {
+							conteoTotal = conteoTotal2;
+						}
+					}
+					for (ConteoTotal conteoTotal2 : listConteo) {
+
+						if (!nombreFacultad.equals(conteoTotal2.getFacultad())) {
+                            conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
+                            conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
+                            conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
+                            conteoTotalService.save(conteoTotal);
+						}
+					}
+
+				}
+           
+
             Anfora anfora = new Anfora();
             anfora.setCant_voto_blanco(cant_voto_blanco);
             anfora.setCant_voto_nulo(cant_voto_nulo);
             anfora.setCant_voto_valido(cant_voto_valido);
             anfora.setMesa(mesa);
+            anfora.setConteo_total(conteoTotal);
             anforaService.save(anfora);
-
-
+        
+            
 
               // Iterar sobre los parámetros de la solicitud
         Enumeration<String> parameterNames = request.getParameterNames();
@@ -143,6 +189,11 @@ public class anforaController {
                 if (paramName.startsWith("cantidadVotantes_")) {
                     detalleAnfora.setCant_votantes(Integer.parseInt(paramValue));
                 }
+                
+
+
+
+
 
                 // Guardar el DetalleAnfora en la base de datos
                 detalleAnforaService.save(detalleAnfora);

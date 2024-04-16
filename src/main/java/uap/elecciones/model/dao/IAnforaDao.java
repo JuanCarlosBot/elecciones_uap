@@ -20,4 +20,14 @@ public interface IAnforaDao extends CrudRepository<Anfora,Long>{
                "where m.id_mesa = ?1 and n.id_nivel = ?2", nativeQuery = true)
 List<Object[]> getDatosDeMesaYFrenteYNivelPorIdMesaYNivel(Long idMesa, Long idNivel);
 
+@Query(value = "select distinct fac.nombre_facultad  from mesa m \n" + //
+        "left join asignacion_habilitado ah on m.id_mesa = ah.id_mesa\n" + //
+        "left join votante_habilitado vh on ah.id_votante_habilitado = vh.id_votante_habilitado\n" + //
+        "left join estudiante est on vh.id_estudiante = est.id_estudiante\n" + //
+        "left join carrera_estudiante cares on cares.id_estudiante = est.id_estudiante\n" + //
+        "left join carrera car on car.id_carrera = cares.id_carrera\n" + //
+        "left join facultad fac on fac.id_facultad = car.id_facultad\n" + //
+        "where m.id_mesa = ?1", nativeQuery = true)
+Object mesaPorFacultad(Long idMesa);
+
 }

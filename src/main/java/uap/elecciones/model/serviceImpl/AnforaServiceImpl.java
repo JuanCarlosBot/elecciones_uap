@@ -40,4 +40,9 @@ public class AnforaServiceImpl implements IAnforaService{
     public List<Object[]> getDatosDeMesaYFrenteYNivelPorIdMesaYNivel(Long idMesa, Long idNivel) {
         return (List<Object[]>) anforaDao.getDatosDeMesaYFrenteYNivelPorIdMesaYNivel(idMesa, idNivel);
     }
+
+    @Override
+    public Object mesaPorFacultad(Long idMesa) {
+      return anforaDao.mesaPorFacultad(idMesa);
+    }
 }

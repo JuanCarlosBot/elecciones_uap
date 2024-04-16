@@ -37,6 +37,9 @@ public class ConteoTotal implements Serializable {
     @Column
     private double porcentaje_total;
 
+    @Column
+    private String facultad;
+
     @JsonIgnore
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "conteo_total", fetch = FetchType.LAZY)
 	private List<Anfora> anforas;

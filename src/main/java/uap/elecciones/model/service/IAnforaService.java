@@ -16,4 +16,6 @@ public interface IAnforaService {
 	public void delete(Long id);
 
 	List<Object[]> getDatosDeMesaYFrenteYNivelPorIdMesaYNivel(Long idMesa, Long idNivel);
+
+	public Object mesaPorFacultad(Long idMesa);
 }
