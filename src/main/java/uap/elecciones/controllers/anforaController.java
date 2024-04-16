@@ -90,29 +90,13 @@ public class anforaController {
 
          
 
-<<<<<<< HEAD
-            return "redirect:/admin/anfora_frente";
-        } else {
-            return "redirect:/login";
-        }
-    }
-
-    @RequestMapping(value = "/anfora_frente",method = RequestMethod.GET)
-    public String Vista_Anfora_frente(Model model,RedirectAttributes flash, HttpServletRequest request,@RequestParam(name = "succes",required = false)String succes){
-        if (request.getSession().getAttribute("usuario") != null) {
-            
-
-            if (succes != null) {
-                model.addAttribute("succes", succes);
-            }
-           
-=======
->>>>>>> a4ae20e (1263)
             return "Anfora/anfora_vista_frentes";
         } else {
             return "redirect:/login";
         }
     }
+
+ 
 
     @RequestMapping(value = "/anfora_frente",method = RequestMethod.POST)
     public String Vista_Anfora_frente(Model model,RedirectAttributes flash, HttpServletRequest request,@RequestParam(name = "succes",required = false)String succes,
