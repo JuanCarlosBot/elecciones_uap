@@ -267,7 +267,7 @@
                                             <div class="col-lg-8">
                                                 <label>Cantidad de Votantes</label>
                                             <input type="number"   th:name="'cantidadVotantes_' + ${frente[3]}"   >
-                                            <input type="hidden"   th:value="${frente[3]}" name="frenteId">
+                                            <input type="hidden"   th:value="${frente[3]}" th:name="'frenteId_' + ${frente[3]}">
                                             </div>
                                         </div>
         
