@@ -231,7 +231,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-3"></div>
-                        <form action="../../../../admin/anfora_form" method="post" id="adminpro-register-form" class="adminpro-form" >
+                        <form action="../../../../admin/anfora_frente" method="post" id="adminpro-register-form" class="adminpro-form" >
                             <div class="col-lg-6">
                                 <div class="login-bg">
                                     <div class="row">
@@ -251,36 +251,35 @@
                                         </div>
                                     </div>
                                   
+                                    <input type="hidden" th:value="${mesaId}" id="mesaId" name="mesaId">
+                                    <input type="hidden" name="cant_voto_nulo" th:value="${cant_voto_nulo}">
+                                    <input type="hidden" name="cant_voto_blanco" th:value="${cant_voto_blanco}">
+                                    <input type="hidden" name="cant_voto_valido" th:value="${cant_voto_valido}">
                                   
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p>Mesa </p>
+                                    <div th:each="frente : ${frentes}">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <div class="login-input-head">
+                                                    <p th:text="${frente[1]}"> </p>
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="col-lg-8">
+                                                <label>Cantidad de Votantes</label>
+                                            <input type="number"   th:name="'cantidadVotantes_' + ${frente[3]}"   >
+                                            <input type="hidden"   th:value="${frente[3]}" name="frenteId">
                                             </div>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <select name="mesa" style="width: 100%" id="s1" class="js-states form-control" required>
-                                                <option selected disabled hidden>Selecciona una Mesa</option>
-                                                <option th:each="frente : ${frentes}"  ></option>
-                                            </select>
-                                        </div>
+        
+                                        <br>
+                                        <br>
+       
+       
                                     </div>
                               
                                 
                            
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p>Cantidad de votos Validos </p>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="login-input-area">
-                                                <input type="text"  placeholder="Carnet de Identidad" required/>
-                                                <i class="fa fa-user login-user" th:text="${anforaId}"></i>
-                                            </div>
-                                        </div>
-                                    </div>
+                                  
                                     
                                     <div class="row">
                                         <div class="col-lg-4"></div>

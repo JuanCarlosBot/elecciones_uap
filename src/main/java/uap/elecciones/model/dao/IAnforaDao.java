@@ -11,7 +11,7 @@ import uap.elecciones.model.entity.Anfora;
 
 public interface IAnforaDao extends CrudRepository<Anfora,Long>{
     
-    @Query(value = "select m.nombre_mesa, f.nombre_frente, n.nombre_nivel " +
+    @Query(value = "select m.nombre_mesa, f.nombre_frente, n.nombre_nivel, f.id_frente " +
                "from mesa m " +
                "left join detalle_asignacion_mesa d on m.id_mesa = d.id_mesa " +
                "left join asignacion_eleccion ae on d.id_asignacion_eleccion = ae.id_asignacion_eleccion " +
