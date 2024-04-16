@@ -104,71 +104,65 @@ public class anforaController {
     }
 
     @RequestMapping(value = "/anfora_frente", method = RequestMethod.POST)
-    public String Vista_Anfora_frente(Model model, RedirectAttributes flash, HttpServletRequest request,
-            @RequestParam(name = "succes", required = false) String succes,
-            @RequestParam(name = "mesaId") Long mesaId,
-            @RequestParam("cant_voto_nulo") int cant_voto_nulo,
-            @RequestParam("cant_voto_blanco") int cant_voto_blanco,
-            @RequestParam("cant_voto_valido") int cant_voto_valido) {
-        if (request.getSession().getAttribute("usuario") != null) {
+public String Vista_Anfora_frente(Model model, RedirectAttributes flash, HttpServletRequest request,
+        @RequestParam(name = "succes", required = false) String succes,
+        @RequestParam(name = "mesaId") Long mesaId,
+        @RequestParam("cant_voto_nulo") int cant_voto_nulo,
+        @RequestParam("cant_voto_blanco") int cant_voto_blanco,
+        @RequestParam("cant_voto_valido") int cant_voto_valido) {
+    if (request.getSession().getAttribute("usuario") != null) {
 
-            if (succes != null) {
-                model.addAttribute("succes", succes);
+        if (succes != null) {
+            model.addAttribute("succes", succes);
+        }
+
+        Mesa mesa = mesaService.findOne(mesaId);
+
+        Object facultadObject = anforaService.mesaPorFacultad(mesaId);
+        String nombreFacultad = (String) facultadObject;
+        List<ConteoTotal> listConteo = conteoTotalService.findAll();
+        ConteoTotal conteoTotal = new ConteoTotal();
+       
+
+        if (listConteo.isEmpty()) {
+            conteoTotal.setBlanco_total(cant_voto_blanco);
+            conteoTotal.setNulo_total(cant_voto_nulo);
+            conteoTotal.setVoto_valido_total(cant_voto_valido);
+            conteoTotal.setFacultad(nombreFacultad);
+            conteoTotalService.save(conteoTotal);
+            System.out.println("entro en size 0");
+        } else {
+            for (ConteoTotal conteoTotal2 : listConteo) {
+                if (nombreFacultad.equals(conteoTotal2.getFacultad())) {
+                    conteoTotal = conteoTotal2;
+                    conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
+                    conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
+                    conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
+                    conteoTotal.setFacultad(nombreFacultad);
+                    conteoTotalService.save(conteoTotal);
+                    break;
+                }
             }
-
-            Mesa mesa = mesaService.findOne(mesaId);
-
-            Object facultadObject = anforaService.mesaPorFacultad(mesaId);
-            String nombreFacultad = (String) facultadObject;
-            List<ConteoTotal> listConteo = conteoTotalService.findAll();
-            ConteoTotal conteoTotal = new ConteoTotal();
-            VotoTotalFrente votoTotalFrente = new VotoTotalFrente();
-
-            if (listConteo.size() == 0) {
-
-                conteoTotal.setBlanco_total(cant_voto_blanco);
-                conteoTotal.setNulo_total(cant_voto_nulo);
-                conteoTotal.setVoto_valido_total(cant_voto_valido);
+            if (!nombreFacultad.equals(conteoTotal.getFacultad())) {
+                conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
+                conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
+                conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
                 conteoTotal.setFacultad(nombreFacultad);
                 conteoTotalService.save(conteoTotal);
-                System.out.println("entro en size 0");
-            } else {
-
-                for (ConteoTotal conteoTotal2 : listConteo) {
-                    if (nombreFacultad.equals(conteoTotal2.getFacultad())) {
-                        conteoTotal = conteoTotal2;
-                        conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
-                        conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
-                        conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
-                        conteoTotal.setFacultad(nombreFacultad);
-                        conteoTotalService.save(conteoTotal);
-                    }
-                }
-                for (ConteoTotal conteoTotal2 : listConteo) {
-
-                    if (!nombreFacultad.equals(conteoTotal2.getFacultad())) {
-                        conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
-                        conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
-                        conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
-                        conteoTotal.setFacultad(nombreFacultad);
-                        conteoTotalService.save(conteoTotal);
-                        System.out.println("No entro en el igual");
-                    }
-                }
-
+                System.out.println("No entro en el igual");
             }
+        }
 
-            Anfora anfora = new Anfora();
-            anfora.setCant_voto_blanco(cant_voto_blanco);
-            anfora.setCant_voto_nulo(cant_voto_nulo);
-            anfora.setCant_voto_valido(cant_voto_valido);
-            anfora.setMesa(mesa);
-            anfora.setConteo_total(conteoTotal);
-            anforaService.save(anfora);
+        Anfora anfora = new Anfora();
+        anfora.setCant_voto_blanco(cant_voto_blanco);
+        anfora.setCant_voto_nulo(cant_voto_nulo);
+        anfora.setCant_voto_valido(cant_voto_valido);
+        anfora.setMesa(mesa);
+        anfora.setConteo_total(conteoTotal);
+        anforaService.save(anfora);
 
-            
-            List<VotoTotalFrente> listVotosTotalFrente = votoTotalFrenteService.findAll();
-            // Iterar sobre los parámetros de la solicitud
+        List<VotoTotalFrente> listVotosTotalFrente = votoTotalFrenteService.findAll();
+        // Iterar sobre los parámetros de la solicitud
         Enumeration<String> parameterNames = request.getParameterNames();
         while (parameterNames.hasMoreElements()) {
             String paramName = parameterNames.nextElement();
@@ -199,6 +193,7 @@ public class anforaController {
                         votoTotalFrente2.setConteo_total(conteoTotal);
                         votoTotalFrente2.setFrente(frente);
                         votoTotalFrenteService.save(votoTotalFrente2);
+                        detalleAnfora.setVoto_total_frente(votoTotalFrente2);
                         existeVotoTotalFrente = true;
                         break; // Salir del bucle, ya se actualizó el registro
                     }
@@ -210,18 +205,21 @@ public class anforaController {
                     nuevoVotoTotalFrente.setFrente(frente);
                     nuevoVotoTotalFrente.setVoto_total_frente(detalleAnfora.getCant_votantes());
                     nuevoVotoTotalFrente.setConteo_total(conteoTotal);
+                 
                     votoTotalFrenteService.save(nuevoVotoTotalFrente);
+                    detalleAnfora.setVoto_total_frente(nuevoVotoTotalFrente);
+                   
                 }
 
                 // Guardar el DetalleAnfora en la base de datos
-                detalleAnfora.setVoto_total_frente(votoTotalFrente);
+               
                 detalleAnforaService.save(detalleAnfora);
             }
         }
 
-            return "redirect:/admin/inicio";
-        } else {
-            return "redirect:/login";
-        }
+        return "redirect:/admin/inicio";
+    } else {
+        return "redirect:/login";
     }
+}
 }
