@@ -47,4 +47,7 @@ public class Facultad implements Serializable {
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultad", fetch = FetchType.LAZY)
 	private List<Carrera> carreras;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "facultad", fetch = FetchType.LAZY)
+	private List<Mesa> mesas;
 }

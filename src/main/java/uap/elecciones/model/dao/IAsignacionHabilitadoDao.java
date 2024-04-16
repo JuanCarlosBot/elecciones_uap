@@ -9,7 +9,7 @@ import uap.elecciones.model.entity.AsignacionHabilitado;
 
 public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabilitado,Long>{
     
-    @Query(value = "SELECT f.nombre_facultad , c.nombre_carrera , p.nombres ,m.nombre_mesa ,ah.delegado "+
+    @Query(value = "SELECT f.nombre_facultad , c.nombre_carrera , p.nombres ,m.nombre_mesa ,ah.delegado, ah.id_asignacion_habilitado "+
     "FROM asignacion_habilitado ah "+
     "LEFT JOIN votante_habilitado vh ON	ah.id_votante_habilitado = vh.id_votante_habilitado "+
     "LEFT JOIN estudiante e ON vh.id_estudiante = e.id_estudiante "+

@@ -104,10 +104,9 @@ public class facultadController {
                 
             }
             System.out.println(vh.size());
-            // for (VotanteHabilitado v : vh) {
-            //     System.out.println(v.getEstado_mesa());
-            // }
+            
             model.addAttribute("carrera", vh);
+            model.addAttribute("mesas_asig", mesaService.lista_mesas_por_carrera(id_carrera));
             model.addAttribute("mesas", mesaService.findAll());
             model.addAttribute("id_fac", id_carrera);
             return "Facultad/lista_selec_estudiantes";

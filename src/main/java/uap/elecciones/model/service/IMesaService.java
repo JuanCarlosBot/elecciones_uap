@@ -12,4 +12,7 @@ public interface IMesaService {
 	public Mesa findOne(Long id);
 
 	public void delete(Long id);
+
+	public List<Object[]> lista_mesas_por_carrera(Long id_carrera);
+
 }

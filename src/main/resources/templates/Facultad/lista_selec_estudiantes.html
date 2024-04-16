@@ -278,7 +278,7 @@
                                             <select name="id_mesa" style="width: 100%" id="s1" class="js-states form-control"  required>
                                                 <option selected disable hidden ></option>
                                                 
-                                                <option th:each="m : ${mesas}" th:if="${m.estado != 'X' && m.estado != 'O'}" th:text="${m.nombre_mesa}"  th:value="${m.id_mesa}"> </option>
+                                                <option th:each="m : ${mesas}" th:if="${m.estado != 'X' && m.estado != 'O' && m.estado != 'OD'}" th:text="${m.nombre_mesa}"  th:value="${m.id_mesa}"> </option>
                                                
                                             </select>
                                         </div>
@@ -377,13 +377,32 @@
     <!-- Modal -->
     <div id="myModal" class="modal">
         <div class="modal-content">
-        <form action="" method="post">
+        <form th:action="@{/admin/form_sorteo}" method="post">
             <div class="modal-body">
                 <span class="close">&times;</span>
                 <p>
                 <h3>Realizar el Sorteo</h3>
                 </p>
-        
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="login-input-head">
+                            <p>Nro de Mesa </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <select name="id_mesa" style="width: 100%" id="s2" class="js-states form-control"  required>
+                                    <option selected disable hidden ></option>
+                                    
+                                    <option th:each="m : ${mesas_asig}" th:if="${m[2] != 'X' && m[2] != 'OD'}"  th:text="${m[1]}"  th:value="${m[0]}"> </option>
+                                   
+                                </select>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
                 <input type="hidden" name="ids_lista_asignados" id="ids_lista_asignados" value="">
                 <input type="hidden" id="id_car" name="id_car" th:value="${id_fac}">
 
@@ -439,12 +458,27 @@
                 var idsValue = JSON.stringify(ids); // Convertir la lista de IDs a una cadena JSON
                 $('#id_asignacion_habilitado').val(idsValue);
             });
+
+            var asignados = /*[[${list_asignados}]]*/ [];
+            console.log(asignados.length);
+            var id = [];
+            for (var i = 0; i < asignados.length; i++) {
+                id.push(asignados[i][5]); // Accede al índice 5 de cada elemento del array asignados
+                
+            }
+          
+            var idsValue = JSON.stringify(id); // Convertir la lista de IDs a una cadena JSON
+            $('#ids_lista_asignados').val(idsValue);
         });
     </script>
     
     <script>
         $("#s1").select2({
-         placeholder: "Seleccione Nacionalidad...",
+         placeholder: "Seleccione Nro Mesa...",
+         allowClear: true
+     });
+        $("#s2").select2({
+         placeholder: "Seleccione Nro Mesa...",
          allowClear: true
      });
      </script>
