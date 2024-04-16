@@ -335,7 +335,7 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr th:each="m, num : ${mesas}" th:if="${m.estado != 'X' && m.estado != 'O'}">
+                                                <tr th:each="m, num : ${mesas}" th:if="${m.estado != 'X' && m.estado != 'O' && m.estado != 'OD'}">
                                                     <td th:text="${num.count}">1</td>
                                                     <td th:text="${m.nombre_mesa}">Web Development</td>
                                                     <td th:text="${m.cant_votantes}">admin@uttara.com</td>
