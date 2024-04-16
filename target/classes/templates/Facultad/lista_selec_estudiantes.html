@@ -435,6 +435,7 @@
                 for (var i = 0; i < end && i < habilitados.length; i++) {
                     ids.push(habilitados[i].id_votante_habilitado);
                 }
+                console.log
                 var idsValue = JSON.stringify(ids); // Convertir la lista de IDs a una cadena JSON
                 $('#id_asignacion_habilitado').val(idsValue);
             });
