@@ -81,43 +81,28 @@ public class facultadController {
         }
     }
 
-    // @RequestMapping(value = "/seleccion_estudiantes/{id_facultad}",method = RequestMethod.GET)
-    // private String Lista_Seleccion_Estudiantes(Model model,RedirectAttributes flash,@PathVariable("id_facultad")Long id_facultad, HttpServletRequest request,@RequestParam(name = "succes",required = false)String succes){
-    //     if (request.getSession().getAttribute("usuario") != null) {
+    @RequestMapping(value = "/seleccion_est_carrera/{id_carrera}",method = RequestMethod.GET)
+    private String Lista_Seleccion_Estudiantes(Model model,RedirectAttributes flash,@PathVariable("id_carrera")Long id_carrera, HttpServletRequest request,@RequestParam(name = "succes",required = false)String succes){
+        if (request.getSession().getAttribute("usuario") != null) {
             
-    //         if (succes != null) {
-    //             model.addAttribute("succes", succes);
-    //         }
+            if (succes != null) {
+                model.addAttribute("succes", succes);
+            }
             
-    //         Facultad f = facultadService.findOne(id_facultad);
-
-    //         List <VotanteHabilitado> vhs = new ArrayList<>();
-    //         List <VotanteHabilitado> vhs2 = new ArrayList<>();
-      
-    //         for (Carrera c : f.getCarreras()) {
+            Carrera carrera = carreraService.findOne(id_carrera);
+            // List <VotanteHabilitado> vh = new ArrayList<>();
+            
+            // for (VotanteHabilitado votanteHabilitado : vh) {
                 
-    //             for (Estudiante e : c.getEstudiantes()) {
-    //                 if (e.getVotante_habilitado().getEstado_mesa().equals("M")) {
-    //                     vhs2.add(e.getVotante_habilitado());
-    //                 }else if (e.getVotante_habilitado().getEstado_mesa() == null){
-    //                     vhs.add(e.getVotante_habilitado());
-    //                 }
-                    
-    //             }
-    //         }
-            
-    //         Collections.sort(vhs, Comparator.comparing(VotanteHabilitado -> VotanteHabilitado.getEstudiante().getPersona().getApellidos()));
-        
-            
-    //         model.addAttribute("habilitados_fac", vhs);
-    //         model.addAttribute("habilitados_fac2", vhs2);
-    //         model.addAttribute("mesas", mesaService.findAll());
-    //         model.addAttribute("id_fac", id_facultad);
-    //         return "Facultad/lista_selec_estudiantes";
-    //     } else {
-    //         return "redirect:/login";
-    //     }
-    // }
+            // }
+            model.addAttribute("carrera", carrera);
+            model.addAttribute("mesas", mesaService.findAll());
+            model.addAttribute("id_fac", id_carrera);
+            return "Facultad/lista_selec_estudiantes";
+        } else {
+            return "redirect:/login";
+        }
+    }
 
     @RequestMapping(value = "/seleccion_estudiantes/{id_facultad}",method = RequestMethod.GET)
     public String lista_carreras_por_facultad(Model model, RedirectAttributes flash,
@@ -142,7 +127,7 @@ public class facultadController {
 
     @PostMapping(value = "/asignacion_habilitado_post")
     public String asignacion_habilitado_post(Model model,RedirectAttributes flash, HttpServletRequest request,
-    @RequestParam(name = "id_fac" ,required = false)Long id_fac,
+    @RequestParam(name = "id_car" ,required = false)Long id_car,
     @RequestParam(name = "num_1" ,required = false)Integer num1,
     @RequestParam(name = "id_asignacion_habilitado", required = false) String id_asignacion_habilitadoStr,
     @RequestParam(name = "id_mesa",required = false)Long id_mesa){
@@ -171,7 +156,7 @@ public class facultadController {
                 }
             }
             
-            return "redirect:/admin/seleccion_estudiantes/"+id_fac;
+            return "redirect:/admin/seleccion_est_carrera/"+id_car;
         } else {
             return "redirect:/login";
         }
