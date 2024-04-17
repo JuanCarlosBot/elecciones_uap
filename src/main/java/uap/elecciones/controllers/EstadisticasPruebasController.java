@@ -46,6 +46,9 @@ public class EstadisticasPruebasController {
             @RequestParam(name = "succes", required = false) String succes) {
         if (request.getSession().getAttribute("usuario") != null) {
 
+
+
+
             List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 3L, 1L);
             String[] frentes = new String[listaFrentes.size()+2];
             String[] colores = new String[listaFrentes.size()+2];
@@ -58,17 +61,23 @@ public class EstadisticasPruebasController {
 
             frentes[listaFrentes.size()] = "Blancos";
             frentes[listaFrentes.size()+1] = "Nulos";
-            colores[listaFrentes.size()] = "#33FFFC";
-            colores[listaFrentes.size()+1] = "#F0FF33";
+            colores[listaFrentes.size()] = "#fff4ea";
+            colores[listaFrentes.size()+1] = "#fec2ff";
 
 
-            int[] datos = new int[5];
+
+            int[] datos = new int[4];
 
             datos[0] = 2000;
             datos[1] = 3000;
-            datos[2] = 3000;
-            datos[3] = 1000;
-            datos[4] = 3000;
+            datos[2] = 100;
+            datos[3] = 100;
+            
+
+
+System.out.println("++++++++++hola++++++++++++++++++++++");
+
+         
 
 
             model.addAttribute("datos", datos);

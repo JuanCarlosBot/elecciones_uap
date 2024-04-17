@@ -35,4 +35,7 @@ public class Nivel implements Serializable{
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "nivel", fetch = FetchType.LAZY)
 	private List<AsignacionEleccion> asignacion_eleccion;
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "nivel", fetch = FetchType.LAZY)
+	private List<ConteoTotal> conteo_totales;
 }

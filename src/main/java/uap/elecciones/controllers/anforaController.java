@@ -91,6 +91,7 @@ public class anforaController {
 
             List<Object[]> frentes = anforaService.getDatosDeMesaYFrenteYNivelPorIdMesaYNivel(id_mesa, id_nivel);
 
+            model.addAttribute("id_nivel", id_nivel);
             model.addAttribute("frentes", frentes);
             model.addAttribute("mesaId", id_mesa);
             model.addAttribute("cant_voto_nulo", cant_voto_nulo);
@@ -107,6 +108,7 @@ public class anforaController {
 public String Vista_Anfora_frente(Model model, RedirectAttributes flash, HttpServletRequest request,
         @RequestParam(name = "succes", required = false) String succes,
         @RequestParam(name = "mesaId") Long mesaId,
+        @RequestParam(name = "id_nivel") Long id_nivel,
         @RequestParam("cant_voto_nulo") int cant_voto_nulo,
         @RequestParam("cant_voto_blanco") int cant_voto_blanco,
         @RequestParam("cant_voto_valido") int cant_voto_valido) {
@@ -120,37 +122,90 @@ public String Vista_Anfora_frente(Model model, RedirectAttributes flash, HttpSer
 
         Object facultadObject = anforaService.mesaPorFacultad(mesaId);
         String nombreFacultad = (String) facultadObject;
+        String nombreFull = "FULL";
         List<ConteoTotal> listConteo = conteoTotalService.findAll();
         ConteoTotal conteoTotal = new ConteoTotal();
        
-
+        Nivel n = nivelService.findOne(id_nivel);
         if (listConteo.isEmpty()) {
             conteoTotal.setBlanco_total(cant_voto_blanco);
             conteoTotal.setNulo_total(cant_voto_nulo);
             conteoTotal.setVoto_valido_total(cant_voto_valido);
             conteoTotal.setFacultad(nombreFacultad);
+            conteoTotal.setNivel(n);
             conteoTotalService.save(conteoTotal);
             System.out.println("entro en size 0");
         } else {
             for (ConteoTotal conteoTotal2 : listConteo) {
-                if (nombreFacultad.equals(conteoTotal2.getFacultad())) {
-                    conteoTotal = conteoTotal2;
+                System.out.println(n.getId_nivel()+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                if (n.getId_nivel() == 3) {
+                    System.out.println(n.getId_nivel()+"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+                    if (nombreFull.equals(conteoTotal2.getFacultad())) {
+                        conteoTotal = conteoTotal2;
+                        conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
+                        conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
+                        conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
+                        conteoTotal.setFacultad("FULL");
+                        conteoTotal.setNivel(n);
+                        conteoTotalService.save(conteoTotal);
+                        break;
+                    }
+                    if (nombreFull.equals(conteoTotal2.getFacultad()) ) {
+                        conteoTotal = conteoTotal2;
+                        conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
+                        conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
+                        conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
+                        conteoTotal.setFacultad("FULL");
+                        conteoTotal.setNivel(n);
+                        conteoTotalService.save(conteoTotal);
+                        break;
+                    }
+                }else{
+                    if (nombreFacultad.equals(conteoTotal2.getFacultad())) {
+                        conteoTotal = conteoTotal2;
+                        conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
+                        conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
+                        conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
+                        conteoTotal.setFacultad(nombreFacultad);
+                        conteoTotal.setNivel(n);
+                        conteoTotalService.save(conteoTotal);
+                        break;
+                    }
+                    if (nombreFacultad.equals(conteoTotal2.getFacultad()) ) {
+                        conteoTotal = conteoTotal2;
+                        conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
+                        conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
+                        conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
+                        conteoTotal.setFacultad(nombreFacultad);
+                        conteoTotal.setNivel(n);
+                        conteoTotalService.save(conteoTotal);
+                        break;
+                    }
+                }
+               
+            }
+            if (n.getId_nivel() == 3) {
+                if (!nombreFull.equals(conteoTotal.getFacultad())) {
+                    conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
+                    conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
+                    conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
+                    conteoTotal.setFacultad("FULL");
+                    conteoTotal.setNivel(n);
+                    conteoTotalService.save(conteoTotal);
+                    System.out.println("No entro en el igual");
+                }
+            }else{
+                if (!nombreFacultad.equals(conteoTotal.getFacultad())) {
                     conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
                     conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
                     conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
                     conteoTotal.setFacultad(nombreFacultad);
+                    conteoTotal.setNivel(n);
                     conteoTotalService.save(conteoTotal);
-                    break;
+                    System.out.println("No entro en el igual");
                 }
             }
-            if (!nombreFacultad.equals(conteoTotal.getFacultad())) {
-                conteoTotal.setBlanco_total(conteoTotal.getBlanco_total() + cant_voto_blanco);
-                conteoTotal.setNulo_total(conteoTotal.getNulo_total() + cant_voto_nulo);
-                conteoTotal.setVoto_valido_total(conteoTotal.getVoto_valido_total() + cant_voto_valido);
-                conteoTotal.setFacultad(nombreFacultad);
-                conteoTotalService.save(conteoTotal);
-                System.out.println("No entro en el igual");
-            }
+           
         }
 
         Anfora anfora = new Anfora();
