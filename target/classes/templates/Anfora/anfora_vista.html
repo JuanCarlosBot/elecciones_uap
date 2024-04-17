@@ -285,24 +285,35 @@
                                         function mostrarImputs() {
                                             var option_value1 = document.getElementById("s1").value;
                                             var option_value2 = document.getElementById("s2").value;
-                                            //alert(option_value1);
-                                            //alert(option_value2);
-                                            // Realizar una solicitud AJAX
+                                    
+                                            // Realizar la primera solicitud AJAX para obtener detalles del anfora
                                             $.ajax({
-                                                type: "GET", // Puedes ajustar el método según tus necesidades
-                                                url: "/admin/formDetalleAnfora", // La URL de tu controlador Spring
-                                                data: { 
-                                                    mesaId: option_value1, 
-                                                    nivelId: option_value2 }, // Datos que enviarás al controlador
-                                                success: function(response) {
-                                                    // Manejar la respuesta aquí si es necesario
-                                                    $('#replace_div').html(response); // Actualizar el contenido de un div con la respuesta del servidor
-                                                    $('#datos').html(' >> Mesa '+option_value1);
+                                                type: "GET",
+                                                url: "/admin/formDetalleAnfora",
+                                                data: {
+                                                    mesaId: option_value1,
+                                                    nivelId: option_value2
                                                 },
-                                                
+                                                success: function(response) {
+                                                    $('#replace_div').html(response);
+                                                },
                                                 error: function(xhr, status, error) {
-                                                    // Manejar errores si es necesario
-                                                    console.error(xhr.responseText);
+                                                    console.error("Error en la primera solicitud AJAX: " + xhr.responseText);
+                                                }
+                                            });
+                                    
+                                            // Realizar la segunda solicitud AJAX para obtener la cantidad de votantes
+                                            $.ajax({
+                                                type: "GET",
+                                                url: "/ruta/hacia/tu/controlador",
+                                                data: {
+                                                    mesaId: option_value1
+                                                },
+                                                success: function(response) {
+                                                    $('.votosDetAnfora').val(response);
+                                                },
+                                                error: function(xhr, status, error) {
+                                                    console.error("Error en la segunda solicitud AJAX: " + xhr.responseText);
                                                 }
                                             });
                                         }
