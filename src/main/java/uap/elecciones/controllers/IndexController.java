@@ -46,7 +46,6 @@ public class IndexController {
     @RequestMapping(value = "/mesa_asignada/{ru}",method = RequestMethod.GET)
     public String mesa_asignada_form(Model model,@PathVariable(name = "ru",required = false)String ru, RedirectAttributes flash ){
 
-        
         try {
             if (ru != null) {
                 
