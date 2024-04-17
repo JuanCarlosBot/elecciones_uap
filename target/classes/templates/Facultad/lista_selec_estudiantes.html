@@ -342,6 +342,7 @@
                                                     <th >ID</th>
                                                     <th >Facultad</th>
                                                     <th >Carrera</th>
+                                                    <th >R.U</th>
                                                     <th >Apellido y Nombres</th>
                                                     <th >Mesa</th>
                                                     <th >Delegados</th>
@@ -352,6 +353,7 @@
                                                     <td th:text="${num.index + 1}"></td>
                                                     <td th:text="${asignado[0]}"></td>
                                                     <td th:text="${asignado[1]}"></td>
+                                                    <td th:text="${asignado[6]}"></td>
                                                     <td th:text="${asignado[2]}"></td>
                                                     <td th:text="${asignado[3]}"></td>
                                                     <td th:text="${asignado[4]}"></td>
@@ -460,7 +462,7 @@
             });
 
             var asignados = /*[[${list_asignados}]]*/ [];
-            console.log(asignados.length);
+            console.log(asignados);
             var id = [];
             for (var i = 0; i < asignados.length; i++) {
                 id.push(asignados[i][5]); // Accede al índice 5 de cada elemento del array asignados
