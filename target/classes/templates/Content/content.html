@@ -11,9 +11,22 @@
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12">
+                    
+                    <center>
+                        <p>
+                        <h1 class="message-mg-rt" style="font-size: 3em;" th:text="${estudiante[4]}"></h1>
+                        </p>
+                    
+                    </center>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-12">
                     <label for="">Facultad</label>
                     <div class="login-input-area register-mg-rt">
-                        <input class="form-control" type="text" th:value="${estudiante[0]}" disabled/>
+                        <input class="form-control" type="text"  th:value="${estudiante[0]}" disabled/>
                     </div>
                 </div>
             </div>
@@ -41,19 +54,9 @@
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12">
-                    <label for="">Apellido y Nombres</label>
+                    <label for="">Apellidos y Nombres</label>
                     <div class="login-input-area register-mg-rt">
                         <input class="form-control" type="text" th:value="${estudiante[3]}" disabled/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-12">
-                    <label for="">Mesa</label>
-                    <div class="login-input-area register-mg-rt">
-                        <input class="form-control" type="text" th:value="${estudiante[4]}" disabled/>
                     </div>
                 </div>
             </div>
@@ -64,7 +67,7 @@
                     <label for="">Delegado</label>
                     <div class="form-group-inner input-with-success">
                         <input th:if="${estudiante[5] != null}" class="form-control" type="text" th:value="${estudiante[5]}" disabled/>
-                        <input th:if="${estudiante[5] == null}" class="form-control" type="text" th:value="${''}" disabled/>
+                        <input th:if="${estudiante[5] == null}" class="form-control" type="text" th:value="${'No Delegado'}" disabled/>
                     </div>
                 </div>
             </div>
@@ -72,8 +75,8 @@
     </div>
 
     <div th:if="${succes != null}" th:fragment="alert_modal"  class="alert alert-danger alert-mg-b alert-st-four" role="alert">
-        <span class="adminpro-icon adminpro-danger-error admin-check-pro"></span>
-        <h4 class="message-mg-rt" th:text="${succes}"><strong>Alerta!</strong> Change a few things up and try submitting again.</h4>
+    
+        <h4 class="message-mg-rt" th:text="${succes}"></h4>
     </div>
     
 </body>

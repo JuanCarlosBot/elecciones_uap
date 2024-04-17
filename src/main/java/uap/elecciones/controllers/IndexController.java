@@ -29,7 +29,7 @@ public class IndexController {
     public String vista_delegados(Model model){
 
         model.addAttribute("delegados", asignacionHabilitadoService.lista_asignados_delegados());
-
+        
         return "Publico/lista_delegados";
     }
 
