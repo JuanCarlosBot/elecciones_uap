@@ -1,6 +1,7 @@
 package uap.elecciones.model.serviceImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,12 @@ public class VotoTotalFrenteServiceImpl implements IVotoTotalFrenteService{
     @Override
     public void delete(Long id) {
         votoTotalFrenteDao.deleteById(id);
+    }
+
+    @Override
+    public List<Map<Object, String>> votoTotalFul(Long idNivel) {
+        // TODO Auto-generated method stub
+        return votoTotalFrenteDao.votoTotalFul(idNivel);
     }
     
 }

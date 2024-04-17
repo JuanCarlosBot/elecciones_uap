@@ -34,4 +34,10 @@ public ConteoTotal findOne(Long id) {
 public void delete(Long id) {
     conteoTotalDao.deleteById(id);
 }
+
+@Override
+public ConteoTotal conteoTotalBlacoNulosFul() {
+    // TODO Auto-generated method stub
+    return conteoTotalDao.conteoTotalBlacoNulosFul();
+}
 }
