@@ -17,5 +17,6 @@ public interface IAsignacionHabilitadoService {
 
 	List<Object[]> lista_asignados_delegados();
 
+	Object asignado_habilitado(String ru);
 
 }
