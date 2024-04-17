@@ -8,31 +8,6 @@
 <body>
     
     <div th:fragment="content" >
-        
-        <!-- <table class="table border-table">
-            <thead>
-                <tr>
-                    <th >Facultad</th>
-                    <th >Carrera</th>
-                    <th >R.U</th>
-                    <th >Apellido y Nombres</th>
-                    <th >Mesa</th>
-                    <th >Delegados</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td th:text="${estudiante[0]}"></td>
-                    <td th:text="${estudiante[1]}"></td>
-                    <td th:text="${estudiante[2]}"></td>
-                    <td th:text="${estudiante[3]}"></td>
-                    <td th:text="${estudiante[4]}"></td>
-                    <td th:if="${estudiante[5] != null}" th:text="${estudiante[5]}"></td>
-                    <td th:if="${estudiante[5] == null}"> Votante</td>
-                </tr>
-            </tbody>
-        </table> -->
-        
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-12">
@@ -94,7 +69,11 @@
                 </div>
             </div>
         </div>
-        
+    </div>
+
+    <div th:if="${succes != null}" th:fragment="alert_modal"  class="alert alert-danger alert-mg-b alert-st-four" role="alert">
+        <span class="adminpro-icon adminpro-danger-error admin-check-pro"></span>
+        <h4 class="message-mg-rt" th:text="${succes}"><strong>Alerta!</strong> Change a few things up and try submitting again.</h4>
     </div>
     
 </body>
