@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import uap.elecciones.model.entity.Anfora;
+import uap.elecciones.model.entity.Frente;
 
 
 
@@ -29,5 +30,7 @@ List<Object[]> getDatosDeMesaYFrenteYNivelPorIdMesaYNivel(Long idMesa, Long idNi
         "left join facultad fac on fac.id_facultad = car.id_facultad\n" + //
         "where m.id_mesa = ?1", nativeQuery = true)
 Object mesaPorFacultad(Long idMesa);
+
+
 
 }

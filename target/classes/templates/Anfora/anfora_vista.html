@@ -231,7 +231,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-3"></div>
-                        <form action="../../../../admin/anfora_form" method="post" id="adminpro-register-form" class="adminpro-form" th:object="${anfora}">
+                        <form th:action="@{/admin/anfora_form_prueba}" method="post" id="adminpro-register-form" class="adminpro-form" th:object="${anfora}">
                             
                             <div class="col-lg-6">
                                 <div class="login-bg">
@@ -247,7 +247,7 @@
                                     <div class="row">
                                         <div class="col-lg-12">
                                             <div class="login-title">
-                                                <h1>Registro Anfora</h1>
+                                                <h1>Registro Anfora <strong id="datos"></strong></h1>
                                             </div>
                                         </div>
                                     </div>
@@ -260,8 +260,9 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <select name="mesa" style="width: 100%" id="s1" class="js-states form-control" required>
-                                                <option selected disabled hidden>Selecciona una Mesa</option>
+                                            <select name="mesa" style="width: 100%" id="s1" class="form-control" required
+                                            onchange="mostrarImputs()">
+                                                <option selected disabled></option>
                                                 <option th:each="mesa : ${mesas}" th:value="${mesa.id_mesa}" th:text="${mesa.nombre_mesa}"></option>
                                             </select>
                                         </div>
@@ -273,12 +274,39 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <select name="nivel" style="width: 100%" id="s2" class="js-states form-control" required>
-                                                <option selected disabled hidden>Selecciona un Nivel</option>
+                                            <select name="nivel" style="width: 100%" id="s2" class="form-control" required
+                                            onchange="mostrarImputs()">
+                                                <option selected disabled></option>
                                                 <option th:each="nivel : ${niveles}" th:value="${nivel.id_nivel}" th:text="${nivel.nombre_nivel}"></option>
                                             </select>
                                         </div>
                                     </div>
+                                    <script>
+                                        function mostrarImputs() {
+                                            var option_value1 = document.getElementById("s1").value;
+                                            var option_value2 = document.getElementById("s2").value;
+                                            //alert(option_value1);
+                                            //alert(option_value2);
+                                            // Realizar una solicitud AJAX
+                                            $.ajax({
+                                                type: "GET", // Puedes ajustar el método según tus necesidades
+                                                url: "/admin/formDetalleAnfora", // La URL de tu controlador Spring
+                                                data: { 
+                                                    mesaId: option_value1, 
+                                                    nivelId: option_value2 }, // Datos que enviarás al controlador
+                                                success: function(response) {
+                                                    // Manejar la respuesta aquí si es necesario
+                                                    $('#replace_div').html(response); // Actualizar el contenido de un div con la respuesta del servidor
+                                                    $('#datos').html(' >> Mesa '+option_value1);
+                                                },
+                                                
+                                                error: function(xhr, status, error) {
+                                                    // Manejar errores si es necesario
+                                                    console.error(xhr.responseText);
+                                                }
+                                            });
+                                        }
+                                    </script>
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="login-input-head">
@@ -317,8 +345,8 @@
                                                 <i class="fa fa-user login-user"></i>
                                             </div>
                                         </div>
-                                    </div>
-                                    
+                                    </div><br>
+                                    <div class="col-md-12" id="replace_div"></div>
                                     <div class="row">
                                         <div class="col-lg-4"></div>
                                         <div class="col-lg-8">
@@ -327,6 +355,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </div>
                             </div>
                         </form>

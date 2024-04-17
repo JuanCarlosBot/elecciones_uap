@@ -18,4 +18,5 @@ public interface IAnforaService {
 	List<Object[]> getDatosDeMesaYFrenteYNivelPorIdMesaYNivel(Long idMesa, Long idNivel);
 
 	public Object mesaPorFacultad(Long idMesa);
+
 }

@@ -31,6 +31,8 @@ import uap.elecciones.model.service.IFrenteService;
 import uap.elecciones.model.service.IMesaService;
 import uap.elecciones.model.service.INivelService;
 import uap.elecciones.model.service.IVotoTotalFrenteService;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -73,6 +75,39 @@ public class anforaController {
             model.addAttribute("niveles", niveles);
 
             return "Anfora/anfora_vista";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+    @GetMapping("/formDetalleAnfora")
+    public String formDetalleAnfora(@RequestParam("mesaId") Long id_mesa, @RequestParam("nivelId") Long id_nivel, Model model) {
+        
+        List<Object[]> frentes = frenteService.frentesPorMesaYNivel(id_mesa, id_nivel);
+        for (Object[] frente : frentes) {
+            System.out.println("frentes_____  "+frente[2]);
+        }
+        model.addAttribute("frentes", frentes);
+        return "content :: content1";
+    }
+    
+    @RequestMapping(value = "/anfora_form_prueba", method = RequestMethod.POST)
+    private String anfora_form_prueba(
+        @RequestParam("mesa") Long id_mesa,
+        @RequestParam("nivel") Long id_nivel,
+        @RequestParam("id_f") Long[] id_frente,
+        @RequestParam("cant_voto_nulo") int cant_voto_nulo,
+        @RequestParam("cant_voto_blanco") int cant_voto_blanco,
+        @RequestParam("cant_voto_valido") int cant_voto_valido,
+        @RequestParam("votosDetAnfora") int[] votoFrentes,
+        RedirectAttributes flash, HttpServletRequest request){
+        if (request.getSession().getAttribute("usuario") != null) {
+
+
+            System.out.println(id_mesa+ " "+id_nivel+" "+id_frente.length+" "+cant_voto_nulo+" "+cant_voto_blanco+" "+cant_voto_valido+" "+votoFrentes.length);
+            
+        
+            return "redirect:/admin/anfora";
         } else {
             return "redirect:/login";
         }

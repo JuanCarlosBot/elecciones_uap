@@ -12,4 +12,6 @@ public interface IFrenteService {
 	public Frente findOne(Long id);
 
 	public void delete(Long id);
+
+	public List<Object[]> frentesPorMesaYNivel(Long id_mesa, Long id_nivel);
 }

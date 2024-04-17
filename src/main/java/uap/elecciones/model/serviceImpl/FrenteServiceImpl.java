@@ -38,5 +38,10 @@ public class FrenteServiceImpl implements IFrenteService{
         // TODO Auto-generated method stub
         frenteDao.deleteById(id);
     }
-    
+
+    @Override
+    public List<Object[]> frentesPorMesaYNivel(Long id_mesa, Long id_nivel) {
+        return (List<Object[]>) frenteDao.frentesPorMesaYNivel(id_mesa, id_nivel);
+    }
+
 }

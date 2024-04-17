@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.IAnforaDao;
 import uap.elecciones.model.entity.Anfora;
-
 import uap.elecciones.model.service.IAnforaService;
 
 @Service
@@ -45,4 +44,5 @@ public class AnforaServiceImpl implements IAnforaService{
     public Object mesaPorFacultad(Long idMesa) {
       return anforaDao.mesaPorFacultad(idMesa);
     }
+
 }
