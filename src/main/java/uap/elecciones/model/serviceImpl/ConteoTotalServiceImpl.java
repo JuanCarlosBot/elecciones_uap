@@ -36,8 +36,10 @@ public void delete(Long id) {
 }
 
 @Override
-public ConteoTotal conteoTotalBlacoNulosFul() {
+public ConteoTotal conteoTotalBlacoNulosFul(Long idNivel) {
     // TODO Auto-generated method stub
-    return conteoTotalDao.conteoTotalBlacoNulosFul();
+    return conteoTotalDao.conteoTotalBlacoNulosFul(idNivel);
 }
+
+
 }

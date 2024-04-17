@@ -52,8 +52,8 @@ public class EstadisticasPruebasController {
 
 
 
-    @RequestMapping(value = "/estadisticaPrueba", method = RequestMethod.GET)
-    private String Lista_Facultades(Model model, RedirectAttributes flash, HttpServletRequest request,
+    @RequestMapping(value = "/estadisticaFUL", method = RequestMethod.GET)
+    private String estadisticaFUL(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
         if (request.getSession().getAttribute("usuario") != null) {
 
@@ -94,29 +94,520 @@ public class EstadisticasPruebasController {
           
             }
  
-            ConteoTotal conteoVotosBlancosNulos= conteoTotalService.conteoTotalBlacoNulosFul();
+            ConteoTotal conteoVotosBlancosNulos= conteoTotalService.conteoTotalBlacoNulosFul(3L);
 
             //System.out.println(conteoVotosBlancosNulos.getBlanco_total());
 
-          
-            datos[2] = conteoVotosBlancosNulos.getBlanco_total();
-            datos[3] = conteoVotosBlancosNulos.getNulo_total();
+            if (conteoVotosBlancosNulos != null) {
+                
+
+                datos[2] = conteoVotosBlancosNulos.getBlanco_total();
+                datos[3] = conteoVotosBlancosNulos.getNulo_total();
+                // Lógica adicional aquí
+            } else {
+                // Inicializar conteoVotosBlancosNulos si es necesario
+                conteoVotosBlancosNulos = new ConteoTotal(); // O cualquier otra forma de inicialización que sea necesaria
+
+                datos[3] = 0;
+                datos[3] = 0;
+            }
+
+
+
+
+
+
+
+
+
+
+
+
+
+           // datos[2] = conteoVotosBlancosNulos.getBlanco_total();
+            //datos[3] = conteoVotosBlancosNulos.getNulo_total();
            
-            
-
-
-
-
-         
-
-
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
-            return "estadisticaPruebas";
+            return "Estadistica/estadisticaFUL";
         } else {
             return "redirect:/login";
         }
     }
+
+
+    @RequestMapping(value = "/estadisticaACJYP", method = RequestMethod.GET)
+    private String estadisticaACJYP(Model model, RedirectAttributes flash, HttpServletRequest request,
+            @RequestParam(name = "succes", required = false) String succes) {
+        if (request.getSession().getAttribute("usuario") != null) {
+
+
+
+
+            List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 4L, 3L);
+            String[] frentes = new String[listaFrentes.size()+2];
+            String[] colores = new String[listaFrentes.size()+2];
+
+
+            for (int i = 0; i < listaFrentes.size(); i++) {
+                frentes[i] = listaFrentes.get(i).get("nombre_frente") +" "+ listaFrentes.get(i).get("sigla");
+                colores[i] = listaFrentes.get(i).get("color");
+            }
+
+            frentes[listaFrentes.size()] = "Blancos";
+            frentes[listaFrentes.size()+1] = "Nulos";
+            colores[listaFrentes.size()] = "#fff4ea";
+            colores[listaFrentes.size()+1] = "#fec2ff";
+
+            System.out.println("ELECCIONES FUL");
+           List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(4L);
+
+           
+
+           System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            
+            int [] datos = new int[listaFrentes.size()+2];
+
+
+            for (int i = 0; i < votosFrentesTotal.size(); i++) {
+
+
+                System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
+
+                   datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+          
+            }
+ 
+            ConteoTotal conteoVotosBlancosNulos= conteoTotalService.conteoTotalBlacoNulosFul(4L);
+
+            //System.out.println(conteoVotosBlancosNulos.getBlanco_total());
+
+            if (conteoVotosBlancosNulos != null) {
+                
+
+                datos[2] = conteoVotosBlancosNulos.getBlanco_total();
+                datos[3] = conteoVotosBlancosNulos.getNulo_total();
+                // Lógica adicional aquí
+            } else {
+                // Inicializar conteoVotosBlancosNulos si es necesario
+                conteoVotosBlancosNulos = new ConteoTotal(); // O cualquier otra forma de inicialización que sea necesaria
+
+                datos[2] = 0;
+                datos[3] = 0;
+            }
+
+          
+            //datos[2] = conteoVotosBlancosNulos.getBlanco_total();
+            //datos[3] = conteoVotosBlancosNulos.getNulo_total();
+           
+            model.addAttribute("datos", datos);
+            model.addAttribute("frentes", frentes);
+            model.addAttribute("colores", colores);
+            return "Estadistica/estadisticaACJYP";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+
+
+    @RequestMapping(value = "/estadisticaACSYH", method = RequestMethod.GET)
+    private String estadisticaACSYH(Model model, RedirectAttributes flash, HttpServletRequest request,
+            @RequestParam(name = "succes", required = false) String succes) {
+        if (request.getSession().getAttribute("usuario") != null) {
+            List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 8L, 3L);
+          
+          System.out.println("EL TAMAÑO DE LA LISTA ES : "+listaFrentes.size());
+          
+            String[] frentes = new String[listaFrentes.size()+2];
+            String[] colores = new String[listaFrentes.size()+2];
+
+
+            for (int i = 0; i < listaFrentes.size(); i++) {
+                frentes[i] = listaFrentes.get(i).get("nombre_frente") +" "+ listaFrentes.get(i).get("sigla");
+                colores[i] = listaFrentes.get(i).get("color");
+            }
+
+            frentes[listaFrentes.size()] = "Blancos";
+            frentes[listaFrentes.size()+1] = "Nulos";
+            
+            colores[listaFrentes.size()+1] = "#fec2ff";
+
+            System.out.println("ELECCIONES FUL");
+           List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(8L);
+
+           
+
+           System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            
+            int [] datos = new int[listaFrentes.size()+2];
+
+
+            for (int i = 0; i < votosFrentesTotal.size(); i++) {
+
+
+                System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
+
+                   datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+          
+            }
+ 
+            ConteoTotal conteoVotosBlancosNulos= conteoTotalService.conteoTotalBlacoNulosFul(8L);
+
+            //System.out.println(conteoVotosBlancosNulos.getBlanco_total());
+
+          
+
+            if (conteoVotosBlancosNulos != null) {
+                
+
+                datos[1] = conteoVotosBlancosNulos.getBlanco_total();
+                datos[2] = conteoVotosBlancosNulos.getNulo_total();
+                // Lógica adicional aquí
+            } else {
+                // Inicializar conteoVotosBlancosNulos si es necesario
+                conteoVotosBlancosNulos = new ConteoTotal(); // O cualquier otra forma de inicialización que sea necesaria
+
+                datos[1] = 0;
+                datos[2] = 0;
+            }
+
+           // datos[1] = conteoVotosBlancosNulos.getBlanco_total();
+           // datos[2] = conteoVotosBlancosNulos.getNulo_total();
+           
+            model.addAttribute("datos", datos);
+            model.addAttribute("frentes", frentes);
+            model.addAttribute("colores", colores);
+            return "Estadistica/estadisticaACSYH";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+
+
+    @RequestMapping(value = "/estadisticaACBN", method = RequestMethod.GET)
+    private String estadisticaACBN(Model model, RedirectAttributes flash, HttpServletRequest request,
+            @RequestParam(name = "succes", required = false) String succes) {
+        if (request.getSession().getAttribute("usuario") != null) {
+            List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 5L, 3L);
+            String[] frentes = new String[listaFrentes.size()+2];
+            String[] colores = new String[listaFrentes.size()+2];
+
+
+            for (int i = 0; i < listaFrentes.size(); i++) {
+                frentes[i] = listaFrentes.get(i).get("nombre_frente") +" "+ listaFrentes.get(i).get("sigla");
+                colores[i] = listaFrentes.get(i).get("color");
+            }
+
+            frentes[listaFrentes.size()] = "Blancos";
+            frentes[listaFrentes.size()+1] = "Nulos";
+            colores[listaFrentes.size()] = "#fff4ea";
+            colores[listaFrentes.size()+1] = "#fec2ff";
+
+            System.out.println("ELECCIONES FUL");
+           List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(5L);
+
+           
+
+           System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            
+            int [] datos = new int[listaFrentes.size()+2];
+
+
+            for (int i = 0; i < votosFrentesTotal.size(); i++) {
+
+
+                System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
+
+                   datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+          
+            }
+ 
+            ConteoTotal conteoVotosBlancosNulos= conteoTotalService.conteoTotalBlacoNulosFul(5L);
+
+            //System.out.println(conteoVotosBlancosNulos.getBlanco_total());
+
+          
+            if (conteoVotosBlancosNulos != null) {
+                
+
+                datos[1] = conteoVotosBlancosNulos.getBlanco_total();
+                datos[2] = conteoVotosBlancosNulos.getNulo_total();
+                // Lógica adicional aquí
+            } else {
+                // Inicializar conteoVotosBlancosNulos si es necesario
+                conteoVotosBlancosNulos = new ConteoTotal(); // O cualquier otra forma de inicialización que sea necesaria
+
+                datos[1] = 0;
+                datos[2] = 0;
+            }
+
+
+
+
+            //datos[1] = conteoVotosBlancosNulos.getBlanco_total();
+           // datos[2] = conteoVotosBlancosNulos.getNulo_total();
+           
+            model.addAttribute("datos", datos);
+            model.addAttribute("frentes", frentes);
+            model.addAttribute("colores", colores);
+            return "Estadistica/estadisticaACBN";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+
+    @RequestMapping(value = "/estadisticaACEF", method = RequestMethod.GET)
+    private String estadisticaACEF(Model model, RedirectAttributes flash, HttpServletRequest request,
+            @RequestParam(name = "succes", required = false) String succes) {
+        if (request.getSession().getAttribute("usuario") != null) {
+            List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 7L, 3L);
+            String[] frentes = new String[listaFrentes.size()+2];
+            String[] colores = new String[listaFrentes.size()+2];
+
+
+            for (int i = 0; i < listaFrentes.size(); i++) {
+                frentes[i] = listaFrentes.get(i).get("nombre_frente") +" "+ listaFrentes.get(i).get("sigla");
+                colores[i] = listaFrentes.get(i).get("color");
+            }
+
+            frentes[listaFrentes.size()] = "Blancos";
+            frentes[listaFrentes.size()+1] = "Nulos";
+            colores[listaFrentes.size()] = "#fff4ea";
+            colores[listaFrentes.size()+1] = "#fec2ff";
+
+            System.out.println("ELECCIONES FUL");
+           List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(7L);
+
+           
+
+           System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            
+            int [] datos = new int[listaFrentes.size()+2];
+
+
+            for (int i = 0; i < votosFrentesTotal.size(); i++) {
+
+
+                System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
+
+                   datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+          
+            }
+ 
+            ConteoTotal conteoVotosBlancosNulos= conteoTotalService.conteoTotalBlacoNulosFul(7L);
+
+            //System.out.println(conteoVotosBlancosNulos.getBlanco_total());
+
+
+
+
+            if (conteoVotosBlancosNulos != null) {
+                
+
+                datos[1] = conteoVotosBlancosNulos.getBlanco_total();
+                datos[2] = conteoVotosBlancosNulos.getNulo_total();
+                // Lógica adicional aquí
+            } else {
+                // Inicializar conteoVotosBlancosNulos si es necesario
+                conteoVotosBlancosNulos = new ConteoTotal(); // O cualquier otra forma de inicialización que sea necesaria
+
+                datos[1] = 0;
+                datos[2] = 0;
+            }
+          
+            //datos[1] = conteoVotosBlancosNulos.getBlanco_total();
+          //  datos[2] = conteoVotosBlancosNulos.getNulo_total();
+           
+            model.addAttribute("datos", datos);
+            model.addAttribute("frentes", frentes);
+            model.addAttribute("colores", colores);
+            return "Estadistica/estadisticaACEF";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+
+    @RequestMapping(value = "/estadisticaACYT", method = RequestMethod.GET)
+    private String estadisticaACYT(Model model, RedirectAttributes flash, HttpServletRequest request,
+            @RequestParam(name = "succes", required = false) String succes) {
+        if (request.getSession().getAttribute("usuario") != null) {
+            List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 9L, 3L);
+            String[] frentes = new String[listaFrentes.size()+2];
+            String[] colores = new String[listaFrentes.size()+2];
+
+
+            for (int i = 0; i < listaFrentes.size(); i++) {
+                frentes[i] = listaFrentes.get(i).get("nombre_frente") +" "+ listaFrentes.get(i).get("sigla");
+                colores[i] = listaFrentes.get(i).get("color");
+            }
+
+            frentes[listaFrentes.size()] = "Blancos";
+            frentes[listaFrentes.size()+1] = "Nulos";
+            colores[listaFrentes.size()] = "#fff4ea";
+            colores[listaFrentes.size()+1] = "#fec2ff";
+
+            System.out.println("ELECCIONES FUL");
+           List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(9L);
+
+           
+
+           System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            
+            int [] datos = new int[listaFrentes.size()+2];
+
+
+            for (int i = 0; i < votosFrentesTotal.size(); i++) {
+
+
+                System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
+
+                   datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+          
+            }
+ 
+            ConteoTotal conteoVotosBlancosNulos= conteoTotalService.conteoTotalBlacoNulosFul(9L);
+
+
+
+            if (conteoVotosBlancosNulos != null) {
+                
+
+                datos[1] = conteoVotosBlancosNulos.getBlanco_total();
+                datos[2] = conteoVotosBlancosNulos.getNulo_total();
+                // Lógica adicional aquí
+            } else {
+                // Inicializar conteoVotosBlancosNulos si es necesario
+                conteoVotosBlancosNulos = new ConteoTotal(); // O cualquier otra forma de inicialización que sea necesaria
+
+                datos[1] = 0;
+                datos[2] = 0;
+            }
+
+
+            //System.out.println(conteoVotosBlancosNulos.getBlanco_total());
+
+          
+    
+           
+            model.addAttribute("datos", datos);
+            model.addAttribute("frentes", frentes);
+            model.addAttribute("colores", colores);
+            return "Estadistica/estadisticaACYT";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+
+    @RequestMapping(value = "/estadisticaACS", method = RequestMethod.GET)
+    private String estadisticaACS(Model model, RedirectAttributes flash, HttpServletRequest request,
+            @RequestParam(name = "succes", required = false) String succes) {
+        if (request.getSession().getAttribute("usuario") != null) {
+            List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 6L, 3L);
+            String[] frentes = new String[listaFrentes.size()+2];
+            String[] colores = new String[listaFrentes.size()+2];
+
+
+            for (int i = 0; i < listaFrentes.size(); i++) {
+                frentes[i] = listaFrentes.get(i).get("nombre_frente") +" "+ listaFrentes.get(i).get("sigla");
+                colores[i] = listaFrentes.get(i).get("color");
+            }
+
+            frentes[listaFrentes.size()] = "Blancos";
+            frentes[listaFrentes.size()+1] = "Nulos";
+            colores[listaFrentes.size()] = "#fff4ea";
+            colores[listaFrentes.size()+1] = "#fec2ff";
+
+            System.out.println("ELECCIONES FUL");
+           List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(6L);
+
+           
+
+           System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+            
+            int [] datos = new int[listaFrentes.size()+2];
+
+
+            for (int i = 0; i < votosFrentesTotal.size(); i++) {
+
+
+                System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
+
+                   datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+          
+            }
+ 
+            ConteoTotal conteoVotosBlancosNulos= conteoTotalService.conteoTotalBlacoNulosFul(6L);
+
+            //System.out.println(conteoVotosBlancosNulos.getBlanco_total());
+
+
+
+
+
+
+
+            if (conteoVotosBlancosNulos != null) {
+                
+
+                datos[1] = conteoVotosBlancosNulos.getBlanco_total();
+                datos[2] = conteoVotosBlancosNulos.getNulo_total();
+                // Lógica adicional aquí
+            } else {
+                // Inicializar conteoVotosBlancosNulos si es necesario
+                conteoVotosBlancosNulos = new ConteoTotal(); // O cualquier otra forma de inicialización que sea necesaria
+
+                datos[1] = 0;
+                datos[2] = 0;
+            }
+          
+           // datos[1] = conteoVotosBlancosNulos.getBlanco_total();
+            //datos[2] = conteoVotosBlancosNulos.getNulo_total();
+           
+            model.addAttribute("datos", datos);
+            model.addAttribute("frentes", frentes);
+            model.addAttribute("colores", colores);
+            return "Estadistica/estadisticaACS";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

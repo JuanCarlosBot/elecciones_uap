@@ -10,6 +10,6 @@ public interface IConteoTotalDao extends CrudRepository<ConteoTotal,Long>{
 
 
 
-    @Query(value = "select co.* from conteo_total co where co.id_nivel=3",nativeQuery=true)
-   public ConteoTotal  conteoTotalBlacoNulosFul();
+    @Query(value = "select co.* from conteo_total co where co.id_nivel=?1",nativeQuery=true)
+   public ConteoTotal  conteoTotalBlacoNulosFul(Long idNivel);
 }

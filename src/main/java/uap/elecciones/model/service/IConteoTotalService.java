@@ -16,5 +16,5 @@ public interface IConteoTotalService {
 
 	public void delete(Long id);
 
-	public ConteoTotal  conteoTotalBlacoNulosFul();
+	public ConteoTotal  conteoTotalBlacoNulosFul(Long idNivel);
 }
