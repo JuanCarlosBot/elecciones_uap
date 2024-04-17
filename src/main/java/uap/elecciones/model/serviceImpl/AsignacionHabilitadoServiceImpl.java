@@ -44,5 +44,11 @@ public class AsignacionHabilitadoServiceImpl implements IAsignacionHabilitadoSer
         // TODO Auto-generated method stub
         return asignacionHabilitadoDao.lista_asignados_habilitados(id_carrera);
     }
+
+    @Override
+    public List<Object[]> lista_asignados_delegados() {
+        // TODO Auto-generated method stub
+        return asignacionHabilitadoDao.lista_asignados_delegados();
+    }
     
 }

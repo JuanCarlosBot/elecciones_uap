@@ -1,0 +1,86 @@
+
+<!doctype html>
+<html class="../../../../no-js" lang="en">
+
+<head th:replace="Layout/layout :: head">
+   
+</head>
+
+<body class="materialdesign">
+  
+    <div class="wrapper-pro">
+        <!-- Header top area start-->
+        <div class="content-inner-all-login">
+            <!-- Breadcome End-->
+            <br>
+            <div class="data-table-area mg-b-15">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="sparkline13-list shadow-reset">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1>LISTA <span class="table-project-n">DE</span> DELEGADOS</h1>
+                                        <div class="sparkline13-outline-icon">
+                                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sparkline13-graph">
+                                    <div class="datatable-dashv1-list custom-datatable-overright">
+                                        <div id="toolbar">
+                                            <select class="form-control">
+                                                <option value="">Export Basic</option>
+                                                <option value="all">Export All</option>
+                                                <option value="selected">Export Selected</option>
+                                            </select>
+                                        </div>
+                                        <table id="table" data-toggle="table" data-pagination="true" data-search="true"
+                                        data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                        data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                        data-toolbar="#toolbar">
+                                            <thead>
+                                                <tr>
+                                                    <th >Nro</th>
+                                                    <th >Facultad</th>
+                                                    <th >Carrera</th>
+                                                    <th >R.U</th>
+                                                    <th >Apellidos y Nombres</th>
+                                                    <th >Mesa</th>
+                                                    <th >Delegado</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="d, num : ${delegados}" >
+                                                    <td th:text="${num.index + 1}">1</td>
+                                                    <td th:text="${d[0]}"></td>
+                                                    <td th:text="${d[1]}"></td>
+                                                    <td th:text="${d[2]}"></td>
+                                                    <td th:text="${d[3]}"></td>
+                                                    <td th:text="${d[4]}"></td>
+                                                    <td th:text="${d[5]}"></td>
+                                                    
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- login End-->
+        </div>
+    </div>
+   
+    <!-- Footer Start-->
+    <div th:replace="Layout/layout :: footer" class="footer-copyright-area">
+    </div>
+    <div th:replace="Layout/layout :: scripts"></div>
+</body>
+
+</html>

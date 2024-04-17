@@ -15,4 +15,7 @@ public interface IAsignacionHabilitadoService {
 
 	List<Object[]> lista_asignados_habilitados(Long id_carrera);
 
+	List<Object[]> lista_asignados_delegados();
+
+
 }
