@@ -1,5 +1,6 @@
 package uap.elecciones.controllers;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -55,14 +56,26 @@ public class EstadisticasPruebasController {
     @RequestMapping(value = "/estadisticaFUL", method = RequestMethod.GET)
     private String estadisticaFUL(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
+<<<<<<< HEAD
         if (request.getSession().getAttribute("usuario") != null) {
 
+=======
+            if (request.getSession().getAttribute("usuario") != null) {
+            System.out.println("NOMBRE DE FRENTE");
+>>>>>>> 02b2de6 (18_04_2024)
             List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 3L, 1L);
             String[] frentes = new String[listaFrentes.size() + 2];
             String[] colores = new String[listaFrentes.size() + 2];
 
             for (int i = 0; i < listaFrentes.size(); i++) {
+<<<<<<< HEAD
                 frentes[i] = listaFrentes.get(i).get("nombre_frente") + " " + listaFrentes.get(i).get("sigla");
+=======
+
+
+                System.out.println("NOMBRE DE FRENTE"+listaFrentes.get(i).get("nombre_frente"));
+                frentes[i] = listaFrentes.get(i).get("nombre_frente") +" "+ listaFrentes.get(i).get("sigla");
+>>>>>>> 02b2de6 (18_04_2024)
                 colores[i] = listaFrentes.get(i).get("color");
             }
 
@@ -76,14 +89,36 @@ public class EstadisticasPruebasController {
 
             System.out.println(votosFrentesTotal.size() + "HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
+<<<<<<< HEAD
             int[] datos = new int[listaFrentes.size() + 2];
 
+=======
+int nacerFul=0;
+int FulFul=0;
+>>>>>>> 02b2de6 (18_04_2024)
             for (int i = 0; i < votosFrentesTotal.size(); i++) {
 
                 System.out.println(votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
+<<<<<<< HEAD
                 datos[i] = Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
+=======
+                System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                System.out.println( votosFrentesTotal.get(i).get("nombre_frente").toString());
+
+                   datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+
+
+               if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("FUL TRANSPARENCIA")) {
+                    FulFul=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                     }else{
+
+                  nacerFul=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                    }
+
+          
+>>>>>>> 02b2de6 (18_04_2024)
             }
 
             ConteoTotal conteoVotosBlancosNulos = conteoTotalService.conteoTotalBlacoNulosFul(3L);
@@ -94,6 +129,30 @@ public class EstadisticasPruebasController {
 
                 datos[2] = conteoVotosBlancosNulos.getBlanco_total();
                 datos[3] = conteoVotosBlancosNulos.getNulo_total();
+
+                model.addAttribute("blancos", conteoVotosBlancosNulos.getBlanco_total());
+                model.addAttribute("nulos", conteoVotosBlancosNulos.getNulo_total());
+                int total=0;
+
+
+
+                total=FulFul+nacerFul+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
+                System.out.println("CONTEO TOTAL1-"+total);
+              double  totall = 100 * ((double) total / 9107);
+
+                 System.out.println("CONTEO TOTAL"+total);
+
+                 DecimalFormat df = new DecimalFormat("#.##");
+        
+                 // Formateamos el número usando el objeto DecimalFormat
+                 String totalP = df.format(totall);
+
+
+                model.addAttribute("totalP", totalP);
+                model.addAttribute("nacerFul", nacerFul);
+                model.addAttribute("FulFul", FulFul);
+
+
                 // Lógica adicional aquí
             } else {
                 // Inicializar conteoVotosBlancosNulos si es necesario
@@ -104,6 +163,18 @@ public class EstadisticasPruebasController {
                 datos[3] = 0;
             }
 
+<<<<<<< HEAD
+=======
+
+            List<Map<Object, String>>votosPorMesaNacer=votoTotalFrenteService.listaMesaFrente(8L);
+            List<Map<Object, String>>votosPorMesaFul=votoTotalFrenteService.listaMesaFrente(9L);
+
+
+           // datos[2] = conteoVotosBlancosNulos.getBlanco_total();
+            //datos[3] = conteoVotosBlancosNulos.getNulo_total();
+            model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
+            model.addAttribute("votosPorMesaFul", votosPorMesaFul);
+>>>>>>> 02b2de6 (18_04_2024)
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
@@ -112,6 +183,10 @@ public class EstadisticasPruebasController {
             return "redirect:/login";
         }
     }
+
+
+
+    /******************************************************************************************************** */
 
 
     @RequestMapping(value = "/estadisticaACJYP", method = RequestMethod.GET)
@@ -146,25 +221,75 @@ public class EstadisticasPruebasController {
             
             int [] datos = new int[listaFrentes.size()+2];
 
+            int nacerFul=0;
+            int FulFul=0;
+
 
             for (int i = 0; i < votosFrentesTotal.size(); i++) {
 
-
+                System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                System.out.println( votosFrentesTotal.get(i).get("nombre_frente").toString());
+                datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
-                   datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
-          
+
+                if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("JURIDICA EN ACCIÓN-ACjyP")) {
+                    FulFul=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                     }else{
+
+                  nacerFul=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                    }
+
             }
  
+
+          int votosNulosAcyjp=0;
+          int votosBlancosAcyjp=0;
+
             ConteoTotal conteoVotosBlancosNulos= conteoTotalService.conteoTotalBlacoNulosFul(4L);
 
+          
+
             //System.out.println(conteoVotosBlancosNulos.getBlanco_total());
+
+
+
+
+
+
+
 
             if (conteoVotosBlancosNulos != null) {
                 
 
                 datos[2] = conteoVotosBlancosNulos.getBlanco_total();
                 datos[3] = conteoVotosBlancosNulos.getNulo_total();
+
+
+
+                model.addAttribute("blancos", conteoVotosBlancosNulos.getBlanco_total());
+                model.addAttribute("nulos", conteoVotosBlancosNulos.getNulo_total());
+
+                int total=0;
+
+
+
+                total=FulFul+nacerFul+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
+                System.out.println("CONTEO TOTAL1-"+total);
+              double  totall = 100 * ((double) total / 1081);
+
+                 System.out.println("CONTEO TOTAL"+total);
+
+                 DecimalFormat df = new DecimalFormat("#.##");
+        
+                 // Formateamos el número usando el objeto DecimalFormat
+                 String totalP = df.format(totall);
+
+                 model.addAttribute("totalP", totalP);
+                 model.addAttribute("nacerFul", nacerFul);
+                 model.addAttribute("FulFul", FulFul);
+
+
                 // Lógica adicional aquí
             } else {
                 // Inicializar conteoVotosBlancosNulos si es necesario
@@ -175,9 +300,10 @@ public class EstadisticasPruebasController {
             }
 
           
-            //datos[2] = conteoVotosBlancosNulos.getBlanco_total();
-            //datos[3] = conteoVotosBlancosNulos.getNulo_total();
-           
+            List<Map<Object, String>>votosPorMesaNacer=votoTotalFrenteService.listaMesaFrente(6L);
+            List<Map<Object, String>>votosPorMesaFul=votoTotalFrenteService.listaMesaFrente(7L);
+            model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
+            model.addAttribute("votosPorMesaFul", votosPorMesaFul);
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
@@ -186,6 +312,10 @@ public class EstadisticasPruebasController {
             return "redirect:/login";
         }
     }
+
+
+
+/******************************************************************************************************** */
 
 
 
@@ -220,6 +350,8 @@ public class EstadisticasPruebasController {
             
             int [] datos = new int[listaFrentes.size()+2];
 
+            int nacerAcsyh=0;
+
 
             for (int i = 0; i < votosFrentesTotal.size(); i++) {
 
@@ -227,9 +359,16 @@ public class EstadisticasPruebasController {
                 System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
                    datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
-          
+
+
+                   if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("NACER-ACSyH")) {
+                    nacerAcsyh=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                     }
+
             }
  
+            
+
             ConteoTotal conteoVotosBlancosNulos= conteoTotalService.conteoTotalBlacoNulosFul(8L);
 
             //System.out.println(conteoVotosBlancosNulos.getBlanco_total());
@@ -241,6 +380,28 @@ public class EstadisticasPruebasController {
 
                 datos[1] = conteoVotosBlancosNulos.getBlanco_total();
                 datos[2] = conteoVotosBlancosNulos.getNulo_total();
+
+
+                model.addAttribute("blancos", conteoVotosBlancosNulos.getBlanco_total());
+                model.addAttribute("nulos", conteoVotosBlancosNulos.getNulo_total());
+            
+                int total=0;
+
+                total=nacerAcsyh+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
+                System.out.println("CONTEO TOTAL1-"+total);
+              double  totall = 100 * ((double) total / 509);
+
+                 System.out.println("CONTEO TOTAL"+total);
+
+                 DecimalFormat df = new DecimalFormat("#.##");
+        
+                 // Formateamos el número usando el objeto DecimalFormat
+                 String totalP = df.format(totall);
+
+                 model.addAttribute("totalP", totalP);
+                 model.addAttribute("nacerFul", nacerAcsyh);
+                 
+
                 // Lógica adicional aquí
             } else {
                 // Inicializar conteoVotosBlancosNulos si es necesario
@@ -252,7 +413,10 @@ public class EstadisticasPruebasController {
 
            // datos[1] = conteoVotosBlancosNulos.getBlanco_total();
            // datos[2] = conteoVotosBlancosNulos.getNulo_total();
-           
+           List<Map<Object, String>>votosPorMesaNacer=votoTotalFrenteService.listaMesaFrente(2L);
+            
+            model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
+            
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
@@ -264,6 +428,7 @@ public class EstadisticasPruebasController {
 
 
 
+/***********************************************************/
     @RequestMapping(value = "/estadisticaACBN", method = RequestMethod.GET)
     private String estadisticaACBN(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
@@ -291,7 +456,7 @@ public class EstadisticasPruebasController {
            System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             
             int [] datos = new int[listaFrentes.size()+2];
-
+            int nacerAcbn=0;
 
             for (int i = 0; i < votosFrentesTotal.size(); i++) {
 
@@ -299,6 +464,10 @@ public class EstadisticasPruebasController {
                 System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
                    datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+
+                   if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("NACER-ACBN")) {
+                    nacerAcbn=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                     }
           
             }
  
@@ -312,6 +481,29 @@ public class EstadisticasPruebasController {
 
                 datos[1] = conteoVotosBlancosNulos.getBlanco_total();
                 datos[2] = conteoVotosBlancosNulos.getNulo_total();
+
+                model.addAttribute("blancos", conteoVotosBlancosNulos.getBlanco_total());
+                model.addAttribute("nulos", conteoVotosBlancosNulos.getNulo_total());
+
+
+                int total=0;
+
+                total=nacerAcbn+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
+                System.out.println("CONTEO TOTAL1-"+total);
+              double  totall = 100 * ((double) total / 637);
+
+                 System.out.println("CONTEO TOTAL"+total);
+
+                 DecimalFormat df = new DecimalFormat("#.##");
+        
+                 // Formateamos el número usando el objeto DecimalFormat
+                 String totalP = df.format(totall);
+
+                 model.addAttribute("totalP", totalP);
+                 model.addAttribute("nacerFul", nacerAcbn);
+
+
+
                 // Lógica adicional aquí
             } else {
                 // Inicializar conteoVotosBlancosNulos si es necesario
@@ -326,6 +518,9 @@ public class EstadisticasPruebasController {
 
             //datos[1] = conteoVotosBlancosNulos.getBlanco_total();
            // datos[2] = conteoVotosBlancosNulos.getNulo_total();
+           List<Map<Object, String>>votosPorMesaNacer=votoTotalFrenteService.listaMesaFrente(4L);
+            
+            model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
            
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
@@ -335,7 +530,7 @@ public class EstadisticasPruebasController {
             return "redirect:/login";
         }
     }
-
+/*//////////////////////////////////////////////////////////////// */
 
     @RequestMapping(value = "/estadisticaACEF", method = RequestMethod.GET)
     private String estadisticaACEF(Model model, RedirectAttributes flash, HttpServletRequest request,
@@ -364,7 +559,7 @@ public class EstadisticasPruebasController {
            System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             
             int [] datos = new int[listaFrentes.size()+2];
-
+            int nacerAcef=0;
 
             for (int i = 0; i < votosFrentesTotal.size(); i++) {
 
@@ -372,6 +567,11 @@ public class EstadisticasPruebasController {
                 System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
                    datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+
+                   if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("NACER-ACEF")) {
+                    nacerAcef=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                     }
+
           
             }
  
@@ -382,11 +582,33 @@ public class EstadisticasPruebasController {
 
 
 
-            if (conteoVotosBlancosNulos != null) {
+            if (conteoVotosBlancosNulos!= null) {
                 
 
                 datos[1] = conteoVotosBlancosNulos.getBlanco_total();
                 datos[2] = conteoVotosBlancosNulos.getNulo_total();
+
+                model.addAttribute("blancos", conteoVotosBlancosNulos.getBlanco_total());
+                model.addAttribute("nulos", conteoVotosBlancosNulos.getNulo_total());
+
+
+                int total=0;
+
+                total=nacerAcef+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
+                System.out.println("CONTEO TOTAL1-"+total);
+              double  totall = 100 * ((double) total / 637);
+
+                 System.out.println("CONTEO TOTAL"+total);
+
+                 DecimalFormat df = new DecimalFormat("#.##");
+        
+                 // Formateamos el número usando el objeto DecimalFormat
+                 String totalP = df.format(totall);
+
+                 model.addAttribute("totalP", totalP);
+                 model.addAttribute("nacerFul", nacerAcef);
+
+
                 // Lógica adicional aquí
             } else {
                 // Inicializar conteoVotosBlancosNulos si es necesario
@@ -399,6 +621,10 @@ public class EstadisticasPruebasController {
             //datos[1] = conteoVotosBlancosNulos.getBlanco_total();
           //  datos[2] = conteoVotosBlancosNulos.getNulo_total();
            
+          List<Map<Object, String>>votosPorMesaNacer=votoTotalFrenteService.listaMesaFrente(3L);
+            
+          model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
+         
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
@@ -408,6 +634,7 @@ public class EstadisticasPruebasController {
         }
     }
 
+    /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
 
     @RequestMapping(value = "/estadisticaACYT", method = RequestMethod.GET)
     private String estadisticaACYT(Model model, RedirectAttributes flash, HttpServletRequest request,
@@ -436,6 +663,7 @@ public class EstadisticasPruebasController {
            System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             
             int [] datos = new int[listaFrentes.size()+2];
+            int nacerAcyt=0;
 
 
             for (int i = 0; i < votosFrentesTotal.size(); i++) {
@@ -444,6 +672,10 @@ public class EstadisticasPruebasController {
                 System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
                    datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+
+                   if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("NACER-ACyT")) {
+                    nacerAcyt=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                     }
           
             }
  
@@ -456,6 +688,30 @@ public class EstadisticasPruebasController {
 
                 datos[1] = conteoVotosBlancosNulos.getBlanco_total();
                 datos[2] = conteoVotosBlancosNulos.getNulo_total();
+
+
+                model.addAttribute("blancos", conteoVotosBlancosNulos.getBlanco_total());
+                model.addAttribute("nulos", conteoVotosBlancosNulos.getNulo_total());
+
+
+                int total=0;
+
+                total=nacerAcyt+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
+                System.out.println("CONTEO TOTAL1-"+total);
+              double  totall = 100 * ((double) total / 1242);
+
+                 System.out.println("CONTEO TOTAL"+total);
+
+                 DecimalFormat df = new DecimalFormat("#.##");
+        
+                 // Formateamos el número usando el objeto DecimalFormat
+                 String totalP = df.format(totall);
+
+                 model.addAttribute("totalP", totalP);
+                 model.addAttribute("nacerFul", nacerAcyt);
+
+
+
                 // Lógica adicional aquí
             } else {
                 // Inicializar conteoVotosBlancosNulos si es necesario
@@ -470,7 +726,9 @@ public class EstadisticasPruebasController {
 
           
     
-           
+            List<Map<Object, String>>votosPorMesaNacer=votoTotalFrenteService.listaMesaFrente(1L);
+            
+             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
@@ -480,7 +738,7 @@ public class EstadisticasPruebasController {
         }
     }
 
-
+/**********************************************************************************************/
     @RequestMapping(value = "/estadisticaACS", method = RequestMethod.GET)
     private String estadisticaACS(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
@@ -508,7 +766,7 @@ public class EstadisticasPruebasController {
            System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             
             int [] datos = new int[listaFrentes.size()+2];
-
+            int nacerAcs=0;
 
             for (int i = 0; i < votosFrentesTotal.size(); i++) {
 
@@ -516,6 +774,11 @@ public class EstadisticasPruebasController {
                 System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
                    datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+
+
+                   if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("NACER-ACS")) {
+                    nacerAcs=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                     }
           
             }
  
@@ -524,16 +787,33 @@ public class EstadisticasPruebasController {
             //System.out.println(conteoVotosBlancosNulos.getBlanco_total());
 
 
-
-
-
-
-
             if (conteoVotosBlancosNulos != null) {
                 
 
                 datos[1] = conteoVotosBlancosNulos.getBlanco_total();
                 datos[2] = conteoVotosBlancosNulos.getNulo_total();
+
+
+
+                model.addAttribute("blancos", conteoVotosBlancosNulos.getBlanco_total());
+                model.addAttribute("nulos", conteoVotosBlancosNulos.getNulo_total());
+
+
+                int total=0;
+
+                total=nacerAcs+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
+                System.out.println("CONTEO TOTAL1-"+total);
+              double  totall = 100 * ((double) total / 3092);
+
+                 System.out.println("CONTEO TOTAL"+total);
+
+                 DecimalFormat df = new DecimalFormat("#.##");
+        
+                 // Formateamos el número usando el objeto DecimalFormat
+                 String totalP = df.format(totall);
+
+                 model.addAttribute("totalP", totalP);
+                 model.addAttribute("nacerFul", nacerAcs);
                 // Lógica adicional aquí
             } else {
                 // Inicializar conteoVotosBlancosNulos si es necesario
@@ -545,6 +825,9 @@ public class EstadisticasPruebasController {
           
            // datos[1] = conteoVotosBlancosNulos.getBlanco_total();
             //datos[2] = conteoVotosBlancosNulos.getNulo_total();
+            List<Map<Object, String>>votosPorMesaNacer=votoTotalFrenteService.listaMesaFrente(5L);
+            
+            model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
            
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);

@@ -41,5 +41,11 @@ public ConteoTotal conteoTotalBlacoNulosFul(Long idNivel) {
     return conteoTotalDao.conteoTotalBlacoNulosFul(idNivel);
 }
 
+@Override
+public List<ConteoTotal> conteoBotosByNAcjyp(Long idNivel) {
+    // TODO Auto-generated method stub
+    return conteoTotalDao.conteoBotosByNAcjyp(idNivel);
+}
+
 
 }

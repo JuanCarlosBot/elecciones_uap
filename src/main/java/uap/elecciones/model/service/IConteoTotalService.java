@@ -17,4 +17,6 @@ public interface IConteoTotalService {
 	public void delete(Long id);
 
 	public ConteoTotal  conteoTotalBlacoNulosFul(Long idNivel);
+
+	public List<ConteoTotal>conteoBotosByNAcjyp(Long idNivel);
 }

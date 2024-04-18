@@ -14,5 +14,13 @@ public interface IVotoTotalFrenteDao  extends CrudRepository<VotoTotalFrente,Lon
 
     @Query(value = "select vo.id_voto_total_frente, CAST(vo.voto_total_frente AS varchar), vo.id_conteo_total, vo.id_frente, fe.nombre_frente, ni.nombre_nivel from voto_total_frente vo, frente fe, asignacion_eleccion asig, nivel ni where vo.id_frente=fe.id_frente and fe.id_frente=asig.id_frente and asig.id_nivel=ni.id_nivel and ni.id_nivel=?1", nativeQuery = true)
     public List<Map<Object, String>> votoTotalFul(Long idNivel);
+
+
+
+    @Query(value = "SELECT da.id_detalle_anfora,fe.nombre_frente,me.nombre_mesa,CAST(da.cant_votantes AS varchar) FROM detalle_anfora da, anfora fo, frente fe,mesa me where da.id_frente=?1 and da.id_anfora=fo.id_anfora and da.id_frente=fe.id_frente and fo.id_mesa=me.id_mesa ORDER BY me.id_mesa",nativeQuery = true)
+    public List<Map<Object, String>> listaMesaFrente(Long idFrente);
+
+
+
     
 }

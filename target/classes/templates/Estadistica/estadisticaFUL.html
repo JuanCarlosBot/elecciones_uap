@@ -7,75 +7,44 @@
 <body class="materialdesign">
 
     <!-- Header top area start-->
+<BR>
     <div class="wrapper-pro">
-    
+    <!--BORRAR 3
         <div th:replace="Layout/layout :: preloader"></div>
         
         <div th:replace="Layout/layout :: left_sidebar" class="left-sidebar-pro">
+     -->
         </div>
+   
         <!-- Header top area start-->
         <div class="content-inner-all">
+
+<!--BORRAR2 
             <div th:replace="Layout/layout :: header" class="header-top-area">
             </div>
+    -->      
             <!-- Header top area end-->
             <!-- Breadcome start-->
-            <div class="breadcome-area mg-b-30 small-dn">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="breadcome-list map-mg-t-40-gl shadow-reset">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="breadcome-heading">
-                                            <form role="search" class="">
-                                                <input type="text" placeholder="Search..." class="form-control">
-                                                <a href=""><i class="fa fa-search"></i></a>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6">
-                                        <ul class="breadcome-menu">
-                                            <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
-                                            </li>
-                                            <li><span class="bread-blod">LISTA USUARIO</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
+
+<!--
+    BORRAR1
             <div class="breadcome-area des-none mg-b-30">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="breadcome-list map-mg-t-40-gl shadow-reset">
-                                <div class="row">
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <div class="breadcome-heading">
-                                            <form role="search" class="">
-                                                <input type="text" placeholder="Search..." class="form-control">
-                                                <a href=""><i class="fa fa-search"></i></a>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-                                        <ul class="breadcome-menu">
-                                            <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
-                                            </li>
-                                            <li><span class="bread-blod">USUARIO</span>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
+
+                           
+
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+-->
+
+
             <!-- Breadcome End-->
             <!-- Static Table Start -->
 
@@ -111,6 +80,7 @@
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
                                         <h1>INFORMACION ELECCION PARA LA FUL</h1>
+<<<<<<< HEAD
             
                                         <BR>
             
@@ -171,6 +141,75 @@
                                                 </tbody>
                                             </table>
                                         </div>
+=======
+
+                                            
+                                                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                                                    <!-- BORRAR 4
+                                                                    <div id="toolbar">
+                                                                        <select class="form-control">
+                                                                            <option value="">Export Basic</option>
+                                                                            <option value="all">Export All</option>
+                                                                            <option value="selected">Export Selected</option>
+                                                                        </select>
+                                                                    </div>
+-->
+
+                                                                    <table id="table" data-toggle="table" data-pagination="true" 
+                                                                        data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                                                        data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                                                        data-toolbar="#toolbar">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Encabezado</th>
+                                                                                <th>Votos</th>
+                                                                                
+                                                                            </tr>
+                                                                        </thead>
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td>NACER</td>
+                                                                                <td >
+                                                                                    <span th:text="${nacerFul}"></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>FUL TRANSPARENCIA</td>
+                                                                                <td >
+                                                                                    <span th:text="${FulFul}"></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>NULOS</td>
+                                                                                <td >
+                                                                                    <span th:text="${nulos}"></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>BLANCOS</td>
+                                                                                <td >
+                                                                                    <span th:text="${blancos}"></span>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>PORCENTAJE  DE VOTACION DE TOTAL HABILITADOS SOBRE EL 100%</td>
+                                                                                <td >
+                                                                                    <span th:text="${totalP}"></span> %
+                                                                                </td>
+                                                                            </tr>
+                                                                            
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                
+                                                                </div>
+                                                            
+                                                        
+                                                 
+                                            
+                                    
+>>>>>>> 02b2de6 (18_04_2024)
                                     </div>
                                 </div>
                                 <div class="sparkline13-graph">
@@ -182,6 +221,114 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-table-area mg-b-15">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="sparkline13-list shadow-reset">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1>LISTA <span class="table-project-n">DE</span> VOTOS NACER POR MESAS </h1>
+<!--
+                                        <div class="sparkline13-outline-icon">
+                                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+--->
+                                    </div>
+                                </div>
+                                <div class="sparkline13-graph">
+                                    <div class="datatable-dashv1-list custom-datatable-overright">
+                                        
+                                        <table id="table" data-toggle="table" data-pagination="true" data-search="true"
+                                            data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                            data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                            data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                            data-toolbar="#toolbar">
+                                            <thead>
+                                                <tr>
+                                                    <th >Nro</th>
+                                                    <th >Nombre Mesa</th>
+                                                    <th >Cantidad de Votos</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="ms, num : ${votosPorMesaNacer}">
+
+                                                    <td th:text="${num.count}">1</td>
+
+                                                    <td th:text="${ms.nombre_mesa}"></td>
+
+                                                    <td th:text="${ms.cant_votantes}">
+                                                        
+                                                    </td>
+  
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-6">
+                            <div class="sparkline13-list shadow-reset">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1>LISTA <span class="table-project-n">DE</span> VOTOS FUL TRANSPARENCIA POR MESAS </h1>
+<!--
+                                        <div class="sparkline13-outline-icon">
+                                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+--->
+                                    </div>
+                                </div>
+                                <div class="sparkline13-graph">
+                                    <div class="datatable-dashv1-list custom-datatable-overright">
+                                        
+                                        <table id="table" data-toggle="table" data-pagination="true" data-search="true"
+                                            data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                            data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                            data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                            data-toolbar="#toolbar">
+                                            <thead>
+                                                <tr>
+                                                    <th >Nro</th>
+                                                    <th >Nombre Mesa</th>
+                                                    <th >Cantidad de Votos</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="ms, num : ${votosPorMesaFul}">
+
+                                                    <td th:text="${num.count}">1</td>
+
+                                                    <td th:text="${ms.nombre_mesa}"></td>
+
+                                                    <td th:text="${ms.cant_votantes}">
+                                                        
+                                                    </td>
+  
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        
+
+
                     </div>
                 </div>
             </div>
@@ -203,7 +350,24 @@
 
 <script th:inline="javascript">
     var options = {
+<<<<<<< HEAD
                 series: /*[[${datos}]]*/[], 
+=======
+        series: /*[[${datos}]]*/[], 
+        chart: {
+            width: '100%', // Ancho establecido en el 100% del contenedor
+            height: '500px', // Alto establecido en el 100% del contenedor
+            type: 'pie',
+        },
+        labels: /*[[${frentes}]]*/[], 
+        colors: /*[[${colores}]]*/[],
+        animations: {
+            enabled: false // Desactivar animaciones al recargar
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+>>>>>>> 02b2de6 (18_04_2024)
                 chart: {
                     width: '100%', // Ancho establecido en el 100% del contenedor
                     height: '500px', // Alto establecido en el 100% del contenedor
@@ -239,7 +403,7 @@
     // Recargar la página cada 30 segundos
     setInterval(function() {
         window.location.reload();
-    }, 10000); // 30 segundos
+    }, 30000); // 30 segundos
 </script>
 
 </html>

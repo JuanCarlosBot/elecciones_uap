@@ -16,4 +16,6 @@ public interface IVotoTotalFrenteService {
 	public void delete(Long id);
 
 	public List<Map<Object, String>> votoTotalFul(Long idNivel);
+
+	public List<Map<Object, String>> listaMesaFrente(Long idFrente);
 }

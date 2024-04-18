@@ -42,5 +42,11 @@ public class VotoTotalFrenteServiceImpl implements IVotoTotalFrenteService{
         // TODO Auto-generated method stub
         return votoTotalFrenteDao.votoTotalFul(idNivel);
     }
+
+    @Override
+    public List<Map<Object, String>> listaMesaFrente(Long idFrente) {
+        // TODO Auto-generated method stub
+        return votoTotalFrenteDao.listaMesaFrente(idFrente);
+    }
     
 }
