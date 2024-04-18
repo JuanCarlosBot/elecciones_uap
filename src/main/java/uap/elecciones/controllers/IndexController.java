@@ -54,7 +54,7 @@ public class IndexController {
                     return "Content/content :: alert_modal";
                 }
             }
-            return "Content/content :: content";
+            return "redirect:/estudiante";
         }  catch (Exception e) {
             System.out.println("6");
             flash.addFlashAttribute("succes", "ERROR!");
