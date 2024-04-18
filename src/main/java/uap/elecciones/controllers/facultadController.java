@@ -1,8 +1,6 @@
 package uap.elecciones.controllers;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +23,6 @@ import uap.elecciones.model.entity.Estudiante;
 import uap.elecciones.model.entity.Facultad;
 import uap.elecciones.model.entity.Mesa;
 import uap.elecciones.model.entity.VotanteHabilitado;
-import uap.elecciones.model.service.IAsignacionEleccionService;
 import uap.elecciones.model.service.IAsignacionHabilitadoService;
 import uap.elecciones.model.service.ICarreraService;
 import uap.elecciones.model.service.IFacultadService;
