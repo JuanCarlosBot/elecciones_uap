@@ -263,7 +263,7 @@
                                             <select name="mesa" style="width: 100%" id="s1" class="form-control" required
                                             onchange="mostrarImputs()">
                                                 <option selected disabled></option>
-                                                <option th:each="mesa : ${mesas}" th:value="${mesa.id_mesa}" th:text="${mesa.nombre_mesa}"></option>
+                                                <option th:each="mesa : ${mesas}" th:value="${mesa.id_mesa}" th:text="${mesa.nombre_mesa}" th:if="${mesa.estado != 'COMPLETADO'}"></option>
                                             </select>
                                         </div>
                                     </div>

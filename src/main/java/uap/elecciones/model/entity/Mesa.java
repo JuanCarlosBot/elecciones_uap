@@ -44,6 +44,12 @@ public class Mesa implements Serializable{
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha_registro;
 
+    @Column
+    private String estado_full;
+
+    @Column
+    private String estado_centro;
+
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "if_facultad")

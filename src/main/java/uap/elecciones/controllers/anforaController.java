@@ -104,12 +104,31 @@ public class anforaController {
         if (request.getSession().getAttribute("usuario") != null) {
 
             Mesa mesa = mesaService.findOne(id_mesa);
+          
+
+
+
             Object facultadObject = anforaService.mesaPorFacultad(id_mesa);
             String nombreFacultad = (String) facultadObject;
             String nombreFull = "FULL";
             List<ConteoTotal> listConteo = conteoTotalService.findAll();
             ConteoTotal conteoTotal = new ConteoTotal();
             Nivel n = nivelService.findOne(id_nivel);
+            //ESTADOS DE MESA
+            if (n.getId_nivel() == 3) {
+            mesa.setEstado_full("A");   
+            mesaService.save(mesa); 
+            }else{
+            mesa.setEstado_centro("A");
+            mesaService.save(mesa); 
+            }
+
+            if (mesa.getEstado_full() != null && mesa.getEstado_centro() != null) {
+                mesa.setEstado("COMPLETADO");
+                mesaService.save(mesa);
+            }
+
+
             if (listConteo.isEmpty()) {
                 conteoTotal.setBlanco_total(cant_voto_blanco);
                 conteoTotal.setNulo_total(cant_voto_nulo);
