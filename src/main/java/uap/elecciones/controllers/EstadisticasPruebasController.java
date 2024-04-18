@@ -56,26 +56,18 @@ public class EstadisticasPruebasController {
     @RequestMapping(value = "/estadisticaFUL", method = RequestMethod.GET)
     private String estadisticaFUL(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
-<<<<<<< HEAD
-        if (request.getSession().getAttribute("usuario") != null) {
 
-=======
             if (request.getSession().getAttribute("usuario") != null) {
             System.out.println("NOMBRE DE FRENTE");
->>>>>>> 02b2de6 (18_04_2024)
             List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 3L, 1L);
             String[] frentes = new String[listaFrentes.size() + 2];
             String[] colores = new String[listaFrentes.size() + 2];
 
             for (int i = 0; i < listaFrentes.size(); i++) {
-<<<<<<< HEAD
-                frentes[i] = listaFrentes.get(i).get("nombre_frente") + " " + listaFrentes.get(i).get("sigla");
-=======
 
 
                 System.out.println("NOMBRE DE FRENTE"+listaFrentes.get(i).get("nombre_frente"));
                 frentes[i] = listaFrentes.get(i).get("nombre_frente") +" "+ listaFrentes.get(i).get("sigla");
->>>>>>> 02b2de6 (18_04_2024)
                 colores[i] = listaFrentes.get(i).get("color");
             }
 
@@ -86,29 +78,23 @@ public class EstadisticasPruebasController {
 
             System.out.println("ELECCIONES FUL");
             List<Map<Object, String>> votosFrentesTotal = votoTotalFrenteService.votoTotalFul(3L);
-
+            int [] datos = new int[listaFrentes.size()+2];
             System.out.println(votosFrentesTotal.size() + "HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
 
-<<<<<<< HEAD
-            int[] datos = new int[listaFrentes.size() + 2];
-
-=======
-int nacerFul=0;
-int FulFul=0;
->>>>>>> 02b2de6 (18_04_2024)
+             int nacerFul=0;
+             int FulFul=0;
             for (int i = 0; i < votosFrentesTotal.size(); i++) {
 
                 System.out.println(votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
-<<<<<<< HEAD
-                datos[i] = Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
-
-=======
                 System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
                 System.out.println( votosFrentesTotal.get(i).get("nombre_frente").toString());
 
+             
+
                    datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
+                   
 
                if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("FUL TRANSPARENCIA")) {
                     FulFul=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
@@ -118,7 +104,6 @@ int FulFul=0;
                     }
 
           
->>>>>>> 02b2de6 (18_04_2024)
             }
 
             ConteoTotal conteoVotosBlancosNulos = conteoTotalService.conteoTotalBlacoNulosFul(3L);
@@ -163,8 +148,6 @@ int FulFul=0;
                 datos[3] = 0;
             }
 
-<<<<<<< HEAD
-=======
 
             List<Map<Object, String>>votosPorMesaNacer=votoTotalFrenteService.listaMesaFrente(8L);
             List<Map<Object, String>>votosPorMesaFul=votoTotalFrenteService.listaMesaFrente(9L);
@@ -174,7 +157,6 @@ int FulFul=0;
             //datos[3] = conteoVotosBlancosNulos.getNulo_total();
             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
             model.addAttribute("votosPorMesaFul", votosPorMesaFul);
->>>>>>> 02b2de6 (18_04_2024)
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
@@ -230,6 +212,7 @@ int FulFul=0;
                 System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
                 System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
                 System.out.println( votosFrentesTotal.get(i).get("nombre_frente").toString());
+
                 datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
 
