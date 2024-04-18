@@ -17,10 +17,10 @@ public class IndexController {
     @Autowired
     private IAsignacionHabilitadoService asignacionHabilitadoService;
 
-    @RequestMapping(value = "/index",method = RequestMethod.GET)
-    public String Pagina_Index(){
-        return "index";
-    }
+    // @RequestMapping(value = "/index",method = RequestMethod.GET)
+    // public String Pagina_Index(){
+    //     return "index";
+    // }
 
    @RequestMapping(value = "/delegados",method = RequestMethod.GET)
     public String vista_delegados(Model model){
