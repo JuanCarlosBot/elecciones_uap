@@ -127,7 +127,7 @@
                     
                             </div>
                         </li>
-                        <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                 class="nav-link dropdown-toggle"><i class="fa big-icon fa-edit"></i> <span
                                     class="mini-dn">Usuario</span>
                                 <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
@@ -138,7 +138,7 @@
                                 <!-- <a th:href="${'../../../../admin/lista_personas'}" class="dropdown-item">Lista Personas</a> -->
                             </div>
                         </li>
-                        <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                 class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn">Asignacion</span>
                                 <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
@@ -148,7 +148,7 @@
                                 <a th:href="${'../../../../admin/anfora'}" class="dropdown-item">Registro Anfora</a>
                             </div>
                         </li>
-                        <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                        <li  class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                 class="nav-link dropdown-toggle"><i class="fa big-icon fa-bar-chart-o"></i> <span
                                     class="mini-dn">Universidad</span> <span class="indicator-right-menu mini-dn"><i
                                         class="fa indicator-mn fa-angle-left"></i></span></a>
@@ -160,7 +160,7 @@
                             </div>
                         </li>
 
-                        <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                             class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn">Estadistica</span>
                             <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                         <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">

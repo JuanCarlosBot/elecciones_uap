@@ -225,7 +225,7 @@
                 </div>
             </div>
             <!-- Breadcome End-->
-            <div class="login-form-area mg-t-30 mg-b-15">
+            <div th:if="${session.usuario.id_usuario != 2}" class="login-form-area mg-t-30 mg-b-15">
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-3"></div>
@@ -309,7 +309,7 @@
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
                                         <h1>LISTA <span class="table-project-n">DE</span> VOTANTES HABILITADOS</h1>
-                                        <div class="row">
+                                        <div th:if="${session.usuario.id_usuario != 2}" class="row">
                                             <div class="col-lg-4">
                                                 <div class="login-button-pro">
                                                     <button type="button" id="openModalBtn" class="login-button login-button-lg">Realizar Sorteo</button>
