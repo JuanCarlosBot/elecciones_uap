@@ -99,9 +99,6 @@
                                 <div class="sparkline13-graph">
                                     <div class="datatable-dashv1-list custom-datatable-overright">
                                        
-                                        <!-- <div id="replace_div">
-
-                                        </div> -->
                                         <div id="chart"></div>
                                         
                                     </div>
@@ -214,6 +211,14 @@
                 },
                 labels: /*[[${frentes}]]*/[], 
                 colors: /*[[${colores}]]*/[],
+                // Configuración para desactivar las animaciones
+                animations: {
+                    enabled: false
+                },
+                // Configuración para desactivar el efecto de carga
+                stroke: {
+                    width: 0
+                },
                 responsive: [{
                     breakpoint: 480,
                     options: {
@@ -226,21 +231,15 @@
                     }
                 }]
             };
-            var datoss = /*[[${datos}]]*/[];
-            console.log(datoss);
             var chart = new ApexCharts(document.querySelector("#chart"), options);
             chart.render();
-    
-    
-    // function refreshDiv() {
-    //     // Verificar si el div está presente en la página antes de ejecutar el script
-    //         var url = "../../../../admin/reload_ful";
-            
-    //         // Carga el contenido en el elemento con id 'replace_div'
-    //         $('#replace_div').load(url);
-    //     }
-    // // Llamar a la función cada 5 segundos (5000 milisegundos)
-    // setInterval(refreshDiv, 5000);
+   
+</script>
+<script>
+    // Recargar la página cada 30 segundos
+    setInterval(function() {
+        window.location.reload();
+    }, 10000); // 30 segundos
 </script>
 
 </html>
