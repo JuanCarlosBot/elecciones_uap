@@ -45,4 +45,8 @@ public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabil
     "WHERE e.ru = ?1",nativeQuery = true)
     Object asignado_habilitado(String ru);
 
+    @Query(value = "select * from asignacion_habilitado ah "+
+    "where ah.id_mesa = ?1",nativeQuery = true)
+    List<AsignacionHabilitado> lista_asignados_habilitados_por_mesa(Long id_mesa);
+
 }

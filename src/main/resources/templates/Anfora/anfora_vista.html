@@ -244,10 +244,16 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
+                                    <div class="row" style="text-align: center;">
+                                        <div class="col-lg-6">
                                             <div class="login-title">
-                                                <h1>Registro Anfora <strong id="datos"></strong></h1>
+                                                <h1>Registro Anfora </h1>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="login-title">
+                                                <h1><strong id="votosDetAnfora"></strong></h1>
+                                                
                                             </div>
                                         </div>
                                     </div>
@@ -281,6 +287,7 @@
                                             </select>
                                         </div>
                                     </div>
+                                    <input id="cantidadV" type="hidden">
                                     <script>
                                         function mostrarImputs() {
                                             var option_value1 = document.getElementById("s1").value;
@@ -305,12 +312,13 @@
                                             // Realizar la segunda solicitud AJAX para obtener la cantidad de votantes
                                             $.ajax({
                                                 type: "GET",
-                                                url: "/ruta/hacia/tu/controlador",
+                                                url: "/admin/sacarCantidadVotanteMesa",
                                                 data: {
                                                     mesaId: option_value1
                                                 },
                                                 success: function(response) {
-                                                    $('.votosDetAnfora').val(response);
+                                                    $('#cantidadV').val(response);
+                                                    $('#votosDetAnfora').html('        Cantidad de Votantes >> '+response); // Establece el valor del campo con la cantidad de votantes recibida
                                                 },
                                                 error: function(xhr, status, error) {
                                                     console.error("Error en la segunda solicitud AJAX: " + xhr.responseText);
@@ -326,7 +334,7 @@
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="login-input-area">
-                                                <input type="text" name="cant_voto_blanco" placeholder="Carnet de Identidad" required/>
+                                                <input type="text" id="vb" name="cant_voto_blanco" placeholder="Carnet de Identidad" onkeyup="calcularRestaYActualizarVV()" required/>
                                                 <i class="fa fa-user login-user"></i>
                                             </div>
                                         </div>
@@ -339,7 +347,7 @@
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="login-input-area">
-                                                <input type="text" name="cant_voto_nulo" placeholder="Carnet de Identidad" required/>
+                                                <input type="text" id="vn" name="cant_voto_nulo" placeholder="Carnet de Identidad" onkeyup="calcularRestaYActualizarVV()" required/>
                                                 <i class="fa fa-user login-user"></i>
                                             </div>
                                         </div>
@@ -352,11 +360,22 @@
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="login-input-area">
-                                                <input type="text" name="cant_voto_valido" placeholder="Carnet de Identidad" required/>
+                                                <input type="text" id="vv" name="cant_voto_valido" placeholder="Carnet de Identidad" required readonly/>
                                                 <i class="fa fa-user login-user"></i>
                                             </div>
                                         </div>
                                     </div><br>
+                                    <script>
+                                        // Función para calcular la resta y actualizar vv
+                                    function calcularRestaYActualizarVV() {
+                                        // Obtener los valores de los campos
+                                        var cantidadV = parseFloat($('#cantidadV').val());
+                                        var vb = parseFloat($('#vb').val());
+                                        var vn = parseFloat($('#vn').val());
+                                        var vv = cantidadV - vb - vn;
+                                        $('#vv').val(vv);
+                                    }
+                                    </script>
                                     <div class="col-md-12" id="replace_div"></div>
                                     <div class="row">
                                         <div class="col-lg-4"></div>

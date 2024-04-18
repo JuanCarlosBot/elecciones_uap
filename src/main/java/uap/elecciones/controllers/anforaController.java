@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
+import uap.elecciones.model.dao.IAsignacionHabilitadoDao;
 import uap.elecciones.model.entity.Anfora;
+import uap.elecciones.model.entity.AsignacionHabilitado;
 import uap.elecciones.model.entity.ConteoTotal;
 import uap.elecciones.model.entity.DetalleAnfora;
 import uap.elecciones.model.entity.Facultad;
@@ -25,6 +28,7 @@ import uap.elecciones.model.entity.Nivel;
 import uap.elecciones.model.entity.Persona;
 import uap.elecciones.model.entity.VotoTotalFrente;
 import uap.elecciones.model.service.IAnforaService;
+import uap.elecciones.model.service.IAsignacionHabilitadoService;
 import uap.elecciones.model.service.IConteoTotalService;
 import uap.elecciones.model.service.IDetalleAnforaService;
 import uap.elecciones.model.service.IFrenteService;
@@ -58,6 +62,9 @@ public class anforaController {
     @Autowired
     private IVotoTotalFrenteService votoTotalFrenteService;
 
+    @Autowired
+    private IAsignacionHabilitadoDao asignacionHabilitadoService;
+
     @RequestMapping(value = "/anfora", method = RequestMethod.GET)
     public String Vista_Anfora(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
@@ -90,6 +97,16 @@ public class anforaController {
         model.addAttribute("frentes", frentes);
         return "content :: content1";
     }
+
+
+    @GetMapping("/sacarCantidadVotanteMesa")
+    @ResponseBody
+    public String sacarCantidadVotanteMesa(@RequestParam("mesaId") Long id_mesa) {
+        List<AsignacionHabilitado> listaVotantesPorMesas = asignacionHabilitadoService.lista_asignados_habilitados_por_mesa(id_mesa);
+        int cant = listaVotantesPorMesas.size();
+        return String.valueOf(cant); // Convierte la cantidad a cadena y devuelve como respuesta
+    }
+
 
     @RequestMapping(value = "/anfora_form_prueba", method = RequestMethod.POST)
     private String anfora_form_prueba(
