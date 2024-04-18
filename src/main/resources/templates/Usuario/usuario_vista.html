@@ -285,12 +285,12 @@
                                                 <th:block th:each="p : ${personas}">
                                                     <th:block th:if="${usuario.persona != null}">
                                                         <option th:if="${usuario.persona.id_persona != p.id_persona}" th:value="${p.id_persona}"
-                                                            th:text="${p.nombres +' '+p.apellidos}"></option>
+                                                            th:text="${p.nombres}"></option>
                                                         <option th:if="${usuario.persona.id_persona == p.id_persona}" th:value="${p.id_persona}"
-                                                            th:text="${p.nombres +' '+p.apellidos}" selected></option>
+                                                            th:text="${p.nombres}" selected></option>
                                                     </th:block>
                                                     <th:block th:if="${usuario.persona == null}">
-                                                        <option th:value="${p.id_persona}" th:text="${p.nombres +' '+p.apellidos}"></option>
+                                                        <option th:value="${p.id_persona}" th:text="${p.nombres}"></option>
                                                     </th:block>
                                                 </th:block>
                                             </select>
