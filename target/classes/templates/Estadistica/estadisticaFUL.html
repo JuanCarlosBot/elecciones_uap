@@ -59,7 +59,8 @@
                                     <div class="main-sparkline13-hd">
                                         <h1>ESTADISTICA DE ELECCIONES PARA LA FUL</h1>
                                         <div class="sparkline13-outline-icon">
-                                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span class="sparkline13-collapse-link"><i
+                                                    class="fa fa-chevron-up"></i></span>
                                             <span><i class="fa fa-wrench"></i></span>
                                             <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
                                         </div>
@@ -67,9 +68,11 @@
                                 </div>
                                 <div class="sparkline13-graph">
                                     <div class="datatable-dashv1-list custom-datatable-overright">
-                                       
+
+
                                         <div id="chart"></div>
-                                        
+
+
                                     </div>
                                 </div>
                             </div>
@@ -80,68 +83,6 @@
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
                                         <h1>INFORMACION ELECCION PARA LA FUL</h1>
-<<<<<<< HEAD
-            
-                                        <BR>
-            
-                                        <div class="datatable-dashv1-list custom-datatable-overright">
-                                            <div id="toolbar">
-                                                <select class="form-control">
-                                                    <option value="">Export Basic</option>
-                                                    <option value="all">Export All</option>
-                                                    <option value="selected">Export Selected</option>
-                                                </select>
-                                            </div>
-                                            <table id="table" data-toggle="table" data-pagination="true" data-search="true"
-                                                data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
-                                                data-key-events="true" data-show-toggle="true" data-resizable="true"
-                                                data-cookie="true" data-cookie-id-table="saveId" data-show-export="true"
-                                                data-click-to-select="true" data-toolbar="#toolbar">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Numero</th>
-                                                        <th>FUL TRASPARENCIA</th>
-                                                        <th>NACER</th>
-                                                        <th>BLANCOS </th>
-                                                        <th>NULOS</th>
-            
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr th:each="ms, num : ${mesas}" th:if="${ms.estado != 'X'}">
-                                                        <td th:text="${num.count}">1</td>
-                                                        <td th:text="${ms.nombre_mesa}"></td>
-                                                        <td>
-                                                            <ul th:each="dam, num : ${ms.detalle_asignacion_mesa}">
-                                                                <li th:text="${dam.asignacion_eleccion.frente.nombre_frente}"></li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>
-                                                            <ul th:each="dam, num : ${ms.detalle_asignacion_mesa}">
-                                                                <li th:text="${dam.asignacion_eleccion.nivel.nombre_nivel}"></li>
-                                                            </ul>
-                                                        </td>
-                                                        <td>
-                                                            <ul th:each="dam, num : ${ms.detalle_asignacion_mesa}">
-                                                                <li
-                                                                    th:text="${dam.asignacion_eleccion.tipo_eleccion.nombre_tipo_eleccion}">
-                                                                </li>
-                                                            </ul>
-                                                        </td>
-            
-                                                        <td style="text-align: center;">
-                                                            <a type="button"
-                                                                th:href="${'../../../../admin/editar_det_asignacion/'+ms.id_mesa}"
-                                                                class="btn btn-custon-rounded-three btn-success"> Editar</a>
-                                                            <a type="button"
-                                                                th:href="${'../../../../admin/eliminar_det_asignacion/'+ms.id_mesa}"
-                                                                class="btn btn-custon-rounded-three btn-danger"> Eliminar</a>
-                                                        </td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-=======
 
                                             
                                                                 <div class="datatable-dashv1-list custom-datatable-overright">
@@ -169,13 +110,13 @@
                                                                         </thead>
                                                                         <tbody>
                                                                             <tr>
-                                                                                <td>NACER</td>
+                                                                                <td>NACER-FUL</td>
                                                                                 <td >
                                                                                     <span th:text="${nacerFul}"></span>
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>FUL TRANSPARENCIA</td>
+                                                                                <td>FUL TRANSPARENCIA-FUL</td>
                                                                                 <td >
                                                                                     <span th:text="${FulFul}"></span>
                                                                                 </td>
@@ -193,7 +134,7 @@
                                                                                 </td>
                                                                             </tr>
                                                                             <tr>
-                                                                                <td>PORCENTAJE  DE VOTACION DE TOTAL HABILITADOS SOBRE EL 100%</td>
+                                                                                <td>Porcentaje de Votacion de total habilitados sobre el 100%</td>
                                                                                 <td >
                                                                                     <span th:text="${totalP}"></span> %
                                                                                 </td>
@@ -209,14 +150,15 @@
                                                  
                                             
                                     
->>>>>>> 02b2de6 (18_04_2024)
                                     </div>
                                 </div>
                                 <div class="sparkline13-graph">
                                     <div class="datatable-dashv1-list custom-datatable-overright">
-            
+
+
                                         <div id="chart2"></div>
-            
+
+
                                     </div>
                                 </div>
                             </div>
@@ -232,7 +174,7 @@
                             <div class="sparkline13-list shadow-reset">
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
-                                        <h1>LISTA <span class="table-project-n">DE</span> VOTOS NACER POR MESAS </h1>
+                                        <h1>LISTA <span class="table-project-n">DE</span> VOTOS NACER-FUL POR MESAS </h1>
 <!--
                                         <div class="sparkline13-outline-icon">
                                             <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
@@ -253,7 +195,7 @@
                                             <thead>
                                                 <tr>
                                                     <th >Nro</th>
-                                                    <th >Nombre Mesa</th>
+                                                    <th >Nombre de Mesa</th>
                                                     <th >Cantidad de Votos</th>
                                                 </tr>
                                             </thead>
@@ -302,7 +244,7 @@
                                             <thead>
                                                 <tr>
                                                     <th >Nro</th>
-                                                    <th >Nombre Mesa</th>
+                                                    <th >Nombre de Mesa</th>
                                                     <th >Cantidad de Votos</th>
                                                 </tr>
                                             </thead>
@@ -334,6 +276,7 @@
             </div>
             <!-- Static Table End -->
 
+
         </div>
     </div>
     <!-- Footer Start-->
@@ -345,14 +288,13 @@
 
 </body>
 
+
+
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
 
 <script th:inline="javascript">
     var options = {
-<<<<<<< HEAD
-                series: /*[[${datos}]]*/[], 
-=======
         series: /*[[${datos}]]*/[], 
         chart: {
             width: '100%', // Ancho establecido en el 100% del contenedor
@@ -361,49 +303,58 @@
         },
         labels: /*[[${frentes}]]*/[], 
         colors: /*[[${colores}]]*/[],
-        animations: {
-            enabled: false // Desactivar animaciones al recargar
-        },
         responsive: [{
             breakpoint: 480,
             options: {
->>>>>>> 02b2de6 (18_04_2024)
                 chart: {
-                    width: '100%', // Ancho establecido en el 100% del contenedor
-                    height: '500px', // Alto establecido en el 100% del contenedor
-                    type: 'pie',
+                    width: '100%'
                 },
-                labels: /*[[${frentes}]]*/[], 
-                colors: /*[[${colores}]]*/[],
-                // Configuración para desactivar las animaciones
-                animations: {
-                    enabled: false
-                },
-                // Configuración para desactivar el efecto de carga
-                stroke: {
-                    width: 0
-                },
-                responsive: [{
-                    breakpoint: 480,
-                    options: {
-                        chart: {
-                            width: '100%'
-                        },
-                        legend: {
-                            position: 'bottom'
-                        }
-                    }
-                }]
-            };
-            var chart = new ApexCharts(document.querySelector("#chart"), options);
-            chart.render();
-   
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
 </script>
+
+
+<!--
+<script th:inline="javascript">
+   var options = {
+        series: /*[[${datos}]]*/[], 
+        chart: {
+            width: '100%', // Ancho establecido en el 100% del contenedor
+            height: '100%', // Alto establecido en el 100% del contenedor
+            type: 'pie',
+        },
+        labels: /*[[${frentes}]]*/[], 
+        colors: /*[[${colores}]]*/[],
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: '100%'
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart2"), options);
+    chart.render();
+</script>
+
+-->
 <script>
     // Recargar la página cada 30 segundos
     setInterval(function() {
         window.location.reload();
     }, 30000); // 30 segundos
 </script>
+
 
 </html>
