@@ -45,6 +45,11 @@ public class MesaServiceImpl implements IMesaService{
         return mesaDao.lista_mesas_por_carrera(id_carrera);
     }
 
+    @Override
+    public Object mesaPorCarrera(Long idMesa) {
+        return mesaDao.mesaPorCarrera(idMesa);
+    }
+
     
     
 }

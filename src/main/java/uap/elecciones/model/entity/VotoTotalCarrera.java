@@ -21,39 +21,34 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="anfora")
+@Table(name="voto_total_carrera")
 @Getter
 @Setter
-public class Anfora implements Serializable{
+
+public class VotoTotalCarrera implements Serializable{
     
     private static final long serialVersionUID = 2629195288020321924L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_anfora;
+    private Long id_voto_total_frente;
 
     @Column
-    private int cant_voto_nulo;
+    private int voto_total_frente;
     @Column
-    private int cant_voto_blanco;
-    @Column
-    private int cant_voto_valido;
-    
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_mesa")
-    private Mesa mesa;
-
-    @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "anfora", fetch = FetchType.LAZY)
-	private List<DetalleAnfora> detalleAnforas;
-
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_conteo_total")
-    private ConteoTotal conteo_total;
+    private double porcentaje_total_frente;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_conteo_total_carrera")
     private ConteoTotalCarrera conteo_total_carrera;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_frente")
+    private Frente frente;
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "voto_total_carrera", fetch = FetchType.LAZY)
+	private List<DetalleAnfora> detalle_anforas;
+
 }

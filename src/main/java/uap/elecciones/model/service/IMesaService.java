@@ -15,4 +15,6 @@ public interface IMesaService {
 
 	public List<Object[]> lista_mesas_por_carrera(Long id_carrera);
 
+	Object mesaPorCarrera(Long idMesa);
+
 }

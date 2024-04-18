@@ -19,4 +19,14 @@ public interface IMesaDao extends CrudRepository<Mesa,Long>{
     "LEFT JOIN persona p ON e.id_persona = p.id_persona "+ 
     "WHERE c.id_carrera = ?1 GROUP BY m.id_mesa", nativeQuery = true)
     public List<Object[]> lista_mesas_por_carrera(Long id_carrera);
+
+    @Query(value = "SELECT distinct m.id_mesa, m.nombre_mesa, c.nombre_carrera, f.nombre_facultad, c.id_carrera from mesa m \n" + //
+                "\tleft join asignacion_habilitado ah on m.id_mesa = ah.id_mesa\n" + //
+                "\tleft join votante_habilitado vh on ah.id_votante_habilitado = vh.id_votante_habilitado\n" + //
+                "\tleft join estudiante est on vh.id_estudiante = est.id_estudiante\n" + //
+                "\tleft join carrera_estudiante ce on est.id_estudiante = ce.id_estudiante\n" + //
+                "\tleft join carrera c on ce.id_carrera = c.id_carrera\n" + //
+                "\tleft join facultad f on c.id_facultad = f.id_facultad\n" + //
+                "\twhere  m.id_mesa = ?1", nativeQuery = true)
+Object mesaPorCarrera(Long idMesa);
 }

@@ -44,4 +44,9 @@ public class DetalleAnfora implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_voto_total_frente")
     private VotoTotalFrente voto_total_frente;
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_voto_total_carrera")
+    private VotoTotalCarrera voto_total_carrera;
 }
