@@ -342,6 +342,63 @@
                     </div>
                 </div>
             </div>
+            <div class="data-table-area mg-b-15">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="sparkline13-list shadow-reset">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1>LISTA <span class="table-project-n">DE</span> VOTOS NACER-ACJYP POR CARRERA </h1>
+<!--
+                                        <div class="sparkline13-outline-icon">
+                                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+--->
+                                    </div>
+                                </div>
+                                <div class="sparkline13-graph">
+                                    <div class="datatable-dashv1-list custom-datatable-overright">
+                                        
+                                        <table id="table" data-toggle="table" data-pagination="true" data-search="true"
+                                            data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                            data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                            data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                            data-toolbar="#toolbar">
+                                            <thead>
+                                                <tr>
+                                                    <th >Nro</th>
+                                                    <th >Carrera</th>
+                                                    <th >Cantidad de Nulos</th>
+                                                    <th >Cantidad de Blancos</th>
+                                                    <th >Cantidad de Votos Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="ctc, num : ${cont_total_carrera}">
+
+                                                    <td th:text="${num.count}"></td>
+
+                                                    <td th:text="${ctc.carrera}"></td>
+                                                    <td th:text="${ctc.nulo_total}"></td>
+                                                    <td th:text="${ctc.blanco_total}"></td>
+                                                    <td th:text="${ctc.voto_valido_total}"></td>
+
+                                                    </td>
+  
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
             <!-- Static Table End -->
 
 

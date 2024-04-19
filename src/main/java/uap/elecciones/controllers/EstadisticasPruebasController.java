@@ -24,6 +24,7 @@ import uap.elecciones.model.entity.AsignacionEleccion;
 import uap.elecciones.model.entity.AsignacionHabilitado;
 import uap.elecciones.model.entity.Carrera;
 import uap.elecciones.model.entity.ConteoTotal;
+import uap.elecciones.model.entity.ConteoTotalCarrera;
 import uap.elecciones.model.entity.Estudiante;
 import uap.elecciones.model.entity.Facultad;
 import uap.elecciones.model.entity.Mesa;
@@ -31,6 +32,7 @@ import uap.elecciones.model.entity.VotanteHabilitado;
 import uap.elecciones.model.service.IAsignacionEleccionService;
 import uap.elecciones.model.service.IAsignacionHabilitadoService;
 import uap.elecciones.model.service.ICarreraService;
+import uap.elecciones.model.service.IConteoTotalCarreraService;
 import uap.elecciones.model.service.IConteoTotalService;
 import uap.elecciones.model.service.IFacultadService;
 import uap.elecciones.model.service.IFrenteService;
@@ -51,7 +53,8 @@ public class EstadisticasPruebasController {
     @Autowired
     private IVotoTotalFrenteService votoTotalFrenteService;
 
-    
+    @Autowired
+    private IConteoTotalCarreraService conteoTotalCarreraService;
 
 
     @RequestMapping(value = "/estadisticaFUL", method = RequestMethod.GET)
@@ -155,12 +158,10 @@ public class EstadisticasPruebasController {
             List<Map<Object, String>>votosPorMesaNacer=votoTotalFrenteService.listaMesaFrente(8L);
             List<Map<Object, String>>votosPorMesaFul=votoTotalFrenteService.listaMesaFrente(9L);
             
-
            // datos[2] = conteoVotosBlancosNulos.getBlanco_total();
             //datos[3] = conteoVotosBlancosNulos.getNulo_total();
             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
             model.addAttribute("votosPorMesaFul", votosPorMesaFul);
-            model.addAttribute("conteo_total_carrera", votosPorMesaFul);
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
@@ -294,7 +295,11 @@ public class EstadisticasPruebasController {
             List<Map<Object, String>>votosBlancosNulosPorMesas=votoTotalFrenteService.listaVotosBlancosNulosPorMesas(4L);
             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
             model.addAttribute("votosPorMesaFul", votosPorMesaFul);
+<<<<<<< HEAD
             model.addAttribute("votosBlancosNulosPorMesas", votosBlancosNulosPorMesas);
+=======
+            // model.addAttribute("cont_total_carr", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(1L));
+>>>>>>> 04fe2cb (update)
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
