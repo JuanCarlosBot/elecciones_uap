@@ -17,5 +17,12 @@ public interface IConteoTotalCarreraDao extends CrudRepository<ConteoTotalCarrer
             "left join facultad f on me.if_facultad = f.id_facultad\n" + //
             "where f.id_facultad = ?1",nativeQuery=true)
    public List<ConteoTotalCarrera>conteoTotalCarreraPorFacultad(Long idFacultad);
+
+
+
+   @Query(value = "SELECT *\n" + //
+                  "FROM conteo_total_carrera\n" + //
+                  "WHERE carrera LIKE '%FULL%';",nativeQuery=true)
+   public List<ConteoTotalCarrera>conteoTotalCarreraPorFull(Long idFacultad);
    
 }

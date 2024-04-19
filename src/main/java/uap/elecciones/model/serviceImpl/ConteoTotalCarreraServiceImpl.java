@@ -41,6 +41,11 @@ public List<ConteoTotalCarrera> conteoTotalCarreraPorFacultad(Long idFacultad) {
     return (List<ConteoTotalCarrera>) ConteoTotalCarreraDao.conteoTotalCarreraPorFacultad(idFacultad);
 }
 
+@Override
+public List<ConteoTotalCarrera> conteoTotalCarreraPorFull(Long idFacultad) {
+    return (List<ConteoTotalCarrera>) ConteoTotalCarreraDao.conteoTotalCarreraPorFull(idFacultad);
+}
+
 
 
 

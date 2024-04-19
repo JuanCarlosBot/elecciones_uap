@@ -17,6 +17,7 @@ public interface IConteoTotalCarreraService {
 
 	public void delete(Long id);
 	public List<ConteoTotalCarrera>conteoTotalCarreraPorFacultad(Long idFacultad);
+	public List<ConteoTotalCarrera>conteoTotalCarreraPorFull(Long idFacultad);
 
 
 }
