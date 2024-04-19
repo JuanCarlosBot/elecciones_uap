@@ -290,7 +290,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#demo" href="#">Usuario <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse" data-target="#demo" href="#">Usuario <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="demo" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/usuario'}">Registro Usuario</a>
                                                 </li>
@@ -300,7 +300,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#others" href="#">Asignacion <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse" data-target="#others" href="#">Asignacion <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="others" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/frente'}">Registro Frente</a>
                                                 </li>
@@ -318,7 +318,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#Chartsmob" href="#">Estadistica <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <li ><a data-toggle="collapse" data-target="#Chartsmob" href="#">Estadistica <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="Chartsmob" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/estadisticaFUL'}" >Estadistica FUL</a>
                                                 </li>
@@ -333,7 +333,6 @@
                                                 <li><a th:href="${'../../../../admin/estadisticaACYT'}" class="dropdown-item">Estadistica ACYT</a>
                                                 </li>
                                                 <li><a th:href="${'../../../../admin/estadisticaACS'}" class="dropdown-item">Estadistica ACS</a>
-
                                                 <li><a th:href="${'../../../../admin/estadisticaPTO'}" >Estadistica PTO</a>
                                                 </li>
                                                 <li><a th:href="${'../../../../admin/estadisticaES'}" >Estadistica ES</a>
