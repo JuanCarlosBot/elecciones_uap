@@ -163,7 +163,7 @@ public class EstadisticasPruebasController {
             model.addAttribute("votosBlancosNulosPorMesas", votosBlancosNulosPorMesas);
             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
             model.addAttribute("votosPorMesaFul", votosPorMesaFul);
-            model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFull(1L));
+            model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFull());
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
