@@ -109,7 +109,7 @@ public class EstadisticasPruebasController {
 
           
             }
-
+ 
             ConteoTotal conteoVotosBlancosNulos = conteoTotalService.conteoTotalBlacoNulosFul(3L);
 
             // System.out.println(conteoVotosBlancosNulos.getBlanco_total());
@@ -157,14 +157,21 @@ public class EstadisticasPruebasController {
 
             List<Map<Object, String>>votosPorMesaNacer=votoTotalFrenteService.listaMesaFrente(8L);
             List<Map<Object, String>>votosPorMesaFul=votoTotalFrenteService.listaMesaFrente(9L);
-            
+            List<Map<Object, String>>votosBlancosNulosPorMesas=votoTotalFrenteService.listaVotosBlancosNulosPorMesas(3L);
            // datos[2] = conteoVotosBlancosNulos.getBlanco_total();
             //datos[3] = conteoVotosBlancosNulos.getNulo_total();
+            model.addAttribute("votosBlancosNulosPorMesas", votosBlancosNulosPorMesas);
             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
             model.addAttribute("votosPorMesaFul", votosPorMesaFul);
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
+
+
+
+
+        
+
             return "Estadistica/estadisticaFUL";
         } else {
             return "redirect:/login";
@@ -890,7 +897,7 @@ public class EstadisticasPruebasController {
            System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             
             int [] datos = new int[listaFrentes.size()+2];
-            int nacerAcs=0;
+            int nacerPto=0;
 
             for (int i = 0; i < votosFrentesTotal.size(); i++) {
 
@@ -900,8 +907,8 @@ public class EstadisticasPruebasController {
                    datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
 
-                   if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("NACER-ACS")) {
-                    nacerAcs=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                   if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("NACER-UA-PTO")) {
+                    nacerPto=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
                      }
           
             }
@@ -925,7 +932,7 @@ public class EstadisticasPruebasController {
 
                 int total=0;
 
-                total=nacerAcs+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
+                total=nacerPto+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
                 System.out.println("CONTEO TOTAL1-"+total);
               double  totall = 100 * ((double) total / 252);
 
@@ -939,8 +946,9 @@ public class EstadisticasPruebasController {
 
                  int habilitadosParaVotar=252;                 
                  model.addAttribute("habilitadosParaVotar", habilitadosParaVotar);
+                 model.addAttribute("total", total);
                  model.addAttribute("totalP", totalP);
-                 model.addAttribute("nacerFul", nacerAcs);
+                 model.addAttribute("nacerFul", nacerPto);
                 // Lógica adicional aquí
             } else {
                 // Inicializar conteoVotosBlancosNulos si es necesario
@@ -998,7 +1006,7 @@ public class EstadisticasPruebasController {
            System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             
             int [] datos = new int[listaFrentes.size()+2];
-            int nacerAcs=0;
+            int nacerEs=0;
 
             for (int i = 0; i < votosFrentesTotal.size(); i++) {
 
@@ -1008,8 +1016,8 @@ public class EstadisticasPruebasController {
                    datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
 
-                   if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("NACER-ACS")) {
-                    nacerAcs=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                   if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("NACER-UA-ES")) {
+                    nacerEs=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
                      }
           
             }
@@ -1033,7 +1041,7 @@ public class EstadisticasPruebasController {
 
                 int total=0;
 
-                total=nacerAcs+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
+                total=nacerEs+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
                 System.out.println("CONTEO TOTAL1-"+total);
               double  totall = 100 * ((double) total / 131);
 
@@ -1046,8 +1054,9 @@ public class EstadisticasPruebasController {
 
                  int habilitadosParaVotar=131;
                  model.addAttribute("habilitadosParaVotar", habilitadosParaVotar);
+                 model.addAttribute("total", total);
                  model.addAttribute("totalP", totalP);
-                 model.addAttribute("nacerFul", nacerAcs);
+                 model.addAttribute("nacerFul", nacerEs);
                 // Lógica adicional aquí
             } else {
                 // Inicializar conteoVotosBlancosNulos si es necesario
@@ -1105,7 +1114,7 @@ public class EstadisticasPruebasController {
            System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             
             int [] datos = new int[listaFrentes.size()+2];
-            int nacerAcs=0;
+            int nacerLp=0;
 
             for (int i = 0; i < votosFrentesTotal.size(); i++) {
 
@@ -1115,8 +1124,8 @@ public class EstadisticasPruebasController {
                    datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
 
-                   if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("NACER-ACS")) {
-                    nacerAcs=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                   if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("NACER-UA-LP")) {
+                    nacerLp=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
                      }
           
             }
@@ -1140,7 +1149,7 @@ public class EstadisticasPruebasController {
 
                 int total=0;
 
-                total=nacerAcs+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
+                total=nacerLp+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
                 System.out.println("CONTEO TOTAL1-"+total);
               double  totall = 100 * ((double) total / 409);
 
@@ -1155,7 +1164,7 @@ public class EstadisticasPruebasController {
                model.addAttribute("total", total);
                  model.addAttribute("totalP", totalP);
                  model.addAttribute("habilitadosParaVotar", habilitadosParaVotar);
-                 model.addAttribute("nacerFul", nacerAcs);
+                 model.addAttribute("nacerFul", nacerLp);
                  
                  
                 // Lógica adicional aquí
@@ -1211,7 +1220,7 @@ public class EstadisticasPruebasController {
            System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             
             int [] datos = new int[listaFrentes.size()+2];
-            int nacerAcs=0;
+            int nacerSr=0;
 
             for (int i = 0; i < votosFrentesTotal.size(); i++) {
 
@@ -1221,8 +1230,8 @@ public class EstadisticasPruebasController {
                    datos[i]=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
 
-                   if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("NACER-ACS")) {
-                    nacerAcs=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
+                   if (votosFrentesTotal.get(i).get("nombre_frente").toString().equals("NACER-UA-SR")) {
+                    nacerSr=Integer.parseInt(votosFrentesTotal.get(i).get("voto_total_frente").toString());
                      }
           
             }
@@ -1246,7 +1255,7 @@ public class EstadisticasPruebasController {
 
                 int total=0;
 
-                total=nacerAcs+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
+                total=nacerSr+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
                 System.out.println("CONTEO TOTAL1-"+total);
               double  totall = 100 * ((double) total / 13);
 
@@ -1261,7 +1270,7 @@ public class EstadisticasPruebasController {
                model.addAttribute("total", total);
                  model.addAttribute("totalP", totalP);
                  model.addAttribute("habilitadosParaVotar", habilitadosParaVotar);
-                 model.addAttribute("nacerFul", nacerAcs);
+                 model.addAttribute("nacerFul", nacerSr);
                  
                  
                 // Lógica adicional aquí
