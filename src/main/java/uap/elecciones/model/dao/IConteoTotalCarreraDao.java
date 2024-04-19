@@ -5,13 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import uap.elecciones.model.entity.ConteoTotal;
 import uap.elecciones.model.entity.ConteoTotalCarrera;
 
 public interface IConteoTotalCarreraDao extends CrudRepository<ConteoTotalCarrera,Long>{
 
 
-@Query(value = "select ct.* from conteo_total_carrera ct\n" + //
+@Query(value = "select distinct ct.* from conteo_total_carrera ct\n" + //
             "left join anfora a ON a.id_conteo_total_carrera = ct.id_conteo_total\n" + //
             "left join mesa me ON me.id_mesa = a.id_mesa\n" + //
             "left join facultad f on me.if_facultad = f.id_facultad\n" + //
