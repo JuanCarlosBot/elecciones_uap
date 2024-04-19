@@ -36,6 +36,13 @@ public void delete(Long id) {
     ConteoTotalCarreraDao.deleteById(id);
 }
 
+@Override
+public List<ConteoTotalCarrera> conteoTotalCarreraPorFacultad(Long idFacultad) {
+    return (List<ConteoTotalCarrera>) ConteoTotalCarreraDao.conteoTotalCarreraPorFacultad(idFacultad);
+}
+
+
+
 
 
 
