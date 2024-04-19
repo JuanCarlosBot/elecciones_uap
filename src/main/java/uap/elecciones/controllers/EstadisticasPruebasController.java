@@ -646,6 +646,7 @@ public class EstadisticasPruebasController {
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
+            model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(4L));
             return "Estadistica/estadisticaACEF";
         } else {
             return "redirect:/login";
@@ -756,6 +757,7 @@ public class EstadisticasPruebasController {
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
+            model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(6L));
             return "Estadistica/estadisticaACYT";
         } else {
             return "redirect:/login";
@@ -860,6 +862,7 @@ public class EstadisticasPruebasController {
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
+            model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(3L));
             return "Estadistica/estadisticaACS";
         } else {
             return "redirect:/login";
