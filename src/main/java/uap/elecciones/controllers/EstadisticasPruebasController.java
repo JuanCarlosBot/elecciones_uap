@@ -77,8 +77,8 @@ public class EstadisticasPruebasController {
 
             frentes[listaFrentes.size()] = "Blancos";
             frentes[listaFrentes.size() + 1] = "Nulos";
-            colores[listaFrentes.size()] = "#fff4ea";
-            colores[listaFrentes.size() + 1] = "#fec2ff";
+            colores[listaFrentes.size()] = "#DCDCDC";
+            colores[listaFrentes.size() + 1] = "#A9A9A9";
 
             System.out.println("ELECCIONES FUL");
             List<Map<Object, String>> votosFrentesTotal = votoTotalFrenteService.votoTotalFul(3L);
