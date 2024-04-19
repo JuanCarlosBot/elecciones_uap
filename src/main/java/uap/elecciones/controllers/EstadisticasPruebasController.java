@@ -51,6 +51,7 @@ public class EstadisticasPruebasController {
     @Autowired
     private IVotoTotalFrenteService votoTotalFrenteService;
 
+    
 
 
     @RequestMapping(value = "/estadisticaFUL", method = RequestMethod.GET)
@@ -120,7 +121,6 @@ public class EstadisticasPruebasController {
                 int total=0;
 
 
-
                 total=FulFul+nacerFul+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
                 System.out.println("CONTEO TOTAL1-"+total);
               double  totall = 100 * ((double) total / 9107);
@@ -151,12 +151,13 @@ public class EstadisticasPruebasController {
 
             List<Map<Object, String>>votosPorMesaNacer=votoTotalFrenteService.listaMesaFrente(8L);
             List<Map<Object, String>>votosPorMesaFul=votoTotalFrenteService.listaMesaFrente(9L);
-
+            
 
            // datos[2] = conteoVotosBlancosNulos.getBlanco_total();
             //datos[3] = conteoVotosBlancosNulos.getNulo_total();
             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
             model.addAttribute("votosPorMesaFul", votosPorMesaFul);
+            model.addAttribute("conteo_total_carrera", votosPorMesaFul);
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
