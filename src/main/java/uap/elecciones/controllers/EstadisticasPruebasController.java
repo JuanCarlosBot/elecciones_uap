@@ -199,8 +199,8 @@ public class EstadisticasPruebasController {
 
             frentes[listaFrentes.size()] = "Blancos";
             frentes[listaFrentes.size()+1] = "Nulos";
-            colores[listaFrentes.size()] = "#fff4ea";
-            colores[listaFrentes.size()+1] = "#fec2ff";
+            colores[listaFrentes.size()] = "#DCDCDC";
+            colores[listaFrentes.size() + 1] = "#A9A9A9";
 
             System.out.println("ELECCIONES FUL");
            List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(4L);
@@ -337,8 +337,8 @@ public class EstadisticasPruebasController {
 
             frentes[listaFrentes.size()] = "Blancos";
             frentes[listaFrentes.size()+1] = "Nulos";
-            
-            colores[listaFrentes.size()+1] = "#fec2ff";
+            colores[listaFrentes.size()] = "#DCDCDC";
+            colores[listaFrentes.size() + 1] = "#A9A9A9";
 
             System.out.println("ELECCIONES FUL");
            List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(8L);
@@ -450,8 +450,8 @@ public class EstadisticasPruebasController {
 
             frentes[listaFrentes.size()] = "Blancos";
             frentes[listaFrentes.size()+1] = "Nulos";
-            colores[listaFrentes.size()] = "#fff4ea";
-            colores[listaFrentes.size()+1] = "#fec2ff";
+            colores[listaFrentes.size()] = "#DCDCDC";
+            colores[listaFrentes.size() + 1] = "#A9A9A9";
 
             System.out.println("ELECCIONES FUL");
            List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(5L);
@@ -555,8 +555,8 @@ public class EstadisticasPruebasController {
 
             frentes[listaFrentes.size()] = "Blancos";
             frentes[listaFrentes.size()+1] = "Nulos";
-            colores[listaFrentes.size()] = "#fff4ea";
-            colores[listaFrentes.size()+1] = "#fec2ff";
+            colores[listaFrentes.size()] = "#DCDCDC";
+            colores[listaFrentes.size() + 1] = "#A9A9A9";
 
             System.out.println("ELECCIONES FUL");
            List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(7L);
@@ -664,8 +664,8 @@ public class EstadisticasPruebasController {
 
             frentes[listaFrentes.size()] = "Blancos";
             frentes[listaFrentes.size()+1] = "Nulos";
-            colores[listaFrentes.size()] = "#fff4ea";
-            colores[listaFrentes.size()+1] = "#fec2ff";
+            colores[listaFrentes.size()] = "#DCDCDC";
+            colores[listaFrentes.size() + 1] = "#A9A9A9";
 
             System.out.println("ELECCIONES FUL");
            List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(9L);
@@ -774,8 +774,8 @@ public class EstadisticasPruebasController {
 
             frentes[listaFrentes.size()] = "Blancos";
             frentes[listaFrentes.size()+1] = "Nulos";
-            colores[listaFrentes.size()] = "#fff4ea";
-            colores[listaFrentes.size()+1] = "#fec2ff";
+            colores[listaFrentes.size()] = "#DCDCDC";
+            colores[listaFrentes.size() + 1] = "#A9A9A9";
 
             System.out.println("ELECCIONES FUL");
            List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(6L);
@@ -881,8 +881,8 @@ public class EstadisticasPruebasController {
 
             frentes[listaFrentes.size()] = "Blancos";
             frentes[listaFrentes.size()+1] = "Nulos";
-            colores[listaFrentes.size()] = "#fff4ea";
-            colores[listaFrentes.size()+1] = "#fec2ff";
+            colores[listaFrentes.size()] = "#DCDCDC";
+            colores[listaFrentes.size() + 1] = "#A9A9A9";
 
             System.out.println("ELECCIONES FUL");
            List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(10L);
@@ -991,8 +991,8 @@ public class EstadisticasPruebasController {
 
             frentes[listaFrentes.size()] = "Blancos";
             frentes[listaFrentes.size()+1] = "Nulos";
-            colores[listaFrentes.size()] = "#fff4ea";
-            colores[listaFrentes.size()+1] = "#fec2ff";
+            colores[listaFrentes.size()] = "#DCDCDC";
+            colores[listaFrentes.size() + 1] = "#A9A9A9";
 
             System.out.println("ELECCIONES FUL");
            List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(11L);
@@ -1100,8 +1100,8 @@ public class EstadisticasPruebasController {
 
             frentes[listaFrentes.size()] = "Blancos";
             frentes[listaFrentes.size()+1] = "Nulos";
-            colores[listaFrentes.size()] = "#fff4ea";
-            colores[listaFrentes.size()+1] = "#fec2ff";
+            colores[listaFrentes.size()] = "#DCDCDC";
+            colores[listaFrentes.size() + 1] = "#A9A9A9";
 
             System.out.println("ELECCIONES FUL");
            List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(12L);
@@ -1206,8 +1206,8 @@ public class EstadisticasPruebasController {
 
             frentes[listaFrentes.size()] = "Blancos";
             frentes[listaFrentes.size()+1] = "Nulos";
-            colores[listaFrentes.size()] = "#fff4ea";
-            colores[listaFrentes.size()+1] = "#fec2ff";
+            colores[listaFrentes.size()] = "#DCDCDC";
+            colores[listaFrentes.size() + 1] = "#A9A9A9";
 
             System.out.println("ELECCIONES FUL");
            List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(13L);
