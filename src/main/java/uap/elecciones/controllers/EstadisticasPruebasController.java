@@ -460,15 +460,12 @@ public class EstadisticasPruebasController {
             System.out.println("ELECCIONES FUL");
            List<Map<Object, String>>votosFrentesTotal=votoTotalFrenteService.votoTotalFul(5L);
 
-           
-
            System.out.println( votosFrentesTotal.size()+"HOLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
             
             int [] datos = new int[listaFrentes.size()+2];
             int nacerAcbn=0;
 
             for (int i = 0; i < votosFrentesTotal.size(); i++) {
-
 
                 System.out.println( votosFrentesTotal.get(i).get("voto_total_frente").toString());
 
@@ -838,7 +835,6 @@ public class EstadisticasPruebasController {
                  // Formateamos el número usando el objeto DecimalFormat
                  String totalP = df.format(totall);
                  
-                     
                  int habilitadosParaVotar=3092;
                  model.addAttribute("total", total);
                  model.addAttribute("habilitadosParaVotar", habilitadosParaVotar);
@@ -968,6 +964,7 @@ public class EstadisticasPruebasController {
             
             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
             model.addAttribute("votosBlancosNulosPorMesas", votosBlancosNulosPorMesas);
+            // model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(7L));
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
@@ -1075,6 +1072,7 @@ public class EstadisticasPruebasController {
             List<Map<Object, String>>votosBlancosNulosPorMesas=votoTotalFrenteService.listaVotosBlancosNulosPorMesas(11L);
             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
             model.addAttribute("votosBlancosNulosPorMesas", votosBlancosNulosPorMesas);
+            model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(8L));
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
@@ -1185,11 +1183,11 @@ public class EstadisticasPruebasController {
             List<Map<Object, String>>votosBlancosNulosPorMesas=votoTotalFrenteService.listaVotosBlancosNulosPorMesas(12L);
             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
             model.addAttribute("votosBlancosNulosPorMesas", votosBlancosNulosPorMesas);
-           
+            model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(9L));
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
-            return "Estadistica/estadisticaACS";
+            return "Estadistica/estadisticaLP";
         } else {
             return "redirect:/login";
         }
@@ -1294,6 +1292,7 @@ public class EstadisticasPruebasController {
             
             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
             model.addAttribute("votosBlancosNulosPorMesas", votosBlancosNulosPorMesas);
+            model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(10L));
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
