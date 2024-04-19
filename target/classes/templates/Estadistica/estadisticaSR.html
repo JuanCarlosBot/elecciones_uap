@@ -58,6 +58,7 @@
                                     <div class="main-sparkline13-hd">
                                         <h1>ESTADISTICA DE ELECCIONES PARA CENTRO INTERNO DE SR</h1>
                                         <div class="sparkline13-outline-icon">
+                                            <span id="reloadButton"><i class="fas fa-redo"></i></span>
                                             <span class="sparkline13-collapse-link"><i
                                                     class="fa fa-chevron-up"></i></span>
                                             <span><i class="fa fa-wrench"></i></span>
@@ -421,10 +422,9 @@
 
 -->
 <script>
-    // Recargar la página cada 30 segundos
-    setInterval(function() {
-        window.location.reload();
-    }, 30000); // 30 segundos
+    document.getElementById('reloadButton').addEventListener('click', function() {
+        location.reload();
+    });
 </script>
 
 
