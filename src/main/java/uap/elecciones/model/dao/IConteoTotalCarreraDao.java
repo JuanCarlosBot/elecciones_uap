@@ -11,11 +11,11 @@ import uap.elecciones.model.entity.ConteoTotalCarrera;
 public interface IConteoTotalCarreraDao extends CrudRepository<ConteoTotalCarrera,Long>{
 
 
-      @Query(value = "select * from conteo_total_carrera ct\n" + //
-                  "left join anfora a ON a.id_conteo_total_carrera = ct.id_conteo_total\n" + //
-                  "left join mesa me ON me.id_mesa = a.id_mesa\n" + //
-                  "left join facultad f on me.if_facultad = f.id_facultad\n" + //
-                  "where f.id_facultad = ?1",nativeQuery=true)
+@Query(value = "select ct.* from conteo_total_carrera ct\n" + //
+            "left join anfora a ON a.id_conteo_total_carrera = ct.id_conteo_total\n" + //
+            "left join mesa me ON me.id_mesa = a.id_mesa\n" + //
+            "left join facultad f on me.if_facultad = f.id_facultad\n" + //
+            "where f.id_facultad = ?1",nativeQuery=true)
    public List<ConteoTotalCarrera>conteoTotalCarreraPorFacultad(Long idFacultad);
    
 }

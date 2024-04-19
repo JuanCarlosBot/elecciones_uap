@@ -289,17 +289,17 @@ public class EstadisticasPruebasController {
                 datos[3] = 0;
             }
 
+            for (ConteoTotalCarrera c : conteoTotalCarreraService.conteoTotalCarreraPorFacultad(1L)) {
+                System.out.println(c.getCarrera());
+            }
           
             List<Map<Object, String>>votosPorMesaNacer=votoTotalFrenteService.listaMesaFrente(6L);
             List<Map<Object, String>>votosPorMesaFul=votoTotalFrenteService.listaMesaFrente(7L);
             List<Map<Object, String>>votosBlancosNulosPorMesas=votoTotalFrenteService.listaVotosBlancosNulosPorMesas(4L);
             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
             model.addAttribute("votosPorMesaFul", votosPorMesaFul);
-<<<<<<< HEAD
             model.addAttribute("votosBlancosNulosPorMesas", votosBlancosNulosPorMesas);
-=======
-            // model.addAttribute("cont_total_carr", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(1L));
->>>>>>> 04fe2cb (update)
+            model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(1L));
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
@@ -418,7 +418,7 @@ public class EstadisticasPruebasController {
            model.addAttribute("votosBlancosNulosPorMesas", votosBlancosNulosPorMesas);
             
             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
-            
+            model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(5L));
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
@@ -528,6 +528,7 @@ public class EstadisticasPruebasController {
             
             model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
             model.addAttribute("votosBlancosNulosPorMesas", votosBlancosNulosPorMesas);
+            model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(5L));
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
