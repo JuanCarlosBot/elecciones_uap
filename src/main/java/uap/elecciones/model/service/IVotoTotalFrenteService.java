@@ -18,4 +18,6 @@ public interface IVotoTotalFrenteService {
 	public List<Map<Object, String>> votoTotalFul(Long idNivel);
 
 	public List<Map<Object, String>> listaMesaFrente(Long idFrente);
+
+	public List<Map<Object, String>> listaVotosBlancosNulosPorMesas(Long idNivel);
 }
