@@ -1,7 +1,7 @@
 <!doctype html>
 <html class="../../../../no-js" lang="en">
 <head th:replace="Layout/layout :: head">
-   
+
 </head>
 
 <body class="materialdesign">
@@ -231,7 +231,7 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-3"></div>
-                        <form th:action="@{/admin/anfora_form_prueba}" method="post" id="adminpro-register-form" class="adminpro-form" th:object="${anfora}">
+                        <form th:action="@{/admin/anfora_form_prueba}" method="post" id="miFormulario" class="adminpro-form" th:object="${anfora}">
                             
                             <div class="col-lg-6">
                                 <div class="login-bg">
@@ -390,6 +390,7 @@
                             </div>
                         </form>
                         <div class="col-lg-3"></div>
+                      
                     </div>
                 </div>
             </div>
@@ -400,6 +401,35 @@
     <div th:replace="Layout/layout :: footer" class="footer-copyright-area">
     </div>
     <!-- Footer End-->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+    document.getElementById("miFormulario").addEventListener("submit", function(event) {
+      event.preventDefault(); // Evitar que el formulario se envíe automáticamente
+
+      Swal.fire({
+        title: "¿Estás seguro?",
+        text: "Una vez enviado, no podrás deshacer esta acción.",
+        icon: "warning",
+        showCancelButton: true, // Mostrar el botón de cancelar
+        confirmButtonText: "Sí, enviar",
+        cancelButtonText: "Cancelar", // Texto del botón de cancelar
+        buttonsStyling: false, // Desactivar estilos automáticos para personalizar los botones
+    
+       
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          // Si el usuario confirma, envía el formulario
+          document.getElementById("miFormulario").submit();
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+          // Si el usuario cancela, no se hace nada
+          Swal.fire("La acción ha sido cancelada.", {
+            icon: "info",
+          });
+        }
+      });
+    });
+</script>
 
     <div th:replace="Layout/layout :: scripts"></div>
     <script>
