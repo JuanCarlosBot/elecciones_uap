@@ -61,7 +61,7 @@ public class EstadisticasPruebasController {
     private String estadisticaFUL(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
 
-            if (request.getSession().getAttribute("usuario") != null) {
+
             System.out.println("NOMBRE DE FRENTE");
             List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 3L, 1L);
             String[] frentes = new String[listaFrentes.size() + 2];
@@ -169,9 +169,7 @@ public class EstadisticasPruebasController {
             model.addAttribute("colores", colores);
 
             return "Estadistica/estadisticaFUL";
-        } else {
-            return "redirect:/login";
-        }
+        
     }
 
 
@@ -182,7 +180,7 @@ public class EstadisticasPruebasController {
     @RequestMapping(value = "/estadisticaACJYP", method = RequestMethod.GET)
     private String estadisticaACJYP(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
-        if (request.getSession().getAttribute("usuario") != null) {
+        
 
 
 
@@ -307,9 +305,7 @@ public class EstadisticasPruebasController {
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
             return "Estadistica/estadisticaACJYP";
-        } else {
-            return "redirect:/login";
-        }
+        
     }
 
 
@@ -321,7 +317,7 @@ public class EstadisticasPruebasController {
     @RequestMapping(value = "/estadisticaACSYH", method = RequestMethod.GET)
     private String estadisticaACSYH(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
-        if (request.getSession().getAttribute("usuario") != null) {
+        
             List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 8L, 3L);
           
           System.out.println("EL TAMAÑO DE LA LISTA ES : "+listaFrentes.size());
@@ -426,9 +422,7 @@ public class EstadisticasPruebasController {
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
             return "Estadistica/estadisticaACSYH";
-        } else {
-            return "redirect:/login";
-        }
+        
     }
 
 
@@ -437,7 +431,7 @@ public class EstadisticasPruebasController {
     @RequestMapping(value = "/estadisticaACBN", method = RequestMethod.GET)
     private String estadisticaACBN(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
-        if (request.getSession().getAttribute("usuario") != null) {
+        
             List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 5L, 3L);
             String[] frentes = new String[listaFrentes.size()+2];
             String[] colores = new String[listaFrentes.size()+2];
@@ -533,16 +527,14 @@ public class EstadisticasPruebasController {
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
             return "Estadistica/estadisticaACBN";
-        } else {
-            return "redirect:/login";
-        }
+        
     }
 /*//////////////////////////////////////////////////////////////// */
 
     @RequestMapping(value = "/estadisticaACEF", method = RequestMethod.GET)
     private String estadisticaACEF(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
-        if (request.getSession().getAttribute("usuario") != null) {
+        
             List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 7L, 3L);
             String[] frentes = new String[listaFrentes.size()+2];
             String[] colores = new String[listaFrentes.size()+2];
@@ -641,9 +633,7 @@ public class EstadisticasPruebasController {
             model.addAttribute("colores", colores);
             model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(4L));
             return "Estadistica/estadisticaACEF";
-        } else {
-            return "redirect:/login";
-        }
+        
     }
 
     /*+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ */
@@ -651,7 +641,7 @@ public class EstadisticasPruebasController {
     @RequestMapping(value = "/estadisticaACYT", method = RequestMethod.GET)
     private String estadisticaACYT(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
-        if (request.getSession().getAttribute("usuario") != null) {
+        
             List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 9L, 3L);
             String[] frentes = new String[listaFrentes.size()+2];
             String[] colores = new String[listaFrentes.size()+2];
@@ -752,16 +742,14 @@ public class EstadisticasPruebasController {
             model.addAttribute("colores", colores);
             model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(6L));
             return "Estadistica/estadisticaACYT";
-        } else {
-            return "redirect:/login";
-        }
+        
     }
 
 /**********************************************************************************************/
     @RequestMapping(value = "/estadisticaACS", method = RequestMethod.GET)
     private String estadisticaACS(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
-        if (request.getSession().getAttribute("usuario") != null) {
+        
             List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 6L, 3L);
             String[] frentes = new String[listaFrentes.size()+2];
             String[] colores = new String[listaFrentes.size()+2];
@@ -856,9 +844,7 @@ public class EstadisticasPruebasController {
             model.addAttribute("colores", colores);
             model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFacultad(3L));
             return "Estadistica/estadisticaACS";
-        } else {
-            return "redirect:/login";
-        }
+        
     }
 
 
@@ -868,7 +854,7 @@ public class EstadisticasPruebasController {
     @RequestMapping(value = "/estadisticaPTO", method = RequestMethod.GET)
     private String estadisticaPTO(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
-        if (request.getSession().getAttribute("usuario") != null) {
+       
             List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 10L, 3L);
             String[] frentes = new String[listaFrentes.size()+2];
             String[] colores = new String[listaFrentes.size()+2];
@@ -965,9 +951,7 @@ public class EstadisticasPruebasController {
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
             return "Estadistica/estadisticaPTO";
-        } else {
-            return "redirect:/login";
-        }
+        
     }
 
 
@@ -978,7 +962,7 @@ public class EstadisticasPruebasController {
     @RequestMapping(value = "/estadisticaES", method = RequestMethod.GET)
     private String estadisticaES(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
-        if (request.getSession().getAttribute("usuario") != null) {
+        
             List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 11L, 3L);
             String[] frentes = new String[listaFrentes.size()+2];
             String[] colores = new String[listaFrentes.size()+2];
@@ -1073,9 +1057,7 @@ public class EstadisticasPruebasController {
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
             return "Estadistica/estadisticaES";
-        } else {
-            return "redirect:/login";
-        }
+        
     }
 
 
@@ -1087,7 +1069,7 @@ public class EstadisticasPruebasController {
     @RequestMapping(value = "/estadisticaLP", method = RequestMethod.GET)
     private String estadisticaLP(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
-        if (request.getSession().getAttribute("usuario") != null) {
+        
             List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 12L, 3L);
             String[] frentes = new String[listaFrentes.size()+2];
             String[] colores = new String[listaFrentes.size()+2];
@@ -1184,16 +1166,14 @@ public class EstadisticasPruebasController {
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
             return "Estadistica/estadisticaLP";
-        } else {
-            return "redirect:/login";
-        }
+        
     }
 
 
     @RequestMapping(value = "/estadisticaSR", method = RequestMethod.GET)
     private String estadisticaSR(Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
-        if (request.getSession().getAttribute("usuario") != null) {
+        
             List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 13L, 3L);
             String[] frentes = new String[listaFrentes.size()+2];
             String[] colores = new String[listaFrentes.size()+2];
@@ -1293,9 +1273,7 @@ public class EstadisticasPruebasController {
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
             return "Estadistica/estadisticaSR";
-        } else {
-            return "redirect:/login";
-        }
+        
     }
 
 
