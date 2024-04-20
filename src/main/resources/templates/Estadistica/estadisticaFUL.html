@@ -184,8 +184,9 @@
 
                                                     <td th:text="${ms.nombre_mesa}"></td>
 
-                                                    <td th:text="${ms.cant_votantes}">
-                                                        
+                                                    <td >
+                                                        <span th:if="${ms.nombre_mesa=='Mesa 2'}" th:text="${'Anulado'}"></span>
+                                                        <span th:if="${ms.nombre_mesa!='Mesa 2'}" th:text="${ms.cant_votantes}"></span>
                                                     </td>
   
                                                 </tr>
@@ -234,11 +235,13 @@
 
                                                     <td th:text="${ms.nombre_mesa}"></td>
 
-                                                    <td th:text="${ms.cant_voto_blanco}">
-                                                        
+                                                    <td >
+                                                        <span th:if="${ms.nombre_mesa=='Mesa 2'}" th:text="${'Anulado'}"></span>
+                                                        <span th:if="${ms.nombre_mesa!='Mesa 2'}" th:text="${ms.cant_voto_blanco}"></span>
                                                     </td>
-                                                    <td th:text="${ms.cant_voto_nulo}">
-                                                        
+                                                    <td >
+                                                        <span th:if="${ms.nombre_mesa=='Mesa 2'}" th:text="${'Anulado'}"></span>
+                                                        <span th:if="${ms.nombre_mesa!='Mesa 2'}" th:text="${ms.cant_voto_nulo}"></span>
                                                     </td>
   
                                                 </tr>
@@ -285,8 +288,9 @@
 
                                                     <td th:text="${ms.nombre_mesa}"></td>
 
-                                                    <td th:text="${ms.cant_votantes}">
-                                                        
+                                                    <td >
+                                                        <span th:if="${ms.nombre_mesa=='Mesa 2'}" th:text="${'Anulado'}"></span>
+                                                        <span th:if="${ms.nombre_mesa!='Mesa 2'}" th:text="${ms.cant_votantes}"></span>
                                                     </td>
   
                                                 </tr>
