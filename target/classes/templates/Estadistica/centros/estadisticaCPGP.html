@@ -1,0 +1,455 @@
+<!doctype html>
+<html class="../../../no-js" lang="en">
+
+<head th:replace="Layout/layout :: head">
+</head>
+
+<body class="materialdesign">
+    
+    
+    <!-- Header top area start-->
+<BR>
+    <div class="wrapper-pro">
+        </div>
+        <div >
+            <div class="data-table-area mg-b-15">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="sparkline13-list shadow-reset">
+                                <div th:replace="Layout/layout :: alert"></div>
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1> ESTADISTICA DE ELECCIONES PARA CENTRO  <th:block th:if="${carrera != null}" th:text="${' - ' + carrera.nombre_carrera}"> </th:block>
+                                            <th:block th:if="${facultad != null}" th:text="${' - ' + facultad.nombre_facultad}"> </th:block></h1>
+                                        <div class="sparkline13-outline-icon">
+                                            <span id="reloadButton"><i class="fas fa-redo"></i></span>
+                                            <span class="sparkline13-collapse-link"><i
+                                                    class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="sparkline13-graph">
+                                    <div class="datatable-dashv1-list custom-datatable-overright">
+
+
+                                        <div id="chart"></div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="sparkline13-list shadow-reset">
+                                <div th:replace="Layout/layout :: alert"></div>
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1>INFORMACION ELECCION PARA CENTRO <th:block th:if="${facultad != null}" th:text="${' - ' + facultad.nombre_facultad}"> </th:block>
+                                            <th:block th:if="${carrera != null}" th:text="${' - ' + carrera.nombre_carrera}"> </th:block>
+                                        </h1>
+
+                                            
+                                                                <div class="datatable-dashv1-list custom-datatable-overright">
+                                                                    <!-- BORRAR 4
+                                                                    <div id="toolbar">
+                                                                        <select class="form-control">
+                                                                            <option value="">Export Basic</option>
+                                                                            <option value="all">Export All</option>
+                                                                            <option value="selected">Export Selected</option>
+                                                                        </select>
+                                                                    </div>
+-->
+
+                                                                    <table id="table" data-toggle="table" data-pagination="true" 
+                                                                        data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                                                        data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                                                        data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                                                        data-toolbar="#toolbar">
+                                                                        <thead>
+                                                                            <tr>
+                                                                                <th>Encabezado</th>
+                                                                                <th>Votos</th>
+                                                                                
+                                                                            </tr>
+                                                                        </thead>
+
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <td> <strong style="color: rgb(255, 128, 0);">NACER-FUL</strong></td>
+                                                                                <td >
+                                                                                    <strong style="font-size: 22px;" th:text="${nacerFul}"></strong>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td><strong style="color: rgb(0, 127, 255);">JURIDICA EN ACCIÓN-ACJYP</strong></td>
+                                                                                <td >
+                                                                                    <strong style="font-size: 22px;" th:text="${juridica}"></strong>
+                                                                                </td>
+                                                                            </tr>
+                                                                       
+                                                                            <tr>
+                                                                                <td>NULOS</td>
+                                                                                <td >
+                                                                                    <strong style="font-size: 22px;" th:text="${nulos}"></strong>
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>BLANCOS</td>
+                                                                                <td >
+                                                                                    <strong style="font-size: 22px;" th:text="${blancos}"></strong>
+                                                                                </td>
+                                                                            </tr>
+                                                                            
+                                                                            <tr>
+                                                                                <td>Cantidad de Votos</td>
+                                                                                <td >
+                                                                                    <strong style="font-size: 22px;" th:text="${total}"></strong> 
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Votantes Habilitados</td>
+                                                                                <td >
+                                                                                    <strong style="font-size: 22px;" th:text="${habilitadosParaVotar}"></strong> 
+                                                                                </td>
+                                                                            </tr>
+                                                                            <tr>
+                                                                                <td>Total Mesas Computadas</td>
+                                                                                <td >
+                                                                                    <strong style="font-size: 22px;" th:text="${mesasComputadas +' - 100%'}"></strong> 
+                                                                                </td>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                
+                                                                </div>
+                                                            
+                                                        
+                                                 
+                                            
+                                    
+                                    </div>
+                                </div>
+                                <div class="sparkline13-graph">
+                                    <div class="datatable-dashv1-list custom-datatable-overright">
+
+
+                                        <div id="chart2"></div>
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="data-table-area mg-b-15">
+                <div class="container-fluid">
+                    <div class="row">
+
+                        <div class="col-lg-4">
+                            <div class="sparkline13-list shadow-reset">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1>LISTA <span class="table-project-n">DE</span> VOTOS NACER-CENTRO POR MESAS </h1>
+<!--
+                                        <div class="sparkline13-outline-icon">
+                                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+--->
+                                    </div>
+                                </div>
+                                <div class="sparkline13-graph">
+                                    <div class="datatable-dashv1-list custom-datatable-overright">
+                                        
+                                        <table id="table" data-toggle="table" data-pagination="true" data-search="true"
+                                            data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                            data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                            data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                            data-toolbar="#toolbar">
+                                            <thead>
+                                                <tr>
+                                                    <th >Nro</th>
+                                                    <th >Nombre de Mesa</th>
+                                                    <th >Cantidad de Votos</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="ms, num : ${votosPorMesaNacer}">
+
+                                                    <td th:text="${num.count}">1</td>
+
+                                                    <td th:text="${ms.nombre_mesa}"></td>
+
+                                                    <td >
+                                                        <span th:if="${ms.nombre_mesa=='Mesa 2'}" th:text="${'Anulado'}"></span>
+                                                        <span th:if="${ms.nombre_mesa!='Mesa 2'}" th:text="${ms.cant_votantes}"></span>
+                                                    </td>
+  
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-lg-4">
+                            <div class="sparkline13-list shadow-reset">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1>LISTA <span class="table-project-n">DE</span> VOTOS BLANCOS Y NULOS EN MESAS </h1>
+<!--
+                                        <div class="sparkline13-outline-icon">
+                                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+--->
+                                    </div>
+                                </div>
+                                <div class="sparkline13-graph">
+                                    <div class="datatable-dashv1-list custom-datatable-overright">
+                                        
+                                        <table id="table" data-toggle="table" data-pagination="true" data-search="true"
+                                            data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                            data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                            data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                            data-toolbar="#toolbar">
+                                            <thead>
+                                                <tr>
+                                                    <th >Nro</th>
+                                                    <th >Nombre de Mesa</th>
+                                                    <th >Cantidad de Votos Blancos</th>
+                                                    <th >Cantidad de Votos Nulos</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="ms, num : ${votosBlancosNulosPorMesas}">
+
+                                                    <td th:text="${num.count}">1</td>
+
+                                                    <td th:text="${ms.nombre_mesa}"></td>
+
+                                                    <td >
+                                                        <span th:if="${ms.nombre_mesa=='Mesa 2'}" th:text="${'Anulado'}"></span>
+                                                        <span th:if="${ms.nombre_mesa!='Mesa 2'}" th:text="${ms.cant_voto_blanco}"></span>
+                                                    </td>
+                                                    <td >
+                                                        <span th:if="${ms.nombre_mesa=='Mesa 2'}" th:text="${'Anulado'}"></span>
+                                                        <span th:if="${ms.nombre_mesa!='Mesa 2'}" th:text="${ms.cant_voto_nulo}"></span>
+                                                    </td>
+  
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <div class="sparkline13-list shadow-reset">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1>LISTA <span class="table-project-n">DE</span> VOTOS CENTRO JURIDICA EN ACCIÓN-ACPJYP POR MESAS </h1>
+<!--
+                                        <div class="sparkline13-outline-icon">
+                                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+--->
+                                    </div>
+                                </div>
+                                <div class="sparkline13-graph">
+                                    <div class="datatable-dashv1-list custom-datatable-overright">
+                                        
+                                        <table id="table" data-toggle="table" data-pagination="true" data-search="true"
+                                            data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                            data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                            data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                            data-toolbar="#toolbar">
+                                            <thead>
+                                                <tr>
+                                                    <th >Nro</th>
+                                                    <th >Nombre de Mesa</th>
+                                                    <th >Cantidad de Votos</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="ms, num : ${votosPorMesaJuridica}">
+
+                                                    <td th:text="${num.count}">1</td>
+
+                                                    <td th:text="${ms.nombre_mesa}"></td>
+
+                                                    <td >
+                                                        <span th:if="${ms.nombre_mesa=='Mesa 2'}" th:text="${'Anulado'}"></span>
+                                                        <span th:if="${ms.nombre_mesa!='Mesa 2'}" th:text="${ms.cant_votantes}"></span>
+                                                    </td>
+  
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+              
+
+
+                        
+
+
+                    </div>
+                </div>
+            </div>
+            <!-- Static Table End --
+            <div class="data-table-area mg-b-15">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="sparkline13-list shadow-reset">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1>LISTA <span class="table-project-n">DE</span> VOTOS NACER-FUL POR CARRERA </h1>
+<!-
+                                        <div class="sparkline13-outline-icon">
+                                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+---
+                                    </div>
+                                </div>
+                                
+                                <div class="sparkline13-graph">
+                                    <div class="datatable-dashv1-list custom-datatable-overright">
+                                        
+                                        <table id="table" data-toggle="table" data-pagination="true" data-search="true"
+                                            data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                            data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                            data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                            data-toolbar="#toolbar">
+                                            <thead>
+                                                <tr>
+                                                    <th >Nro</th>
+                                                    <th >Carrera</th>
+                                                    <th >Cantidad de Nulos</th>
+                                                    <th >Cantidad de Blancos</th>
+                                                    <th >Cantidad de Votos Total</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="ctc, num : ${cont_total_carrera}">
+
+                                                    <td th:text="${num.count}"></td>
+
+                                                    <td th:text="${ctc.carrera}"></td>
+                                                    <td th:text="${ctc.nulo_total}"></td>
+                                                    <td th:text="${ctc.blanco_total}"></td>
+                                                    <td th:text="${ctc.voto_valido_total}"></td>
+
+                                                    </td>
+  
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>-->
+
+
+        </div>
+    </div>
+    <!-- Footer Start-->
+    <div th:replace="Layout/layout :: footer" class="footer-copyright-area">
+    </div>
+    <!-- Footer End-->
+
+    <div th:replace="Layout/layout :: scripts"></div>
+
+</body>
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
+<script th:inline="javascript">
+    var options = {
+        series: /*[[${datos}]]*/[], 
+        chart: {
+            width: '100%', // Ancho establecido en el 100% del contenedor
+            height: '500px', // Alto establecido en el 100% del contenedor
+            type: 'pie',
+        },
+        labels: /*[[${frentes}]]*/[], 
+        colors: /*[[${colores}]]*/[],
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: '100%'
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+    var chart = new ApexCharts(document.querySelector("#chart"), options);
+    chart.render();
+</script>
+
+
+<!--
+<script th:inline="javascript">
+   var options = {
+        series: /*[[${datos}]]*/[], 
+        chart: {
+            width: '100%', // Ancho establecido en el 100% del contenedor
+            height: '100%', // Alto establecido en el 100% del contenedor
+            type: 'pie',
+        },
+        labels: /*[[${frentes}]]*/[], 
+        colors: /*[[${colores}]]*/[],
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: '100%'
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+
+    var chart = new ApexCharts(document.querySelector("#chart2"), options);
+    chart.render();
+</script>
+
+-->
+<script>
+    document.getElementById('reloadButton').addEventListener('click', function() {
+        location.reload();
+    });
+</script>
+
+
+</html>

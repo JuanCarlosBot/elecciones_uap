@@ -180,6 +180,15 @@
                         </div>
                     </li>
 
+                    <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                        class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn">Elecciones CENTROS 2024</span>
+                        <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                    <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                        <a th:href="${'../../../../admin/estadisticaCentroCienciasPGP'}" >Ciencias Politicas y Gestion publica</a>
+               
+                    </div>
+                </li>
+
                         
                     <li th:if="${session.usuario.id_usuario != 2}" th:each="facultad : ${facultades}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                         class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn" th:text="${facultad.sigla}">Elecciones FUL 2024</span>
@@ -374,6 +383,7 @@
                                                 <li><a th:href="${'../../../../admin/estadisticaFUL/10'}" >Estadistica FUL SR</a>
                                                 </li>
                                                 </li>
+                                          
                                             </ul>
                                         </li>
                                         <li ><a data-toggle="collapse" data-target="#Chartsmob" href="#">Elecciones Centro 2024 <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
