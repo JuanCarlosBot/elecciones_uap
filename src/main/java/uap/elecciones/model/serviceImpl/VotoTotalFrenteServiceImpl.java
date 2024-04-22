@@ -54,5 +54,25 @@ public class VotoTotalFrenteServiceImpl implements IVotoTotalFrenteService{
         // TODO Auto-generated method stub
         return votoTotalFrenteDao.listaVotosBlancosNulosPorMesas(idNivel);
     }
+
+    @Override
+    public List<Map<Object, String>> listaMesaFrenteFaculdad(Long idFrente, Long idFacultad) {
+        return votoTotalFrenteDao.listaMesaFrenteFaculdad(idFrente, idFacultad);
+    }
+
+    @Override
+    public List<Map<Object, String>> listaVotosBlancosNulosPorMesasFacultad(Long idNivel, Long idFacultad) {
+        return votoTotalFrenteDao.listaVotosBlancosNulosPorMesasFacultad(idNivel, idFacultad);
+    }
+
+    @Override
+    public List<Map<Object, String>> listaMesaFrenteCarrera(Long idFrente, Long idCarrera) {
+        return votoTotalFrenteDao.listaMesaFrenteCarrera(idFrente, idCarrera);
+    }
+
+    @Override
+    public List<Map<Object, String>> listaVotosBlancosNulosPorMesasCarrera(Long idNivel, Long idCarrera) {
+        return votoTotalFrenteDao.listaVotosBlancosNulosPorMesasCarrera(idNivel, idCarrera);
+    }
     
 }

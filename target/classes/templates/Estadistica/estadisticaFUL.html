@@ -20,7 +20,8 @@
                                 <div th:replace="Layout/layout :: alert"></div>
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
-                                        <h1> ESTADISTICA DE ELECCIONES PARA LA FUL</h1>
+                                        <h1> ESTADISTICA DE ELECCIONES PARA LA FUL <th:block th:if="${carrera != null}" th:text="${' - ' + carrera.nombre_carrera}"> </th:block>
+                                            <th:block th:if="${facultad != null}" th:text="${' - ' + facultad.nombre_facultad}"> </th:block></h1>
                                         <div class="sparkline13-outline-icon">
                                             <span id="reloadButton"><i class="fas fa-redo"></i></span>
                                             <span class="sparkline13-collapse-link"><i
@@ -46,7 +47,9 @@
                                 <div th:replace="Layout/layout :: alert"></div>
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
-                                        <h1>INFORMACION ELECCION PARA LA FUL</h1>
+                                        <h1>INFORMACION ELECCION PARA LA FUL <th:block th:if="${facultad != null}" th:text="${' - ' + facultad.nombre_facultad}"> </th:block>
+                                            <th:block th:if="${carrera != null}" th:text="${' - ' + carrera.nombre_carrera}"> </th:block>
+                                        </h1>
 
                                             
                                                                 <div class="datatable-dashv1-list custom-datatable-overright">
@@ -98,12 +101,7 @@
                                                                                     <strong style="font-size: 22px;" th:text="${blancos}"></strong>
                                                                                 </td>
                                                                             </tr>
-                                                                            <tr>
-                                                                                <td>Porcentaje de Votacion de total habilitados sobre el 100%</td>
-                                                                                <td >
-                                                                                    <strong style="font-size: 22px;" th:text="${totalP+' %'}"></strong> 
-                                                                                </td>
-                                                                            </tr>
+                                                                            
                                                                             <tr>
                                                                                 <td>Cantidad de Votos</td>
                                                                                 <td >
@@ -116,7 +114,12 @@
                                                                                     <strong style="font-size: 22px;" th:text="${habilitadosParaVotar}"></strong> 
                                                                                 </td>
                                                                             </tr>
-                                                                            
+                                                                            <tr>
+                                                                                <td>Total Mesas Computadas</td>
+                                                                                <td >
+                                                                                    <strong style="font-size: 22px;" th:text="${mesasComputadas +' - 100%'}"></strong> 
+                                                                                </td>
+                                                                            </tr>
                                                                         </tbody>
                                                                     </table>
 
@@ -308,7 +311,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Static Table End -->
+            <!-- Static Table End --
             <div class="data-table-area mg-b-15">
                 <div class="container-fluid">
                     <div class="row">
@@ -317,15 +320,16 @@
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
                                         <h1>LISTA <span class="table-project-n">DE</span> VOTOS NACER-FUL POR CARRERA </h1>
-<!--
+<!-
                                         <div class="sparkline13-outline-icon">
                                             <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
                                             <span><i class="fa fa-wrench"></i></span>
                                             <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
                                         </div>
---->
+---
                                     </div>
                                 </div>
+                                
                                 <div class="sparkline13-graph">
                                     <div class="datatable-dashv1-list custom-datatable-overright">
                                         
@@ -365,7 +369,7 @@
 
                     </div>
                 </div>
-            </div>
+            </div>-->
 
 
         </div>

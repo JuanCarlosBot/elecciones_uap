@@ -55,6 +55,12 @@ public class Mesa implements Serializable{
     @JoinColumn(name = "if_facultad")
     private Facultad facultad;
 
+
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_carrera")
+    private Carrera carrera;
+
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "mesa", fetch = FetchType.LAZY)
 	private List<DetalleAsignacionMesa> detalle_asignacion_mesa;

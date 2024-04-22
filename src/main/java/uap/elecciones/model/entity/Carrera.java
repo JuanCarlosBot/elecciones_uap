@@ -16,6 +16,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
@@ -50,4 +51,7 @@ public class Carrera implements Serializable{
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "carreras", fetch = FetchType.LAZY)
 	private List<Docente> docentes;
 
+    @JsonIgnore
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "carrera", fetch = FetchType.LAZY)
+	private List<Mesa> mesas;
 }

@@ -154,6 +154,12 @@
                                                                                     <strong style="font-size: 22px;" th:text="${habilitadosParaVotar}"></strong> 
                                                                                 </td>
                                                                             </tr>
+                                                                            <tr>
+                                                                                <td>Total Mesas Computadas</td>
+                                                                                <td >
+                                                                                    <strong style="font-size: 22px;" th:text="${'7 - 87,5%'}"></strong> 
+                                                                                </td>
+                                                                            </tr>
                                                                         </tbody>
                                                                     </table>
 
@@ -220,14 +226,9 @@
 
                                                     <td th:text="${ms.nombre_mesa}"></td>
 
-<<<<<<< HEAD
-                                                    <td th:text="${ms.cant_votantes}">
-                                                    <span></span>
-=======
                                                     <td >
                                                         <span th:if="${ms.nombre_mesa=='Mesa 2'}" th:text="${'Anulado'}"></span>
                                                         <span th:if="${ms.nombre_mesa!='Mesa 2'}" th:text="${ms.cant_votantes}"></span>
->>>>>>> 802ad7d (con)
                                                     </td>
   
                                                 </tr>

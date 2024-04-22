@@ -163,10 +163,38 @@
                         </li>
 
                         <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                            class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn">Estadistica</span>
+                            class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn">Elecciones FUL 2024</span>
                             <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
                         <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                            <a th:href="${'../../../../admin/estadisticaFUL'}" class="dropdown-item">Estadistica FUL</a>
+                            <a th:href="${'../../../../admin/estadisticaFUL'}" >Estadistica FUL</a>
+                            <a th:href="${'../../../../admin/estadisticaFUL/1'}" >Estadistica FUL ACJyP</a>
+                            <a th:href="${'../../../../admin/estadisticaFUL/5'}" >Estadistica FUL ACSYH</a>
+                            <a th:href="${'../../../../admin/estadisticaFUL/2'}" >Estadistica FUL ACBN</a>
+                            <a th:href="${'../../../../admin/estadisticaFUL/4'}" >Estadistica FUL ACEF</a>
+                            <a th:href="${'../../../../admin/estadisticaFUL/6'}" >Estadistica FUL ACYT</a>
+                            <a th:href="${'../../../../admin/estadisticaFUL/3'}" >Estadistica FUL ACS</a>
+                            <a th:href="${'../../../../admin/estadisticaFUL/7'}" >Estadistica FUL PTO</a>
+                            <a th:href="${'../../../../admin/estadisticaFUL/8'}" >Estadistica FUL ES</a>
+                            <a th:href="${'../../../../admin/estadisticaFUL/9'}" >Estadistica FUL LP</a>
+                            <a th:href="${'../../../../admin/estadisticaFUL/10'}" >Estadistica FUL SR</a>
+                        </div>
+                    </li>
+
+                        
+                    <li th:if="${session.usuario.id_usuario != 2}" th:each="facultad : ${facultades}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                        class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn" th:text="${facultad.sigla}">Elecciones FUL 2024</span>
+                        <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                            <a th:each="carrera:${facultad.carreras}" th:href="${'../../../../admin/estadisticaFULC/' + carrera.id_carrera}" th:text="${carrera.nombre_carrera}">Estadistica FUL</a>
+                            
+                        </div>
+                    </li>
+
+
+                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                            class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn">Elecciones Centro 2024</span>
+                            <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                             <a th:href="${'../../../../admin/estadisticaACJYP'}" class="dropdown-item">Estadistica ACJyP</a>
                             <a th:href="${'../../../../admin/estadisticaACSYH'}" class="dropdown-item">Estadistica ACSYH</a>
                             <a th:href="${'../../../../admin/estadisticaACBN'}" class="dropdown-item">Estadistica ACBN</a>
@@ -320,10 +348,36 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li ><a data-toggle="collapse" data-target="#Chartsmob" href="#">Estadistica <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+
+                                        <li ><a data-toggle="collapse" data-target="#Chartsmob" href="#">Elecciones FUL 2024<span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="Chartsmob" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/estadisticaFUL'}" >Estadistica FUL</a>
                                                 </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/1'}" >Estadistica FUL ACJyP</a>
+                                                </li>
+                                                <li> <a th:href="${'../../../../admin/estadisticaFUL/5'}" >Estadistica FUL ACSYH</a>
+                                                </li>
+                                                <li> <a th:href="${'../../../../admin/estadisticaFUL/2'}" >Estadistica FUL ACBN</a>
+                                                </li>
+                                                <li> <a th:href="${'../../../../admin/estadisticaFUL/4'}" >Estadistica FUL ACEF</a>
+                                                </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/6'}" >Estadistica FUL ACYT</a>
+                                                </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/3'}" >Estadistica FUL ACS</a>
+                                                </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/7'}" >Estadistica FUL PTO</a>
+                                                </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/8'}" >Estadistica FUL ES</a>
+                                                </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/9'}" >Estadistica FUL LP</a>
+                                                </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/10'}" >Estadistica FUL SR</a>
+                                                </li>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li ><a data-toggle="collapse" data-target="#Chartsmob" href="#">Elecciones Centro 2024 <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                            <ul id="Chartsmob" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/estadisticaACJYP'}" >Estadistica ACJyP</a>
                                                 </li>
                                                 <li> <a th:href="${'../../../../admin/estadisticaACSYH'}" >Estadistica ACSYH</a>
@@ -346,6 +400,7 @@
                                                 </li>
                                             </ul>
                                         </li>
+
                                         
                                     </ul>
                                 </nav>

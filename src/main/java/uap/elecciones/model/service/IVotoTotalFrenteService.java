@@ -19,5 +19,14 @@ public interface IVotoTotalFrenteService {
 
 	public List<Map<Object, String>> listaMesaFrente(Long idFrente);
 
+	public List<Map<Object, String>> listaMesaFrenteFaculdad(Long idFrente, Long idFacultad);
+
 	public List<Map<Object, String>> listaVotosBlancosNulosPorMesas(Long idNivel);
+
+	public List<Map<Object, String>> listaVotosBlancosNulosPorMesasFacultad(Long idNivel, Long idFacultad);
+
+	public List<Map<Object, String>> listaVotosBlancosNulosPorMesasCarrera(Long idNivel, Long idCarrera);
+
+	public List<Map<Object, String>> listaMesaFrenteCarrera(Long idFrente, Long idCarrera);
+	
 }
