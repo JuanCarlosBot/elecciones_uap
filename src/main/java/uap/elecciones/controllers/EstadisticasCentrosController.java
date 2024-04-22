@@ -126,7 +126,7 @@ public class EstadisticasCentrosController {
             model.addAttribute("mesasComputadas",  mesaService.mesasPorCarrera(idCarrera).size());
 
             
-            return "Estadistica/centros/estadisticaCPGP";
+            return "Estadistica/centros/estadisticaCENTRO";
         
     }
 }
