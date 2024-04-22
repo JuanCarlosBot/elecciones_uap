@@ -6,4 +6,5 @@ import uap.elecciones.model.entity.Carrera;
 
 public interface ICarreraDao extends CrudRepository<Carrera,Long>{
     
+    
 }

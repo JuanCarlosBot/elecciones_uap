@@ -1,6 +1,7 @@
 package uap.elecciones.model.serviceImpl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,6 +35,11 @@ public class DetallerAnforaServiceImpl implements IDetalleAnforaService {
     @Override
     public void delete(Long id) {
         detalleAnforaDao.deleteById(id);
+    }
+
+    @Override
+    public List<Map<Object, String>> listaVotosPorCarrera(Long idCarrera) {
+        return detalleAnforaDao.listaVotosPorCarrera(idCarrera);
     }
     
 }

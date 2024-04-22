@@ -1,6 +1,4 @@
 package uap.elecciones.controllers;
-
-import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -14,25 +12,19 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.servlet.http.HttpServletRequest;
+import uap.elecciones.model.dao.IDetalleAnforaDao;
+import uap.elecciones.model.dao.IMesaDao;
 import uap.elecciones.model.entity.Carrera;
-import uap.elecciones.model.entity.ConteoTotal;
-import uap.elecciones.model.service.IAsignacionEleccionService;
+import uap.elecciones.model.entity.Mesa;
 import uap.elecciones.model.service.ICarreraService;
 import uap.elecciones.model.service.IConteoTotalCarreraService;
-import uap.elecciones.model.service.IConteoTotalService;
-import uap.elecciones.model.service.IFacultadService;
+import uap.elecciones.model.service.IDetalleAnforaService;
+import uap.elecciones.model.service.IMesaService;
 import uap.elecciones.model.service.IVotoTotalFrenteService;
-
 
 @Controller
 @RequestMapping(value = "/admin")
 public class EstadisticasCentrosController {
-
-      @Autowired
-    private IAsignacionEleccionService asignacionEleccionService;
-
-    @Autowired
-    private IConteoTotalService conteoTotalService;
 
     @Autowired
     private IVotoTotalFrenteService votoTotalFrenteService;
@@ -41,133 +33,99 @@ public class EstadisticasCentrosController {
     private IConteoTotalCarreraService conteoTotalCarreraService;
 
     @Autowired
-    private IFacultadService facultadService;
+    private ICarreraService carreraService;
 
     @Autowired
-    private ICarreraService carreraService;
-    
+    private IDetalleAnforaDao detalleAnforaDao;
 
-      @RequestMapping(value = "/estadisticaCentroCienciasPGP", method = RequestMethod.GET)
-    private String estadisticaFULCarrera(Model model, RedirectAttributes flash, HttpServletRequest request,
+    @Autowired
+    private IDetalleAnforaService detalleAnforaService;
+
+    @Autowired
+    private IMesaService mesaService;
+
+      @RequestMapping(value = "/estadisticaCentros/{idCarrera}", method = RequestMethod.GET)
+    private String estadisticaFULCarrera(@PathVariable("idCarrera") Long idCarrera,Model model, RedirectAttributes flash, HttpServletRequest request,
             @RequestParam(name = "succes", required = false) String succes) {
 
-            Carrera carrera = carreraService.findOne(1L);
+            Carrera carrera = carreraService.findOne(idCarrera);
 
-            List<Map<Object, String>>votosPorMesaNacer=votoTotalFrenteService.listaMesaFrenteCarrera(8L,carrera.getId_carrera());
-
-            List<Map<Object, String>>votosPorMesaJuridica=votoTotalFrenteService.listaMesaFrenteCarrera(7L,carrera.getId_carrera());
+            List<Map<Object, String>>votosPorFrentes= detalleAnforaService.listaVotosPorCarrera(idCarrera);
 
             List<Map<Object, String>>votosBlancosNulosPorMesas=votoTotalFrenteService.listaVotosBlancosNulosPorMesasCarrera(4L,carrera.getId_carrera());
- 
-            int nacer = 0;
-            for (int i = 0; i < votosPorMesaNacer.size(); i++) {
-                nacer = nacer + Integer.parseInt(votosPorMesaNacer.get(i).get("cant_votantes"));
-            }
 
-            int juridica = 0;
-            for (int i = 0; i < votosPorMesaJuridica.size(); i++) {
-                juridica = juridica + Integer.parseInt(votosPorMesaJuridica.get(i).get("cant_votantes"));
-            }
+            String[] frentes = new String[votosPorFrentes.size() + 2];
+            String[] colores = new String[votosPorFrentes.size() + 2];
+            int [] datos = new int[votosPorFrentes.size()+2];
 
-           
-            
+            frentes[votosPorFrentes.size()] = "Blancos";
+            frentes[votosPorFrentes.size() + 1] = "Nulos";
+            colores[votosPorFrentes.size()] = "#DCDCDC";
+            colores[votosPorFrentes.size() + 1] = "#A9A9A9";
+            int total=0;
             int nulo = 0;
             int blanco = 0;
             for (int i = 0; i < votosBlancosNulosPorMesas.size(); i++) {
                 nulo = nulo + Integer.parseInt(votosBlancosNulosPorMesas.get(i).get("cant_voto_nulo"));
                 blanco = blanco + Integer.parseInt(votosBlancosNulosPorMesas.get(i).get("cant_voto_blanco"));
             }
-            System.out.println(nacer + " " +  " " + nulo + " " + blanco);
-
-            System.out.println("NOMBRE DE FRENTE");
-            List<Map<Object, String>> listaFrentes = asignacionEleccionService.getListaFrentes("2024", 4L, 3L);
-            String[] frentes = new String[listaFrentes.size() + 2];
-            String[] colores = new String[listaFrentes.size() + 2];
-
-            for (int i = 0; i < listaFrentes.size(); i++) {
-
-
-                System.out.println("NOMBRE DE FRENTE"+listaFrentes.get(i).get("nombre_frente"));
-                frentes[i] = listaFrentes.get(i).get("nombre_frente") +" "+ listaFrentes.get(i).get("sigla");
-                colores[i] = listaFrentes.get(i).get("color");
+            total=nulo+blanco;
+            String bla="";
+            String nul="";
+            for (int i = 0; i < votosPorFrentes.size(); i++) {
+                frentes[i] = votosPorFrentes.get(i).get("nombre_frente");
+                colores[i] = votosPorFrentes.get(i).get("color");
+                bla=votosPorFrentes.get(i).get("blanco_total");
+                nul=votosPorFrentes.get(i).get("nulo_total");
+            }
+            for (int i = 0; i < frentes.length; i++) {
+                System.out.println("Frente >> "+frentes[i]);
+               // System.out.println(votosPorFrentes.get(i).get("blanco_total"));
             }
 
-
-            frentes[listaFrentes.size()] = "Blancos";
-            frentes[listaFrentes.size() + 1] = "Nulos";
-            colores[listaFrentes.size()] = "#DCDCDC";
-            colores[listaFrentes.size() + 1] = "#A9A9A9";
-
-            System.out.println("ELECCIONES FUL");
-            List<Map<Object, String>> votosFrentesTotal = votoTotalFrenteService.votoTotalFul(4L);
-            int [] datos = new int[listaFrentes.size()+2];
-
-
-            datos[0]=nacer;
-            datos[1]=juridica;
-            datos[2]=blanco;
-            datos[3]=nulo;
-           
-             int nacerFul=0;
+            List<Object[]> danforas = detalleAnforaDao.listaVotosPorCarreraFrente(carrera.getNombre_carrera());
+            int j = 0;
             
-
-            ConteoTotal conteoVotosBlancosNulos = conteoTotalService.conteoTotalBlacoNulosFul(4L);
-
-            // System.out.println(conteoVotosBlancosNulos.getBlanco_total());
-
-            if (conteoVotosBlancosNulos != null) {
-
-                model.addAttribute("blancos", blanco);
-                model.addAttribute("nulos", nulo);
-                int total=0;
-
-
-                total=nacerFul+conteoVotosBlancosNulos.getBlanco_total()+conteoVotosBlancosNulos.getNulo_total();
-                System.out.println("CONTEO TOTAL1-"+total);
-              double  totall = 100 * ((double) total / 9107);
-
-                 System.out.println("CONTEO TOTAL"+total);
-
-                 DecimalFormat df = new DecimalFormat("#.##");
-        
-                 // Formateamos el número usando el objeto DecimalFormat
-                 String totalP = df.format(totall);
-
-
-                 
-                 int habilitadosParaVotar=0;
-
-                 habilitadosParaVotar = carrera.getEstudiantes().size();
-                 
-
-                 
-                 model.addAttribute("total", (nacer + juridica+ nulo+ blanco));
-                 model.addAttribute("habilitadosParaVotar", habilitadosParaVotar);
-                 model.addAttribute("totalP", totalP);
-                 model.addAttribute("nacerFul", nacer);
-                 model.addAttribute("juridica", juridica);
-                 model.addAttribute("mesasComputadas", votosPorMesaNacer.size());
-
-
-                // Lógica adicional aquí
-            } else {
-                // Inicializar conteoVotosBlancosNulos si es necesario
-                conteoVotosBlancosNulos = new ConteoTotal(); // O cualquier otra forma de inicialización que sea
-                                                             // necesaria
-
-                datos[3] = 0;
-                datos[3] = 0;
+            for (int i = 0; i < frentes.length; i++) {
+                int valor = 0;
+                for (Object[] frente : danforas) {
+                    String nom= frentes[i];
+                    
+                    if (nom.equals((String)frente[0])) {
+                        System.out.println("----------------"+nom);
+                        valor+=(int)frente[3];
+                    }
+                }
+                total+=valor;
+                datos[j]=valor;
+                datos[votosPorFrentes.size()]=Integer.parseInt(bla);
+                datos[votosPorFrentes.size()+1]=Integer.parseInt(nul);
+                j++;
+                valor=0;
+            }
+           
+            for (int i = 0; i < datos.length; i++) {
+                System.out.println("valores "+datos[i]);
             }
 
+           
+       
+            model.addAttribute("blancos", blanco);
+            model.addAttribute("nulos", nulo);
             model.addAttribute("votosBlancosNulosPorMesas", votosBlancosNulosPorMesas);
-            model.addAttribute("votosPorMesaNacer", votosPorMesaNacer);
-            model.addAttribute("votosPorMesaJuridica", votosPorMesaJuridica);
+            model.addAttribute("total", (total));
+            model.addAttribute("habilitadosParaVotar", carrera.getEstudiantes().size());
+
+            model.addAttribute("votosPorFrentes", votosPorFrentes);
             model.addAttribute("cont_total_carrera", conteoTotalCarreraService.conteoTotalCarreraPorFull());
             model.addAttribute("datos", datos);
             model.addAttribute("frentes", frentes);
             model.addAttribute("colores", colores);
             model.addAttribute("carrera", carrera);
+            model.addAttribute("danforas", danforas);
+            model.addAttribute("mesasComputadas",  mesaService.mesasPorCarrera(idCarrera).size());
 
+            
             return "Estadistica/centros/estadisticaCPGP";
         
     }

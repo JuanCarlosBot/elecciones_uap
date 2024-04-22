@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
+import uap.elecciones.model.entity.ConteoTotal;
 import uap.elecciones.model.entity.Mesa;
 
 public interface IMesaDao extends CrudRepository<Mesa,Long>{
@@ -29,4 +30,11 @@ public interface IMesaDao extends CrudRepository<Mesa,Long>{
                 "\tleft join facultad f on c.id_facultad = f.id_facultad\n" + //
                 "\twhere  m.id_mesa = ?1", nativeQuery = true)
 Object mesaPorCarrera(Long idMesa);
+
+
+@Query(value = " select * from mesa m where m.id_carrera  = ?1",nativeQuery=true)
+   public List<Mesa>mesasPorCarrera(Long idCarrera);
 }
+
+
+
