@@ -16,17 +16,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
-import uap.elecciones.model.dao.IAsignacionHabilitadoDao;
 import uap.elecciones.model.entity.AsignacionHabilitado;
 import uap.elecciones.model.entity.Carrera;
-import uap.elecciones.model.entity.ConteoTotalCarrera;
 import uap.elecciones.model.entity.Estudiante;
 import uap.elecciones.model.entity.Facultad;
 import uap.elecciones.model.entity.Mesa;
 import uap.elecciones.model.entity.VotanteHabilitado;
 import uap.elecciones.model.service.IAsignacionHabilitadoService;
 import uap.elecciones.model.service.ICarreraService;
-import uap.elecciones.model.service.IConteoTotalCarreraService;
 import uap.elecciones.model.service.IFacultadService;
 import uap.elecciones.model.service.IMesaService;
 import uap.elecciones.model.service.IVotanteHabilitadoService;
@@ -50,10 +47,6 @@ public class facultadController {
     @Autowired
     private IAsignacionHabilitadoService asignacionHabilitadoService;
 
-    @Autowired
-    private IAsignacionHabilitadoDao asignacionHabilitadoDao;
-    @Autowired
-    private IConteoTotalCarreraService conteoTotalCarreraService;
     @RequestMapping(value = "/lista_facultades",method = RequestMethod.GET)
     private String Lista_Facultades(Model model,RedirectAttributes flash, HttpServletRequest request,@RequestParam(name = "succes",required = false)String succes){
         if (request.getSession().getAttribute("usuario") != null) {

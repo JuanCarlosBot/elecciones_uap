@@ -1,9 +1,6 @@
 package uap.elecciones.controllers;
 
 import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -11,34 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
-import uap.elecciones.model.entity.Anfora;
-import uap.elecciones.model.entity.AsignacionEleccion;
-import uap.elecciones.model.entity.AsignacionHabilitado;
 import uap.elecciones.model.entity.Carrera;
 import uap.elecciones.model.entity.ConteoTotal;
 import uap.elecciones.model.entity.ConteoTotalCarrera;
-import uap.elecciones.model.entity.Estudiante;
 import uap.elecciones.model.entity.Facultad;
 import uap.elecciones.model.entity.Mesa;
-import uap.elecciones.model.entity.VotanteHabilitado;
 import uap.elecciones.model.service.IAsignacionEleccionService;
-import uap.elecciones.model.service.IAsignacionHabilitadoService;
 import uap.elecciones.model.service.ICarreraService;
 import uap.elecciones.model.service.IConteoTotalCarreraService;
 import uap.elecciones.model.service.IConteoTotalService;
 import uap.elecciones.model.service.IFacultadService;
-import uap.elecciones.model.service.IFrenteService;
-import uap.elecciones.model.service.IMesaService;
-import uap.elecciones.model.service.IVotanteHabilitadoService;
 import uap.elecciones.model.service.IVotoTotalFrenteService;
 
 @Controller

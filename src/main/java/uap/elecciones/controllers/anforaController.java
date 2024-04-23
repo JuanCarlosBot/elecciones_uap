@@ -1,14 +1,10 @@
 package uap.elecciones.controllers;
 
-import java.util.Date;
-import java.util.Enumeration;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,15 +19,12 @@ import uap.elecciones.model.entity.Carrera;
 import uap.elecciones.model.entity.ConteoTotal;
 import uap.elecciones.model.entity.ConteoTotalCarrera;
 import uap.elecciones.model.entity.DetalleAnfora;
-import uap.elecciones.model.entity.Facultad;
 import uap.elecciones.model.entity.Frente;
 import uap.elecciones.model.entity.Mesa;
 import uap.elecciones.model.entity.Nivel;
-import uap.elecciones.model.entity.Persona;
 import uap.elecciones.model.entity.VotoTotalCarrera;
 import uap.elecciones.model.entity.VotoTotalFrente;
 import uap.elecciones.model.service.IAnforaService;
-import uap.elecciones.model.service.IAsignacionHabilitadoService;
 import uap.elecciones.model.service.ICarreraService;
 import uap.elecciones.model.service.IConteoTotalCarreraService;
 import uap.elecciones.model.service.IConteoTotalService;
