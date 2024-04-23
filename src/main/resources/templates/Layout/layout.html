@@ -1,13 +1,14 @@
 <!doctype html>
 <html class="no-js" lang="en">
+
 <head th:fragment="head">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>Uni - Voto | UAP </title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" 
-    integrity="sha384-vK1yc01p8V3RvEK4D4/fv/WBLrGmU5NGtGlMkB6X7vY9lRfumFXSu0Qb2A9dCIp+" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha384-vK1yc01p8V3RvEK4D4/fv/WBLrGmU5NGtGlMkB6X7vY9lRfumFXSu0Qb2A9dCIp+" crossorigin="anonymous">
     <!-- favicon
 		============================================ -->
     <link rel="shortcut icon" type="image/x-icon" href="../../../../img/logo_voto.webp">
@@ -78,11 +79,11 @@
 
     <!-- Select2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.css" rel="stylesheet" />
 </head>
 
 <body class="materialdesign">
-    
+
     <div th:fragment="preloader" class="preloader-wrapper">
         <div class="preloader-single shadow-reset">
             <div class="ts_preloading_box">
@@ -112,45 +113,55 @@
         <div th:fragment="left_sidebar" class="left-sidebar-pro">
             <nav id="sidebar">
                 <div class="sidebar-header">
-                    <a th:href="${'../../../../admin/inicio'}"><img src="../../../../img/logo/LOGO_UAP_NEGRO _R.webp" alt="" />
+                    <a th:href="${'../../../../admin/inicio'}"><img src="../../../../img/logo/LOGO_UAP_NEGRO _R.webp"
+                            alt="" />
                     </a>
                     <h3 th:if="${session.usuario != null}" th:text="${'Uni-Voto'}">Andrar Son</h3>
-                    <p th:if="${session.usuario != null}" th:text="${session.persona.nombres+' '+session.persona.apellidos }">Developer</p>
+                    <p th:if="${session.usuario != null}"
+                        th:text="${session.persona.nombres+' '+session.persona.apellidos }">Developer</p>
                     <strong>UAP</strong>
                 </div>
                 <div class="left-custom-menu-adp-wrap">
                     <ul class="nav navbar-nav left-sidebar-menu-pro">
                         <li class="nav-item">
-                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle"><i
-                                    class="fa big-icon fa-home"></i> <span class="mini-dn">Inicio</span> <span
-                                    class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-home"></i> <span
+                                    class="mini-dn">Inicio</span> <span class="indicator-right-menu mini-dn"><i
+                                        class="fa indicator-mn fa-angle-left"></i></span></a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                 <a th:href="${'../../../../admin/inicio'}" class="dropdown-item">Menu Principal</a>
-                    
+
                             </div>
                         </li>
-                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
+                                data-toggle="dropdown" role="button" aria-expanded="false"
                                 class="nav-link dropdown-toggle"><i class="fa big-icon fa-edit"></i> <span
                                     class="mini-dn">Usuario</span>
-                                <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                                <span class="indicator-right-menu mini-dn"><i
+                                        class="fa indicator-mn fa-angle-left"></i></span></a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                 <a th:href="${'../../../../admin/usuario'}" class="dropdown-item">Registro Usuario</a>
-                                <a th:href="${'../../../../admin/lista_usuarios'}" class="dropdown-item">Lista Usuarios</a>
+                                <a th:href="${'../../../../admin/lista_usuarios'}" class="dropdown-item">Lista
+                                    Usuarios</a>
                                 <a th:href="${'../../../../admin/persona'}" class="dropdown-item">Registro Persona</a>
                                 <!-- <a th:href="${'../../../../admin/lista_personas'}" class="dropdown-item">Lista Personas</a> -->
                             </div>
                         </li>
-                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn">Asignacion</span>
-                                <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
+                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
+                                data-toggle="dropdown" role="button" aria-expanded="false"
+                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span
+                                    class="mini-dn">Asignacion</span>
+                                <span class="indicator-right-menu mini-dn"><i
+                                        class="fa indicator-mn fa-angle-left"></i></span></a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                 <a th:href="${'../../../../admin/frente'}" class="dropdown-item">Registro Frente</a>
                                 <a th:href="${'../../../../admin/mesa'}" class="dropdown-item">Registro Mesa</a>
-                                <a th:href="${'../../../../admin/asignacion_eleccion'}" class="dropdown-item">Asignacion Eleccion</a>
+                                <a th:href="${'../../../../admin/asignacion_eleccion'}" class="dropdown-item">Asignacion
+                                    Eleccion</a>
                                 <a th:href="${'../../../../admin/anfora'}" class="dropdown-item">Registro Anfora</a>
                             </div>
                         </li>
-                        <li  class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                        <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                 class="nav-link dropdown-toggle"><i class="fa big-icon fa-bar-chart-o"></i> <span
                                     class="mini-dn">Universidad</span> <span class="indicator-right-menu mini-dn"><i
                                         class="fa indicator-mn fa-angle-left"></i></span></a>
@@ -158,64 +169,105 @@
                                 <!-- <a th:href="${'../../../../admin/carrera'}" class="dropdown-item">Carrera</a>
                                 <a th:href="${'../../../../admin/facultad'}" class="dropdown-item">Facultad</a> -->
                                 <!-- <a th:href="${'../../../../admin/lista_facultades_sorteo'}" class="dropdown-item">Sorteo</a> -->
-                                <a th:href="${'../../../../admin/lista_facultades'}" class="dropdown-item">Lista Facultades</a>
+                                <a th:href="${'../../../../admin/lista_facultades'}" class="dropdown-item">Lista
+                                    Facultades</a>
                             </div>
                         </li>
 
-                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                            class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn">Elecciones FUL 2024</span>
-                            <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
-                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                            <a th:href="${'../../../../admin/estadisticaFUL'}" >Estadistica FUL</a>
-                            <a th:href="${'../../../../admin/estadisticaFUL/1'}" >Estadistica FUL ACJyP</a>
-                            <a th:href="${'../../../../admin/estadisticaFUL/5'}" >Estadistica FUL ACSYH</a>
-                            <a th:href="${'../../../../admin/estadisticaFUL/2'}" >Estadistica FUL ACBN</a>
-                            <a th:href="${'../../../../admin/estadisticaFUL/4'}" >Estadistica FUL ACEF</a>
-                            <a th:href="${'../../../../admin/estadisticaFUL/6'}" >Estadistica FUL ACYT</a>
-                            <a th:href="${'../../../../admin/estadisticaFUL/3'}" >Estadistica FUL ACS</a>
-                            <a th:href="${'../../../../admin/estadisticaFUL/7'}" >Estadistica FUL PTO</a>
-                            <a th:href="${'../../../../admin/estadisticaFUL/8'}" >Estadistica FUL ES</a>
-                            <a th:href="${'../../../../admin/estadisticaFUL/9'}" >Estadistica FUL LP</a>
-                            <a th:href="${'../../../../admin/estadisticaFUL/10'}" >Estadistica FUL SR</a>
-                        </div>
-                    </li>
-
-                    <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                        class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn">Elecciones CENTROS 2024</span>
-                        <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
-                    <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                        <a th:href="${'../../../../admin/estadisticaCentros/1'}" >Estadisticas Centros</a>
-               
-                    </div>
-                </li>
-
+                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
+                                data-toggle="dropdown" role="button" aria-expanded="false"
+                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span
+                                    class="mini-dn">Elecciones FUL 2024</span>
+                                <span class="indicator-right-menu mini-dn"><i
+                                        class="fa indicator-mn fa-angle-left"></i></span></a>
+                            <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                                <a th:href="${'../../../../admin/estadisticaFUL'}">Estadistica FUL</a>
+                                <a th:href="${'../../../../admin/estadisticaFUL/1'}">Estadistica FUL ACJyP</a>
+                                <a th:href="${'../../../../admin/estadisticaFUL/5'}">Estadistica FUL ACSYH</a>
+                                <a th:href="${'../../../../admin/estadisticaFUL/2'}">Estadistica FUL ACBN</a>
+                                <a th:href="${'../../../../admin/estadisticaFUL/4'}">Estadistica FUL ACEF</a>
+                                <a th:href="${'../../../../admin/estadisticaFUL/6'}">Estadistica FUL ACYT</a>
+                                <a th:href="${'../../../../admin/estadisticaFUL/3'}">Estadistica FUL ACS</a>
+                                <a th:href="${'../../../../admin/estadisticaFUL/7'}">Estadistica FUL PTO</a>
+                                <a th:href="${'../../../../admin/estadisticaFUL/8'}">Estadistica FUL ES</a>
+                                <a th:href="${'../../../../admin/estadisticaFUL/9'}">Estadistica FUL LP</a>
+                                <a th:href="${'../../../../admin/estadisticaFUL/10'}">Estadistica FUL SR</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown"
+                            data-bs-auto-close="outside">
+                            <i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn">centr</span>
+                            <span class="indicator-right-menu mini-dn"><i
+                                    class="fa indicator-mn fa-angle-left"></i></span>
+                        </a>
                         
-                    <li th:if="${session.usuario.id_usuario != 2}" th:each="facultad : ${facultades}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                        class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn" th:text="${facultad.sigla}">Elecciones FUL 2024</span>
-                        <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
-                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                            <a th:each="carrera:${facultad.carreras}" th:href="${'../../../../admin/estadisticaFULC/' + carrera.id_carrera}" th:text="${carrera.nombre_carrera}">Estadistica FUL</a>
-                            
-                        </div>
+                        
+                        <ul class="dropdown-menu shadow">
+                            <li th:if="${session.usuario.id_usuario != 2}" th:each="facultad : ${facultades}"
+                                class="nav-item">
+                                <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                    class="nav-link dropdown-toggle">
+                                    <i class="fa big-icon fa-pie-chart"></i>
+                                    <span class="mini-dn" th:text="${facultad.sigla}">Elecciones FUL 2024</span>
+                                    <span class="indicator-right-menu mini-dn">
+                                        <i class="fa indicator-mn fa-angle-left"></i>
+                                    </span>
+                                </a>
+                                <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                                    <a th:each="carrera:${facultad.carreras}"
+                                        th:href="${'../../../../admin/estadisticaCentros/' + carrera.id_carrera}"
+                                        th:text="${carrera.nombre_carrera}"></a>
+
+                                </div>
+                            </li>
+                        </ul>
                     </li>
 
+                        <li th:if="${session.usuario.id_usuario != 2}" th:each="facultad : ${facultades}"
+                            class="nav-item">
+                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                class="nav-link dropdown-toggle">
+                                <i class="fa big-icon fa-pie-chart"></i>
+                                <span class="mini-dn" th:text="${facultad.sigla}">Elecciones FUL 2024</span>
+                                <span class="indicator-right-menu mini-dn">
+                                    <i class="fa indicator-mn fa-angle-left"></i>
+                                </span>
+                            </a>
+                            <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                                <a th:each="carrera:${facultad.carreras}"
+                                    th:href="${'../../../../admin/estadisticaFULC/' + carrera.id_carrera}"
+                                    th:text="${carrera.nombre_carrera}">Estadistica FUL</a>
 
-                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                            class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn">Elecciones Centro 2024</span>
-                            <span class="indicator-right-menu mini-dn"><i class="fa indicator-mn fa-angle-left"></i></span></a>
-                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                            <a th:href="${'../../../../admin/estadisticaACJYP'}" class="dropdown-item">Estadistica ACJyP</a>
-                            <a th:href="${'../../../../admin/estadisticaACSYH'}" class="dropdown-item">Estadistica ACSYH</a>
-                            <a th:href="${'../../../../admin/estadisticaACBN'}" class="dropdown-item">Estadistica ACBN</a>
-                            <a th:href="${'../../../../admin/estadisticaACEF'}" class="dropdown-item">Estadistica ACEF</a>
-                            <a th:href="${'../../../../admin/estadisticaACYT'}" class="dropdown-item">Estadistica ACYT</a>
-                            <a th:href="${'../../../../admin/estadisticaACS'}" class="dropdown-item">Estadistica ACS</a>
-                            <a th:href="${'../../../../admin/estadisticaPTO'}" >Estadistica PTO</a>
-                            <a th:href="${'../../../../admin/estadisticaES'}" >Estadistica ES</a>
-                            <a th:href="${'../../../../admin/estadisticaLP'}" >Estadistica LP</a>
-                            <a th:href="${'../../../../admin/estadisticaSR'}" >Estadistica SR</a>
-                        </div>
-                    </li>
+                            </div>
+                        </li>
+
+
+                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
+                                data-toggle="dropdown" role="button" aria-expanded="false"
+                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span
+                                    class="mini-dn">Elecciones Centro 2024</span>
+                                <span class="indicator-right-menu mini-dn"><i
+                                        class="fa indicator-mn fa-angle-left"></i></span></a>
+                            <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                                <a th:href="${'../../../../admin/estadisticaACJYP'}" class="dropdown-item">Estadistica
+                                    ACJyP</a>
+                                <a th:href="${'../../../../admin/estadisticaACSYH'}" class="dropdown-item">Estadistica
+                                    ACSYH</a>
+                                <a th:href="${'../../../../admin/estadisticaACBN'}" class="dropdown-item">Estadistica
+                                    ACBN</a>
+                                <a th:href="${'../../../../admin/estadisticaACEF'}" class="dropdown-item">Estadistica
+                                    ACEF</a>
+                                <a th:href="${'../../../../admin/estadisticaACYT'}" class="dropdown-item">Estadistica
+                                    ACYT</a>
+                                <a th:href="${'../../../../admin/estadisticaACS'}" class="dropdown-item">Estadistica
+                                    ACS</a>
+                                <a th:href="${'../../../../admin/estadisticaPTO'}">Estadistica PTO</a>
+                                <a th:href="${'../../../../admin/estadisticaES'}">Estadistica ES</a>
+                                <a th:href="${'../../../../admin/estadisticaLP'}">Estadistica LP</a>
+                                <a th:href="${'../../../../admin/estadisticaSR'}">Estadistica SR</a>
+                            </div>
+                        </li>
 
                         <!-- <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                 class="nav-link dropdown-toggle"><i class="fa big-icon fa-edit"></i> <span class="mini-dn">Data
@@ -260,7 +312,8 @@
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-lg-1 col-md-6 col-sm-6 col-xs-12">
-                                <button type="button" id="sidebarCollapse" class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
+                                <button type="button" id="sidebarCollapse"
+                                    class="btn bar-button-pro header-drl-controller-btn btn-info navbar-btn">
                                     <i class="fa fa-bars"></i>
                                 </button>
                                 <div class="admin-logo logo-wrap-pro">
@@ -271,7 +324,8 @@
                             <div class="col-lg-6 col-md-1 col-sm-1 col-xs-12">
                                 <div class="header-top-menu tabl-d-n">
                                     <ul class="nav navbar-nav mai-top-nav">
-                                        <li class="nav-item"><a th:href="${'../../../../admin/inicio'}" class="nav-link">INICIO</a>
+                                        <li class="nav-item"><a th:href="${'../../../../admin/inicio'}"
+                                                class="nav-link">INICIO</a>
                                         </li>
                                         <!-- <li class="nav-item dropdown">
                                             <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">Project <span class="angle-down-topmenu"><i class="fa fa-angle-down"></i></span></a>
@@ -289,21 +343,27 @@
                             <div class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
                                 <div class="header-right-info">
                                     <ul class="nav navbar-nav mai-top-nav header-right-menu">
-                                        
+
                                         <li class="nav-item">
-                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false" class="nav-link dropdown-toggle">
-                                                <span class="adminpro-icon adminpro-user-rounded header-riht-inf"></span>
+                                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                                class="nav-link dropdown-toggle">
+                                                <span
+                                                    class="adminpro-icon adminpro-user-rounded header-riht-inf"></span>
                                                 <span class="admin-name">Salir</span>
-                                                <span class="author-project-icon adminpro-icon adminpro-down-arrow"></span>
+                                                <span
+                                                    class="author-project-icon adminpro-icon adminpro-down-arrow"></span>
                                             </a>
-                                            <ul role="menu" class="dropdown-header-top author-log dropdown-menu animated flipInX">
-                                            
+                                            <ul role="menu"
+                                                class="dropdown-header-top author-log dropdown-menu animated flipInX">
+
                                                 <li><a th:href="${'../../../../cerrar_sesion'}"><span
-                                                            class="adminpro-icon adminpro-locked author-log-ic"></span>Cerrar Sesion</a>
+                                                            class="adminpro-icon adminpro-locked author-log-ic"></span>Cerrar
+                                                        Sesion</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li class="nav-item nav-setting-open" ><a href="#"  role="button" aria-expanded="false" class=""><i class="fa fa-tasks"></i></a>
+                                        <li class="nav-item nav-setting-open"><a href="#" role="button"
+                                                aria-expanded="false" class=""><i class="fa fa-tasks"></i></a>
 
                                         </li>
                                     </ul>
@@ -314,7 +374,7 @@
                 </div>
             </div>
             <!-- Header top area end-->
-            
+
             <!-- Mobile Menu start -->
             <div th:fragment="mobile" class="mobile-menu-area">
                 <div class="container">
@@ -323,95 +383,124 @@
                             <div class="mobile-menu">
                                 <nav id="dropdown">
                                     <ul class="mobile-menu-nav">
-                                        <li><a data-toggle="collapse" data-target="#Charts" href="#">Inicio <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#Charts" href="#">Inicio <span
+                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/inicio'}">Menu Principal</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse" data-target="#demo" href="#">Usuario <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse"
+                                                data-target="#demo" href="#">Usuario <span
+                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="demo" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/usuario'}">Registro Usuario</a>
                                                 </li>
-                                                <li> <a th:href="${'../../../../admin/lista_usuarios'}">Lista Usuarios</a>
+                                                <li> <a th:href="${'../../../../admin/lista_usuarios'}">Lista
+                                                        Usuarios</a>
                                                 </li>
-                                                <li><a th:href="${'../../../../admin/persona'}" >Registro Persona</a>
+                                                <li><a th:href="${'../../../../admin/persona'}">Registro Persona</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse" data-target="#others" href="#">Asignacion <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse"
+                                                data-target="#others" href="#">Asignacion <span
+                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="others" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/frente'}">Registro Frente</a>
                                                 </li>
                                                 <li><a th:href="${'../../../../admin/mesa'}">Registro Mesa</a>
                                                 </li>
-                                                <li><a th:href="${'../../../../admin/asignacion_eleccion'}">Asignacion Eleccion</a>
+                                                <li><a th:href="${'../../../../admin/asignacion_eleccion'}">Asignacion
+                                                        Eleccion</a>
                                                 </li>
                                                 <li><a th:href="${'../../../../admin/anfora'}">Registro Anfora</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li><a data-toggle="collapse" data-target="#Miscellaneousmob" href="#">Universidad <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#Miscellaneousmob"
+                                                href="#">Universidad <span
+                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="Miscellaneousmob" class="collapse dropdown-header-top">
-                                                <li><a th:href="${'../../../../admin/lista_facultades'}" >Lista Facultades</a>
+                                                <li><a th:href="${'../../../../admin/lista_facultades'}">Lista
+                                                        Facultades</a>
                                                 </li>
                                             </ul>
+                                        </li>
+                                        FUL
+                                        <li><a data-toggle="collapse" data-target="#Chartsmob" href="#">Elecciones
+                                                2024<span
+                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                            <ul id="Chartsmob" class="collapse dropdown-header-top">
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL'}">Estadistica
+                                                        FUL</a>
+                                                </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/1'}">Estadistica FUL
+                                                        ACJyP</a>
+                                                </li>
+                                                <li> <a th:href="${'../../../../admin/estadisticaFUL/5'}">Estadistica
+                                                        FUL ACSYH</a>
+                                                </li>
+                                                <li> <a th:href="${'../../../../admin/estadisticaFUL/2'}">Estadistica
+                                                        FUL ACBN</a>
+                                                </li>
+                                                <li> <a th:href="${'../../../../admin/estadisticaFUL/4'}">Estadistica
+                                                        FUL ACEF</a>
+                                                </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/6'}">Estadistica FUL
+                                                        ACYT</a>
+                                                </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/3'}">Estadistica FUL
+                                                        ACS</a>
+                                                </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/7'}">Estadistica FUL
+                                                        PTO</a>
+                                                </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/8'}">Estadistica FUL
+                                                        ES</a>
+                                                </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/9'}">Estadistica FUL
+                                                        LP</a>
+                                                </li>
+                                                <li><a th:href="${'../../../../admin/estadisticaFUL/10'}">Estadistica
+                                                        FUL SR</a>
+                                                </li>
                                         </li>
 
-                                        <li ><a data-toggle="collapse" data-target="#Chartsmob" href="#">Elecciones FUL 2024<span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
-                                            <ul id="Chartsmob" class="collapse dropdown-header-top">
-                                                <li><a th:href="${'../../../../admin/estadisticaFUL'}" >Estadistica FUL</a>
-                                                </li>
-                                                <li><a th:href="${'../../../../admin/estadisticaFUL/1'}" >Estadistica FUL ACJyP</a>
-                                                </li>
-                                                <li> <a th:href="${'../../../../admin/estadisticaFUL/5'}" >Estadistica FUL ACSYH</a>
-                                                </li>
-                                                <li> <a th:href="${'../../../../admin/estadisticaFUL/2'}" >Estadistica FUL ACBN</a>
-                                                </li>
-                                                <li> <a th:href="${'../../../../admin/estadisticaFUL/4'}" >Estadistica FUL ACEF</a>
-                                                </li>
-                                                <li><a th:href="${'../../../../admin/estadisticaFUL/6'}" >Estadistica FUL ACYT</a>
-                                                </li>
-                                                <li><a th:href="${'../../../../admin/estadisticaFUL/3'}" >Estadistica FUL ACS</a>
-                                                </li>
-                                                <li><a th:href="${'../../../../admin/estadisticaFUL/7'}" >Estadistica FUL PTO</a>
-                                                </li>
-                                                <li><a th:href="${'../../../../admin/estadisticaFUL/8'}" >Estadistica FUL ES</a>
-                                                </li>
-                                                <li><a th:href="${'../../../../admin/estadisticaFUL/9'}" >Estadistica FUL LP</a>
-                                                </li>
-                                                <li><a th:href="${'../../../../admin/estadisticaFUL/10'}" >Estadistica FUL SR</a>
-                                                </li>
-                                                </li>
-                                          
-                                            </ul>
-                                        </li>
-                                        <li ><a data-toggle="collapse" data-target="#Chartsmob" href="#">Elecciones Centro 2024 <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
-                                            <ul id="Chartsmob" class="collapse dropdown-header-top">
-                                                <li><a th:href="${'../../../../admin/estadisticaACJYP'}" >Estadistica ACJyP</a>
-                                                </li>
-                                                <li> <a th:href="${'../../../../admin/estadisticaACSYH'}" >Estadistica ACSYH</a>
-                                                </li>
-                                                <li> <a th:href="${'../../../../admin/estadisticaACBN'}" >Estadistica ACBN</a>
-                                                </li>
-                                                <li> <a th:href="${'../../../../admin/estadisticaACEF'}" >Estadistica ACEF</a>
-                                                </li>
-                                                <li><a th:href="${'../../../../admin/estadisticaACYT'}" >Estadistica ACYT</a>
-                                                </li>
-                                                <li><a th:href="${'../../../../admin/estadisticaACS'}" >Estadistica ACS</a>
-                                                <li><a th:href="${'../../../../admin/estadisticaPTO'}" >Estadistica PTO</a>
-                                                </li>
-                                                <li><a th:href="${'../../../../admin/estadisticaES'}" >Estadistica ES</a>
-                                                </li>
-                                                <li><a th:href="${'../../../../admin/estadisticaLP'}" >Estadistica LP</a>
-                                                </li>
-                                                <li><a th:href="${'../../../../admin/estadisticaSR'}" >Estadistica SR</a>
-                                                </li>
-                                                </li>
-                                            </ul>
-                                        </li>
+                                    </ul>
+                                    </li>
+                                    <li><a data-toggle="collapse" data-target="#Chartsmob" href="#">Elecciones Centro
+                                            2024 <span
+                                                class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <ul id="Chartsmob" class="collapse dropdown-header-top">
+                                            <li><a th:href="${'../../../../admin/estadisticaACJYP'}">Estadistica
+                                                    ACJyP</a>
+                                            </li>
+                                            <li> <a th:href="${'../../../../admin/estadisticaACSYH'}">Estadistica
+                                                    ACSYH</a>
+                                            </li>
+                                            <li> <a th:href="${'../../../../admin/estadisticaACBN'}">Estadistica
+                                                    ACBN</a>
+                                            </li>
+                                            <li> <a th:href="${'../../../../admin/estadisticaACEF'}">Estadistica
+                                                    ACEF</a>
+                                            </li>
+                                            <li><a th:href="${'../../../../admin/estadisticaACYT'}">Estadistica ACYT</a>
+                                            </li>
+                                            <li><a th:href="${'../../../../admin/estadisticaACS'}">Estadistica ACS</a>
+                                            <li><a th:href="${'../../../../admin/estadisticaPTO'}">Estadistica PTO</a>
+                                            </li>
+                                            <li><a th:href="${'../../../../admin/estadisticaES'}">Estadistica ES</a>
+                                            </li>
+                                            <li><a th:href="${'../../../../admin/estadisticaLP'}">Estadistica LP</a>
+                                            </li>
+                                            <li><a th:href="${'../../../../admin/estadisticaSR'}">Estadistica SR</a>
+                                            </li>
+                                    </li>
+                                    </ul>
+                                    </li>
 
-                                        
+
                                     </ul>
                                 </nav>
                             </div>
@@ -420,7 +509,7 @@
                 </div>
             </div>
             <!-- Mobile Menu end -->
-           
+
         </div>
     </div>
     <!-- Footer Start-->
@@ -429,129 +518,134 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="footer-copy-right">
-                        <p>Copyright &#169; 2024 / <a th:href="${'../../../../admin/inicio'}"><b>Unidad De Sistemas De Información y Comunicación</b></a>.</p>
+                        <p>Copyright &#169; 2024 / <a th:href="${'../../../../admin/inicio'}"><b>Unidad De Sistemas De
+                                    Información y Comunicación</b></a>.</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
     <!-- Footer End-->
-  
-   
+
+
 
     <div th:fragment="scripts">
-    <script>window.addEventListener('load', function() {
-        // Ocultar el preloader cuando la página se haya cargado completamente
-        var preloader = document.querySelector('.preloader-wrapper');
-        preloader.style.display = 'none';
-    });</script>
+        <script>window.addEventListener('load', function () {
+                // Ocultar el preloader cuando la página se haya cargado completamente
+                var preloader = document.querySelector('.preloader-wrapper');
+                preloader.style.display = 'none';
+            });</script>
         <!-- jquery
 		============================================ -->
-    <script src="../../../../js/vendor/jquery-1.11.3.min.js"></script>
-    <!-- bootstrap JS
+        <script src="../../../../js/vendor/jquery-1.11.3.min.js"></script>
+        <!-- bootstrap JS
 		============================================ -->
-    <script src="../../../../js/bootstrap.min.js"></script>
-    <!-- meanmenu JS
+        <script src="../../../../js/bootstrap.min.js"></script>
+        <!-- meanmenu JS
 		============================================ -->
-    <script src="../../../../js/jquery.meanmenu.js"></script>
-    <!-- mCustomScrollbar JS
+        <script src="../../../../js/jquery.meanmenu.js"></script>
+        <!-- mCustomScrollbar JS
 		============================================ -->
-    <script src="../../../../js/jquery.mCustomScrollbar.concat.min.js"></script>
-    <!-- sticky JS
+        <script src="../../../../js/jquery.mCustomScrollbar.concat.min.js"></script>
+        <!-- sticky JS
 		============================================ -->
-    <script src="../../../../js/jquery.sticky.js"></script>
-    <!-- scrollUp JS
+        <script src="../../../../js/jquery.sticky.js"></script>
+        <!-- scrollUp JS
 		============================================ -->
-    <script src="../../../../js/jquery.scrollUp.min.js"></script>
-    <!-- scrollUp JS
+        <script src="../../../../js/jquery.scrollUp.min.js"></script>
+        <!-- scrollUp JS
 		============================================ -->
-    <script src="../../../../js/wow/wow.min.js"></script>
-    <!-- counterup JS
+        <script src="../../../../js/wow/wow.min.js"></script>
+        <!-- counterup JS
 		============================================ -->
-    <script src="../../../../js/counterup/jquery.counterup.min.js"></script>
-    <script src="../../../../js/counterup/waypoints.min.js"></script>
-    <script src="../../../../js/counterup/counterup-active.js"></script>
-    <!-- select2 JS
+        <script src="../../../../js/counterup/jquery.counterup.min.js"></script>
+        <script src="../../../../js/counterup/waypoints.min.js"></script>
+        <script src="../../../../js/counterup/counterup-active.js"></script>
+        <!-- select2 JS
 		============================================ -->
-    <script src="../../../../js/select2/select2.full.min.js"></script>
-    <script src="../../../../js/select2/select2-active.js"></script>
-    <script src="../../../../js/touchspin/touchspin-active.js"></script>
-    <!-- input-mask JS
+        <script src="../../../../js/select2/select2.full.min.js"></script>
+        <script src="../../../../js/select2/select2-active.js"></script>
+        <script src="../../../../js/touchspin/touchspin-active.js"></script>
+        <!-- input-mask JS
 		============================================ -->
-    <script src="../../../../js/input-mask/jasny-bootstrap.min.js"></script>
-    <!-- chosen JS
+        <script src="../../../../js/input-mask/jasny-bootstrap.min.js"></script>
+        <!-- chosen JS
 		============================================ -->
-    <script src="../../../../js/chosen/chosen.jquery.js"></script>
-    <script src="../../../../js/chosen/chosen-active.js"></script>
-    <!-- ionRangeSlider JS
+        <script src="../../../../js/chosen/chosen.jquery.js"></script>
+        <script src="../../../../js/chosen/chosen-active.js"></script>
+        <!-- ionRangeSlider JS
 		============================================ -->
-    <script src="../../../../js/ionRangeSlider/ion.rangeSlider.min.js"></script>
-    <script src="../../../../js/ionRangeSlider/ion.rangeSlider.active.js"></script>
-    <!-- rangle-slider JS
+        <script src="../../../../js/ionRangeSlider/ion.rangeSlider.min.js"></script>
+        <script src="../../../../js/ionRangeSlider/ion.rangeSlider.active.js"></script>
+        <!-- rangle-slider JS
         ============================================ -->
-    <script src="../../../../js/rangle-slider/jquery-ui-1.10.4.custom.min.js"></script>
-    <script src="../../../../js/rangle-slider/jquery-ui-touch-punch.min.js"></script>
-    <script src="../../../../js/rangle-slider/rangle-active.js"></script>
-    <!-- knob JS
+        <script src="../../../../js/rangle-slider/jquery-ui-1.10.4.custom.min.js"></script>
+        <script src="../../../../js/rangle-slider/jquery-ui-touch-punch.min.js"></script>
+        <script src="../../../../js/rangle-slider/rangle-active.js"></script>
+        <!-- knob JS
         ============================================ -->
-    <script src="../../../../js/knob/jquery.knob.js"></script>
-    <script src="../../../../js/knob/knob-active.js"></script>
-    <!-- jvectormap JS
+        <script src="../../../../js/knob/jquery.knob.js"></script>
+        <script src="../../../../js/knob/knob-active.js"></script>
+        <!-- jvectormap JS
 		============================================ -->
-    <script src="../../../../js/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
-    <script src="../../../../js/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-    <script src="../../../../js/jvectormap/jvectormap-active.js"></script>
-    <!-- peity JS
+        <script src="../../../../js/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+        <script src="../../../../js/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+        <script src="../../../../js/jvectormap/jvectormap-active.js"></script>
+        <!-- peity JS
 		============================================ -->
-    <script src="../../../../js/peity/jquery.peity.min.js"></script>
-    <script src="../../../../js/peity/peity-active.js"></script>
-    <!-- form validate JS
+        <script src="../../../../js/peity/jquery.peity.min.js"></script>
+        <script src="../../../../js/peity/peity-active.js"></script>
+        <!-- form validate JS
     ============================================ -->
-    <script src="../../../../js/jquery.form.min.js"></script>
-    <script src="../../../../js/jquery.validate.min.js"></script>
-    <!-- <script src="../../../../js/form-active.js"></script> -->
-    <!-- modal JS
+        <script src="../../../../js/jquery.form.min.js"></script>
+        <script src="../../../../js/jquery.validate.min.js"></script>
+        <!-- <script src="../../../../js/form-active.js"></script> -->
+        <!-- modal JS
 		============================================ -->
-    <script src="../../../../js/modal-active.js"></script>
-    <!-- sparkline JS
+        <script src="../../../../js/modal-active.js"></script>
+        <!-- sparkline JS
 		============================================ -->
-    <script src="../../../../js/sparkline/jquery.sparkline.min.js"></script>
-    <script src="../../../../js/sparkline/sparkline-active.js"></script>
-    <!-- flot JS
+        <script src="../../../../js/sparkline/jquery.sparkline.min.js"></script>
+        <script src="../../../../js/sparkline/sparkline-active.js"></script>
+        <!-- flot JS
 		============================================ -->
-    <script src="../../../../js/flot/jquery.flot.js"></script>
-    <script src="../../../../js/flot/jquery.flot.tooltip.min.js"></script>
-    <script src="../../../../js/flot/jquery.flot.spline.js"></script>
-    <script src="../../../../js/flot/jquery.flot.resize.js"></script>
-    <script src="../../../../js/flot/jquery.flot.pie.js"></script>
-    <script src="../../../../js/flot/jquery.flot.symbol.js"></script>
-    <script src="../../../../js/flot/jquery.flot.time.js"></script>
-    <script src="../../../../js/flot/dashtwo-flot-active.js"></script>
-    <!-- data table JS
+        <script src="../../../../js/flot/jquery.flot.js"></script>
+        <script src="../../../../js/flot/jquery.flot.tooltip.min.js"></script>
+        <script src="../../../../js/flot/jquery.flot.spline.js"></script>
+        <script src="../../../../js/flot/jquery.flot.resize.js"></script>
+        <script src="../../../../js/flot/jquery.flot.pie.js"></script>
+        <script src="../../../../js/flot/jquery.flot.symbol.js"></script>
+        <script src="../../../../js/flot/jquery.flot.time.js"></script>
+        <script src="../../../../js/flot/dashtwo-flot-active.js"></script>
+        <!-- data table JS
 		============================================ -->
-    <script src="../../../../js/data-table/bootstrap-table.js"></script>
-    <script src="../../../../js/data-table/tableExport.js"></script>
-    <script src="../../../../js/data-table/data-table-active.js"></script>
-    <script src="../../../../js/data-table/bootstrap-table-editable.js"></script>
-    <script src="../../../../js/data-table/bootstrap-editable.js"></script>
-    <script src="../../../../js/data-table/bootstrap-table-resizable.js"></script>
-    <script src="../../../../js/data-table/colResizable-1.5.source.js"></script>
-    <script src="../../../../js/data-table/bootstrap-table-export.js"></script>
-    <!-- icheck JS
+        <script src="../../../../js/data-table/bootstrap-table.js"></script>
+        <script src="../../../../js/data-table/tableExport.js"></script>
+        <script src="../../../../js/data-table/data-table-active.js"></script>
+        <script src="../../../../js/data-table/bootstrap-table-editable.js"></script>
+        <script src="../../../../js/data-table/bootstrap-editable.js"></script>
+        <script src="../../../../js/data-table/bootstrap-table-resizable.js"></script>
+        <script src="../../../../js/data-table/colResizable-1.5.source.js"></script>
+        <script src="../../../../js/data-table/bootstrap-table-export.js"></script>
+        <!-- icheck JS
 		============================================ -->
-    <script src="../../../../js/icheck/icheck.min.js"></script>
-    <script src="../../../../js/icheck/icheck-active.js"></script>
-    <!-- main JS
+        <script src="../../../../js/icheck/icheck.min.js"></script>
+        <script src="../../../../js/icheck/icheck-active.js"></script>
+        <!-- main JS
 		============================================ -->
-    <script src="../../../../js/main.js"></script>
-    <!-- Select2 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-    
+        <script src="../../../../js/main.js"></script>
+        <!-- Select2 -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/js/all.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
+            integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p"
+            crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
+            integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
+            crossorigin="anonymous"></script>
+
     </div>
-    
+
 </body>
 
 </html>

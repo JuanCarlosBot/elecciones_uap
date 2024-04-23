@@ -40,4 +40,10 @@ public interface IVotoTotalFrenteDao  extends CrudRepository<VotoTotalFrente,Lon
     
     @Query(value = "select CAST(af.cant_voto_blanco AS varchar) ,CAST(af.cant_voto_nulo AS varchar) ,me.nombre_mesa,co.facultad from conteo_total co ,anfora af,mesa me where co.id_nivel=?1 and co.id_conteo_total=af.id_conteo_total and me.id_carrera =?2 and af.id_mesa=me.id_mesa order by me.id_mesa",nativeQuery = true)
     public List<Map<Object, String>> listaVotosBlancosNulosPorMesasCarrera(Long idNivel, Long idCarrera);
+
+    @Query(value = "select m.nombre_mesa, a.cant_voto_blanco , a.cant_voto_nulo\n" + //
+                "from anfora a left join mesa m on a.id_mesa = m.id_mesa \n" + //
+                "left join conteo_total_carrera ctc ON ctc.id_conteo_total = a.id_conteo_total_carrera\n" + //
+                "where m.id_carrera = ?1 and ctc.carrera = ?2 order by m.nombre_mesa",nativeQuery = true)
+    public List<Object[]> blancosNulosPorMesaCarrera(Long id_carrera, String nombre_carrera);
 }
