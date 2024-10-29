@@ -17,39 +17,42 @@ public class IndexController {
     @Autowired
     private IAsignacionHabilitadoService asignacionHabilitadoService;
 
-    // @RequestMapping(value = "/index",method = RequestMethod.GET)
-    // public String Pagina_Index(){
-    //     return "index";
-    // }
+    
+    @RequestMapping(value = "/memorandum-estudiantes",method = RequestMethod.GET)
+    public String memoE(Model model){
+        model.addAttribute("delegados", asignacionHabilitadoService.lista_asignados_delegados());
+        return "Publico/memo_est";
+    }
+    @RequestMapping(value = "/memorandum-docentes",method = RequestMethod.GET)
+    public String memoD(Model model){
+        model.addAttribute("delegadosDocentes", asignacionHabilitadoService.lista_asignados_delegados_docentes());
+        return "Publico/memo_doc";
+    }
+
+
 
    @RequestMapping(value = "/delegados-estudiantes",method = RequestMethod.GET)
     public String vista_delegadosE(Model model){
-
         model.addAttribute("delegados", asignacionHabilitadoService.lista_asignados_delegados());
-        
         return "Publico/lista_delegados";
     }
     @RequestMapping(value = "/delegados-docentes",method = RequestMethod.GET)
     public String vista_delegadosD(Model model){
-
-        model.addAttribute("delegadosDocentes", asignacionHabilitadoService.lista_asignados_delegados_docentes());
-        
+        model.addAttribute("delegadosDocentes", asignacionHabilitadoService.lista_asignados_delegados_docentes());  
         return "Publico/lista_delegados_doc";
     }
 
+
     @RequestMapping(value = "/consulta",method = RequestMethod.GET)
     public String vista_estudiantes(Model model, @RequestParam(name = "succes",required = false)String succes){
-
         if (succes != null) {
             model.addAttribute("succes", succes);
         }
-
         return "Publico/vista_publica_estudiantes";
     }
 
     @RequestMapping(value = "/mesa_asignada/{ru}",method = RequestMethod.GET)
     public String mesa_asignada_form(Model model,@PathVariable(name = "ru",required = false)String ru, RedirectAttributes flash ){
-
         try {
             if (ru != null) {
                 

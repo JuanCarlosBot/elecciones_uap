@@ -20,7 +20,7 @@
                             <div class="sparkline13-list shadow-reset">
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
-                                        <h1>LISTA <span class="table-project-n">DE</span> DELEGADOS ESTUDIANTES</h1>
+                                        <h1>LISTA <span class="table-project-n">DE</span> DELEGADOS DOCENTES</h1>
                                         <div class="sparkline13-outline-icon">
                                             <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
                                             <span><i class="fa fa-wrench"></i></span>
@@ -47,15 +47,15 @@
                                                     <th >Nro</th>
                                                     <th >FACULTAD</th>
                                                     <th >CARRERA</th>
-                                                    <th >R.U</th>
+                                                    <th >R.D</th>
                                                     <th >APELLIDOS Y NOMBRES</th>
                                                     <th >MESA</th>
                                                     <th >JURADO</th>
-
+                                                    <th >OPCION</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr th:each="d, num : ${delegados}" >
+                                                <tr th:each="d, num : ${delegadosDocentes}" >
                                                     <td th:text="${num.index + 1}">1</td>
                                                     <td th:text="${d[0]}"></td>
                                                     <td th:text="${d[1]}"></td>
@@ -63,6 +63,10 @@
                                                     <td th:text="${d[3]}"></td>
                                                     <td th:text="${d[4]}"></td>
                                                     <td th:text="${'Jurado'}"></td>
+                                                    <td>
+                                                        <a class="#" style="color: #0726b4;"  
+                                                        th:href="@{'generarPDF/'+${d[7]}+'/'+${d[6]}+'/'+${(num.index + 1)}}" target="_blank">print</a>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>

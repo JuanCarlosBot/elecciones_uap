@@ -51,6 +51,7 @@
                                                     <th >APELLIDOS Y NOMBRES</th>
                                                     <th >MESA</th>
                                                     <th >JURADO</th>
+                                                    <th >OPCION</th>
 
                                                 </tr>
                                             </thead>
@@ -63,6 +64,9 @@
                                                     <td th:text="${d[3]}"></td>
                                                     <td th:text="${d[4]}"></td>
                                                     <td th:text="${'Jurado'}"></td>
+                                                    <td><a class="#" style="color: #0726b4;"  
+                                                        th:href="@{'generarPDF/'+${d[7]}+'/'+${d[6]}+'/'+${(num.index + 1)}}" target="_blank">print</a>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
