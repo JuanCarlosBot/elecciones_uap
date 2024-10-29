@@ -5,7 +5,7 @@
 </head>
 
 <body style="background-image: url(../../../img/logo/UAP2.webp); background-size: cover;">
-  
+
     <div class="wrapper-pro">
         <!-- Header top area start-->
         <div class="content-inner-all-login">
@@ -15,50 +15,84 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-4"></div>
-                            <div class="col-lg-4">
-                                <div class="login-bg">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <div class="logo">
-                                                <a href="#"><img src="img/logo/UAP-DIGITAL-COLOR.webp" alt="" width="300" height="200" />
-                                                </a>
-                                            </div>
+                        <div class="col-lg-4">
+                            <div class="login-bg">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="logo">
+                                            <a href="#"><img src="img/logo/UAP-DIGITAL-COLOR.webp" alt="" width="300"
+                                                    height="200" />
+                                            </a>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <center>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <center>
                                             <div class="login-title">
                                                 <h1>BUSCAR MESA ASIGNADA</h1>
                                             </div>
-                                            </center>
-                                        </div>
+                                        </center>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="login-input-head">
-                                                <p>Registro Universitario (R.U)</p>
+                                </div>
+                                <div class="row">
+                                    <ul class="nav nav-tabs nav-justified">
+                                        <li role="presentation" class="active"><a data-toggle="tab" href="#form-estudiante">Estudiante</a></li>
+                                        <li role="presentation"><a data-toggle="tab" href="#form-docente">Docente</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div id="form-estudiante" class="tab-pane fade in active">
+                                            <div class="col-lg-4">
+                                                <div class="login-input-head">
+                                                    <p>R.U.</p>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <div class="login-input-area">
+                                                    <input type="text" name="ru" required />
+                                                    <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+        
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="login-button-pro">
+                                                        <button type="button" id="openModalBtn"
+                                                            class="login-button login-button-lg">Enviar E</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="col-lg-8">
-                                            <div class="login-input-area">
-                                                <input type="text" name="ru" required/>
-                                                <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                        <div id="form-docente" class="tab-pane fade">
+                                            <div class="col-lg-4">
+                                                <div class="login-input-head">
+                                                    <p>R.D.</p>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-lg-4">
-
-                                        </div>
-                                        <div class="col-lg-8">
-                                            <div class="login-button-pro">
-                                                <button type="button" id="openModalBtn" class="login-button login-button-lg">Enviar</button>
+                                            <div class="col-lg-8">
+                                                <div class="login-input-area">
+                                                    <input type="text" name="rd" required />
+                                                    <i class="fa fa-user login-user" aria-hidden="true"></i>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+        
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="login-button-pro">
+                                                        <button type="button" id="openModalBtn2"
+                                                            class="login-button login-button-lg">Enviar D</button>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         <div class="col-lg-4"></div>
                     </div>
                 </div>
@@ -66,66 +100,80 @@
             <!-- login End-->
 
             <div id="myModal" class="modal">
-                <div class="modal-content2">
-                    <div class="modal-header">
-                        <span class="close">&times;</span>
-                        <center>
-                            <p>
-                            <h1>DETALLE ASIGNACION MESA ESTUDIANTE</h1>
-                            </p>
-                        </center>
-                    </div>
-                    <div class="modal-body">
-                        
-                        <div class="row">
-                            <div id="replace">
-
+                <div class="modal-dialog">
+                    <div class="modal-content2">
+                        <div class="modal-header">
+                            <span class="close">&times;</span>
+                            <center>
+                                <p>
+                                <h1>DETALLE ASIGNACION MESA</h1>
+                                </p>
+                            </center>
+                        </div>
+                        <div class="modal-body">
+    
+                            <div class="row">
+                                <div id="replace">
+    
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    
-                    <div class="modal-footer">
-                        
-                        <button type="button" id="closeModalBtn" class="btn btn-custon-rounded-three btn-danger">CERRAR</button>
-                        
-                    </div>
-                    <div th:replace="Layout/layout :: footer" class="footer-copyright-area">
+    
+                        <div class="modal-footer">
+    
+                            <button type="button" id="closeModalBtn"
+                                class="btn btn-custon-rounded-three btn-danger">CERRAR</button>
+    
+                        </div>
+                        <div th:replace="Layout/layout :: footer" class="footer-copyright-area">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-   
+<style>
+    .modal-dialog {
+    width: 95%; /* Ajusta el ancho según tus necesidades */
+    max-width: 900px; /* Máximo ancho del modal */
+}
+
+</style>
     <script>
         // JavaScript para abrir y cerrar el modal
         var modal = document.getElementById("myModal");
         var btn = document.getElementById("openModalBtn");
+        var btn2 = document.getElementById("openModalBtn2");
         var btnclosed = document.getElementById("closeModalBtn");
         var span = document.getElementsByClassName("close")[0];
-    
-        btn.onclick = function() {
+
+        btn.onclick = function () {
             modal.style.display = "block";
         }
 
-        btnclosed.onclick = function() {
+        btn2.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        btnclosed.onclick = function () {
             modal.style.display = "none";
         }
-    
-        span.onclick = function() {
+
+        span.onclick = function () {
             modal.style.display = "none";
         }
-    
-        window.onclick = function(event) {
+
+        window.onclick = function (event) {
             if (event.target == modal) {
                 modal.style.display = "none";
             }
         }
 
         // Agregamos un evento de clic al botón
-        btn.addEventListener("click", function() {
+        btn.addEventListener("click", function () {
             // Capturamos el valor del input por su nombre
             var ruValue = document.getElementsByName("ru")[0].value;
-            
+
             // Mostramos el valor en la consola (puedes hacer lo que quieras con él)
             console.log("Valor del input R.U:", ruValue);
 
@@ -135,8 +183,22 @@
             $('#replace').load(url);
             ruValue.value = "";
         });
+
+        btn2.addEventListener("click", function () {
+            // Capturamos el valor del input por su nombre
+            var rdValue = document.getElementsByName("rd")[0].value;
+           
+            // Mostramos el valor en la consola (puedes hacer lo que quieras con él)
+            console.log("Valor del input R.D:", rdValue);
+
+            var url = "../../../../mesa_asignada_docente/" + rdValue;
+
+            // Carga el contenido en el elemento con id 'replace_div'
+            $('#replace').load(url);
+            rdValue.value = "";
+        });
     </script>
-    
+
     <div th:replace="Layout/layout :: scripts"></div>
     <!-- Footer End-->
     <!-- jquery

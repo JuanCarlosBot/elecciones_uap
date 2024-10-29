@@ -22,15 +22,22 @@ public class IndexController {
     //     return "index";
     // }
 
-   @RequestMapping(value = "/delegados",method = RequestMethod.GET)
-    public String vista_delegados(Model model){
+   @RequestMapping(value = "/delegados-estudiantes",method = RequestMethod.GET)
+    public String vista_delegadosE(Model model){
 
         model.addAttribute("delegados", asignacionHabilitadoService.lista_asignados_delegados());
         
         return "Publico/lista_delegados";
     }
+    @RequestMapping(value = "/delegados-docentes",method = RequestMethod.GET)
+    public String vista_delegadosD(Model model){
 
-    @RequestMapping(value = "/estudiante",method = RequestMethod.GET)
+        model.addAttribute("delegadosDocentes", asignacionHabilitadoService.lista_asignados_delegados_docentes());
+        
+        return "Publico/lista_delegados_doc";
+    }
+
+    @RequestMapping(value = "/consulta",method = RequestMethod.GET)
     public String vista_estudiantes(Model model, @RequestParam(name = "succes",required = false)String succes){
 
         if (succes != null) {
@@ -48,17 +55,40 @@ public class IndexController {
                 
                 if (asignacionHabilitadoService.asignado_habilitado(ru) != null) {
                     model.addAttribute("estudiante", asignacionHabilitadoService.asignado_habilitado(ru));
-                    return "Content/content :: content";
+                    return "Content/content :: contentEstudiante";
                 }else{
                     model.addAttribute("succes", "Estudiante No Matriculado");
                     return "Content/content :: alert_modal";
                 }
             }
-            return "redirect:/estudiante";
+            return "redirect:/consulta";
         }  catch (Exception e) {
             System.out.println("6");
             flash.addFlashAttribute("succes", "ERROR!");
-            return "redirect:/estudiante";
+            return "redirect:/consulta";
+        }
+    }
+
+    @RequestMapping(value = "/mesa_asignada_docente/{rd}",method = RequestMethod.GET)
+    public String mesa_asignada_formDocente(Model model,@PathVariable(name = "rd",required = false)String rd, RedirectAttributes flash ){
+        
+        try {
+            if (rd != null) {
+                
+                if (asignacionHabilitadoService.asignado_habilitadoDocente(rd) != null) {
+                    System.out.println(rd);
+                    model.addAttribute("docente", asignacionHabilitadoService.asignado_habilitadoDocente(rd));
+                    return "Content/content :: contentDocente";
+                }else{
+                    model.addAttribute("succes", "Docente no Habilitado");
+                    return "Content/content :: alert_modal";
+                }
+            }
+            return "redirect:/consulta";
+        }  catch (Exception e) {
+            System.out.println("6");
+            flash.addFlashAttribute("succes", "ERROR! "+e);
+            return "redirect:/consulta";
         }
     }
 

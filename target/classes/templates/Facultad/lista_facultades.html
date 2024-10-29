@@ -241,13 +241,27 @@
                                     </div>
                                 </div>
                                 <div class="income-dashone-pro">
-                                    <div class="income-rate-total">
-                                        <div class="price-adminpro-rate">
-                                            <h3><span class="counter" th:text="${f.cantidad_est}"></span></h3>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="income-rate-total">
+                                                <div class="price-adminpro-rate">
+                                                    <h3><span class="" th:text="${f.cantidad_est}"></span></h3>
+                                                </div>
+                                            </div>
+                                            <div class="income-range">
+                                                <p>Total Estudiantes</p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="income-range">
-                                        <p>Total Estudiantes</p>
+                                        <div class="col-md-6">
+                                            <div class="income-rate-total">
+                                                <div class="price-adminpro-rate">
+                                                    <h3><span class="" th:text="${f.cantidad_doc}"></span></h3>
+                                                </div>
+                                            </div>
+                                            <div class="income-range">
+                                                <p>Total Docentes</p>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="clear"></div>
                                 </div>
@@ -266,19 +280,34 @@
                         <div class="income-dashone-total shadow-reset nt-mg-b-30">
                             <div class="income-title">
                                 <div class="main-income-head">
-                                    <h2><a th:text="${'TOTAL DE ESTUDIANTES HABILITADOS'}"></a></h2>
+                                    <h2><a th:text="${'TOTAL DE PERSONAS'}"></a></h2>
                     
                                 </div>
                             </div>
                             <div class="income-dashone-pro">
-                                <div class="income-rate-total">
-                                    <div class="price-adminpro-rate">
-                                        <h3><span class="counter" th:text="${total_est}"></span></h3>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="income-rate-total">
+                                            <div class="price-adminpro-rate">
+                                                <h3><span class="" th:text="${total_est}"></span></h3>
+                                            </div>
+                            
+                                        </div>
+                                        <div class="income-range">
+                                            <p>Total Estudiantes</p>
+                                        </div>
                                     </div>
-                    
-                                </div>
-                                <div class="income-range">
-                                    <p>Total Estudiantes</p>
+                                    <div class="col-md-6">
+                                        <div class="income-rate-total">
+                                            <div class="price-adminpro-rate">
+                                                <h3><span class="" th:text="${total_doc}"></span></h3>
+                                            </div>
+                            
+                                        </div>
+                                        <div class="income-range">
+                                            <p>Total Docentes</p>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="clear"></div>
                             </div>

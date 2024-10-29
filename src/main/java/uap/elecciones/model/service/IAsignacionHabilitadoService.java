@@ -15,8 +15,16 @@ public interface IAsignacionHabilitadoService {
 
 	List<Object[]> lista_asignados_habilitados(Long id_carrera);
 
+	List<Object[]> lista_asignados_habilitadosF(Long id_facultad);
+
+	List<Object[]> lista_asignacion_por_mesa(Long id_facultad);
+
 	List<Object[]> lista_asignados_delegados();
 
+	List<Object[]> lista_asignados_delegados_docentes();
+
 	Object asignado_habilitado(String ru);
+
+	Object asignado_habilitadoDocente(String rd);
 
 }

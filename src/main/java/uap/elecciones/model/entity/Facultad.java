@@ -39,6 +39,8 @@ public class Facultad implements Serializable {
     @Column
     private Integer cantidad_est;
 
+    private Integer cantidad_doc;
+
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_universidad")

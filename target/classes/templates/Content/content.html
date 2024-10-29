@@ -1,76 +1,62 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head th:replace="Layout/layout :: head">
+
+<head th:replace="Layout/layout :: head">
+
 <body>
-    
-    <div th:fragment="content" >
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-12">
-                    <center>
-                        <p>
-                        <h1 class="message-mg-rt" style="font-size: 3em;" th:text="${estudiante[4]}"></h1>
-                        </p>
-                    </center>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-12">
-                    <label for="">Facultad</label>
-                    <div class="login-input-area register-mg-rt">
-                        <input class="form-control" type="text"  th:value="${estudiante[0]}" disabled/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-12">
-                    <label for="">Carrera</label>
-                    <div class="login-input-area register-mg-rt">
-                        <input class="form-control" type="text" th:value="${estudiante[1]}" disabled/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-12">
-                    <label for="">R.U</label>
-                    <div class="login-input-area register-mg-rt">
-                        <input class="form-control" type="text" th:value="${estudiante[2]}" disabled/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-12">
-                    <label for="">Apellidos y Nombres</label>
-                    <div class="login-input-area register-mg-rt">
-                        <input class="form-control" type="text" th:value="${estudiante[3]}" disabled/>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-12">
-            <div class="row">
-                <div class="col-lg-12">
-                    <label for="">Jurado Erectoral</label>
-                    <div class="form-group-inner input-with-success">
-                        <input th:if="${estudiante[5] != null}" class="form-control" type="text" th:value="${'Jurado'}" disabled/>
-                        <input th:if="${estudiante[5] == null}" class="form-control" type="text" th:value="${'No Jurado'}" disabled/>
-                    </div>
-                </div>
-            </div>
-        </div>
+
+    <div th:fragment="contentEstudiante">
+        <ul class="list-group col-md-12" style="font-size: 18px;">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>Facultad: </strong><span th:text="${estudiante[0]}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>Carrera: </strong><span th:text="${estudiante[1]}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>R.U: </strong><span th:text="${estudiante[2]}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>Nombre Completo: </strong><span th:text="${estudiante[3]}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>Nro de Mesa: </strong><span th:text="${estudiante[4]}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>Jurado Electoral: </strong><span th:text="${estudiante[5] != null ? 'Sì eres Jurado' : 'No eres Jurado'}"></span>
+            </li>
+        </ul>
+
+    </div>
+    <div th:fragment="contentDocente">
+        <ul class="list-group col-md-12" style="font-size: 18px;">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>Facultad: </strong><span th:text="${docente[0]}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>Carrera: </strong><span th:text="${docente[1]}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>R.D: </strong><span th:text="${docente[2]}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>Nombre Completo: </strong><span th:text="${docente[3]}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>Nro de Mesa: </strong><span th:text="${docente[4]}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <strong>Jurado Electoral: </strong><span th:text="${docente[5] != null ? 'Sì eres Jurado' : 'No eres Jurado'}"></span>
+            </li>
+        </ul>
+
     </div>
 
-    <div th:if="${succes != null}" th:fragment="alert_modal"  class="alert alert-danger alert-mg-b alert-st-four" role="alert">
+    <div th:if="${succes != null}" th:fragment="alert_modal" class="alert alert-danger alert-mg-b alert-st-four"
+        role="alert">
         <h4 class="message-mg-rt" th:text="${succes}"></h4>
     </div>
-    
+
 </body>
+
 </html>

@@ -125,8 +125,8 @@
                     <ul class="nav navbar-nav left-sidebar-menu-pro">
                         <li class="nav-item">
                             <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-home"></i> <span
-                                    class="mini-dn">Inicio</span> <span class="indicator-right-menu mini-dn"><i
+                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-home"></i> 
+                                <span class="mini-dn">Inicio</span> <span class="indicator-right-menu mini-dn"><i
                                         class="fa indicator-mn fa-angle-left"></i></span></a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                 <a th:href="${'../../../../admin/inicio'}" class="dropdown-item">Menu Principal</a>
@@ -161,6 +161,18 @@
                                 <a th:href="${'../../../../admin/anfora'}" class="dropdown-item">Registro Anfora</a>
                             </div>
                         </li>
+                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
+                            data-toggle="dropdown" role="button" aria-expanded="false"
+                            class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span
+                                class="mini-dn">Asignar Votantes a Mesa</span>
+                            <span class="indicator-right-menu mini-dn"><i
+                                    class="fa indicator-mn fa-angle-left"></i></span></a>
+                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
+                            <a th:href="${'../../../../admin/mesa_votante_fac'}" class="dropdown-item">Por Facultad</a>
+                            <a th:href="${'../../../../admin/mesa_votante_carr'}" class="dropdown-item">Por Carrera</a>
+                            
+                        </div>
+                    </li>
                         <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                 class="nav-link dropdown-toggle"><i class="fa big-icon fa-bar-chart-o"></i> <span
                                     class="mini-dn">Universidad</span> <span class="indicator-right-menu mini-dn"><i
@@ -174,7 +186,7 @@
                             </div>
                         </li>
 
-                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
+                        <!--<li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
                                 data-toggle="dropdown" role="button" aria-expanded="false"
                                 class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span
                                     class="mini-dn">Elecciones FUL 2024</span>
@@ -193,7 +205,7 @@
                                 <a th:href="${'../../../../admin/estadisticaFUL/9'}">Estadistica FUL LP</a>
                                 <a th:href="${'../../../../admin/estadisticaFUL/10'}">Estadistica FUL SR</a>
                             </div>
-                        </li>
+                        </li>-->
                         <li class="nav-item">
                             <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown"
                             data-bs-auto-close="outside">
@@ -243,7 +255,7 @@
                         </li>
 
 
-                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
+                        <!--<li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
                                 data-toggle="dropdown" role="button" aria-expanded="false"
                                 class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span
                                     class="mini-dn">Elecciones Centro 2024</span>
@@ -267,7 +279,7 @@
                                 <a th:href="${'../../../../admin/estadisticaLP'}">Estadistica LP</a>
                                 <a th:href="${'../../../../admin/estadisticaSR'}">Estadistica SR</a>
                             </div>
-                        </li>
+                        </li>-->
 
                         <!-- <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                 class="nav-link dropdown-toggle"><i class="fa big-icon fa-edit"></i> <span class="mini-dn">Data
@@ -383,16 +395,15 @@
                             <div class="mobile-menu">
                                 <nav id="dropdown">
                                     <ul class="mobile-menu-nav">
-                                        <li><a data-toggle="collapse" data-target="#Charts" href="#">Inicio <span
-                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#Charts" href="#">Inicio 
+                                            <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/inicio'}">Menu Principal</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse"
-                                                data-target="#demo" href="#">Usuario <span
-                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse" data-target="#demo" href="#">Usuario 
+                                            <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="demo" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/usuario'}">Registro Usuario</a>
                                                 </li>
@@ -403,9 +414,8 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse"
-                                                data-target="#others" href="#">Asignacion <span
-                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse" data-target="#others" href="#">Asignacion 
+                                                <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="others" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/frente'}">Registro Frente</a>
                                                 </li>
@@ -419,18 +429,16 @@
                                             </ul>
                                         </li>
                                         <li><a data-toggle="collapse" data-target="#Miscellaneousmob"
-                                                href="#">Universidad <span
-                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                                href="#">Universidad <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="Miscellaneousmob" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/lista_facultades'}">Lista
                                                         Facultades</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        FUL
+                                        
                                         <li><a data-toggle="collapse" data-target="#Chartsmob" href="#">Elecciones
-                                                2024<span
-                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                                2024<span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="Chartsmob" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/estadisticaFUL'}">Estadistica
                                                         FUL</a>
@@ -465,11 +473,11 @@
                                                 <li><a th:href="${'../../../../admin/estadisticaFUL/10'}">Estadistica
                                                         FUL SR</a>
                                                 </li>
+                                            </ul>
                                         </li>
 
                                     </ul>
-                                    </li>
-                                    <li><a data-toggle="collapse" data-target="#Chartsmob" href="#">Elecciones Centro
+                                    <!--<li><a data-toggle="collapse" data-target="#Chartsmob" href="#">Elecciones Centro
                                             2024 <span
                                                 class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                         <ul id="Chartsmob" class="collapse dropdown-header-top">
@@ -496,9 +504,9 @@
                                             </li>
                                             <li><a th:href="${'../../../../admin/estadisticaSR'}">Estadistica SR</a>
                                             </li>
-                                    </li>
-                                    </ul>
-                                    </li>
+                                    
+                                        </ul>
+                                    </li>-->
 
 
                                     </ul>
@@ -535,6 +543,7 @@
                 var preloader = document.querySelector('.preloader-wrapper');
                 preloader.style.display = 'none';
             });</script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
         <!-- jquery
 		============================================ -->
         <script src="../../../../js/vendor/jquery-1.11.3.min.js"></script>
@@ -643,7 +652,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
             integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
             crossorigin="anonymous"></script>
-
+            
+            
     </div>
 
 </body>

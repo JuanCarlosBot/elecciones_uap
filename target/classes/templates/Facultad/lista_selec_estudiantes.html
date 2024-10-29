@@ -308,7 +308,7 @@
                                 <div th:replace="Layout/layout :: alert"></div>
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
-                                        <h1>LISTA <span class="table-project-n">DE</span> VOTANTES HABILITADOS</h1>
+                                        <h1>LISTA <span class="table-project-n">DE</span> VOTANTES HABILITADOS  <strong th:text="${list_asignados.size()}"></strong></h1>
                                         <div th:if="${session.usuario.id_usuario != 2}" class="row">
                                             <div class="col-lg-4">
                                                 <div class="login-button-pro">
@@ -397,7 +397,7 @@
                                 <select name="id_mesa" style="width: 100%" id="s2" class="js-states form-control"  required>
                                     <option selected disable hidden ></option>
                                     
-                                    <option th:each="m : ${mesas_asig}" th:if="${m[2] != 'X' && m[2] != 'OD'}"  th:text="${m[1]}"  th:value="${m[0]}"> </option>
+                                    <option th:each="m : ${mesas_asig}" th:if="${m[2] != 'X' && m[2] != 'OD'}"  th:text="${m[1]}+ '  =  '+${m[3]}"  th:value="${m[0]}"> </option>
                                    
                                 </select>
                             </div>

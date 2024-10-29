@@ -1,0 +1,599 @@
+<!doctype html>
+<html class="../../../../no-js" lang="en">
+<head th:replace="Layout/layout :: head">
+</head>
+
+<body class="materialdesign">
+    
+    <!-- Header top area start-->
+    <div class="wrapper-pro">
+        <div th:replace="Layout/layout :: preloader"></div>
+        <div th:replace="Layout/layout :: left_sidebar" class="left-sidebar-pro">
+        </div>
+        <!-- Header top area start-->
+        <div class="content-inner-all">
+            <div th:replace="Layout/layout :: header" class="header-top-area">
+            </div>
+            <!-- Header top area end-->
+            <!-- Breadcome start-->
+            <div class="breadcome-area mg-b-30 small-dn">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="breadcome-list map-mg-t-40-gl shadow-reset">
+                                <div class="row">
+                                    <div class="col-lg-6">
+                                        <div class="breadcome-heading">
+                                            <form role="search" class="">
+												<input type="text" placeholder="Search..." class="form-control">
+												<a href=""><i class="fa fa-search"></i></a>
+											</form>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <ul class="breadcome-menu">
+                                            <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
+                                            </li>
+                                            <li><span class="bread-blod">LISTA USUARIO</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Breadcome End-->
+            <!-- Mobile Menu start -->
+            <div th:replace="Layout/layout :: mobile" class="mobile-menu-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="mobile-menu">
+                                <nav id="dropdown">
+                                    <ul class="mobile-menu-nav">
+                                        <li><a data-toggle="collapse" data-target="#Charts" href="#">Home <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                            <ul class="collapse dropdown-header-top">
+                                                <li><a href="dashboard.html">Dashboard v.</a>
+                                                </li>
+                                                <li><a href="dashboard-2.html">Dashboard v.2</a>
+                                                </li>
+                                                <li><a href="analytics.html">Analytics</a>
+                                                </li>
+                                                <li><a href="widgets.html">Widgets</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a data-toggle="collapse" data-target="#demo" href="#">Mailbox <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                            <ul id="demo" class="collapse dropdown-header-top">
+                                                <li><a href="inbox.html">Inbox</a>
+                                                </li>
+                                                <li><a href="view-mail.html">View Mail</a>
+                                                </li>
+                                                <li><a href="compose-mail.html">Compose Mail</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a data-toggle="collapse" data-target="#others" href="#">Miscellaneous <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                            <ul id="others" class="collapse dropdown-header-top">
+                                                <li><a href="profile.html">Profile</a>
+                                                </li>
+                                                <li><a href="contact-client.html">Contact Client</a>
+                                                </li>
+                                                <li><a href="contact-client-v.1.html">Contact Client v.1</a>
+                                                </li>
+                                                <li><a href="project-list.html">Project List</a>
+                                                </li>
+                                                <li><a href="project-details.html">Project Details</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a data-toggle="collapse" data-target="#Miscellaneousmob" href="#">Interface <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                            <ul id="Miscellaneousmob" class="collapse dropdown-header-top">
+                                                <li><a href="google-map.html">Google Map</a>
+                                                </li>
+                                                <li><a href="data-maps.html">Data Maps</a>
+                                                </li>
+                                                <li><a href="pdf-viewer.html">Pdf Viewer</a>
+                                                </li>
+                                                <li><a href="x-editable.html">X-Editable</a>
+                                                </li>
+                                                <li><a href="code-editor.html">Code Editor</a>
+                                                </li>
+                                                <li><a href="tree-view.html">Tree View</a>
+                                                </li>
+                                                <li><a href="preloader.html">Preloader</a>
+                                                </li>
+                                                <li><a href="images-cropper.html">Images Cropper</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a data-toggle="collapse" data-target="#Chartsmob" href="#">Charts <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                            <ul id="Chartsmob" class="collapse dropdown-header-top">
+                                                <li><a href="bar-charts.html">Bar Charts</a>
+                                                </li>
+                                                <li><a href="line-charts.html">Line Charts</a>
+                                                </li>
+                                                <li><a href="area-charts.html">Area Charts</a>
+                                                </li>
+                                                <li><a href="rounded-chart.html">Rounded Charts</a>
+                                                </li>
+                                                <li><a href="c3.html">C3 Charts</a>
+                                                </li>
+                                                <li><a href="sparkline.html">Sparkline Charts</a>
+                                                </li>
+                                                <li><a href="peity.html">Peity Charts</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a data-toggle="collapse" data-target="#Tablesmob" href="#">Tables <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                            <ul id="Tablesmob" class="collapse dropdown-header-top">
+                                                <li><a href="static-table.html">Static Table</a>
+                                                </li>
+                                                <li><a href="data-table.html">Data Table</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a data-toggle="collapse" data-target="#formsmob" href="#">Forms <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                            <ul id="formsmob" class="collapse dropdown-header-top">
+                                                <li><a href="basic-form-element.html">Basic Form Elements</a>
+                                                </li>
+                                                <li><a href="advance-form-element.html">Advanced Form Elements</a>
+                                                </li>
+                                                <li><a href="password-meter.html">Password Meter</a>
+                                                </li>
+                                                <li><a href="multi-upload.html">Multi Upload</a>
+                                                </li>
+                                                <li><a href="tinymc.html">Text Editor</a>
+                                                </li>
+                                                <li><a href="dual-list-box.html">Dual List Box</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a data-toggle="collapse" data-target="#Appviewsmob" href="#">App views <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                            <ul id="Appviewsmob" class="collapse dropdown-header-top">
+                                                <li><a href="basic-form-element.html">Basic Form Elements</a>
+                                                </li>
+                                                <li><a href="advance-form-element.html">Advanced Form Elements</a>
+                                                </li>
+                                                <li><a href="password-meter.html">Password Meter</a>
+                                                </li>
+                                                <li><a href="multi-upload.html">Multi Upload</a>
+                                                </li>
+                                                <li><a href="tinymc.html">Text Editor</a>
+                                                </li>
+                                                <li><a href="dual-list-box.html">Dual List Box</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li><a data-toggle="collapse" data-target="#Pagemob" href="#">Pages <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                            <ul id="Pagemob" class="collapse dropdown-header-top">
+                                                <li><a href="login.html">Login</a>
+                                                </li>
+                                                <li><a href="register.html">Register</a>
+                                                </li>
+                                                <li><a href="captcha.html">Captcha</a>
+                                                </li>
+                                                <li><a href="checkout.html">Checkout</a>
+                                                </li>
+                                                <li><a href="contact.html">Contacts</a>
+                                                </li>
+                                                <li><a href="review.html">Review</a>
+                                                </li>
+                                                <li><a href="order.html">Order</a>
+                                                </li>
+                                                <li><a href="comment.html">Comment</a>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Mobile Menu end -->
+            <!-- Breadcome start-->
+            <div class="breadcome-area des-none mg-b-30">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="breadcome-list map-mg-t-40-gl shadow-reset">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <div class="breadcome-heading">
+                                            <form role="search" class="">
+												<input type="text" placeholder="Search..." class="form-control">
+												<a href=""><i class="fa fa-search"></i></a>
+											</form>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+                                        <ul class="breadcome-menu">
+                                            <li><a href="#">INICIO</a> <span class="bread-slash">/</span>
+                                            </li>
+                                            <li><span class="bread-blod">USUARIO</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Breadcome End-->
+            <div th:if="${session.usuario.id_usuario != 2}" class="login-form-area mg-t-30 mg-b-15">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-3"></div>
+                        <form th:action="@{/admin/asignacion_habilitado_post}" method="post" id="adminpro-register-form" class="adminpro-form" >
+                            <input type="hidden" id="id_fac" name="id_fac" th:value="${id_fac}">
+                            <div class="col-lg-6">
+                                <div class="login-bg">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div th:replace="Layout/layout :: alert"></div>
+                                            <div class="logo">
+                                                <a href="#"><img src="../../../../img/logo/UAP_DIGITAL_NORMAL.webp" alt="" width="150" height="100"/>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="login-title">
+                                                <h1>Registro Votantes Habilitados</h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>Facultades </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <select name="id_facultad" style="width: 100%" id="idf" class="js-states form-control"  required>
+                                                <option selected disable hidden ></option>
+                                                
+                                                <option th:each="facu : ${facultades}" 
+                                                th:if="${facu.estado != 'X'}" 
+                                                th:text="${facu.nombre_facultad}"  th:value="${facu.id_facultad}"> </option>
+                                               
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>Rango de Vontantes </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="login-input-area register-mg-rt">
+                                                        <input class="form-control" type="number" min="1" max="200" id="num_1" name="num_1"  placeholder="min 1 y max 200" required/>
+                                                        <input type="hidden"  id="id_asignacion_habilitado" name="id_asignacion_habilitado"  required/>
+                                                    </div>
+                                                </div>
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-lg-4">
+                                            <div class="login-input-head">
+                                                <p>Mesa </p>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-8">
+                                            <select name="id_mesa" style="width: 100%" id="s1" class="js-states form-control"  required>
+                                                <option selected disable hidden ></option>
+                                                
+                                                <option th:each="m : ${mesas}" 
+                                                th:if="${m.estado != 'X' && m.estado != 'O' && m.estado != 'OD'}" 
+                                                th:text="${m.nombre_mesa}"  th:value="${m.id_mesa}"> </option>
+                                               
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="row">
+                                        <div class="col-lg-4"></div>
+                                        <div class="col-lg-8">
+                                            <div class="login-button-pro">
+                                                <button type="submit" class="login-button login-button-lg">Registrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <div class="col-lg-3"></div>
+                    </div>
+                </div>
+            </div>
+         
+            <div class="data-table-area mg-b-15">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="sparkline13-list shadow-reset">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1>LISTA <span class="table-project-n">DE</span> VOTANTES HABILITADOS DOCENTES  <button type="button" id="openModalBtn" class="login-button login-button-lg">Realizar Sorteo</button></h1>
+                                        <!--<div th:if="${session.usuario.id_usuario != 2}" class="row">
+                                            <div class="col-lg-4">
+                                                <div class="login-button-pro">
+                                                    <button type="button" id="openModalBtn" class="login-button login-button-lg">Realizar Sorteo</button>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                        <div class="sparkline13-outline-icon">
+                                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="sparkline13-graph">
+                                    <div class="datatable-dashv1-list custom-datatable-overright">
+                                        <div id="toolbar">
+                                            <select class="form-control">
+                                                <option value="">Export Basic</option>
+                                                <option value="all">Export All</option>
+                                                <option value="selected">Export Selected</option>
+                                            </select>
+                                        </div>
+                                        <div id="resultadoDocente">
+                                            <table id="table" data-toggle="table" data-pagination="true" data-search="true"
+                                                data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                                data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                                data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                                data-toolbar="#toolbar">
+                                                <thead>
+                                                    <tr>
+                                                        <th >ID</th>
+                                                        <th >Facultad</th>
+                                                        <th >Carrera</th>
+                                                        <th >R.U</th>
+                                                        <th >Apellido y Nombres</th>
+                                                        <th >Mesa</th>
+                                                        <th >Delegados</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="asignado, num : ${list_asignados}" >
+                                                        <td th:text="${num.index + 1}"></td>
+                                                        <td th:text="${asignado[0]}"></td>
+                                                        <td th:text="${asignado[1]}"></td>
+                                                        <td th:text="${asignado[6]}"></td>
+                                                        <td th:text="${asignado[2]}"></td>
+                                                        <td th:text="${asignado[3]}"></td>
+                                                        <td th:text="${asignado[4]}"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="data-table-area mg-b-15">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="sparkline13-list shadow-reset">
+                                <div class="sparkline13-hd">
+                                    <div class="main-sparkline13-hd">
+                                        <h1>LISTA <span class="table-project-n">DE</span> VOTANTES HABILITADOS ESTUDIANTES  <button type="button" id="openModalBtn" class="login-button login-button-lg">Realizar Sorteo</button></h1>
+                                        <!--<div th:if="${session.usuario.id_usuario != 2}" class="row">
+                                            <div class="col-lg-4">
+                                                <div class="login-button-pro">
+                                                    <button type="button" id="openModalBtn" class="login-button login-button-lg">Realizar Sorteo</button>
+                                                </div>
+                                            </div>
+                                        </div>-->
+                                        <div class="sparkline13-outline-icon">
+                                            <span class="sparkline13-collapse-link"><i class="fa fa-chevron-up"></i></span>
+                                            <span><i class="fa fa-wrench"></i></span>
+                                            <span class="sparkline13-collapse-close"><i class="fa fa-times"></i></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="sparkline13-graph">
+                                    <div class="datatable-dashv1-list custom-datatable-overright">
+                                        <div id="toolbar1">
+                                            <select class="form-control">
+                                                <option value="">Export Basic</option>
+                                                <option value="all">Export All</option>
+                                                <option value="selected">Export Selected</option>
+                                            </select>
+                                        </div>
+                                        <table id="table1" data-toggle="table" data-pagination="true" data-search="true"
+                                            data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                                            data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                                            data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                                            data-toolbar="#toolbar1">
+                                            <thead>
+                                                <tr>
+                                                    <th >ID</th>
+                                                    <th >Facultad</th>
+                                                    <th >Carrera</th>
+                                                    <th >R.U</th>
+                                                    <th >Apellido y Nombres</th>
+                                                    <th >Mesa</th>
+                                                    <th >Delegados</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr th:each="asignado, num : ${list_asignados}" >
+                                                    <td th:text="${num.index + 1}"></td>
+                                                    <td th:text="${asignado[0]}"></td>
+                                                    <td th:text="${asignado[1]}"></td>
+                                                    <td th:text="${asignado[6]}"></td>
+                                                    <td th:text="${asignado[2]}"></td>
+                                                    <td th:text="${asignado[3]}"></td>
+                                                    <td th:text="${asignado[4]}"></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal -->
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+        <form th:action="@{/admin/form_sorteo}" method="post">
+            <div class="modal-body">
+                <span class="close">&times;</span>
+                <p>
+                <h3>Realizar el Sorteo</h3>
+                </p>
+                <div class="row">
+                    <div class="col-lg-4">
+                        <div class="login-input-head">
+                            <p>Nro de Mesa </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-8">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                
+                                <select name="id_mesa" style="width: 100%" id="s2" class="js-states form-control"  required>
+                                    <option selected disable hidden ></option>
+                                    
+                                    <option th:each="m : ${mesas_asig}" th:if="${m[2] != 'X' && m[2] != 'OD'}"  th:text="${m[1]}"  th:value="${m[0]}"> </option>
+                                   
+                                </select>
+                            </div>
+                           
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="ids_lista_asignados" id="ids_lista_asignados" value="">
+                <input type="hidden" id="id_car" name="id_car" th:value="${id_fac}">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="closeModalBtn" class="btn btn-custon-rounded-three btn-danger">No</button>
+                <button type="submit" class="btn btn-custon-rounded-three btn-success">Si</button>
+            </div>
+        </form>
+        </div>
+    </div>
+    <!-- Footer Start-->
+    <div th:replace="Layout/layout :: footer" class="footer-copyright-area">
+    </div>
+    <!-- Footer End-->
+
+    <div th:replace="Layout/layout :: scripts"></div>
+    <script>
+        // JavaScript para abrir y cerrar el modal
+        var modal = document.getElementById("myModal");
+        var btn = document.getElementById("openModalBtn");
+        var btnclosed = document.getElementById("closeModalBtn");
+        var span = document.getElementsByClassName("close")[0];
+    
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        btnclosed.onclick = function() {
+            modal.style.display = "none";
+        }
+    
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+    
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+    </script>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+    $('#idf').change(function() {
+        var idFacultad = $(this).val();
+        console.log('ID Facultad seleccionada:', idFacultad); // Verifica que se obtiene el valor
+
+        $.ajax({
+            url: '/admin/listarPorFacultadDocentes/'+ idFacultad,
+            method: 'GET',
+            data: { idFacultad: idFacultad },
+            success: function(response) {
+                console.log('Respuesta del servidor:', response); // Verifica la respuesta
+                $('#resultadoDocente').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error:', error); // Muestra el error
+                alert('Error al cargar los datos.');
+            }
+        });
+    });
+});
+    </script>
+    <script th:inline="javascript">
+        $(document).ready(function() {
+            $('#num_1').on('change', function() {
+                var end = parseInt($('#num_1').val());
+                var habilitados = /*[[${carrera}]]*/ [];
+                var ids = [];
+                for (var i = 0; i < end && i < habilitados.length; i++) {
+                    ids.push(habilitados[i].id_votante_habilitado);
+                }
+                console.log
+                var idsValue = JSON.stringify(ids); // Convertir la lista de IDs a una cadena JSON
+                $('#id_asignacion_habilitado').val(idsValue);
+            });
+
+            var asignados = /*[[${list_asignados}]]*/ [];
+            console.log(asignados);
+            var id = [];
+            for (var i = 0; i < asignados.length; i++) {
+                id.push(asignados[i][5]); // Accede al índice 5 de cada elemento del array asignados
+                
+            }
+          
+            var idsValue = JSON.stringify(id); // Convertir la lista de IDs a una cadena JSON
+            $('#ids_lista_asignados').val(idsValue);
+        });
+    </script>
+    
+    <script>
+        $("#idf").select2({
+         placeholder: "Seleccione Facultad...",
+         allowClear: true
+     });
+        $("#s1").select2({
+         placeholder: "Seleccione Nro Mesa...",
+         allowClear: true
+     });
+        $("#s2").select2({
+         placeholder: "Seleccione Nro Mesa...",
+         allowClear: true
+     });
+     </script>
+</body>
+
+</html>

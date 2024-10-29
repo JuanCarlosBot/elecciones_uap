@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -47,6 +48,53 @@ public class facultadController {
     @Autowired
     private IAsignacionHabilitadoService asignacionHabilitadoService;
 
+<<<<<<< HEAD
+=======
+    @Autowired
+    private IAsignacionHabilitadoDao asignacionHabilitadoDao;
+    @Autowired
+    private IConteoTotalCarreraService conteoTotalCarreraService;
+
+    @RequestMapping(value = "/mesa_votante_fac",method = RequestMethod.GET)
+    private String mesaVotanteFac(Model model,RedirectAttributes flash, HttpServletRequest request,@RequestParam(name = "succes",required = false)String succes){
+        if (request.getSession().getAttribute("usuario") != null) {
+            if (succes != null) {
+                model.addAttribute("succes", succes);
+            }
+            Carrera carrera = carreraService.findOne(1l);
+            model.addAttribute("list_asignados", asignacionHabilitadoService.lista_asignados_habilitados(carrera.getId_carrera()));
+            List<VotanteHabilitado> vh = new ArrayList<>();
+            for (Estudiante e : carrera.getEstudiantes()) {
+                if (e.getVotante_habilitado().getEstado_mesa() ==null) {
+                    vh.add(e.getVotante_habilitado());
+                }
+            }
+            System.out.println(vh.size());
+            model.addAttribute("facultades", facultadService.findAll());
+            //model.addAttribute("carrera", vh);
+            //model.addAttribute("mesas_asig", mesaService.lista_mesas_por_carrera(carrera.getId_carrera()));
+            model.addAttribute("mesas", mesaService.findAll());
+            //model.addAttribute("id_fac", carrera.getId_carrera());
+            return "Facultad/mesa_votante_fac";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+    @RequestMapping(value = "/listarPorFacultadDocentes/{idFacultad}",method = RequestMethod.GET)
+    public String listarPorFacultad(@PathVariable Long idFacultad, Model model) {
+        System.out.println("ID Facultad recibido: " + idFacultad);
+        //System.out.println("cantidad "+asignacionHabilitadoService.lista_asignados_habilitadosF(idFacultad).size());
+        try {
+            model.addAttribute("list_asignados", asignacionHabilitadoService.lista_asignados_habilitadosF(idFacultad));
+        } catch (Exception e) {
+            e.printStackTrace(); // Imprime el error en la consola
+            // Puedes devolver un mensaje de error o una vista de error
+        }
+        return "fragment/listado :: tablaListado"; // Devuelve solo el fragmento de la tabla
+    }
+
+>>>>>>> ba09989 (cambio 29)
     @RequestMapping(value = "/lista_facultades",method = RequestMethod.GET)
     private String Lista_Facultades(Model model,RedirectAttributes flash, HttpServletRequest request,@RequestParam(name = "succes",required = false)String succes){
         if (request.getSession().getAttribute("usuario") != null) {
@@ -59,23 +107,32 @@ public class facultadController {
             if (succes != null) {
                 model.addAttribute("succes", succes);
             }
-            
             int cant_est_fac = 0;
             Integer total_est = 0;
+
+            int cant_doc_fac = 0;
+            Integer total_doc = 0;
             List <Facultad> facultades = new ArrayList<>();
+            
             for (Facultad f  : facultadService.findAll()) {
                 
                 for (Carrera c : f.getCarreras()) {
                     cant_est_fac += c.getEstudiantes().size();
                     total_est += c.getEstudiantes().size();
+                    cant_doc_fac += c.getDocentes().size();
+                    total_doc += c.getDocentes().size();
                 }
                 f.setCantidad_est(cant_est_fac);
+                f.setCantidad_doc(cant_doc_fac);
                 facultades.add(f);
                 cant_est_fac=0;
+                cant_doc_fac=0;
+
             }
 
             model.addAttribute("facultades", facultades);
             model.addAttribute("total_est", total_est);
+            model.addAttribute("total_doc", total_doc);
 
             return "Facultad/lista_facultades";
         } else {
@@ -83,6 +140,35 @@ public class facultadController {
         }
     }
 
+    @RequestMapping(value = "/seleccion_estudiantes/{id_facultad}",method = RequestMethod.GET)
+    public String lista_carreras_por_facultad(Model model, RedirectAttributes flash,
+            @PathVariable("id_facultad") Long id_facultad, HttpServletRequest request,
+            @RequestParam(name = "succes", required = false) String succes) {
+        if (request.getSession().getAttribute("usuario") != null) {
+
+            if (succes != null) {
+                model.addAttribute("succes", succes);
+            }
+
+            Facultad f = facultadService.findOne(id_facultad);
+
+            for (Carrera c : f.getCarreras()) {
+                System.out.println("catidad e estudiantes "+c.getEstudiantes().size());
+            }
+            model.addAttribute("carreras", f.getCarreras());
+
+            for (Carrera carrera : f.getCarreras()) {
+                System.out.println(carrera.getNombre_carrera());
+
+            }
+            model.addAttribute("mesas_asig_doc", mesaService.lista_mesas_por_facultad_docente(id_facultad));
+            model.addAttribute("id_fac", id_facultad);
+            return "Carrera/lista_carreras";
+        } else {
+            return "redirect:/login";
+        }
+    }
+    
     @RequestMapping(value = "/seleccion_est_carrera/{id_carrera}",method = RequestMethod.GET)
     private String Lista_Seleccion_Estudiantes(Model model,RedirectAttributes flash,@PathVariable("id_carrera")Long id_carrera, HttpServletRequest request,@RequestParam(name = "succes",required = false)String succes){
         if (request.getSession().getAttribute("usuario") != null) {
@@ -92,7 +178,7 @@ public class facultadController {
             }
             
             Carrera carrera = carreraService.findOne(id_carrera);
-            
+            System.out.println("cantidad "+asignacionHabilitadoService.lista_asignados_habilitados(id_carrera).size());
             model.addAttribute("list_asignados", asignacionHabilitadoService.lista_asignados_habilitados(id_carrera));
             List<VotanteHabilitado> vh = new ArrayList<>();
             for (Estudiante e : carrera.getEstudiantes()) {
@@ -112,27 +198,6 @@ public class facultadController {
             return "redirect:/login";
         }
     }
-
-    @RequestMapping(value = "/seleccion_estudiantes/{id_facultad}",method = RequestMethod.GET)
-    public String lista_carreras_por_facultad(Model model, RedirectAttributes flash,
-            @PathVariable("id_facultad") Long id_facultad, HttpServletRequest request,
-            @RequestParam(name = "succes", required = false) String succes) {
-        if (request.getSession().getAttribute("usuario") != null) {
-
-            if (succes != null) {
-                model.addAttribute("succes", succes);
-            }
-
-            Facultad f = facultadService.findOne(id_facultad);
-
-            model.addAttribute("carreras", f.getCarreras());
-            model.addAttribute("id_fac", id_facultad);
-            return "Carrera/lista_carreras";
-        } else {
-            return "redirect:/login";
-        }
-    }
-    
 
     @PostMapping(value = "/asignacion_habilitado_post")
     public String asignacion_habilitado_post(Model model,RedirectAttributes flash, HttpServletRequest request,

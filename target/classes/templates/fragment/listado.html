@@ -1,0 +1,29 @@
+<div th:fragment="tablaListado">
+    <table id="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true"
+        data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true"
+        data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true"
+        data-click-to-select="true" data-toolbar="#toolbar">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Facultad</th>
+                <th>Carrera</th>
+                <th>R.D</th>
+                <th>Apellido y Nombres</th>
+                <th>Mesa</th>
+                <th>Delegados</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="asignado, num : ${list_asignados}">
+                <td th:text="${num.index + 1}"></td>
+                <td th:text="${asignado[0]}"></td>
+                <td th:text="${asignado[1]}"></td>
+                <td th:text="${asignado[6]}"></td>
+                <td th:text="${asignado[2]}"></td>
+                <td th:text="${asignado[3]}"></td>
+                <td th:text="${asignado[4]}"></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
