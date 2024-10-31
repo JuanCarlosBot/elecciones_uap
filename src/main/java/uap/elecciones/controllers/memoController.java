@@ -184,7 +184,7 @@ public class memoController {
             Paragraph fecha = new Paragraph();
             fecha.setIndentationLeft(2);// hacer un espacion del borde izquierdo
             fecha.add(new Phrase("Cobija, " + fecha_formateada, normal));
-            fecha.add(new Phrase("                       Ref.: Designación", normal));
+            fecha.add(new Phrase("               Ref.: Designación", normal));
             fecha.setIndentationLeft(20);// hacer un espacion del borde izquierdo
             fecha.setIndentationRight(14);// hacer un espacion del borde derecho
             fecha.setLeading(13.2f); // salto de lineas de texto en un parrafo
@@ -192,8 +192,8 @@ public class memoController {
             fecha.setSpacingAfter(1);// salto de filas despues de parrafo
             document.add(fecha);
 
-            Chunk linea = new Chunk(" _________________________________________________________________________", negrita);
-            linea.setUnderline(1.5f, -1.5f);
+            Chunk linea = new Chunk(" _______________________________________________________________________________", negrita);
+            linea.setUnderline(1.1f, -1.1f);
             Paragraph lin = new Paragraph(linea);
             lin.setIndentationLeft(20);// hacer un espacion del borde izquierdo
             lin.setIndentationRight(14);// hacer un espacion del borde derecho

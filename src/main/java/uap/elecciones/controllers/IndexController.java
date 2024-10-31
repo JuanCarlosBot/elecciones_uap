@@ -18,12 +18,12 @@ public class IndexController {
     private IAsignacionHabilitadoService asignacionHabilitadoService;
 
     
-    @RequestMapping(value = "/memorandum-estudiantes",method = RequestMethod.GET)
+    @RequestMapping(value = "/memo-estudiantes",method = RequestMethod.GET)
     public String memoE(Model model){
         model.addAttribute("delegados", asignacionHabilitadoService.lista_asignados_delegados());
         return "Publico/memo_est";
     }
-    @RequestMapping(value = "/memorandum-docentes",method = RequestMethod.GET)
+    @RequestMapping(value = "/memo-docentes",method = RequestMethod.GET)
     public String memoD(Model model){
         model.addAttribute("delegadosDocentes", asignacionHabilitadoService.lista_asignados_delegados_docentes());
         return "Publico/memo_doc";

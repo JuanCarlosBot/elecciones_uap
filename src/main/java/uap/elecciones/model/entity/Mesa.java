@@ -39,6 +39,10 @@ public class Mesa implements Serializable{
     @Column
     private String estado;
     @Column
+    private String ubicacion;
+    @Column
+    private String descripcion;
+    @Column
     private Integer cant_votantes;
     @Column
     @Temporal(TemporalType.TIMESTAMP)

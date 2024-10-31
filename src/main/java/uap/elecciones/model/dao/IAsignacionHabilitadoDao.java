@@ -73,7 +73,7 @@ public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabil
     "order by m.id_mesa ASC;",nativeQuery = true)
     public List<Object[]> lista_asignacion_por_mesa(Long id_facultad);
 
-    @Query(value = "SELECT f.nombre_facultad , c.nombre_carrera ,e.ru, p.apellidos ,m.nombre_mesa ,ah.delegado "+
+    @Query(value = "SELECT f.nombre_facultad , c.nombre_carrera ,e.ru, p.apellidos ,m.nombre_mesa ,ah.delegado, m.ubicacion, m.descripcion "+
     "FROM asignacion_habilitado ah "+
     "LEFT JOIN votante_habilitado vh ON	ah.id_votante_habilitado = vh.id_votante_habilitado "+
     "LEFT JOIN estudiante e ON vh.id_estudiante = e.id_estudiante "+
@@ -85,7 +85,7 @@ public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabil
     "WHERE e.ru = ?1",nativeQuery = true)
     Object asignado_habilitado(String ru);
 
-    @Query(value = "SELECT f.nombre_facultad , c.nombre_carrera ,d.rd, p.apellidos ,m.nombre_mesa ,ah.delegado "+
+    @Query(value = "SELECT f.nombre_facultad , c.nombre_carrera ,d.rd, p.apellidos ,m.nombre_mesa ,ah.delegado, m.ubicacion, m.descripcion "+
     "FROM asignacion_habilitado ah "+
     "LEFT JOIN votante_habilitado vh ON	ah.id_votante_habilitado = vh.id_votante_habilitado "+
     "LEFT JOIN docente d ON vh.id_docente = d.id_docente "+
