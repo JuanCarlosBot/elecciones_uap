@@ -95,4 +95,28 @@ public class IndexController {
         }
     }
 
+    /* 
+    @RequestMapping(value = "/mesa_asignada_docente/{rd}",method = RequestMethod.GET)
+    public String mesa_asignada_formDocente(Model model,@PathVariable(name = "rd",required = false)String rd, RedirectAttributes flash ){
+        
+        try {
+            if (rd != null) {
+                
+                if (asignacionHabilitadoService.asignado_habilitadoDocente(rd) != null) {
+                    System.out.println(rd);
+                    model.addAttribute("docente", asignacionHabilitadoService.asignado_habilitadoDocente(rd));
+                    return "Content/content :: contentDocente";
+                }else{
+                    model.addAttribute("succes", "Docente no Habilitado");
+                    return "Content/content :: alert_modal";
+                }
+            }
+            return "redirect:/consulta";
+        }  catch (Exception e) {
+            System.out.println("6");
+            flash.addFlashAttribute("succes", "ERROR! "+e);
+            return "redirect:/consulta";
+        }
+    }
+    */
 }
