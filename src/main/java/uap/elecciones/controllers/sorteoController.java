@@ -19,15 +19,23 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import uap.elecciones.model.entity.AsignacionHabilitado;
 import uap.elecciones.model.entity.Carrera;
+import uap.elecciones.model.entity.Delegado;
+import uap.elecciones.model.entity.Docente;
 import uap.elecciones.model.entity.Facultad;
 import uap.elecciones.model.entity.Mesa;
+import uap.elecciones.model.entity.TipoDelegado;
+import uap.elecciones.model.entity.VotanteHabilitado;
+import uap.elecciones.model.service.DelegadoService;
 import uap.elecciones.model.service.IAsignacionHabilitadoService;
 import uap.elecciones.model.service.ICarreraService;
+import uap.elecciones.model.service.IDocenteService;
 import uap.elecciones.model.service.IFacultadService;
 import uap.elecciones.model.service.IMesaService;
+import uap.elecciones.model.service.IVotanteHabilitadoService;
+import uap.elecciones.model.service.TipoDelegadoService;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -35,39 +43,123 @@ public class sorteoController {
 
     @Autowired
     private IAsignacionHabilitadoService asignacionHabilitadoService;
-
+    @Autowired
+    private IVotanteHabilitadoService votanteHabilitadoService;
     @Autowired
     private IMesaService mesaService;
-
     @Autowired
     private ICarreraService carreraService;
-
     @Autowired
     private IFacultadService facultadService;
+    @Autowired
+    private IDocenteService docenteService;
+    @Autowired
+    private TipoDelegadoService tipoDelegadoService;
+    @Autowired
+    private DelegadoService delegadoService;
 
-    @GetMapping(value = "sorteo")
+    @GetMapping(value = "/sorteo")
     public String sorteo(Model model) {
         model.addAttribute("mesas", mesaService.findAll());
+        model.addAttribute("delegados", delegadoService.findAll());
         return "Sorteo/sorteo_general";
     }
+
     @PostMapping(value = "/sorteando")
-    public String sorteando(@RequestParam(name = "id_mesa")Long id_mesa, Model model) {
+    public String sorteando(@RequestParam(name = "id_mesa") Long id_mesa, Model model) {
         Object carre = mesaService.mesaPorCarrera(id_mesa);
-            Object[] carreraArray = (Object[]) carre;
-            Long idMesa = (Long) carreraArray[0];
-            Long idCarrera = (Long) carreraArray[4];
-            Carrera carrera = carreraService.findOne(idCarrera);
-            Facultad facultad = facultadService.findOne(carrera.getFacultad().getId_facultad());
-            List<AsignacionHabilitado> asHabilitados = asignacionHabilitadoService.listaHabilitadosMesas(id_mesa);
-            List<Mesa> mesas = mesaService.listarMesasPorIdFacultad(facultad.getId_facultad());
+        Object[] carreraArray = (Object[]) carre;
+        Long idMesa = (Long) carreraArray[0];
+        Mesa mesa = mesaService.findOne(idMesa);
+        Long idCarrera = (Long) carreraArray[4];
+        Carrera carrera = carreraService.findOne(idCarrera);
+        Facultad facultad = facultadService.findOne(carrera.getFacultad().getId_facultad());
+
+        List<AsignacionHabilitado> asHabilitados = asignacionHabilitadoService.listaHabilitadosMesas(id_mesa);
+        List<Long> idVH = asignacionHabilitadoService.listaDocentesFac(facultad.getId_facultad());
+
+        System.out.println("cantidad votantes estudiantes " + asHabilitados.size());
+        System.out.println("cantidad de mesas por fac " + idVH.size());
+        List<VotanteHabilitado> vhb = new ArrayList<>();
+        try {
+            for (Long long1 : idVH) {
+                VotanteHabilitado v = votanteHabilitadoService.findOne(long1);
+                boolean esDelegado = false;
+
+                for (AsignacionHabilitado ahh : v.getAsignacion_habilitado()) {
+                    if ("Delegado".equals(ahh.getDelegado())) {
+                        esDelegado = true;
+                        break; // Si encontramos un "Delegado", dejamos de buscar en esta lista
+                    }
+                }
+
+                // Si no encontramos "Delegado", agregamos el votante a la lista
+                if (!esDelegado) {
+                    vhb.add(v);
+                }
+            }
+            Random random = new Random();
+            List<VotanteHabilitado> list_ahb_mesa = new ArrayList<>();
+            List<VotanteHabilitado> idsAleatorios = new ArrayList<>();
+
+            int tamañoLista = vhb.size();
+            System.out.println("sin sortear  " + tamañoLista);
+            List<VotanteHabilitado> copiaLista = new ArrayList<>(vhb); // Copia para evitar modificaciones
+
+            if (tamañoLista >= 3) {
+                for (int i = 0; i < 3; i++) {
+                    int indiceAleatorio = random.nextInt(tamañoLista);
+                    VotanteHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar
+                                                                                         // repetición
+                    idsAleatorios.add(seleccionado);
+
+                }
+            } else if (tamañoLista < 3) {
+                for (int i = 0; i < tamañoLista; i++) {
+                    int indiceAleatorio = random.nextInt(tamañoLista);
+                    VotanteHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar
+                                                                                         // repetición
+                    idsAleatorios.add(seleccionado);
+
+                }
+            }
+            List<TipoDelegado> tipoDelegados = tipoDelegadoService.findAll();
             
-            System.out.println("cantidad votantes estudiantes "+asHabilitados.size());
-            System.out.println("cantidad de mesas por fac "+mesas.size());
+            int incre = 1;
+            List<VotanteHabilitado> vexistente = new ArrayList<>();
+            List<Delegado> nuevos = new ArrayList<>();
+            for (AsignacionHabilitado asignacionHabilitado : mesa.getAsignacionHabilitados()) {
+                if ("Delegado".equals(asignacionHabilitado.getDelegado()) || "v".equals(asignacionHabilitado.getDelegado())) {
+                    vexistente.add(asignacionHabilitado.getVotante_habilitado());
+                    Delegado dele = new Delegado();
+                    dele.setVotanteHabilitado(asignacionHabilitado.getVotante_habilitado());
+                    dele.setMesa(mesa);
+                    dele.setTipoDelegado(tipoDelegados.get(incre));
+                    delegadoService.save(dele);
+                    System.out.println("delegados estudiantes  : "+asignacionHabilitado.getVotante_habilitado().getEstudiante().getPersona().getApellidos());
+                }
+                
+            }
+            
+            for (VotanteHabilitado vh : idsAleatorios) {
+                Delegado delegado = new Delegado();
+                delegado.setVotanteHabilitado(vh);
+                delegado.setMesa(mesa);
+                delegado.setTipoDelegado(tipoDelegados.get(incre));
+                delegadoService.save(delegado);
+                System.out.println(delegado.getMesa().getNombre_mesa() + " "
+                        + delegado.getVotanteHabilitado().getDocente().getPersona().getApellidos() + " "
+                        + delegado.getTipoDelegado().getNombre_tipo_delegado());
+                      
+            }
+            
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        return "redirect:/sorteo";
+        return "redirect:/admin/sorteo";
     }
-    
 
     @RequestMapping(value = "/form_sorteo", method = RequestMethod.POST)
     public String realizar_sorteo(RedirectAttributes flash,
@@ -102,21 +194,24 @@ public class sorteoController {
                     }
 
                     int tamañoLista = list_ahb_mesa.size();
-                    List<AsignacionHabilitado> copiaLista = new ArrayList<>(list_ahb_mesa); // Copia para evitar modificaciones
+                    List<AsignacionHabilitado> copiaLista = new ArrayList<>(list_ahb_mesa); // Copia para evitar
+                                                                                            // modificaciones
                     System.out.println(tamañoLista);
-                    if(tamañoLista>=5){
-                    for (int i = 0; i < 5; i++) {
-                        int indiceAleatorio = random.nextInt(tamañoLista);
-                        AsignacionHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar repetición
-                        idsAleatorios.add(seleccionado);
+                    if (tamañoLista >= 5) {
+                        for (int i = 0; i < 5; i++) {
+                            int indiceAleatorio = random.nextInt(tamañoLista);
+                            AsignacionHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para
+                                                                                                    // evitar repetición
+                            idsAleatorios.add(seleccionado);
 
-                    }
-                    }else if(tamañoLista<5){
+                        }
+                    } else if (tamañoLista < 5) {
                         for (int i = 0; i < tamañoLista; i++) {
                             int indiceAleatorio = random.nextInt(tamañoLista);
-                            AsignacionHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar repetición
+                            AsignacionHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para
+                                                                                                    // evitar repetición
                             idsAleatorios.add(seleccionado);
-    
+
                         }
                     }
                     for (AsignacionHabilitado asignacionHabilitado : idsAleatorios) {
@@ -126,7 +221,7 @@ public class sorteoController {
                         asignacionHabilitado2.setDelegado("Delegado");
                         Mesa m = mesaService.findOne(asignacionHabilitado2.getMesa().getId_mesa());
                         m.setEstado("OD");
-                        System.out.println(asignacionHabilitado2.getId_asignacion_habilitado()+"...");
+                        System.out.println(asignacionHabilitado2.getId_asignacion_habilitado() + "...");
                         mesaService.save(m);
                         asignacionHabilitadoService.save(asignacionHabilitado2);
                     }
@@ -154,7 +249,7 @@ public class sorteoController {
                 Random random = new Random();
                 List<AsignacionHabilitado> listaAsgHabilitados = new ArrayList<>();
                 List<Object[]> list_ahb_mesa = asignacionHabilitadoService.lista_asignacion_por_mesa(id_car);
-                int c=1;
+                int c = 1;
                 for (Object[] ob : list_ahb_mesa) {
                     Long idAH = (long) ob[0];
                     AsignacionHabilitado ah = asignacionHabilitadoService.findOne(idAH);
@@ -162,35 +257,37 @@ public class sorteoController {
                 }
                 List<AsignacionHabilitado> idsAleatorios = new ArrayList<>();
                 int tamañoLista = list_ahb_mesa.size();
-                    System.out.println(tamañoLista);
-                    List<AsignacionHabilitado> copiaLista = new ArrayList<>(listaAsgHabilitados); // Copia para evitar modificaciones
+                System.out.println(tamañoLista);
+                List<AsignacionHabilitado> copiaLista = new ArrayList<>(listaAsgHabilitados); // Copia para evitar
+                                                                                              // modificaciones
 
-                    if(tamañoLista>=5){
-                        for (int i = 0; i < 5; i++) {
-                            int indiceAleatorio = random.nextInt(copiaLista.size());
-                            AsignacionHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar repetición
-                            idsAleatorios.add(seleccionado);
-                        }
-                    }else if(tamañoLista<5){
-                        for (int i = 0; i < tamañoLista; i++) {
-                            int indiceAleatorio = random.nextInt(copiaLista.size());
-                            AsignacionHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar repetición
-                            idsAleatorios.add(seleccionado);
-                        }
+                if (tamañoLista >= 5) {
+                    for (int i = 0; i < 5; i++) {
+                        int indiceAleatorio = random.nextInt(copiaLista.size());
+                        AsignacionHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar
+                                                                                                // repetición
+                        idsAleatorios.add(seleccionado);
                     }
-
-
-                    for (AsignacionHabilitado asignacionHabilitado : idsAleatorios) {
-                        System.out.println(asignacionHabilitado.getId_asignacion_habilitado());
-                        AsignacionHabilitado asignacionHabilitado2 = asignacionHabilitadoService
-                                .findOne(asignacionHabilitado.getId_asignacion_habilitado());
-                        asignacionHabilitado2.setDelegado("Delegado");
-                        Mesa m = mesaService.findOne(asignacionHabilitado2.getMesa().getId_mesa());
-                        m.setEstado("OD");
-                        System.out.println(asignacionHabilitado2.getId_asignacion_habilitado()+"...");
-                        mesaService.save(m);
-                        asignacionHabilitadoService.save(asignacionHabilitado2);
+                } else if (tamañoLista < 5) {
+                    for (int i = 0; i < tamañoLista; i++) {
+                        int indiceAleatorio = random.nextInt(copiaLista.size());
+                        AsignacionHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar
+                                                                                                // repetición
+                        idsAleatorios.add(seleccionado);
                     }
+                }
+
+                for (AsignacionHabilitado asignacionHabilitado : idsAleatorios) {
+                    System.out.println(asignacionHabilitado.getId_asignacion_habilitado());
+                    AsignacionHabilitado asignacionHabilitado2 = asignacionHabilitadoService
+                            .findOne(asignacionHabilitado.getId_asignacion_habilitado());
+                    asignacionHabilitado2.setDelegado("Delegado");
+                    Mesa m = mesaService.findOne(asignacionHabilitado2.getMesa().getId_mesa());
+                    m.setEstado("OD");
+                    System.out.println(asignacionHabilitado2.getId_asignacion_habilitado() + "...");
+                    mesaService.save(m);
+                    asignacionHabilitadoService.save(asignacionHabilitado2);
+                }
 
             } catch (Exception e) {
                 e.printStackTrace();
