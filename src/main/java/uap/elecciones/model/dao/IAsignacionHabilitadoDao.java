@@ -111,7 +111,12 @@ public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabil
 
     @Query(value = "select * from asignacion_habilitado ah "+
     "where ah.id_mesa = ?1",nativeQuery = true)
-    List<AsignacionHabilitado> lista_asignados_habilitados_por_mesa(Long id_mesa);
+   List<AsignacionHabilitado> lista_asignados_habilitados_por_mesa(Long id_mesa);
+
+     @Query(value = "select * from asignacion_habilitado ah "+
+        "left join mesa m on ah.id_mesa = m.id_mesa "+
+        "where m.id_mesa = ?1 and ah.delegado = 'Delegado'",nativeQuery = true)
+    List<AsignacionHabilitado> listaHabilitadosMesas(Long id_mesa);//cambiar en un futuro
 
 
     @Query(value = """

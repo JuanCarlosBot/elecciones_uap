@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,9 +18,16 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import uap.elecciones.model.entity.AsignacionHabilitado;
+import uap.elecciones.model.entity.Carrera;
+import uap.elecciones.model.entity.Facultad;
 import uap.elecciones.model.entity.Mesa;
 import uap.elecciones.model.service.IAsignacionHabilitadoService;
+import uap.elecciones.model.service.ICarreraService;
+import uap.elecciones.model.service.IFacultadService;
 import uap.elecciones.model.service.IMesaService;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -30,6 +38,36 @@ public class sorteoController {
 
     @Autowired
     private IMesaService mesaService;
+
+    @Autowired
+    private ICarreraService carreraService;
+
+    @Autowired
+    private IFacultadService facultadService;
+
+    @GetMapping(value = "sorteo")
+    public String sorteo(Model model) {
+        model.addAttribute("mesas", mesaService.findAll());
+        return "Sorteo/sorteo_general";
+    }
+    @PostMapping(value = "sorteando")
+    public String sorteando(@RequestParam("id_mesa")Long id_mesa, Model model) {
+        Object carre = mesaService.mesaPorCarrera(id_mesa);
+            Object[] carreraArray = (Object[]) carre;
+            Long idMesa = (Long) carreraArray[0];
+            Long idCarrera = (Long) carreraArray[4];
+            Carrera carrera = carreraService.findOne(idCarrera);
+            Facultad facultad = facultadService.findOne(carrera.getFacultad().getId_facultad());
+            List<AsignacionHabilitado> asHabilitados = asignacionHabilitadoService.listaHabilitadosMesas(id_mesa);
+
+            for (AsignacionHabilitado asignacionHabilitado : asHabilitados) {
+                System.out.println("cantidad votantes estudiantes "+asHabilitados.size());
+            }
+            
+
+        return "Sorteo/sorteo_general";
+    }
+    
 
     @RequestMapping(value = "/form_sorteo", method = RequestMethod.POST)
     public String realizar_sorteo(RedirectAttributes flash,

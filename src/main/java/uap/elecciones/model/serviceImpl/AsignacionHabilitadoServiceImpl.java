@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
+
 import uap.elecciones.model.dao.IAsignacionHabilitadoDao;
 import uap.elecciones.model.entity.AsignacionHabilitado;
 import uap.elecciones.model.entity.DelegadoDto;
@@ -77,6 +79,11 @@ public class AsignacionHabilitadoServiceImpl implements IAsignacionHabilitadoSer
     @Override
     public List<Object[]> lista_asignados_delegados_docentes() {
         return asignacionHabilitadoDao.lista_asignados_delegados_docentes();
+    }
+
+    @Override
+    public List<AsignacionHabilitado> listaHabilitadosMesas(Long id_mesa) {
+        return asignacionHabilitadoDao.listaHabilitadosMesas(id_mesa);
     }
 
     @Override
