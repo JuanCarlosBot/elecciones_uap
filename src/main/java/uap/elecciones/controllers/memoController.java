@@ -183,7 +183,7 @@ public class memoController {
 
             Paragraph fecha = new Paragraph();
             fecha.setIndentationLeft(2);// hacer un espacion del borde izquierdo
-            fecha.add(new Phrase("Cobija, " + fecha_formateada, normal));
+            fecha.add(new Phrase("Cobija, " + "31 de octubre de 2024", normal));
             fecha.add(new Phrase("               Ref.: Designación", normal));
             fecha.setIndentationLeft(20);// hacer un espacion del borde izquierdo
             fecha.setIndentationRight(14);// hacer un espacion del borde derecho
@@ -305,7 +305,7 @@ public class memoController {
             Paragraph encavezadoDe = new Paragraph();
             //encavezadoDe.setIndentationLeft(50);// hacer un espacion del borde izquierdo
             
-            encavezadoDe.add(new Phrase("Ing. Franz Navia Miranda \n", cursiva));
+            encavezadoDe.add(new Phrase("Ing. Marcos Vichenzo Abasto Antezana \n", cursiva));
             encavezadoDe.add(new Phrase("PRESIDENTE COMITÉ ELECTORAL", ncursiva));
             encavezadoDe.setAlignment(Element.ALIGN_JUSTIFIED); // Justificado
             encavezadoDe.setAlignment(Element.ALIGN_CENTER); // Centrar el párrafo
