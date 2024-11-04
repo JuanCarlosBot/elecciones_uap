@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados y Consulta</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <style>
+        body {
+            padding: 10vh;
+            /* Reduce los bordes en todos los lados */
+            padding-top: 2vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class=" mt-5">
+        <div>horizontal</div>
+        <!-- Tabs de navegación -->
+        <ul class="nav nav-tabs" id="resultadosTabs" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="resultados-tab" data-toggle="tab" href="#resultados" role="tab"
+                    aria-controls="resultados" aria-selected="true">Mesas en General</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#consulta" role="tab"
+                    aria-controls="consulta" aria-selected="false">Mesas Por Facultad</a>
+            </li>
+        </ul>
+
+        <!-- Contenido de las pestañas -->
+        <div class="tab-content" id="resultadosTabsContent">
+            <!-- Pestaña de Resultados -->
+            <div class="tab-pane fade show active" id="resultados" role="tabpanel" aria-labelledby="resultados-tab">
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <h3 class="text-center">Tabla de Mesas</h3>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Frente</th>
+                                    <th>Votos</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pestaña de Consulta -->
+            <div class="tab-pane fade" id="consulta" role="tabpanel" aria-labelledby="consulta-tab">
+                
+                <div class="row ">
+                    <div class="col-md-6">
+                        <label for="">Facultad</label>
+                        <select style="width: 100%" class="form-control select2" onchange="cargarMesas(this.value)"
+                            id="selectFacultad" required>
+                            <option th:each="f: ${facultades}" th:value="${f.id_facultad}"
+                                th:text="${f.nombre_facultad}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Mesas</label>
+                        <select style="width: 100%" id="selectMesa" class="js-states form-control select2"
+                            onchange="cargarDelegados(this.value)" required>
+                            <!-- <option th:each="f: ${mesas}" th:value="${f.id_mesa}"
+                                th:text="${f.nombre_mesa}"></option> -->
+                        </select>
+                    </div>
+                    <!-- <div class="col-md-6">
+                        <label for="">Mesas</label>
+                        <select style="width: 100%" id="selectMesa" class="js-states form-control select2"
+                            onchange="cargarDelegados(this.value)" required>
+                            <option selected disable hidden></option>
+
+                        </select>
+                    </div> -->
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card" id="tablaRegistros">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Scripts de Google Charts y Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.select2').select2();
+        });
+
+        function cargarMesas(id) {
+            //alert('AAAAAAAAAAAAAAA');
+            var selectElement = $('#selectMesa');
+            selectElement.empty();
+            $.ajax({
+                type: 'POST',
+                url: '/delegado/cargarMesasPorFacultad/' + id,
+                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (data) {
+
+                    data.forEach(function (fila) {
+                        var option = document.createElement('option');
+                        option.value = fila[0];
+                        option.text = fila[1];
+                        //option.selected = true;
+                        selectElement.append(option);
+                    });
+                },
+                error: function () {
+                    console.log("Error al obtener la lista de facultades");
+                }
+            });
+        }
+
+        function cargarDelegados(mesa) {
+
+            $.ajax({
+                type: 'GET',
+                url: '/delegado/tablaDelegados/' + mesa,
+                success: function (data) {
+                    $('#tablaRegistros').html(data);
+                },
+                error: function () {
+                    console.log("Error al obtener la lista de delegagos");
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

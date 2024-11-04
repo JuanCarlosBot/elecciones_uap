@@ -2,6 +2,7 @@ package uap.elecciones.model.service;
 
 import java.util.List;
 
+import uap.elecciones.model.entity.Facultad;
 import uap.elecciones.model.entity.Mesa;
 
 public interface IMesaService {
@@ -20,5 +21,7 @@ public interface IMesaService {
 	Object mesaPorCarrera(Long idMesa);
 
 	public List<Mesa>mesasPorCarrera(Long idCarrera);
+
+	List<Mesa> listarMesasPorIdFacultad(Long idMesa);
 
 }

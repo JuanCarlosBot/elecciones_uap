@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.IMesaDao;
+import uap.elecciones.model.entity.Facultad;
 import uap.elecciones.model.entity.Mesa;
 import uap.elecciones.model.service.IMesaService;
 
@@ -58,6 +59,11 @@ public class MesaServiceImpl implements IMesaService{
     @Override
     public List<Object[]> lista_mesas_por_facultad_docente(Long id_facultad) {
         return mesaDao.lista_mesas_por_facultad_docente(id_facultad);
+    }
+
+    @Override
+    public List<Mesa> listarMesasPorIdFacultad(Long idMesa) {
+        return mesaDao.listarMesasPorIdFacultad(idMesa);
     }
 
     

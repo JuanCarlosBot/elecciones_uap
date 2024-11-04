@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import uap.elecciones.model.entity.AsignacionHabilitado;
+import uap.elecciones.model.entity.DelegadoDto;
 
 public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabilitado,Long>{
     
@@ -111,5 +112,66 @@ public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabil
     @Query(value = "select * from asignacion_habilitado ah "+
     "where ah.id_mesa = ?1",nativeQuery = true)
     List<AsignacionHabilitado> lista_asignados_habilitados_por_mesa(Long id_mesa);
+
+
+    @Query(value = """
+        SELECT
+    COALESCE(
+        (SELECT f2.nombre_facultad 
+         FROM votante_habilitado vh2
+         LEFT JOIN docente d ON vh2.id_docente = d.id_docente
+         left join carrera_docente cd on  d.id_docente = cd.id_docente
+         LEFT JOIN carrera c ON cd.id_carrera  = c.id_carrera
+         left join facultad f2 on c.id_facultad = f2.id_facultad
+         WHERE vh2.id_votante_habilitado = vh.id_votante_habilitado),
+        f.nombre_facultad
+    ) AS nombre_facultad,
+    COALESCE(
+        (SELECT c2.nombre_carrera 
+         FROM votante_habilitado vh2
+         LEFT JOIN docente d ON vh2.id_docente = d.id_docente
+         left join carrera_docente cd on  d.id_docente = cd.id_docente
+         LEFT JOIN carrera c2 ON cd.id_carrera  = c2.id_carrera
+         WHERE vh2.id_votante_habilitado = vh.id_votante_habilitado),
+        c.nombre_carrera
+    ) AS nombre_carrera,
+    COALESCE(
+        (SELECT d2.rd FROM votante_habilitado vh2
+         LEFT JOIN docente d2 ON vh2.id_docente = d2.id_docente
+         WHERE vh2.id_votante_habilitado = vh.id_votante_habilitado),
+        e.ru
+    ) AS ru_rd,
+    COALESCE(
+        (SELECT p2.apellidos 
+         FROM votante_habilitado vh2
+         LEFT JOIN docente d ON vh2.id_docente = d.id_docente
+         LEFT JOIN persona p2 ON d.id_persona = p2.id_persona
+         WHERE vh2.id_votante_habilitado = vh.id_votante_habilitado),
+        p.apellidos
+    ) AS apellidos,
+    COALESCE(
+        (SELECT p2.id_persona 
+         FROM votante_habilitado vh2
+         LEFT JOIN docente d ON vh2.id_docente = d.id_docente
+         LEFT JOIN persona p2 ON d.id_persona = p2.id_persona
+         WHERE vh2.id_votante_habilitado = vh.id_votante_habilitado),
+        p.id_persona
+    ) AS id_persona,
+    m.nombre_mesa, 
+    td.nombre_tipo_delegado, 
+    vh.id_votante_habilitado
+FROM delegado dd 
+LEFT JOIN votante_habilitado vh ON dd.id_votante_habilitado = vh.id_votante_habilitado
+LEFT JOIN estudiante e ON vh.id_estudiante = e.id_estudiante
+LEFT JOIN carrera_estudiante ce ON e.id_estudiante = ce.id_estudiante
+LEFT JOIN carrera c ON ce.id_carrera = c.id_carrera 
+LEFT JOIN facultad f ON c.id_facultad = f.id_facultad 
+LEFT JOIN mesa m ON dd.id_mesa = m.id_mesa 
+LEFT JOIN persona p ON e.id_persona = p.id_persona 
+LEFT JOIN tipo_delegado td ON dd.id_tipo_delegado = td.id_tipo_delegado
+WHERE m.id_mesa = ?1
+ORDER BY m.id_mesa ASC;
+    """,nativeQuery = true)
+    List<Object[]> listarDelegadosPorMesa(Long idMesa);
 
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.IAsignacionHabilitadoDao;
 import uap.elecciones.model.entity.AsignacionHabilitado;
+import uap.elecciones.model.entity.DelegadoDto;
 import uap.elecciones.model.service.IAsignacionHabilitadoService;
 
 @Service
@@ -78,6 +79,9 @@ public class AsignacionHabilitadoServiceImpl implements IAsignacionHabilitadoSer
         return asignacionHabilitadoDao.lista_asignados_delegados_docentes();
     }
 
-    
+    @Override
+    public List<Object[]> listarDelegadosPorMesa(Long idMesa) {
+        return asignacionHabilitadoDao.listarDelegadosPorMesa(idMesa);
+    }
 
 }

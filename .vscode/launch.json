@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-EleccionesUapApplication<elecciones_uap>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "uap.elecciones.EleccionesUapApplication",
+            "projectName": "elecciones_uap",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

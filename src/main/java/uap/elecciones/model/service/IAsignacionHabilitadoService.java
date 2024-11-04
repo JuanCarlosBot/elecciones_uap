@@ -3,6 +3,7 @@ package uap.elecciones.model.service;
 import java.util.List;
 
 import uap.elecciones.model.entity.AsignacionHabilitado;
+import uap.elecciones.model.entity.DelegadoDto;
 
 public interface IAsignacionHabilitadoService {
     public List<AsignacionHabilitado> findAll();
@@ -26,5 +27,7 @@ public interface IAsignacionHabilitadoService {
 	Object asignado_habilitado(String ru);
 
 	Object asignado_habilitadoDocente(String rd);
+
+	List<Object[]> listarDelegadosPorMesa(Long idMesa);
 
 }

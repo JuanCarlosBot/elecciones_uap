@@ -16,26 +16,28 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name="delegado")
+@Table(name = "delegado")
 @Getter
 @Setter
-public class Delegado implements Serializable{
+public class Delegado implements Serializable {
     private static final long serialVersionUID = 2629195288020321924L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_delegado;
-    
-    
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_mesa")
     private Mesa mesa;
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_votante_habilitado")
     private VotanteHabilitado votanteHabilitado;
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    @ManyToOne(fetch = FetchType.LAZY)
+
+    @JsonIgnoreProperties({ "hibernateLazyInitializer", "handler" })
+    @ManyToOne
     @JoinColumn(name = "id_tipo_delegado")
     private TipoDelegado tipoDelegado;
+
 }

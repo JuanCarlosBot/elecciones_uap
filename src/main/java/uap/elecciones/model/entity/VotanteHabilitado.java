@@ -56,7 +56,7 @@ public class VotanteHabilitado implements Serializable{
 	private List<AsignacionHabilitado> asignacion_habilitado;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "votante_habilitado", fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "votanteHabilitado", fetch = FetchType.LAZY)
 	private List<Delegado> delegados;
     
 }
