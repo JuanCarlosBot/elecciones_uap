@@ -49,6 +49,11 @@ public class delegadoController {
         return "Delegado/mesa_delegado";
     }
 
+    @GetMapping("/mesas")
+    public ResponseEntity<List<Mesa>> listaMesas() {
+        return ResponseEntity.ok(mesaService.findAll());
+    }
+
     @PostMapping("/cargarMesasPorFacultad/{idFacultdad}")
     public ResponseEntity<String[][]> cargarMesasPorFacultad(@PathVariable(value = "idFacultdad") Long idFacultdad) {
         List<Mesa> mesas = mesaService.listarMesasPorIdFacultad(idFacultdad);

@@ -8,20 +8,40 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap4.css">
     <style>
         body {
             padding: 10vh;
             /* Reduce los bordes en todos los lados */
             padding-top: 2vh;
         }
+
+        .dt-button {
+            margin: 5px;
+            /* Espaciado entre botones */
+            padding: 10px 15px;
+            /* Tamaño del botón */
+            font-size: 14px;
+            /* Tamaño de la fuente */
+            border-radius: 5px;
+            /* Bordes redondeados */
+            transition: background-color 0.3s;
+            /* Efecto de transición */
+        }
+
+        .dt-button:hover {
+            background-color: #0056b3;
+            /* Color de fondo al pasar el mouse */
+            color: white;
+            /* Color del texto al pasar el mouse */
+        }
     </style>
 </head>
 
 <body>
 
-    <div class=" mt-5">
-        <div>horizontal</div>
-        <!-- Tabs de navegación -->
+    <div class=" ">
         <ul class="nav nav-tabs" id="resultadosTabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="resultados-tab" data-toggle="tab" href="#resultados" role="tab"
@@ -37,33 +57,21 @@
         <div class="tab-content" id="resultadosTabsContent">
             <!-- Pestaña de Resultados -->
             <div class="tab-pane fade show active" id="resultados" role="tabpanel" aria-labelledby="resultados-tab">
-                <div class="row mt-4">
-                    <div class="col-md-12">
-                        <h3 class="text-center">Tabla de Mesas</h3>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Frente</th>
-                                    <th>Votos</th>
-                                    <th>%</th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                <h3 class="text-center">Mesas en General</h3>
+                <div class="row" id="cardMesas">
 
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
 
             <!-- Pestaña de Consulta -->
             <div class="tab-pane fade" id="consulta" role="tabpanel" aria-labelledby="consulta-tab">
-                
-                <div class="row ">
+                <h3 class="text-center">Mesas por Facultad</h3>
+                <div class="row">
                     <div class="col-md-6">
                         <label for="">Facultad</label>
                         <select style="width: 100%" class="form-control select2" onchange="cargarMesas(this.value)"
                             id="selectFacultad" required>
+                            <option value="0">Seleccione una opcion</option>
                             <option th:each="f: ${facultades}" th:value="${f.id_facultad}"
                                 th:text="${f.nombre_facultad}"></option>
                         </select>
@@ -76,16 +84,8 @@
                                 th:text="${f.nombre_mesa}"></option> -->
                         </select>
                     </div>
-                    <!-- <div class="col-md-6">
-                        <label for="">Mesas</label>
-                        <select style="width: 100%" id="selectMesa" class="js-states form-control select2"
-                            onchange="cargarDelegados(this.value)" required>
-                            <option selected disable hidden></option>
-
-                        </select>
-                    </div> -->
                 </div>
-                <div class="row">
+                <div class="row mt-3">
                     <div class="col-md-12">
                         <div class="card" id="tablaRegistros">
                         </div>
@@ -102,18 +102,45 @@
 
     <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <!-- Buttons extension de DataTables -->
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+
+    <!-- PDFMake para generar PDFs -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+    <!-- JS de Buttons para PDF -->
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
     <script>
         $(document).ready(function () {
-            $('.select2').select2();
+            $('.select2').select2({
+                placeholder: "Selecciona una opción",
+                language: {
+                    noResults: function () {
+                        return "No se encontraron resultados. Intenta con otra búsqueda.";
+                    }
+                }
+            });
+
+            //cargarCardMesas();
         });
 
         function cargarMesas(id) {
             //alert('AAAAAAAAAAAAAAA');
             var selectElement = $('#selectMesa');
             selectElement.empty();
+
+            if (selectElement.val() == 0) {
+                return;
+            }
+
             $.ajax({
                 type: 'POST',
                 url: '/delegado/cargarMesasPorFacultad/' + id,
@@ -128,6 +155,7 @@
                         //option.selected = true;
                         selectElement.append(option);
                     });
+                    cargarDelegados($('#selectMesa').val())
                 },
                 error: function () {
                     console.log("Error al obtener la lista de facultades");
@@ -145,6 +173,32 @@
                 },
                 error: function () {
                     console.log("Error al obtener la lista de delegagos");
+                }
+            });
+        }
+
+        function cargarCardMesas() {
+
+            $.ajax({
+                type: 'GET',
+                url: '/delegado/mesas',
+                success: function (mesas) {
+                    mesas.forEach(function (mesa) {
+                        $.ajax({
+                            type: 'GET',
+                            url: `/delegado/tablaDelegados/${mesa.id_mesa}`,
+                            success: function (response) {
+                                $('#cardMesas').append(response);
+                            },
+                            error: function () {
+                                console.log("Error al obtener la lista de delegagos");
+                            }
+                        });
+
+                    });
+                },
+                error: function () {
+                    console.log("Error al obtener la lista de cards");
                 }
             });
         }

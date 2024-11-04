@@ -1,5 +1,6 @@
 <div class="card-header">
-    <h4 class="card-title">Lista de Delegados de la Mesa</h4>
+    <h4 class="card-title" th:text="'Lista de Delegados de la Mesa '+${mesa.nombre_mesa}"></h4>
+    <input type="hidden" th:value="'mesa_delegado_'+${mesa.id_mesa}" name="">
 </div>
 <div class="card-body">
     <div class="table-responsive">
@@ -35,30 +36,6 @@
                     </td>
             </tbody>
         </table>
-        <!-- <table id="table" class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th>Nro</th>
-                    <th>APELLIDOS Y NOMBRES</th>
-                    <th>MESA</th>
-                    <th>OPCION</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="d, num : ${delegados}">
-                    <td th:text="${num.index + 1}">1</td>
-                    <table>
-                        <tr th:each="asignacion : ${d.mesa.asignacionHabilitados}">
-                            <td th:text="${asignacion.votanteHabilitado?.docente?.persona?.apellidos}"></td>
-                        </tr>
-                    </table>                    
-                    <td th:text="${d.mesa.nombre_mesa}"></td>
-                    <td>
-                        <button class="btn btn-success">Asignar</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table> -->
     </div>
 </div>
 <script>
