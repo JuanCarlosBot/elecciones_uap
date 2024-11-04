@@ -43,7 +43,7 @@
                             <h2 class="text-center">Nuevo sorteo de delegados</h2>
                             <div class="form-group">
                                 <label for="opcion">Mesas:</label>
-                                <select class="form-control select2" name="" id="">
+                                <select class="form-control select2" name="id_mesa" id="">
                                     <option value="Seleccionar"></option>
                                     <option th:each="m:${mesas}" th:text="${m.nombre_mesa}" th:value="${m.id_mesa}">
                                     </option>

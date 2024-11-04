@@ -50,8 +50,8 @@ public class sorteoController {
         model.addAttribute("mesas", mesaService.findAll());
         return "Sorteo/sorteo_general";
     }
-    @PostMapping(value = "sorteando")
-    public String sorteando(@RequestParam("id_mesa")Long id_mesa, Model model) {
+    @PostMapping(value = "/sorteando")
+    public String sorteando(@RequestParam(name = "id_mesa")Long id_mesa, Model model) {
         Object carre = mesaService.mesaPorCarrera(id_mesa);
             Object[] carreraArray = (Object[]) carre;
             Long idMesa = (Long) carreraArray[0];
@@ -59,13 +59,13 @@ public class sorteoController {
             Carrera carrera = carreraService.findOne(idCarrera);
             Facultad facultad = facultadService.findOne(carrera.getFacultad().getId_facultad());
             List<AsignacionHabilitado> asHabilitados = asignacionHabilitadoService.listaHabilitadosMesas(id_mesa);
-
-            for (AsignacionHabilitado asignacionHabilitado : asHabilitados) {
-                System.out.println("cantidad votantes estudiantes "+asHabilitados.size());
-            }
+            List<Mesa> mesas = mesaService.listarMesasPorIdFacultad(facultad.getId_facultad());
             
+            System.out.println("cantidad votantes estudiantes "+asHabilitados.size());
+            System.out.println("cantidad de mesas por fac "+mesas.size());
 
-        return "Sorteo/sorteo_general";
+
+        return "redirect:/sorteo";
     }
     
 

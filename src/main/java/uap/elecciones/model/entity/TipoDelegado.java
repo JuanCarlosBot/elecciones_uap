@@ -32,7 +32,7 @@ public class TipoDelegado implements Serializable {
     private String nombre_tipo_delegado;
 
     @JsonIgnore
-    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "tipo_delegado", fetch = FetchType.LAZY)
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "tipoDelegado", fetch = FetchType.LAZY)
 	private List<Delegado> delegados;
 
 }

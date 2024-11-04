@@ -28,4 +28,7 @@ public interface IAsignacionHabilitadoService {
 
 	Object asignado_habilitadoDocente(String rd);
 
+	List<Object[]> listarDelegadosPorMesa(Long idMesa);
+	List<AsignacionHabilitado> listaHabilitadosMesas(Long id_mesa);
+
 }
