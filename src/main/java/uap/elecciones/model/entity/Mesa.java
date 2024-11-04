@@ -77,4 +77,8 @@ public class Mesa implements Serializable{
     @ManyToMany(cascade = CascadeType.ALL, mappedBy = "mesa", fetch = FetchType.LAZY)
 	private List<Anfora> anforas;
 
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "mesa", fetch = FetchType.LAZY)
+	private List<Delegado> delegados;
+
 }

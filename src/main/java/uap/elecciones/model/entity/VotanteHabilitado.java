@@ -15,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -53,5 +54,9 @@ public class VotanteHabilitado implements Serializable{
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "votante_habilitado", fetch = FetchType.LAZY)
 	private List<AsignacionHabilitado> asignacion_habilitado;
+
+    @JsonIgnore
+    @ManyToMany(cascade = CascadeType.ALL, mappedBy = "votante_habilitado", fetch = FetchType.LAZY)
+	private List<Delegado> delegados;
     
 }
