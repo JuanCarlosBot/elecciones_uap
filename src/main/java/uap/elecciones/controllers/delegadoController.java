@@ -77,11 +77,12 @@ public class delegadoController {
                         (String) arr[0], // nombre_facultad
                         (String) arr[1], // nombre_carrera
                         (String) arr[2], // ru_rd
-                        (String) arr[3], // apellidos
-                        (Long) arr[4], // id_persona
-                        (String) arr[5], // nombre_mesa
-                        (String) arr[6], // nombre_tipo_delegado
-                        (Long) arr[7] // id_votante_habilitado
+                        (String) arr[3], // tipo
+                        (String) arr[4], // apellidos
+                        (Long) arr[5], // id_persona
+                        (String) arr[6], // nombre_mesa
+                        (String) arr[7], // nombre_tipo_delegado
+                        (Long) arr[8] // id_votante_habilitado
                 ))
                 .collect(Collectors.toList());
 

@@ -12,6 +12,7 @@
                 <tr>
                     <th>Nro</th>
                     <th>APELLIDOS Y NOMBRES</th>
+                    <th>TIPO PERSONA</th>
                     <th>RU o RD</th>
                     <th>CARRERA</th>
                     <th>FACULTAD</th>
@@ -24,6 +25,7 @@
                 <tr th:each="d, num : ${delegados}">
                     <td th:text="${num.index + 1}">1</td>
                     <td th:text="${d.apellidos}"></td>
+                    <td th:text="${d.tipo_persona}"></td>
                     <td th:text="${d.ru_rd}"></td>
                     <td th:text="${d.nombre_facultad}"></td>
                     <td th:text="${d.nombre_carrera}"></td>
@@ -31,7 +33,7 @@
                     <td th:text="${d.nombre_tipo_delegado}"></td>
                     <td>
                         <a class="btn btn-primary" type="button" target="_blank"
-                        th:href="@{'/generarPDF/'+${d.id_votante_habilitado}+'/'+${d.id_persona}+'/'+${(num.index + 1)}}">Imprimir</a>
+                            th:href="@{'/generarPDF/'+${d.id_votante_habilitado}+'/'+${d.id_persona}+'/'+${(num.index + 1)}}">Imprimir</a>
                     </td>
             </tbody>
         </table>
@@ -64,48 +66,57 @@
 <script>
     $(document).ready(function () {
         $('.table').DataTable({
-        // Opciones de configuración de DataTables
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ registros",
-            "zeroRecords": "No se encontraron registros",
-            "info": "Mostrando página _PAGE_ de _PAGES_",
-            "infoEmpty": "No hay registros disponibles",
-            "infoFiltered": "(filtrado de _MAX_ registros totales)",
-            "search": "Buscar:",
-            "paginate": {
-                "first": "Primero",
-                "last": "Último",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
-        },
-        // Agrega los botones
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'pdfHtml5',
-                text: ' Exportar a PDF',
-                title: 'Título del documento',
-                className: 'btn btn-danger',
-                orientation: 'portrait',
-                pageSize: 'LETTER',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5 ,6] // Indices de las columnas a exportar
-                    // O usa: columns: '.class-name' para seleccionar columnas por clase
+            // Opciones de configuración de DataTables
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron registros",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
                 }
             },
-            {
-                extend: 'print',
-                text: ' Imprimir',
-                title: 'Título de la impresión',
-                className: 'btn btn-info',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5 ,6] // Indices de las columnas a imprimir
-                    // O usa: columns: '.class-name' para seleccionar columnas por clase
+            // Agrega los botones
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: ' Exportar a Excel',
+                    title: 'Título del documento',
+                    className: 'btn btn-success',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7] // Indices de las columnas a exportar
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: ' Exportar a PDF',
+                    title: 'Título del documento',
+                    className: 'btn btn-danger',
+                    orientation: 'portrait',
+                    pageSize: 'LETTER',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7] // Indices de las columnas a exportar
+                        // O usa: columns: '.class-name' para seleccionar columnas por clase
+                    }
+                },
+                {
+                    extend: 'print',
+                    text: ' Imprimir',
+                    title: 'Título de la impresión',
+                    className: 'btn btn-info',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7] // Indices de las columnas a imprimir
+                        // O usa: columns: '.class-name' para seleccionar columnas por clase
+                    }
                 }
-            }
-        ]
-    });
+            ]
+        });
     });
 
 </script>

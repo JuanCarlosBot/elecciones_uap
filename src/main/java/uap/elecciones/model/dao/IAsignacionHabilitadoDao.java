@@ -146,6 +146,10 @@ public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabil
          WHERE vh2.id_votante_habilitado = vh.id_votante_habilitado),
         e.ru
     ) AS ru_rd,
+     CASE 
+        WHEN e.ru IS NULL THEN 'Docente'
+        ELSE 'Estudiante'
+    END AS tipo_persona,
     COALESCE(
         (SELECT p2.apellidos 
          FROM votante_habilitado vh2
