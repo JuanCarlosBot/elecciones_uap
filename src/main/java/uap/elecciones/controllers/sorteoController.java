@@ -92,14 +92,15 @@ public class sorteoController {
                         break; // Si encontramos un "Delegado", dejamos de buscar en esta lista
                     }
                 }
-
                 // Si no encontramos "Delegado", agregamos el votante a la lista
                 if (!esDelegado) {
-                    vhb.add(v);
+                    if (!"DelegadoOficial".equals(v.getEstado_delegado())) {
+                        vhb.add(v);
+                    }
+                    
                 }
             }
             Random random = new Random();
-            List<VotanteHabilitado> list_ahb_mesa = new ArrayList<>();
             List<VotanteHabilitado> idsAleatorios = new ArrayList<>();
 
             int tamañoLista = vhb.size();
@@ -109,23 +110,20 @@ public class sorteoController {
             if (tamañoLista >= 3) {
                 for (int i = 0; i < 3; i++) {
                     int indiceAleatorio = random.nextInt(tamañoLista);
-                    VotanteHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar
-                                                                                         // repetición
+                    VotanteHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar repetición
                     idsAleatorios.add(seleccionado);
 
                 }
             } else if (tamañoLista < 3) {
                 for (int i = 0; i < tamañoLista; i++) {
                     int indiceAleatorio = random.nextInt(tamañoLista);
-                    VotanteHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar
-                                                                                         // repetición
+                    VotanteHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar repetición
                     idsAleatorios.add(seleccionado);
-
                 }
             }
             List<TipoDelegado> tipoDelegados = tipoDelegadoService.findAll();
             
-            int incre = 1;
+            
             List<VotanteHabilitado> vexistente = new ArrayList<>();
             List<Delegado> nuevos = new ArrayList<>();
             for (AsignacionHabilitado asignacionHabilitado : mesa.getAsignacionHabilitados()) {
@@ -134,7 +132,7 @@ public class sorteoController {
                     Delegado dele = new Delegado();
                     dele.setVotanteHabilitado(asignacionHabilitado.getVotante_habilitado());
                     dele.setMesa(mesa);
-                    dele.setTipoDelegado(tipoDelegados.get(incre));
+                    dele.setTipoDelegado(tipoDelegados.get(2));
                     delegadoService.save(dele);
                     System.out.println("delegados estudiantes  : "+asignacionHabilitado.getVotante_habilitado().getEstudiante().getPersona().getApellidos());
                 }
@@ -142,11 +140,16 @@ public class sorteoController {
             }
             
             for (VotanteHabilitado vh : idsAleatorios) {
+                
+
                 Delegado delegado = new Delegado();
                 delegado.setVotanteHabilitado(vh);
                 delegado.setMesa(mesa);
-                delegado.setTipoDelegado(tipoDelegados.get(incre));
+                delegado.setTipoDelegado(tipoDelegados.get(1));
                 delegadoService.save(delegado);
+                VotanteHabilitado votHab = votanteHabilitadoService.findOne(vh.getId_votante_habilitado());
+                votHab.setEstado_delegado("DelegadoOficial");
+                votanteHabilitadoService.save(votHab);
                 System.out.println(delegado.getMesa().getNombre_mesa() + " "
                         + delegado.getVotanteHabilitado().getDocente().getPersona().getApellidos() + " "
                         + delegado.getTipoDelegado().getNombre_tipo_delegado());
