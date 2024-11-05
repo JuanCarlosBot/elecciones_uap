@@ -5,11 +5,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultados y Consulta</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap4.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.bootstrap4.css"> -->
+    <!-- Bootstrap CSS (versión 4.5.2) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/jquery.dataTables.min.css">
+
+    <!-- DataTables Buttons (export buttons, etc.) -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/2.2.3/css/buttons.dataTables.min.css">
+
+    <!-- DataTables Bootstrap 4 Styling (para integrar con Bootstrap) -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css">
+
     <style>
         body {
             padding: 10vh;
@@ -17,46 +32,114 @@
             padding-top: 2vh;
         }
 
-        .dt-button {
-            margin: 5px;
-            /* Espaciado entre botones */
-            padding: 10px 15px;
-            /* Tamaño del botón */
-            font-size: 14px;
-            /* Tamaño de la fuente */
-            border-radius: 5px;
-            /* Bordes redondeados */
-            transition: background-color 0.3s;
-            /* Efecto de transición */
+        /* Mejorar los estilos de los botones de paginación de DataTables */
+        .dataTables_wrapper .dataTables_paginate .paginate_button {
+            background-color: #007bff;
+            /* Color de fondo de los botones */
+            color: white;
+            /* Color del texto */
+            border-radius: 4px;
+            border: 1px solid #007bff;
+            padding: 5px 10px;
+            margin: 0 3px;
         }
 
-        .dt-button:hover {
+        /* Efecto al pasar el ratón sobre los botones de paginación */
+        .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
             background-color: #0056b3;
-            /* Color de fondo al pasar el mouse */
+            border-color: #0056b3;
             color: white;
-            /* Color del texto al pasar el mouse */
         }
+
+        /* Estilo de los botones cuando están deshabilitados */
+        .dataTables_wrapper .dataTables_paginate .paginate_button.disabled {
+            background-color: #e0e0e0;
+            border-color: #e0e0e0;
+            color: #9e9e9e;
+        }
+
+        /* Estilo para el contenedor de la tabla */
+        .dataTables_wrapper {
+            margin-top: 20px;
+        }
+
+        /* Estilo para los botones de exportación de DataTables */
+        .dt-buttons .btn {
+            margin: 5px;
+            font-size: 14px;
+            padding: 6px 12px;
+        }
+
+        .dt-buttons .btn:hover {
+            color: black;
+        }
+
+        /* Botón de exportar a Excel */
+        .dt-buttons .btn-success {
+            border-radius: 5px;
+            background-color: #33c755;
+            border-color: #28a745;
+            color: white;
+        }
+
+        .dt-buttons .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        /* Botón de exportar a PDF */
+        .dt-buttons .btn-danger {
+            border-radius: 5px;
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+
+        .dt-buttons .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+        /* Botón de impresión */
+        .dt-buttons .btn-info {
+            border-radius: 5px;
+            background-color: #17a2b8;
+            border-color: #17a2b8;
+            color: white;
+        }
+
+        .dt-buttons .btn-info:hover {
+            background-color: #138496;
+            border-color: #117a8b;
+        }
+
+        @media (max-width: 576px) {
+        .mobile-styles {
+            width: 139% !important; /* Aumenta el ancho al 139% */
+            margin-left: -20% !important; /* Desplaza el contenido a la izquierda */
+        }
+    }
     </style>
 </head>
 
 <body>
 
-    <div class=" ">
-        <ul class="nav nav-tabs" id="resultadosTabs" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="consulta-tab" data-toggle="tab" href="#consulta" role="tab"
-                    aria-controls="consulta" aria-selected="false">Mesas Por Facultad</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="resultados-tab" data-toggle="tab" href="#resultados" role="tab"
-                    aria-controls="resultados" aria-selected="true">Mesas en General</a>
-            </li>
-        </ul>
+    <ul class="nav nav-tabs" id="resultadosTabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="consulta-tab" data-toggle="tab" href="#consulta" role="tab"
+                aria-controls="consulta" aria-selected="false">Mesas Por Facultad</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="resultados-tab" data-toggle="tab" href="#resultados" role="tab"
+                aria-controls="resultados" aria-selected="true">Mesas en General</a>
+        </li>
+    </ul>
 
-        <!-- Contenido de las pestañas -->
-        <div class="tab-content" id="resultadosTabsContent">
+    <!-- Contenido de las pestañas -->
+     <div class="row">
+        <div class="tab-content w-100" id="resultadosTabsContent" >
             <!-- Pestaña de Consulta -->
-            <div class="tab-pane fade show active" id="consulta" role="tabpanel" aria-labelledby="consulta-tab">
+            <div class="tab-pane fade show active mobile-styles" id="consulta" role="tabpanel" aria-labelledby="consulta-tab">
                 <h3 class="text-center">Mesas por Facultad</h3>
                 <div class="row">
                     <div class="col-md-6">
@@ -84,38 +167,62 @@
                     </div>
                 </div>
             </div>
-            <div class="tab-pane fade" id="resultados" role="tabpanel" aria-labelledby="resultados-tab">
+            <div class="tab-pane fade mobile-styles" id="resultados" role="tabpanel" aria-labelledby="resultados-tab">
                 <h3 class="text-center">Mesas en General</h3>
                 <div class="row" id="cardMesas">
-
+    
                 </div>
             </div>
         </div>
-
-
-    </div>
-
+     </div>
+    
     <!-- Scripts de Google Charts y Bootstrap -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <!-- <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <!-- DataTables JS -->
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <!-- Buttons extension de DataTables -->
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
 
-    <!-- PDFMake para generar PDFs -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
 
-    <!-- JS de Buttons para PDF -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
 
     <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script> -->
+    <!-- jQuery (Requerido por Bootstrap, DataTables, y Select2) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Bootstrap JS (incluyendo Popper.js) -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Select2 JS (Plugin de selección) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+    <!-- DataTables JS (Core de DataTables) -->
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+
+    <!-- Buttons extension de DataTables (para exportar e imprimir) -->
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/dataTables.buttons.min.js"></script>
+
+    <!-- PDFMake para generar archivos PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+    <!-- Librería JSZip para manejo de archivos comprimidos (Excel) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+    <!-- Botones HTML5 de DataTables (Exportación en Excel, PDF, etc.) -->
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.html5.min.js"></script>
+
+    <!-- Botones de impresión de DataTables -->
+    <script src="https://cdn.datatables.net/buttons/2.2.3/js/buttons.print.min.js"></script>
+
+    <!-- Integración de DataTables con Bootstrap 4 -->
+    <script src="https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js"></script>
+
 
     <script>
         $(document).ready(function () {
@@ -176,32 +283,6 @@
             });
         }
 
-        // function cargarCardMesas() {
-
-        //     $.ajax({
-        //         type: 'GET',
-        //         url: '/delegado/mesas',
-        //         success: function (mesas) {
-        //             mesas.forEach(function (mesa) {
-        //                 //console.log(mesa);
-        //                 $.ajax({
-        //                     type: 'GET',
-        //                     url: `/delegado/tablaDelegadosGeneral/${mesa.id_mesa}`,
-        //                     success: function (response) {
-        //                         $('#cardMesas').append(response);
-        //                         cargarTablaMesa(mesa.id_mesa);
-        //                     },
-        //                     error: function () {
-        //                         console.log("Error al obtener la lista de delegagos");
-        //                     }
-        //                 });
-        //             });
-        //         },
-        //         error: function () {
-        //             console.log("Error al obtener la lista de cards");
-        //         }
-        //     });
-        // }
         function cargarCardMesas() {
 
             $.ajax({
@@ -256,15 +337,15 @@
                     "paginate": {
                         "first": "Primero",
                         "last": "Último",
-                        "next": "Siguiente",
-                        "previous": "Anterior"
+                        "next": ">",
+                        "previous": "<"
                     }
                 },
                 dom: 'Bfrtip',
                 buttons: [
                     {
                         extend: 'excelHtml5',
-                        text: ' Exportar a Excel',
+                        text: 'Exportar a Excel',
                         title: 'Título del documento',
                         className: 'btn btn-success',
                         exportOptions: {
@@ -273,7 +354,7 @@
                     },
                     {
                         extend: 'pdfHtml5',
-                        text: ' Exportar a PDF',
+                        text: 'Exportar a PDF',
                         title: 'Título del documento',
                         className: 'btn btn-danger',
                         orientation: 'portrait',
@@ -284,16 +365,30 @@
                     },
                     {
                         extend: 'print',
-                        text: ' Imprimir',
+                        text: 'Imprimir',
                         title: 'Título de la impresión',
                         className: 'btn btn-info',
                         exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5, 6, 7]
                         }
                     }
-                ]
+                ],
+                responsive: true,  // Activar la responsividad
+                autoWidth: false,  // Desactivar el ajuste automático de ancho para evitar problemas con columnas
+                columnDefs: [
+                    {
+                        targets: '_all',
+                        className: 'dt-body-center'  // Centrar el contenido de todas las celdas
+                    }
+                ],
+                initComplete: function () {
+                    // Opcional: Personalización adicional, como ajustar el estilo de los botones
+                    $(".dt-buttons").addClass("d-flex flex-wrap justify-content-start");
+                    $(".dt-buttons").css("margin-bottom", "1rem");
+                }
             });
         }
+
     </script>
 </body>
 

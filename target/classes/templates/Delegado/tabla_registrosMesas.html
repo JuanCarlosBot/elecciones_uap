@@ -1,9 +1,9 @@
-<div class="col-md-12 mt-3">
+<div class="col-12 mt-3">
     <div class="card">
         <div class="card-header">
             <h5 class="card-title" th:text="${mesa.nombre_mesa}"></h5>
-            <p class="card-text"><strong
-                    th:text="'UBICACIÓN: '+${mesa.ubicacion}+' - '+${mesa.descripcion}"></strong>
+            <p class="card-text">
+                <strong th:text="'UBICACIÓN: ' + ${mesa.ubicacion} + ' - ' + ${mesa.descripcion}"></strong>
             </p>
         </div>
         <div class="card-body">
@@ -12,10 +12,10 @@
                     data-search="true" data-show-columns="true" data-show-pagination-switch="true"
                     data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true"
                     data-cookie="true" data-cookie-id-table="saveId" data-show-export="true"
-                    data-click-to-select="true" data-toolbar="#toolbar" style="width: 100%;">
+                    data-click-to-select="true" data-toolbar="#toolbar">
                     <thead>
                         <tr>
-                            <th>Nro</th>
+                            <th style="width: 10px;">#</th>
                             <th>APELLIDOS Y NOMBRES</th>
                             <th>TIPO PERSONA</th>
                             <th>RU o RD</th>
@@ -27,7 +27,7 @@
                     </thead>
                     <tbody>
                         <tr th:each="d, num : ${delegados}">
-                            <td th:text="${num.index + 1}">1</td>
+                            <td th:text="${num.index + 1}" style="width: 10px;"></td>
                             <td th:text="${d.apellidos}"></td>
                             <td th:text="${d.tipo_persona}"></td>
                             <td th:text="${d.ru_rd}"></td>
@@ -35,6 +35,7 @@
                             <td th:text="${d.nombre_carrera}"></td>
                             <td th:text="${d.nombre_mesa}"></td>
                             <td th:text="${d.nombre_tipo_delegado}"></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
