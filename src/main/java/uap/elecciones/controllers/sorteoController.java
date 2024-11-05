@@ -200,15 +200,15 @@ public class sorteoController {
                     List<AsignacionHabilitado> copiaLista = new ArrayList<>(list_ahb_mesa); // Copia para evitar
                                                                                             // modificaciones
                     System.out.println(tamañoLista);
-                    if (tamañoLista >= 5) {
-                        for (int i = 0; i < 5; i++) {
+                    if (tamañoLista >= 2) {
+                        for (int i = 0; i < 2; i++) {
                             int indiceAleatorio = random.nextInt(tamañoLista);
                             AsignacionHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para
                                                                                                     // evitar repetición
                             idsAleatorios.add(seleccionado);
 
                         }
-                    } else if (tamañoLista < 5) {
+                    } else if (tamañoLista < 2) {
                         for (int i = 0; i < tamañoLista; i++) {
                             int indiceAleatorio = random.nextInt(tamañoLista);
                             AsignacionHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para
@@ -264,14 +264,14 @@ public class sorteoController {
                 List<AsignacionHabilitado> copiaLista = new ArrayList<>(listaAsgHabilitados); // Copia para evitar
                                                                                               // modificaciones
 
-                if (tamañoLista >= 5) {
-                    for (int i = 0; i < 5; i++) {
+                if (tamañoLista >= 3) {
+                    for (int i = 0; i < 3; i++) {
                         int indiceAleatorio = random.nextInt(copiaLista.size());
                         AsignacionHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar
                                                                                                 // repetición
                         idsAleatorios.add(seleccionado);
                     }
-                } else if (tamañoLista < 5) {
+                } else if (tamañoLista < 3) {
                     for (int i = 0; i < tamañoLista; i++) {
                         int indiceAleatorio = random.nextInt(copiaLista.size());
                         AsignacionHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar

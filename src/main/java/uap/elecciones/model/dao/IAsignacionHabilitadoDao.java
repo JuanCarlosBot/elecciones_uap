@@ -97,7 +97,7 @@ public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabil
     "LEFT JOIN persona p ON d.id_persona = p.id_persona "+
     "WHERE d.rd = ?1",nativeQuery = true)*/
 
-    @Query(value = "SELECT f.nombre_facultad , c.nombre_carrera ,d.rd, p.apellidos ,m.nombre_mesa ,ah.delegado, m.ubicacion, m.descripcion "+
+    @Query(value = "SELECT f.nombre_facultad , c.nombre_carrera ,d.rd, p.apellidos ,m.nombre_mesa ,ah.delegado, m.ubicacion, m.descripcion, d2.id_delegado "+
     "FROM asignacion_habilitado ah "+
     "LEFT JOIN votante_habilitado vh ON	ah.id_votante_habilitado = vh.id_votante_habilitado "+
     "LEFT JOIN docente d ON vh.id_docente = d.id_docente "+
@@ -106,6 +106,7 @@ public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabil
     "LEFT JOIN facultad f ON	c.id_facultad = f.id_facultad "+
     "LEFT JOIN mesa m ON	ah.id_mesa = m.id_mesa "+
     "LEFT JOIN persona p ON d.id_persona = p.id_persona "+
+    "left join delegado d2 on vh.id_votante_habilitado = d2.id_votante_habilitado "+
     "WHERE p.ci like %?1%",nativeQuery = true)
     Object asignado_habilitadoDocente(String rd);
 
