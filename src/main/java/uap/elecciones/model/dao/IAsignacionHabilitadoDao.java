@@ -185,7 +185,7 @@ LEFT JOIN mesa m ON dd.id_mesa = m.id_mesa
 LEFT JOIN persona p ON e.id_persona = p.id_persona 
 LEFT JOIN tipo_delegado td ON dd.id_tipo_delegado = td.id_tipo_delegado
 WHERE m.id_mesa = ?1
-ORDER BY m.id_mesa ASC;
+ORDER BY td.id_tipo_delegado ASC;
     """,nativeQuery = true)
     List<Object[]> listarDelegadosPorMesa(Long idMesa);
 

@@ -22,6 +22,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+
 @Controller
 @RequestMapping("/delegado")
 public class delegadoController {
@@ -42,10 +45,22 @@ public class delegadoController {
     private IAsignacionHabilitadoService habilitadoService;
 
     @GetMapping("/ventana")
-    public String ventana(Model model) {
+    public String ventana(Model model, HttpServletRequest request) {
 
+        HttpSession session = request.getSession(false);
+        session.invalidate();
         model.addAttribute("facultades", facultadService.findAll());
-        //model.addAttribute("mesas", mesaService.findAll());
+        // model.addAttribute("mesas", mesaService.findAll());
+        return "Delegado/mesa_delegado";
+    }
+
+    @GetMapping("/ventana/{admin}")
+    public String ventana(Model model, @PathVariable(value = "admin") String admin, HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        session = request.getSession(true);
+        session.setAttribute("admin", "true");
+        model.addAttribute("facultades", facultadService.findAll());
+        // model.addAttribute("mesas", mesaService.findAll());
         return "Delegado/mesa_delegado";
     }
 
@@ -68,9 +83,14 @@ public class delegadoController {
     }
 
     @GetMapping("/tablaDelegados/{idMesa}")
-    public String ventana(Model model, @PathVariable(value = "idMesa") Long idMesa) {
+    public String ventana(Model model, @PathVariable(value = "idMesa") Long idMesa, HttpServletRequest request) {
 
         model.addAttribute("mesa", mesaService.findOne(idMesa));
+
+        if (request.getSession().getAttribute("admin") != null) {
+            String admin = String.valueOf(request.getSession().getAttribute("admin"));
+            model.addAttribute("admin", admin);
+        }
 
         // System.out.println("AAAAAAAAAAAAAAAAAAA");
         List<Object[]> delegados = habilitadoService.listarDelegadosPorMesa(idMesa);
