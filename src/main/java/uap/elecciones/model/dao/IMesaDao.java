@@ -62,4 +62,7 @@ public interface IMesaDao extends CrudRepository<Mesa, Long> {
 
   @Query("SELECT m from Mesa m where m.facultad.id_facultad = ?1")
   List<Mesa> listarMesasPorIdFacultad(Long idMesa);
+
+  @Query(value = "SELECT * FROM mesa m ORDER BY m.id_mesa ASC",  nativeQuery = true)
+  List<Mesa> listarMesasOrdenadas();
 }

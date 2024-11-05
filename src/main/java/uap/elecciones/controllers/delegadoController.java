@@ -69,7 +69,7 @@ public class delegadoController {
 
     @GetMapping("/mesas")
     public ResponseEntity<List<Mesa>> listaMesas() {
-        return ResponseEntity.ok(mesaService.findAll());
+        return ResponseEntity.ok(mesaService.listarMesasOrdenadas());
     }
 
     @PostMapping("/cargarMesasPorFacultad/{idFacultdad}")

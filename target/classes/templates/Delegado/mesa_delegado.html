@@ -176,32 +176,73 @@
             });
         }
 
+        // function cargarCardMesas() {
+
+        //     $.ajax({
+        //         type: 'GET',
+        //         url: '/delegado/mesas',
+        //         success: function (mesas) {
+        //             mesas.forEach(function (mesa) {
+        //                 //console.log(mesa);
+        //                 $.ajax({
+        //                     type: 'GET',
+        //                     url: `/delegado/tablaDelegadosGeneral/${mesa.id_mesa}`,
+        //                     success: function (response) {
+        //                         $('#cardMesas').append(response);
+        //                         cargarTablaMesa(mesa.id_mesa);
+        //                     },
+        //                     error: function () {
+        //                         console.log("Error al obtener la lista de delegagos");
+        //                     }
+        //                 });
+        //             });
+        //         },
+        //         error: function () {
+        //             console.log("Error al obtener la lista de cards");
+        //         }
+        //     });
+        // }
         function cargarCardMesas() {
 
             $.ajax({
                 type: 'GET',
                 url: '/delegado/mesas',
                 success: function (mesas) {
-                    mesas.forEach(function (mesa) {
-                        //console.log(mesa);
-                        $.ajax({
-                            type: 'GET',
-                            url: `/delegado/tablaDelegadosGeneral/${mesa.id_mesa}`,
-                            success: function (response) {
-                                $('#cardMesas').append(response);
-                                cargarTablaMesa(mesa.id_mesa);
-                            },
-                            error: function () {
-                                console.log("Error al obtener la lista de delegagos");
-                            }
-                        });
-                    });
+                    procesarMesas(mesas)
                 },
                 error: function () {
                     console.log("Error al obtener la lista de cards");
                 }
             });
         }
+
+        function ajaxRequest(url) {
+            return new Promise((resolve, reject) => {
+                $.ajax({
+                    type: 'GET',
+                    url: url,
+                    success: function (response) {
+                        resolve(response);
+                    },
+                    error: function (error) {
+                        reject(error);
+                    }
+                });
+            });
+        }
+
+        async function procesarMesas(mesas) {
+            for (const mesa of mesas) {
+                try {
+                    const response = await ajaxRequest(`/delegado/tablaDelegadosGeneral/${mesa.id_mesa}`);
+                    $('#cardMesas').append(response);
+                    cargarTablaMesa(mesa.id_mesa);
+                } catch (error) {
+                    console.log("Error al obtener la lista de delegados", error);
+                }
+            }
+        }
+
 
         function cargarTablaMesa(params) {
             $('#data-table-mesa-' + params).DataTable({

@@ -1,7 +1,7 @@
 <div class="col-md-12 mt-3">
     <div class="card">
         <div class="card-header">
-            <h5 class="card-title" th:text="'Mesa '+${mesa.nombre_mesa}"></h5>
+            <h5 class="card-title" th:text="${mesa.nombre_mesa}"></h5>
             <p class="card-text"><strong
                     th:text="'UBICACIÓN: '+${mesa.ubicacion}+' - '+${mesa.descripcion}"></strong>
             </p>

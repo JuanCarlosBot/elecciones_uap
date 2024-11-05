@@ -24,4 +24,6 @@ public interface IMesaService {
 
 	List<Mesa> listarMesasPorIdFacultad(Long idMesa);
 
+	List<Mesa> listarMesasOrdenadas();
+
 }

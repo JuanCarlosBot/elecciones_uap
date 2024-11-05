@@ -1,5 +1,7 @@
 package uap.elecciones.model.serviceImpl;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,6 +66,19 @@ public class MesaServiceImpl implements IMesaService{
     @Override
     public List<Mesa> listarMesasPorIdFacultad(Long idMesa) {
         return mesaDao.listarMesasPorIdFacultad(idMesa);
+    }
+
+    @Override
+    public List<Mesa> listarMesasOrdenadas() {
+        // TODO Auto-generated method stub
+        List<Mesa> mesas = mesaDao.listarMesasOrdenadas();
+        Collections.sort(mesas, new Comparator<Mesa>() {
+            @Override
+            public int compare(Mesa m1, Mesa m2) {
+                return m1.getId_mesa().compareTo(m2.getId_mesa()); // Comparar por id_mesa
+            }
+        });
+        return mesas;
     }
 
     
