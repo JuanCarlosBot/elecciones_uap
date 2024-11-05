@@ -37,6 +37,10 @@ public class Anfora implements Serializable{
     private int cant_voto_blanco;
     @Column
     private int cant_voto_valido;
+    @Column
+    private int cant_voto_emitido;
+    @Column
+    private int cant_voto_habilitado;
     
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @ManyToOne(fetch = FetchType.LAZY)
