@@ -47,8 +47,11 @@ public class delegadoController {
     @GetMapping("/ventana")
     public String ventana(Model model, HttpServletRequest request) {
 
-        HttpSession session = request.getSession(false);
-        session.invalidate();
+        
+        if (request.getSession().getAttribute("admin") != null) {
+            HttpSession session = request.getSession(false);
+            session.invalidate();
+        }
         model.addAttribute("facultades", facultadService.findAll());
         // model.addAttribute("mesas", mesaService.findAll());
         return "Delegado/mesa_delegado";
@@ -112,4 +115,50 @@ public class delegadoController {
         return "Delegado/tabla_registros";
     }
 
+    // @GetMapping("/tablaDelegadosGeneral/{idMesa}")
+    // public ResponseEntity<List<DelegadoDto>> tablaDelegadosGeneral(@PathVariable(value = "idMesa") Long idMesa,
+    //         HttpServletRequest request) {
+
+    //     // System.out.println("AAAAAAAAAAAAAAAAAAA");
+    //     List<Object[]> delegados = habilitadoService.listarDelegadosPorMesa(idMesa);
+    //     List<DelegadoDto> delegadosDto = delegados.stream()
+    //             .map(arr -> new DelegadoDto(
+    //                     (String) arr[0], // nombre_facultad
+    //                     (String) arr[1], // nombre_carrera
+    //                     (String) arr[2], // ru_rd
+    //                     (String) arr[3], // tipo
+    //                     (String) arr[4], // apellidos
+    //                     (Long) arr[5], // id_persona
+    //                     (String) arr[6], // nombre_mesa
+    //                     (String) arr[7], // nombre_tipo_delegado
+    //                     (Long) arr[8] // id_votante_habilitado
+    //             ))
+    //             .collect(Collectors.toList());
+
+    //     return ResponseEntity.ok(delegadosDto);
+    // }
+
+    @GetMapping("/tablaDelegadosGeneral/{idMesa}")
+    public String tablaDelegadosGeneral(Model model, @PathVariable(value = "idMesa") Long idMesa) {
+
+        model.addAttribute("mesa", mesaService.findOne(idMesa));
+
+        List<Object[]> delegados = habilitadoService.listarDelegadosPorMesa(idMesa);
+        List<DelegadoDto> delegadosDto = delegados.stream()
+                .map(arr -> new DelegadoDto(
+                        (String) arr[0], // nombre_facultad
+                        (String) arr[1], // nombre_carrera
+                        (String) arr[2], // ru_rd
+                        (String) arr[3], // tipo
+                        (String) arr[4], // apellidos
+                        (Long) arr[5], // id_persona
+                        (String) arr[6], // nombre_mesa
+                        (String) arr[7], // nombre_tipo_delegado
+                        (Long) arr[8] // id_votante_habilitado
+                ))
+                .collect(Collectors.toList());
+
+        model.addAttribute("delegados", delegadosDto);
+        return "Delegado/tabla_registrosMesas";
+    }
 }

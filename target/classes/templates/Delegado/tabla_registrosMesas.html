@@ -1,88 +1,43 @@
-<div class="card-header">
-    <h4 class="card-title" th:text="'Lista de Delegados de la Mesa '+${mesa.nombre_mesa}"></h4>
-    <input type="hidden" th:value="'mesa_delegado_'+${mesa.id_mesa}" name="">
-</div>
-<div class="card-body">
-    <div class="table-responsive">
-
-        <table class="table" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true"
-            data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true"
-            data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true"
-            data-click-to-select="true" data-toolbar="#toolbar" style="width: 100%;">
-            <thead>
-                <tr>
-                    <th>Nro</th>
-                    <th>APELLIDOS Y NOMBRES</th>
-                    <th>RU o RD</th>
-                    <th>CARRERA</th>
-                    <th>FACULTAD</th>
-                    <th>MESA</th>
-                    <th>TIPO</th>
-                    <th>OPCIONES</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="d, num : ${delegados}">
-                    <td th:text="${num.index + 1}">1</td>
-                    <td th:text="${d.apellidos}"></td>
-                    <td th:text="${d.ru_rd}"></td>
-                    <td th:text="${d.nombre_facultad}"></td>
-                    <td th:text="${d.nombre_carrera}"></td>
-                    <td th:text="${d.nombre_mesa}"></td>
-                    <td th:text="${d.nombre_tipo_delegado}"></td>
-                    <td>
-                        <a class="btn btn-primary" type="button" target="_blank"
-                        th:href="@{'/generarPDF/'+${d.id_votante_habilitado}+'/'+${d.id_persona}+'/'+${(num.index + 1)}}">Imprimir</a>
-                    </td>
-            </tbody>
-        </table>
+<div class="col-md-12 mt-3">
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title" th:text="'Mesa '+${mesa.nombre_mesa}"></h5>
+            <p class="card-text"><strong
+                    th:text="'UBICACIÓN: '+${mesa.ubicacion}+' - '+${mesa.descripcion}"></strong>
+            </p>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table th:id="'data-table-mesa-' + ${mesa.id_mesa}" data-toggle="table" data-pagination="true"
+                    data-search="true" data-show-columns="true" data-show-pagination-switch="true"
+                    data-show-refresh="true" data-key-events="true" data-show-toggle="true" data-resizable="true"
+                    data-cookie="true" data-cookie-id-table="saveId" data-show-export="true"
+                    data-click-to-select="true" data-toolbar="#toolbar" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th>Nro</th>
+                            <th>APELLIDOS Y NOMBRES</th>
+                            <th>TIPO PERSONA</th>
+                            <th>RU o RD</th>
+                            <th>FACULTAD</th>
+                            <th>CARRERA</th>
+                            <th>MESA</th>
+                            <th>TIPO</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="d, num : ${delegados}">
+                            <td th:text="${num.index + 1}">1</td>
+                            <td th:text="${d.apellidos}"></td>
+                            <td th:text="${d.tipo_persona}"></td>
+                            <td th:text="${d.ru_rd}"></td>
+                            <td th:text="${d.nombre_facultad}"></td>
+                            <td th:text="${d.nombre_carrera}"></td>
+                            <td th:text="${d.nombre_mesa}"></td>
+                            <td th:text="${d.nombre_tipo_delegado}"></td>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $('.table').DataTable({
-        // Opciones de configuración de DataTables
-        "language": {
-            "lengthMenu": "Mostrar _MENU_ registros",
-            "zeroRecords": "No se encontraron registros",
-            "info": "Mostrando página _PAGE_ de _PAGES_",
-            "infoEmpty": "No hay registros disponibles",
-            "infoFiltered": "(filtrado de _MAX_ registros totales)",
-            "search": "Buscar:",
-            "paginate": {
-                "first": "Primero",
-                "last": "Último",
-                "next": "Siguiente",
-                "previous": "Anterior"
-            }
-        },
-        // Agrega los botones
-        dom: 'Bfrtip',
-        buttons: [
-            {
-                extend: 'pdfHtml5',
-                text: ' Exportar a PDF',
-                title: 'Título del documento',
-                className: 'btn btn-danger',
-                orientation: 'portrait',
-                pageSize: 'LETTER',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5 ,6] // Indices de las columnas a exportar
-                    // O usa: columns: '.class-name' para seleccionar columnas por clase
-                }
-            },
-            {
-                extend: 'print',
-                text: ' Imprimir',
-                title: 'Título de la impresión',
-                className: 'btn btn-info',
-                exportOptions: {
-                    columns: [0, 1, 2, 3, 4, 5 ,6] // Indices de las columnas a imprimir
-                    // O usa: columns: '.class-name' para seleccionar columnas por clase
-                }
-            }
-        ]
-    });
-    });
-
-</script>
