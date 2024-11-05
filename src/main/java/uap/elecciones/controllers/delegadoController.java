@@ -70,6 +70,8 @@ public class delegadoController {
     @GetMapping("/tablaDelegados/{idMesa}")
     public String ventana(Model model, @PathVariable(value = "idMesa") Long idMesa) {
 
+        model.addAttribute("mesa", mesaService.findOne(idMesa));
+
         // System.out.println("AAAAAAAAAAAAAAAAAAA");
         List<Object[]> delegados = habilitadoService.listarDelegadosPorMesa(idMesa);
         List<DelegadoDto> delegadosDto = delegados.stream()
