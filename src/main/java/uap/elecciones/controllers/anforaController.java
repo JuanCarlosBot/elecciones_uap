@@ -432,6 +432,7 @@ public class anforaController {
             anfora.setCant_voto_nulo(cant_voto_nulo);
             anfora.setCant_voto_valido(cant_voto_valido);
             anfora.setCant_voto_habilitado(cant);
+            anfora.setCant_voto_emitido(cant_voto_blanco+cant_voto_nulo+cant_voto_valido);
             anfora.setMesa(mesa);
 
             //anfora.setConteo_total(conteoTotal);
