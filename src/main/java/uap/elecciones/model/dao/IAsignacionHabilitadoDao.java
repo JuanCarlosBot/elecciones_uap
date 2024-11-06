@@ -74,7 +74,10 @@ public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabil
     "order by m.id_mesa ASC;",nativeQuery = true)
     public List<Object[]> lista_asignacion_por_mesa(Long id_facultad);
 
-    @Query(value = "SELECT f.nombre_facultad , c.nombre_carrera ,e.ru, p.apellidos ,m.nombre_mesa ,ah.delegado, m.ubicacion, m.descripcion "+
+    @Query(value = "SELECT f.nombre_facultad , c.nombre_carrera ,e.ru, p.apellidos ,m.nombre_mesa ,ah.delegado, m.ubicacion, m.descripcion, "+
+        "m2.nombre_mesa AS mesadelegado, "+
+        "m2.ubicacion as ubicacio, "+
+        "m2.descripcion as descrip "+
     "FROM asignacion_habilitado ah "+
     "LEFT JOIN votante_habilitado vh ON	ah.id_votante_habilitado = vh.id_votante_habilitado "+
     "LEFT JOIN estudiante e ON vh.id_estudiante = e.id_estudiante "+
@@ -83,7 +86,10 @@ public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabil
     "LEFT JOIN facultad f ON	c.id_facultad = f.id_facultad "+
     "LEFT JOIN mesa m ON	ah.id_mesa = m.id_mesa "+
     "LEFT JOIN persona p ON e.id_persona = p.id_persona "+
-    "WHERE e.ru = ?1",nativeQuery = true)
+    "left join delegado d2 on vh.id_votante_habilitado = d2.id_votante_habilitado "+
+    "LEFT JOIN mesa m2 ON d2.id_mesa = m2.id_mesa "+
+    "WHERE e.ru = ?1 "+
+    "ORDER BY p.apellidos ASC;",nativeQuery = true)
     Object asignado_habilitado(String ru);
 
     /*@Query(value = "SELECT f.nombre_facultad , c.nombre_carrera ,d.rd, p.apellidos ,m.nombre_mesa ,ah.delegado, m.ubicacion, m.descripcion "+
@@ -97,17 +103,29 @@ public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabil
     "LEFT JOIN persona p ON d.id_persona = p.id_persona "+
     "WHERE d.rd = ?1",nativeQuery = true)*/
 
-    @Query(value = "SELECT f.nombre_facultad , c.nombre_carrera ,d.rd, p.apellidos ,m.nombre_mesa ,ah.delegado, m.ubicacion, m.descripcion, d2.id_delegado "+
-    "FROM asignacion_habilitado ah "+
-    "LEFT JOIN votante_habilitado vh ON	ah.id_votante_habilitado = vh.id_votante_habilitado "+
-    "LEFT JOIN docente d ON vh.id_docente = d.id_docente "+
-    "LEFT JOIN carrera_docente cd ON	d.id_docente = cd.id_docente "+
-    "LEFT JOIN carrera c ON	cd.id_carrera = c.id_carrera "+
-    "LEFT JOIN facultad f ON	c.id_facultad = f.id_facultad "+
-    "LEFT JOIN mesa m ON	ah.id_mesa = m.id_mesa "+
-    "LEFT JOIN persona p ON d.id_persona = p.id_persona "+
-    "left join delegado d2 on vh.id_votante_habilitado = d2.id_votante_habilitado "+
-    "WHERE p.ci like %?1%",nativeQuery = true)
+    @Query(value = "SELECT f.nombre_facultad, "+
+       "c.nombre_carrera, "+
+       "d.rd, "+
+       "p.apellidos, "+
+       "m.nombre_mesa AS mesa_asignada, "+
+       "ah.delegado, "+
+       "m.ubicacion, "+
+       "m.descripcion, "+
+       "m2.nombre_mesa AS mesadelegado, "+
+       "m2.ubicacion as ubicacio, "+
+       "m2.descripcion as descrip "+
+"FROM asignacion_habilitado ah "+
+"LEFT JOIN votante_habilitado vh ON ah.id_votante_habilitado = vh.id_votante_habilitado "+
+"LEFT JOIN docente d ON vh.id_docente = d.id_docente "+
+"LEFT JOIN carrera_docente cd ON d.id_docente = cd.id_docente "+
+"LEFT JOIN carrera c ON cd.id_carrera = c.id_carrera "+
+"LEFT JOIN facultad f ON c.id_facultad = f.id_facultad "+
+"LEFT JOIN mesa m ON ah.id_mesa = m.id_mesa "+
+"LEFT JOIN persona p ON d.id_persona = p.id_persona "+
+"LEFT JOIN delegado d2 ON vh.id_votante_habilitado = d2.id_votante_habilitado "+
+"LEFT JOIN mesa m2 ON d2.id_mesa = m2.id_mesa "+
+"WHERE p.ci LIKE %?1% "+
+"ORDER BY p.apellidos ASC;",nativeQuery = true)
     Object asignado_habilitadoDocente(String rd);
 
     @Query(value = "select * from asignacion_habilitado ah "+

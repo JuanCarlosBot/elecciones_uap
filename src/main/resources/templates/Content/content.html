@@ -6,6 +6,40 @@
 <body>
 
     <div th:fragment="contentEstudiante">
+        <style>
+            .list-group-item {
+                border-radius: 15px;
+                /* Bordes redondeados para un efecto circular */
+                background-color: #f8f9fa;
+                /* Color de fondo suave */
+                border: 1px solid #ddd;
+                /* Borde suave */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                /* Sombra suave */
+                margin-bottom: 10px;
+                /* Espacio entre los elementos */
+                transition: transform 0.2s, box-shadow 0.2s;
+                /* Animación de transición */
+            }
+
+            .list-group-item:hover {
+                transform: translateY(-3px);
+                /* Efecto de elevación al pasar el mouse */
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                /* Sombra más intensa en hover */
+            }
+
+            strong {
+                color: #333;
+                /* Color de texto para el título */
+                font-weight: 600;
+            }
+
+            .list-group-item span {
+                color: #555;
+                /* Color de texto para el contenido */
+            }
+        </style>
         <ul class="list-group col-md-12" style="font-size: 18px;">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <strong>Facultad: </strong><span th:text="${estudiante[0]}"></span>
@@ -23,15 +57,58 @@
                 <strong>Nro de Mesa: </strong><span th:text="${estudiante[4]}"></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <strong>Ubicación: </strong><span th:text="${estudiante[6]}+' - '+${estudiante[7]}"></span>
+                <strong>Emite tu voto en: </strong><span th:text="${estudiante[6]}+' - '+${estudiante[7]}"></span>
             </li>
+
+
+        </ul>
+        <ul class="list-group col-md-12 mt-3" style="font-size: 18px;">
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <strong>Jurado Electoral: </strong><span th:text="${estudiante[5] != null ? 'Sì eres Jurado' : 'No eres Jurado'}"></span>
+                <strong>Jurado Electoral: </strong><span
+                    th:text="${estudiante[5] != null ? 'Sì eres Jurado' : 'No eres Jurado'}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center"
+                th:if="${estudiante[8] != null}">
+                <strong>Jurado de la: </strong><span
+                    th:text="${estudiante[8]}+' - '+${estudiante[9]}+' - '+${estudiante[10]}"></span>
             </li>
         </ul>
-
     </div>
     <div th:fragment="contentDocente">
+        <style>
+            .list-group-item {
+                border-radius: 15px;
+                /* Bordes redondeados para un efecto circular */
+                background-color: #f8f9fa;
+                /* Color de fondo suave */
+                border: 1px solid #ddd;
+                /* Borde suave */
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                /* Sombra suave */
+                margin-bottom: 10px;
+                /* Espacio entre los elementos */
+                transition: transform 0.2s, box-shadow 0.2s;
+                /* Animación de transición */
+            }
+
+            .list-group-item:hover {
+                transform: translateY(-3px);
+                /* Efecto de elevación al pasar el mouse */
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+                /* Sombra más intensa en hover */
+            }
+
+            strong {
+                color: #333;
+                /* Color de texto para el título */
+                font-weight: 600;
+            }
+
+            .list-group-item span {
+                color: #555;
+                /* Color de texto para el contenido */
+            }
+        </style>
         <ul class="list-group col-md-12" style="font-size: 18px;">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <strong>Facultad: </strong><span th:text="${docente[0]}"></span>
@@ -49,13 +126,20 @@
                 <strong>Nro de Mesa: </strong><span th:text="${docente[4]}"></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <strong>Ubicación: </strong><span th:text="${docente[6]}+' - '+${docente[7]}"></span>
+                <strong>Emite tu voto en: </strong><span th:text="${docente[6]}+' - '+${docente[7]}"></span>
             </li>
+
+        </ul>
+        <ul class="list-group col-md-12 mt-3" style="font-size: 18px;">
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <strong>Jurado Electoral: </strong><span th:text="${docente[5] != null ? 'Sì eres Jurado' : 'No eres Jurado'}"></span>
+                <strong>Jurado Electoral: </strong><span
+                    th:text="${docente[5] != null ? 'Sì eres Jurado' : 'No eres Jurado'}"></span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center" th:if="${docente[8] != null}">
+                <strong>Jurado de la: </strong><span
+                    th:text="${docente[8]}+' - '+${docente[9]}+' - '+${docente[10]}"></span>
             </li>
         </ul>
-
     </div>
 
     <div th:if="${succes != null}" th:fragment="alert_modal" class="alert alert-danger alert-mg-b alert-st-four"

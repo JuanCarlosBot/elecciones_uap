@@ -2,6 +2,31 @@
 <html lang="en" style="background-image: url(../../../img/logo/UAP2.webp);background-size: cover;">
 
 <head th:replace="Layout/layout :: head">
+    <style>
+        .list-group-item {
+    border-radius: 15px; /* Bordes redondeados para un efecto circular */
+    background-color: #f8f9fa; /* Color de fondo suave */
+    border: 1px solid #ddd; /* Borde suave */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    margin-bottom: 10px; /* Espacio entre los elementos */
+    transition: transform 0.2s, box-shadow 0.2s; /* Animación de transición */
+}
+
+.list-group-item:hover {
+    transform: translateY(-3px); /* Efecto de elevación al pasar el mouse */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más intensa en hover */
+}
+
+strong {
+    color: #333; /* Color de texto para el título */
+    font-weight: 600;
+}
+
+.list-group-item span {
+    color: #555; /* Color de texto para el contenido */
+}
+
+    </style>
 </head>
 
 <body style="background-image: url(../../../img/logo/UAP2.webp); background-size: cover;">
