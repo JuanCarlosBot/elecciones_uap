@@ -5,16 +5,35 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import jakarta.servlet.http.HttpServletRequest;
+import uap.elecciones.model.entity.Carrera;
+import uap.elecciones.model.entity.Usuario;
+import uap.elecciones.model.service.ICarreraService;
+import uap.elecciones.model.service.IFacultadService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
 public class chartController {
+
+    @Autowired
+    private IFacultadService facultadService;
+
+    @Autowired
+    private ICarreraService carreraService;
     
     @RequestMapping(value = "/resultados",method = RequestMethod.GET)
     private String getResultados(Model model) {
@@ -56,7 +75,26 @@ public class chartController {
     model.addAttribute("frentesTabla", frentesTabla);
     model.addAttribute("colores", colores);
     model.addAttribute("porcentajes", porcentajes);
+
+    model.addAttribute("facultades", facultadService.findAll());
         return "chart";
     }
+    
+    @PostMapping("/cargarCarreras/{id_facultad}")
+    public ResponseEntity<List<String[]>> cargarCarreras(@PathVariable("id_facultad")Long id_facultad) {
+        
+        List<String[]> listaCarrera = new ArrayList<>();
+        List <Carrera> carreras = carreraService.listaCarrerasPorFacultad(id_facultad);
+
+        for (Carrera c : carreras) {
+            String[] car = { c.getId_carrera().toString(), c.getNombre_carrera()};
+          
+            listaCarrera.add(car);
+        }
+        return ResponseEntity.ok(listaCarrera);
+    }
+
+   
+    
     
 }

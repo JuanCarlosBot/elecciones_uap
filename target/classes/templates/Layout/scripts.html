@@ -1,0 +1,30 @@
+<script th:fragment="scritps">
+
+    function listarCarreras() {
+
+        $.ajax({
+            type: 'POST',
+            url: "/cargarCarreras/" + $('#lfacultad').val(),  // Ruta del metodo del controlador en Spring Boot
+            success: function (response) {
+
+                const selectCarrera = $('#lcarreras');
+                selectCarrera.empty();  // Limpiar las opciones existentes
+
+                response.forEach(carrera => {
+                    // user es un array de dos elementos: [id, nombreCompleto]
+                    const option = $('<option></option>')
+                        .val(carrera[0])  // El valor del option es el ID 
+                        .text(carrera[1]);  // El texto del option es el nombre completo 
+
+                    // Agregar la opción al <select>
+                    selectCarrera.append(option);
+                });
+
+            }, error: function (xhr, status, error) {
+                console.error('Hubo un problema con la solicitud AJAX:', status, error);
+            }
+        });
+
+    }
+
+</script>

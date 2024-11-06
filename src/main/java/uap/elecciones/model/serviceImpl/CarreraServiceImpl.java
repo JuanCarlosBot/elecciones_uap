@@ -38,5 +38,11 @@ public class CarreraServiceImpl implements ICarreraService{
         // TODO Auto-generated method stub
         carreraDao.deleteById(id);
     }
+
+    @Override
+    public List<Carrera> listaCarrerasPorFacultad(Long id_facultad) {
+        // TODO Auto-generated method stub
+        return carreraDao.listaCarrerasPorFacultad(id_facultad);
+    }
     
 }

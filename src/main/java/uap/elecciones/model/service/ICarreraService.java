@@ -12,4 +12,7 @@ public interface ICarreraService {
 	public Carrera findOne(Long id);
 
 	public void delete(Long id);
+
+	public List<Carrera> listaCarrerasPorFacultad(Long id_facultad);
+
 }
