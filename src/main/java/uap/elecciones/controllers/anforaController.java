@@ -421,6 +421,9 @@ public class anforaController {
         if (request.getSession().getAttribute("usuario") != null) {
 
             Mesa mesa = mesaService.findOne(id_mesa);
+            mesa.setEstado("COMPLETADO");
+            mesaService.save(mesa);
+
             List<AsignacionHabilitado> listaVotantesPorMesas = asignacionHabilitadoService
                 .lista_asignados_habilitados_por_mesa(id_mesa);
             int cant = listaVotantesPorMesas.size();
@@ -430,6 +433,7 @@ public class anforaController {
             anfora.setCant_voto_valido(cant_voto_valido);
             anfora.setCant_voto_habilitado(cant);
             anfora.setMesa(mesa);
+
             //anfora.setConteo_total(conteoTotal);
             //anfora.setConteo_total_carrera(conteoTotalCarrera);
             anforaService.save(anfora);
