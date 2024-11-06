@@ -18,9 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jakarta.servlet.http.HttpServletRequest;
 import uap.elecciones.model.entity.Carrera;
+import uap.elecciones.model.entity.Frente;
 import uap.elecciones.model.entity.Usuario;
+import uap.elecciones.model.service.IAnforaService;
 import uap.elecciones.model.service.ICarreraService;
 import uap.elecciones.model.service.IFacultadService;
+import uap.elecciones.model.service.IFrenteService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -34,13 +38,25 @@ public class chartController {
 
     @Autowired
     private ICarreraService carreraService;
+
+    @Autowired
+    private IFrenteService frenteService;
+
+    @Autowired
+    private IAnforaService anforaService;
     
     @RequestMapping(value = "/resultados",method = RequestMethod.GET)
     private String getResultados(Model model) {
-        List<Integer> datos = Arrays.asList(3500, 5500, 150); // Ejemplo de datos de votos
-        List<String> frentes = Arrays.asList("MNR", "MAS", "RENOVACION"); // Ejemplo de nombres de frentes
-        List<String> colores = Arrays.asList("#ff0000", "#0000ff", "#00ff00"); // Ejemplo de colores
-        int nulo=10, blanco=45, valido=5700, emitido=590, habiltiado=7400;
+
+
+        Object[] resultado = (Object[]) anforaService.votosGeneral();
+        List<Integer> datos = Arrays.asList(Integer.parseInt(resultado[2].toString()));
+        Integer total = Integer.parseInt(resultado[3].toString());
+        List<String> frentes = new ArrayList<>(); // Ejemplo de nombres de frentes
+        for (Frente f : frenteService.findAll()) {
+            frentes.add(f.getNombre_frente());
+        }
+        List<String> colores = Arrays.asList("#00FF00"); // Ejemplo de colores
         String nulos="Nulos", blancos="Blancos", validos="Válidos", emitidos="Emitidos", habiltiados="Habilitados";
         
         List<String> frentesTabla = new ArrayList<>(); // Ejemplo de datos de votos
@@ -54,19 +70,20 @@ public class chartController {
         frentesTabla.add(habiltiados);
 
         List<Integer> datosTabla = new ArrayList<>(); // Ejemplo de datos de votos
+
         for (int i = 0; i < datos.size(); i++) {
             datosTabla.add(datos.get(i));
         }
-        datosTabla.add(nulo);
-        datosTabla.add(blanco);
-        datosTabla.add(valido);
-        datosTabla.add(emitido);
-        datosTabla.add(habiltiado);
+        datosTabla.add(Integer.parseInt(resultado[0].toString()));
+        datosTabla.add(Integer.parseInt(resultado[1].toString()));
+        datosTabla.add(Integer.parseInt(resultado[2].toString()));
+        datosTabla.add(Integer.parseInt(resultado[4].toString()));
+        datosTabla.add(Integer.parseInt(resultado[5].toString()));
         
     
-    double totalVotos = datos.stream().mapToInt(Integer::intValue).sum();
-    List<Double> porcentajes = datosTabla.stream()
-    .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0) // Redondea a dos decimales
+    // double totalVotos = datosTabla.stream().mapToInt(Integer::intValue).sum();
+    double totalVotos =  Integer.parseInt(resultado[3].toString());// Total Habilitados
+    List<Double> porcentajes = datosTabla.stream().map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0) // Redondea a dos decimales
     .collect(Collectors.toList());
     // Añadir al modelo
     model.addAttribute("datos", datos);
@@ -94,7 +111,12 @@ public class chartController {
         return ResponseEntity.ok(listaCarrera);
     }
 
+    @PostMapping("path")
+    public String postMethodName(@RequestBody String entity) {
+        // TODO: process POST request
+
+        return entity;
+    }
    
-    
     
 }
