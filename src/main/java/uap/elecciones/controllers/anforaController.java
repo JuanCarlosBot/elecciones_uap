@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,7 +35,6 @@ import uap.elecciones.model.service.IMesaService;
 import uap.elecciones.model.service.INivelService;
 import uap.elecciones.model.service.IVotoTotalCarreraService;
 import uap.elecciones.model.service.IVotoTotalFrenteService;
-import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 @RequestMapping(value = "/admin")
@@ -115,7 +115,7 @@ public class anforaController {
         return String.valueOf(cant); // Convierte la cantidad a cadena y devuelve como respuesta
     }
 
-    @RequestMapping(value = "/anfora_form_prueba", method = RequestMethod.POST)
+    @RequestMapping(value = "/anfora_form_prueba1", method = RequestMethod.POST)
     private String anfora_form_prueba(
             @RequestParam("mesa") Long id_mesa,
             @RequestParam("nivel") Long id_nivel,
@@ -396,6 +396,55 @@ public class anforaController {
 
                 }
                 // Guardar el DetalleAnfora en la base de datos
+
+                detalleAnforaService.save(detalleAnfora);
+            }
+
+            return "redirect:/admin/anfora";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+
+    @RequestMapping(value = "/anfora_form_prueba", method = RequestMethod.POST)
+    private String anfora_form_pruea(
+            @RequestParam("mesa") Long id_mesa,
+            @RequestParam("nivel") Long id_nivel,
+            @RequestParam("id_f") Long[] id_frente,
+            @RequestParam("cant_voto_nulo") int cant_voto_nulo,
+            @RequestParam("cant_voto_blanco") int cant_voto_blanco,
+            @RequestParam("cant_voto_valido") int cant_voto_valido,
+            //@RequestParam("cant_voto_habilitados") int cant_voto_habilitado,
+            @RequestParam("votosDetAnfora") int[] votoFrentes,
+            RedirectAttributes flash, HttpServletRequest request) {
+        if (request.getSession().getAttribute("usuario") != null) {
+
+            Mesa mesa = mesaService.findOne(id_mesa);
+            List<AsignacionHabilitado> listaVotantesPorMesas = asignacionHabilitadoService
+                .lista_asignados_habilitados_por_mesa(id_mesa);
+            int cant = listaVotantesPorMesas.size();
+            Anfora anfora = new Anfora();
+            anfora.setCant_voto_blanco(cant_voto_blanco);
+            anfora.setCant_voto_nulo(cant_voto_nulo);
+            anfora.setCant_voto_valido(cant_voto_valido);
+            anfora.setCant_voto_habilitado(cant);
+            anfora.setMesa(mesa);
+            //anfora.setConteo_total(conteoTotal);
+            //anfora.setConteo_total_carrera(conteoTotalCarrera);
+            anforaService.save(anfora);
+
+            for (int i = 0; i < id_frente.length; i++) {
+                Long id_frentes = id_frente[i];
+                int cantidadesVotantes = votoFrentes[i];
+
+                Frente frente = frenteService.findOne(id_frentes);
+
+                DetalleAnfora detalleAnfora = new DetalleAnfora();
+                detalleAnfora.setAnfora(anfora);
+                detalleAnfora.setFrente(frente);
+                detalleAnfora.setCant_votantes(cantidadesVotantes);
+                
 
                 detalleAnforaService.save(detalleAnfora);
             }
