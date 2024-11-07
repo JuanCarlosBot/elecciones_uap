@@ -1,0 +1,99 @@
+<div class="card col-md-12">
+    <div class="card-body">
+      <p class="card-text"><strong th:text="'UBICACIÓN: '+${mesa.ubicacion}+' - '+${mesa.descripcion}"></strong><th:block ></th:block></p>
+    </div>
+  </div>
+<div class="card mt-3">
+    <!-- <div class="card-header">
+        <h4 class="card-title">Lista de Delegados de la Mesa</h4>
+    </div> -->
+    <div class="card-body">
+        <div class="table-responsive">
+    
+            <table class="table" id="datatableV" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true"
+                data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true"
+                data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true"
+                data-click-to-select="true" data-toolbar="#toolbar" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th>Nro</th>
+                        <th>FACULTAD/UNIDAD</th>
+                        <th>CARRERA</th>
+                        <th>TIPO</th>
+                        <th>RU/RD</th>
+                        <th>APELLIDOS Y NOMBRES</th>
+                        <th>MESA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="v, num : ${votantes}">
+                        <td th:text="${num.index + 1}">1</td>
+                        <td th:text="${v[0]}"></td>
+                        <td th:text="${v[1]}"></td>
+                        <td th:text="${v[3]}"></td>
+                        <td th:text="${v[2]}"></td>
+                        <td th:text="${v[4]}"></td>
+                        <td th:text="${v[5]}"></td>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(document).ready(function () {
+        $('#datatableV').DataTable({
+            // Opciones de configuración de DataTables
+            "language": {
+                "lengthMenu": "Mostrar _MENU_ registros",
+                "zeroRecords": "No se encontraron registros",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(filtrado de _MAX_ registros totales)",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Siguiente",
+                    "previous": "Anterior"
+                }
+            },
+            // Agrega los botones
+            dom: 'Bfrtip',
+            buttons: [
+                {
+                    extend: 'excelHtml5',
+                    text: ' Exportar a Excel',
+                    title: 'Título del documento',
+                    className: 'btn btn-success',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7] // Indices de las columnas a exportar
+                    }
+                },
+                {
+                    extend: 'pdfHtml5',
+                    text: ' Exportar a PDF',
+                    title: 'Título del documento',
+                    className: 'btn btn-danger',
+                    orientation: 'portrait',
+                    pageSize: 'LETTER',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7] // Indices de las columnas a exportar
+                        // O usa: columns: '.class-name' para seleccionar columnas por clase
+                    }
+                },
+                {
+                    extend: 'print',
+                    text: ' Imprimir',
+                    title: 'Título de la impresión',
+                    className: 'btn btn-info',
+                    exportOptions: {
+                        columns: [0, 1, 2, 3, 4, 5, 6, 7] // Indices de las columnas a imprimir
+                        // O usa: columns: '.class-name' para seleccionar columnas por clase
+                    }
+                }
+            ]
+        });
+    });
+
+</script>

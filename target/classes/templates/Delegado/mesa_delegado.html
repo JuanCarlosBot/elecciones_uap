@@ -127,11 +127,15 @@
     <ul class="nav nav-tabs" id="resultadosTabs" role="tablist">
         <li class="nav-item">
             <a class="nav-link active" id="consulta-tab" data-toggle="tab" href="#consulta" role="tab"
-                aria-controls="consulta" aria-selected="false">Mesas Por Facultad</a>
+                aria-controls="consulta" aria-selected="false">Jurados por mesa</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="resultados-tab" data-toggle="tab" href="#resultados" role="tab"
-                aria-controls="resultados" aria-selected="true">Mesas en General</a>
+                aria-controls="resultados" aria-selected="true">Jurados en General</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="resultados-tab" data-toggle="tab" href="#votantes" role="tab"
+                aria-controls="resultados" aria-selected="true">Votantes por mesa</a>
         </li>
     </ul>
 
@@ -174,6 +178,34 @@
                 </div> -->
                 <div class="row" id="cardMesas">
     
+                </div>
+            </div>
+            <div class="tab-pane fade show mobile-styles" id="votantes" role="tabpanel" aria-labelledby="consulta-tab">
+                <h3 class="text-center">Mesas por Facultad</h3>
+                <div class="row">
+                    <div class="col-md-6">
+                        <label for="">Facultad</label>
+                        <select style="width: 100%" class="form-control select2" onchange="cargarMesasV(this.value)"
+                            id="selectFacultadV" required>
+                            <option value="0">Seleccione una opcion</option>
+                            <option th:each="f: ${facultades}" th:value="${f.id_facultad}"
+                                th:text="${f.nombre_facultad}"></option>
+                        </select>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="">Mesas</label>
+                        <select style="width: 100%" id="selectMesaV" class="js-states form-control select2"
+                            onchange="cargarVotantes(this.value)" required>
+                            <!-- <option th:each="f: ${mesas}" th:value="${f.id_mesa}"
+                                th:text="${f.nombre_mesa}"></option> -->
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <div id="tablaVotantes">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -285,6 +317,49 @@
                 }
             });
         }
+        function cargarMesasV(id) {
+            //alert('AAAAAAAAAAAAAAA');
+            var selectElement = $('#selectMesaV');
+            selectElement.empty();
+
+            if (selectElement.val() == 0) {
+                return;
+            }
+
+            $.ajax({
+                type: 'POST',
+                url: '/delegado/cargarMesasPorFacultad/' + id,
+                dataType: "json",
+                contentType: 'application/x-www-form-urlencoded',
+                success: function (data) {
+
+                    data.forEach(function (fila) {
+                        var option = document.createElement('option');
+                        option.value = fila[0];
+                        option.text = fila[1];
+                        //option.selected = true;
+                        selectElement.append(option);
+                    });
+                    cargarVotantes($('#selectMesaV').val())
+                },
+                error: function () {
+                    console.log("Error al obtener la lista de facultades");
+                }
+            });
+        }
+        function cargarVotantes(mesa) {
+
+            $.ajax({
+                type: 'GET',
+                url: '/delegado/cargarVotantes/' + mesa,
+                success: function (data) {
+                    $('#tablaVotantes').html(data);
+                },
+                error: function () {
+                    console.log("Error al obtener la lista de votantes");
+                }
+            });
+            }
 
         function cargarCardMesas() {
 

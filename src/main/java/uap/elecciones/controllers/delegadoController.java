@@ -93,6 +93,7 @@ public class delegadoController {
     @PostMapping("/cargarMesasPorFacultad/{idFacultdad}")
     public ResponseEntity<String[][]> cargarMesasPorFacultad(@PathVariable(value = "idFacultdad") Long idFacultdad) {
         List<Mesa> mesas = mesaService.listarMesasPorIdFacultad(idFacultdad);
+        //System.out.println(mesas.toString()+"-----------");
         String[][] materiaArray = new String[mesas.size()][2];
         int index = 0;
         for (Mesa mesa : mesas) {
@@ -131,6 +132,23 @@ public class delegadoController {
 
         model.addAttribute("delegados", delegadosDto);
         return "Delegado/tabla_registros";
+    }
+    @GetMapping("/cargarVotantes/{idMesa}")
+    public String ventanaVotantes(Model model, @PathVariable(value = "idMesa") Long idMesa, HttpServletRequest request) {
+
+        model.addAttribute("mesa", mesaService.findOne(idMesa));
+
+        if (request.getSession().getAttribute("admin") != null) {
+            String admin = String.valueOf(request.getSession().getAttribute("admin"));
+            model.addAttribute("admin", admin);
+        }
+        List<Object[]> votantesMesa = habilitadoService.lista_votantes_por_mesa(idMesa);
+        for (Object[] objects : votantesMesa) {
+            System.out.println(objects.toString());
+        }
+        
+        model.addAttribute("votantes", votantesMesa);
+        return "Delegado/tabla_votantes";
     }
 
     // @GetMapping("/tablaDelegadosGeneral/{idMesa}")

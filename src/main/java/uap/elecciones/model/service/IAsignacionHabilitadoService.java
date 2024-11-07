@@ -34,4 +34,6 @@ public interface IAsignacionHabilitadoService {
 
 	List<AsignacionHabilitado> listaHabilitadosMesas(Long id_mesa);
 
+	public List<Object[]> lista_votantes_por_mesa(Long id_mesa);
+
 }

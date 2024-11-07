@@ -96,4 +96,9 @@ public class AsignacionHabilitadoServiceImpl implements IAsignacionHabilitadoSer
         return asignacionHabilitadoDao.listaDocentesFac(id_fac);
     }
 
+    @Override
+    public List<Object[]> lista_votantes_por_mesa(Long id_mesa) {
+        return asignacionHabilitadoDao.lista_votantes_por_mesa(id_mesa);
+    }
+
 }
