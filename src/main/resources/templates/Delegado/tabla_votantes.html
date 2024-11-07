@@ -47,7 +47,7 @@
             "language": {
                 "lengthMenu": "Mostrar _MENU_ registros",
                 "zeroRecords": "No se encontraron registros",
-                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "info": "Mostrando página _PAGE_ de _PAGES_  (TOTAL = _MAX_)",
                 "infoEmpty": "No hay registros disponibles",
                 "infoFiltered": "(filtrado de _MAX_ registros totales)",
                 "search": "Buscar:",
@@ -67,7 +67,7 @@
                     title: 'Título del documento',
                     className: 'btn btn-success',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7] // Indices de las columnas a exportar
+                        columns: [0, 1, 2, 3, 4, 5, 6] // Indices de las columnas a exportar
                     }
                 },
                 {
@@ -78,7 +78,7 @@
                     orientation: 'portrait',
                     pageSize: 'LETTER',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7] // Indices de las columnas a exportar
+                        columns: [0, 1, 2, 3, 4, 5, 6] // Indices de las columnas a exportar
                         // O usa: columns: '.class-name' para seleccionar columnas por clase
                     }
                 },
@@ -88,7 +88,7 @@
                     title: 'Título de la impresión',
                     className: 'btn btn-info',
                     exportOptions: {
-                        columns: [0, 1, 2, 3, 4, 5, 6, 7] // Indices de las columnas a imprimir
+                        columns: [0, 1, 2, 3, 4, 5, 6] // Indices de las columnas a imprimir
                         // O usa: columns: '.class-name' para seleccionar columnas por clase
                     }
                 }
