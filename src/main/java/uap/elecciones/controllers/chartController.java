@@ -188,11 +188,78 @@ public class chartController {
     }
     
     @PostMapping("/cargarDatosFacultad/{id_facultad}/{sigla}/{isNul}")
-    public ResponseEntity<Map<String, Object>> cargarDatosEstDoc(@PathVariable("id_facultad")Long id_facultad,@PathVariable("sigla") String sigla ,
+    public ResponseEntity<Map<String, Object>> cargarDatosFacultad(@PathVariable("id_facultad")Long id_facultad,@PathVariable("sigla") String sigla ,
      @PathVariable("isNul")Boolean isNul) {
 
         // Generación de los datos
         Object[] resultado = (Object[]) anforaService.votosGeneralFacultad(id_facultad, sigla, isNul);
+        List<Integer> datos = Arrays.asList(Integer.parseInt(resultado[2].toString()));
+        List<String> frentes = new ArrayList<>();
+        for (Frente f : frenteService.findAll()) {
+            frentes.add(f.getNombre_frente());
+        }
+        List<String> colores = Arrays.asList("#008000");
+
+        String nulos = "Nulos", blancos = "Blancos", validos = "Válidos", emitidos = "Emitidos",
+                habilitados = "Habilitados";
+
+        List<String> frentesTabla = new ArrayList<>(frentes);
+        frentesTabla.addAll(Arrays.asList(nulos, blancos, validos, emitidos, habilitados));
+
+        List<Integer> datosTabla = new ArrayList<>(datos);
+        datosTabla.add(Integer.parseInt(resultado[0].toString()));
+        datosTabla.add(Integer.parseInt(resultado[1].toString()));
+        datosTabla.add(Integer.parseInt(resultado[2].toString()));
+        datosTabla.add(Integer.parseInt(resultado[4].toString()));
+        datosTabla.add(Integer.parseInt(resultado[5].toString()));
+
+        double totalVotos = Integer.parseInt(resultado[5].toString());
+        List<Double> porcentajes = datosTabla.stream()
+                .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
+                .collect(Collectors.toList());
+
+        // Construir el HTML de la tabla
+        StringBuilder htmlTabla = new StringBuilder();
+        htmlTabla.append("<h3 class='text-center'>Tabla de Resultados</h3>");
+        htmlTabla.append("<table class='table table-striped'>");
+        htmlTabla.append("<thead><tr><th>Frente</th><th>Votos</th><th>%</th></tr></thead>");
+        htmlTabla.append("<tbody>");
+
+        for (int i = 0; i < datosTabla.size(); i++) {
+            htmlTabla.append("<tr>");
+            htmlTabla.append("<td>").append(frentesTabla.get(i)).append("</td>");
+            htmlTabla.append("<td>").append(datosTabla.get(i)).append("</td>");
+            htmlTabla.append("<td>").append(porcentajes.get(i)).append("</td>");
+            htmlTabla.append("</tr>");
+        }
+
+        htmlTabla.append("</tbody>");
+        htmlTabla.append("</table>");
+
+        // Datos para el gráfico
+        List<Map<String, Object>> chartData = new ArrayList<>();
+        for (int i = 0; i < frentes.size(); i++) {
+            Map<String, Object> dataPoint = new HashMap<>();
+            dataPoint.put("frente", frentes.get(i));
+            dataPoint.put("votos", datos.get(i));
+            dataPoint.put("color", colores.get(i % colores.size()));
+            chartData.add(dataPoint);
+        }
+
+        // Crear la respuesta JSON
+        Map<String, Object> response = new HashMap<>();
+        response.put("html", htmlTabla.toString()); // HTML de la tabla generado
+        response.put("chartData", chartData); // Datos para el gráfico
+        response.put("totalHabilitados", Integer.parseInt(resultado[5].toString())); // Total de Habilitados
+
+        return ResponseEntity.ok(response); // Devuelve la respuesta como JSON
+    }
+
+    @PostMapping("/cargarDatosCarrera/{id_carrera}")
+    public ResponseEntity<Map<String, Object>> cargarDatosCarrera(@PathVariable("id_carrera")Long id_carrera) {
+
+        // Generación de los datos
+        Object[] resultado = (Object[]) anforaService.votosGeneralCarrera(id_carrera);
         List<Integer> datos = Arrays.asList(Integer.parseInt(resultado[2].toString()));
         List<String> frentes = new ArrayList<>();
         for (Frente f : frenteService.findAll()) {

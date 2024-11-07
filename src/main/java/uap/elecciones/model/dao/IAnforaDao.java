@@ -99,4 +99,25 @@ public interface IAnforaDao extends CrudRepository<Anfora, Long> {
         """, nativeQuery = true)
         public Object votosGeneralFacultad(@Param("idFacultad") Long idFacultad, @Param("sigla") String sigla , @Param("esNulo")Boolean esNulo);
 
+
+        @Query(value = """
+                select
+                sum(a.cant_voto_nulo) as total_voto_nulo,
+        sum(a.cant_voto_blanco) as total_voto_blanco,
+        sum(a.cant_voto_valido) as total_voto_valido,
+        sum(a.cant_voto_habilitado) as total_voto_habilitado,
+        sum(a.cant_voto_emitido) as total_voto_emitido,
+        (select count(ah.id_asignacion_habilitado)
+                from asignacion_habilitado ah 
+                left join mesa m2 on ah.id_mesa = m2.id_mesa 
+                left join votante_habilitado vh on vh.id_votante_habilitado = ah.id_votante_habilitado
+                left join estudiante e on e.id_estudiante = vh.id_estudiante
+                left join carrera_estudiante ce on ce.id_estudiante = e.id_estudiante
+                left join carrera c2 on c2.id_carrera = ce.id_carrera
+                where vh.id_estudiante is not null and c2.id_carrera = :id_carrera) as total_habilitado
+        from anfora a, mesa m, carrera c 
+        where a.id_mesa = m.id_mesa and m.id_carrera = c.id_carrera 
+        and c.id_carrera = :id_carrera
+        """,nativeQuery = true)
+        public Object votosGeneralCarrera(@Param("id_carrera")Long id_carrera);
 }

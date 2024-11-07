@@ -86,7 +86,8 @@
                             <label for="nombre">Estudiante / Docente :</label>
                             <select class="js-example-basic-single" name="sigla" id="sigla" style="width: 100%;"
                                 onchange="cargarTablaEstDoc()">
-                                <option value="E" selected>Estudiante</option>
+                                <option value="" selected></option>
+                                <option value="E">Estudiante</option>
                                 <option value="D">Docente</option>
                             </select>
                         </div>
@@ -127,7 +128,7 @@
                             </div>
                         </div>
 
-                        <h2 class="text-center">Distribución de Votos por Frente</h2>
+                        <h2 class="text-center">Distribución de Votos</h2>
                         <div id="chart3" style="width: 100%; height: 500px;"></div>
                     </div>
                     <div class="col-md-5">
@@ -158,17 +159,18 @@
                                 <div class="form-group">
                                     <label for="nombre">Carrera:</label>
                                     <select class="js-example-basic-single" name="lcarreras" id="lcarreras"
-                                        style="width: 100%;">
+                                        style="width: 100%;" onchange="cargarTablaCarrera()">
                                         <option value="" selected></option>
                                     </select>
                                 </div>
                             </div>
                         </div>
 
-                        <h2 class="text-center">Distribución de Votos por Frente</h2>
+                        <h2 class="text-center">Distribución de Votos</h2>
                         <div id="chart4" style="width: 100%; height: 500px;"></div>
                     </div>
                     <div class="col-md-5">
+                        <div id="tablaCarrera"></div>
 
                     </div>
                 </div>
@@ -213,7 +215,6 @@
             $('.js-example-basic-single').select2({
                 placeholder: "Seleccione..."
             });
-            cargarTablaEstDoc();
             cargarTablaPorMesa($('#tabla_resultado_mesa').val());
         });
         function cargarTablaPorMesa(idMesa) {
@@ -278,13 +279,29 @@
             const id_facultad = $('#facultades').val();
             const sigla = $('#siglaf').val();
             const isnull = (sigla === "D");
-
+            
             $.ajax({
                 type: 'POST',
                 url: "/cargarDatosFacultad/" + id_facultad + "/" + sigla + "/" + isnull,  // Ruta del metodo del controlador en Spring Boot
                 success: function (response) {
                     updateChart(response.chartData, response.totalHabilitados);
                     $("#tablaFacultad").html(response.html);
+                }, error: function (xhr, status, error) {
+                    console.error('Hubo un problema con la solicitud AJAX:', status, error);
+                }
+            });
+        }
+
+        function cargarTablaCarrera() {
+
+            const id_carrera = $('#lcarreras').val();
+
+            $.ajax({
+                type: 'POST',
+                url: "/cargarDatosCarrera/" + id_carrera ,  // Ruta del metodo del controlador en Spring Boot
+                success: function (response) {
+                    updateChart(response.chartData, response.totalHabilitados);
+                    $("#tablaCarrera").html(response.html);
                 }, error: function (xhr, status, error) {
                     console.error('Hubo un problema con la solicitud AJAX:', status, error);
                 }
