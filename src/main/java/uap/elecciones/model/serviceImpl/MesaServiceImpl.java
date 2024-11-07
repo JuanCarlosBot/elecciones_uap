@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.IMesaDao;
-import uap.elecciones.model.entity.Facultad;
 import uap.elecciones.model.entity.Mesa;
 import uap.elecciones.model.service.IMesaService;
 
@@ -81,6 +80,10 @@ public class MesaServiceImpl implements IMesaService{
         return mesas;
     }
 
+    @Override
+    public Object listarMesasyActas(Long idMesa) {
+        return mesaDao.listarMesasyActas(idMesa);
+    }
     
     
 }

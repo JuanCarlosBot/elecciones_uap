@@ -39,6 +39,10 @@
                 <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#carrera" role="tab"
                     aria-controls="carrera" aria-selected="false">Carrera</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#mesa" role="tab" aria-controls="carrera"
+                                aria-selected="false">Mesa</a>
+            </li>
 
         </ul>
 
@@ -187,6 +191,28 @@
                 </div>
 
             </div>
+
+            <!-- Pestaña de Mesa -->
+            <div class="tab-pane fade" id="mesa" role="tabpanel" aria-labelledby="facultad-mesa">
+                <div class="row mt-4">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="nombre">Mesa:</label>
+                            <select class="js-example-basic-single" style="width: 100%;"
+                                onchange="cargarTablaPorMesa(this.value)" id="tabla_resultado_mesa">
+                                <option value="" selected></option>
+                                <option th:each="m : ${mesas}" th:value="${m.id_mesa}"
+                                    th:if="${m.estado == 'COMPLETADO'}" th:text="${m.nombre_mesa}">Alabama</option>
+                            </select>
+                        </div>
+                        <h2 class="text-center">ACTA ELECTORAL POR MESA</h2>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div id="tablaRegistros"></div>
+                    </div>
+                </div>
+            </div>
         </div>
 
 
@@ -205,7 +231,17 @@
                 placeholder: "Seleccione..."
             });
             cargarTablaEstDoc();
+            cargarTablaPorMesa($('#tabla_resultado_mesa').val());
         });
+        function cargarTablaPorMesa(idMesa) {
+            $.ajax({
+                type: 'POST',
+                url: "/tabla-mesa/" + idMesa,  // Ruta del metodo del controlador en Spring Boot
+                success: function (response) {
+                    $("#tablaRegistros").html(response);  // Actualiza el contenido del div con la respuesta del servidor
+                }
+            });
+        }
     </script>
 
     <script>
