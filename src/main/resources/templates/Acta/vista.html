@@ -462,8 +462,12 @@
     </script>
 
     <div th:replace="Layout/layout :: scripts"></div>
-
+    <script th:if="${edit == null}">
+        $('.select2').empty();
+    </script>
     <script>
+        
+
         $(".select2").select2({
             placeholder: "Seleccione Nro de Mesa...",
             allowClear: true

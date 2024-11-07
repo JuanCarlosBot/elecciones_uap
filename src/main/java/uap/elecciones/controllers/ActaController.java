@@ -104,7 +104,7 @@ public class ActaController {
         Acta acta = actaService.findOne(a.getId_acta());
 
         if (request.getSession().getAttribute("usuario") != null) {
-            if (actaService.actaPorIdMesa2(acta.getMesa().getId_mesa(), acta.getId_acta()) == null) {
+            if (actaService.actaPorIdMesa2(acta.getMesa().getId_mesa(), a.getMesa().getId_mesa()) == null) {
                 if (archivo != null && !archivo.isEmpty() && !archivo.getOriginalFilename().isEmpty()) {
                     // Guardar la ruta y tipo de archivo solo si se envió un archivo válido
                     acta.setRutaArchivo(utilidadService.guardarArchivo(archivo));
