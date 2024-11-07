@@ -65,4 +65,38 @@ public interface IAnforaDao extends CrudRepository<Anfora, Long> {
         where m.estado = 'COMPLETADO'""", nativeQuery = true)
         public Object votosGeneral();
 
+        @Query(value = """
+        select
+        sum(a.cant_voto_nulo) as total_voto_nulo,
+        sum(a.cant_voto_blanco) as total_voto_blanco,
+        sum(a.cant_voto_valido) as total_voto_valido,
+        sum(a.cant_voto_habilitado) as total_voto_habilitado,
+        sum(a.cant_voto_emitido) as total_voto_emitido,
+        COALESCE((
+                select count(ah.id_asignacion_habilitado)
+                from asignacion_habilitado ah 
+                left join mesa m2 on ah.id_mesa = m2.id_mesa 
+                left join votante_habilitado vh on vh.id_votante_habilitado = ah.id_votante_habilitado
+                left join estudiante e on e.id_estudiante = vh.id_estudiante
+                left join docente d on d.id_docente = vh.id_docente
+                left join carrera_estudiante ce on ce.id_estudiante = e.id_estudiante 
+                left join carrera c_estudiante on c_estudiante.id_carrera = ce.id_carrera 
+                left join carrera_docente cd on cd.id_docente = d.id_docente 
+                left join carrera c_docente on c_docente.id_carrera = cd.id_carrera 
+                where 
+                (c_estudiante.id_facultad = :idFacultad or c_docente.id_facultad = :idFacultad)
+                and (
+                        (:esNulo = true and vh.id_estudiante is null) 
+                        or 
+                        (:esNulo = false and vh.id_estudiante is not null)
+                )
+        ), 0) as total_habilitado
+        from anfora a
+        inner join mesa m on a.id_mesa = m.id_mesa
+        inner join facultad f on m.if_facultad = f.id_facultad
+        where f.id_facultad = :idFacultad 
+        and m.nombre_mesa like concat('%', :sigla, '%');
+        """, nativeQuery = true)
+        public Object votosGeneralFacultad(@Param("idFacultad") Long idFacultad, @Param("sigla") String sigla , @Param("esNulo")Boolean esNulo);
+
 }

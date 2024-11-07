@@ -25,5 +25,6 @@ public interface IAnforaService {
 
 	public Object votosGeneral();
 
+	public Object votosGeneralFacultad(@Param("idFacultad") Long idFacultad, @Param("sigla") String sigla , @Param("esNulo")Boolean esNulo);
 
 }

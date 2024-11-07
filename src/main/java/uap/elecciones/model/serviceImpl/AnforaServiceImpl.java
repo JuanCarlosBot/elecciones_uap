@@ -58,4 +58,12 @@ public class AnforaServiceImpl implements IAnforaService{
         return anforaDao.votosGenerales(esNulo, nombreMesa);
     }
 
+    @Override
+    public Object votosGeneralFacultad(Long idFacultad, String sigla, Boolean esNulo) {
+        // TODO Auto-generated method stub
+        return anforaDao.votosGeneralFacultad(idFacultad, sigla, esNulo);
+    }
+
+    
+
 }
