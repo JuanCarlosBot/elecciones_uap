@@ -31,17 +31,24 @@ public interface IAnforaDao extends CrudRepository<Anfora, Long> {
         Object mesaPorFacultad(Long idMesa);
 
         @Query(value = """
-        select
-        sum(a.cant_voto_nulo) as total_voto_nulo,
-        sum(a.cant_voto_blanco) as total_voto_blanco,
-        sum(a.cant_voto_valido) as total_voto_valido,
-        sum(a.cant_voto_habilitado) as total_voto_habilitado,
-        sum(a.cant_voto_emitido) as total_voto_emitido
+        select 
+                sum(a.cant_voto_nulo) as total_voto_nulo,
+                sum(a.cant_voto_blanco) as total_voto_blanco,
+                sum(a.cant_voto_valido) as total_voto_valido,
+                sum(a.cant_voto_habilitado) as total_voto_habilitado,
+                sum(a.cant_voto_emitido) as total_voto_emitido,
+                (select count(ah.id_asignacion_habilitado)
+                from asignacion_habilitado ah 
+                left join mesa m2 on ah.id_mesa = m2.id_mesa 
+                left join votante_habilitado vh on vh.id_votante_habilitado = ah.id_votante_habilitado
+                where (vh.id_estudiante is null and :esNulo = true) 
+                or (vh.id_estudiante is not null and :esNulo = false)) as total_habilitado
         from anfora a
         join mesa m on a.id_mesa = m.id_mesa
-        where m.nombre_mesa like CONCAT('%', :mesa, '%')
+        where m.nombre_mesa like concat('%', :nombreMesa, '%')
         """, nativeQuery = true)
-        public Object votosGenerales(@Param("mesa") String mesa);
+        public Object votosGenerales(@Param("esNulo") boolean esNulo, @Param("nombreMesa") String nombreMesa);
+
 
         @Query(value = """
         select 

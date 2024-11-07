@@ -45,16 +45,17 @@ public class AnforaServiceImpl implements IAnforaService{
       return anforaDao.mesaPorFacultad(idMesa);
     }
 
-    @Override
-    public Object votosGenerales(String mesa) {
-        // TODO Auto-generated method stub
-        return anforaDao.votosGenerales(mesa);
-    }
-
+   
     @Override
     public Object votosGeneral() {
         // TODO Auto-generated method stub
         return anforaDao.votosGeneral();
+    }
+
+    @Override
+    public Object votosGenerales(boolean esNulo, String nombreMesa) {
+        // TODO Auto-generated method stub
+        return anforaDao.votosGenerales(esNulo, nombreMesa);
     }
 
 }

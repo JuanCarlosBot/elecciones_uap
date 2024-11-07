@@ -28,6 +28,10 @@
                     aria-controls="resultados" aria-selected="true">General</a>
             </li>
             <li class="nav-item">
+                <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#estDoc" role="tab" aria-controls="estDoc"
+                    aria-selected="false">Estudiantes / Docentes</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#facultad" role="tab"
                     aria-controls="facultad" aria-selected="false">Facultad</a>
             </li>
@@ -35,7 +39,7 @@
                 <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#carrera" role="tab"
                     aria-controls="carrera" aria-selected="false">Carrera</a>
             </li>
-          
+
         </ul>
 
         <!-- Contenido de las pestañas -->
@@ -72,7 +76,25 @@
                 </div>
             </div>
 
-            <!-- Pestaña de Consulta -->
+            <div class="tab-pane fade" id="estDoc" role="tabpanel" aria-labelledby="estDoc-tab">
+                <div class="row mt-4">
+                    <div class="col-md-7">
+                        <div class="form-group">
+                            <label for="nombre">Estudiante / Docente :</label>
+                            <select class="js-example-basic-single" name="sigla" id="sigla" style="width: 100%;"
+                                onchange="cargarTablaEstDoc()">
+                                <option value="E" selected>Estudiante</option>
+                                <option value="D">Docente</option>
+                            </select>
+                        </div>
+                        <h2 class="text-center">Distribución de Votos</h2>
+                        <div id="chart2" style="width: 100%; height: 500px;"></div>
+                    </div>
+                    <div class="col-md-5">
+                        <div id="tablaEstDoc"></div>
+                    </div>
+                </div>
+            </div>
             <div class="tab-pane fade" id="facultad" role="tabpanel" aria-labelledby="facultad-tab">
                 <div class="row mt-4">
                     <div class="col-md-7">
@@ -86,7 +108,7 @@
                             </select>
                         </div>
                         <h2 class="text-center">Distribución de Votos por Frente</h2>
-                        <div id="chart2" style="width: 100%; height: 500px;"></div>
+                        <div id="chart3" style="width: 100%; height: 500px;"></div>
                     </div>
                     <div class="col-md-5">
                         <br>
@@ -109,7 +131,7 @@
                         </table>
                     </div>
                 </div>
-               
+
             </div>
             <div class="tab-pane fade" id="carrera" role="tabpanel" aria-labelledby="carrera-tab">
                 <div class="row mt-4">
@@ -140,7 +162,7 @@
                         </div>
 
                         <h2 class="text-center">Distribución de Votos por Frente</h2>
-                        <div id="chart3" style="width: 100%; height: 500px;"></div>
+                        <div id="chart4" style="width: 100%; height: 500px;"></div>
                     </div>
                     <div class="col-md-5">
                         <br>
@@ -163,7 +185,7 @@
                         </table>
                     </div>
                 </div>
-               
+
             </div>
         </div>
 
@@ -182,10 +204,11 @@
             $('.js-example-basic-single').select2({
                 placeholder: "Seleccione..."
             });
+            cargarTablaEstDoc();
         });
     </script>
 
-    <script >
+    <script>
 
         function listarCarreras() {
 
@@ -212,6 +235,58 @@
                 }
             });
 
+        }
+
+        function cargarTablaEstDoc() {
+
+            const sigla = $('#sigla').val();
+            const isnull = (sigla === "D");
+
+            $.ajax({
+                type: 'POST',
+                url: "/cargarDatosEstDoc/" + sigla + "/" + isnull,  // Ruta del metodo del controlador en Spring Boot
+                success: function (response) {
+                    updateChart(response.chartData , response.totalHabilitados);
+                    $("#tablaEstDoc").html(response.html);
+                }, error: function (xhr, status, error) {
+                    console.error('Hubo un problema con la solicitud AJAX:', status, error);
+                }
+            });
+        }
+
+        function updateChart(chartData , totalHabilitados) {
+            const data = new google.visualization.DataTable();
+            data.addColumn('string', 'Frente');
+            data.addColumn('number', 'Votos');
+            data.addColumn({ type: 'string', role: 'style' });
+            data.addColumn({ type: 'string', role: 'annotation' });
+
+            // Agrega los datos recibidos al DataTable de Google Charts
+            chartData.forEach(item => {
+                data.addRow([item.frente, item.votos, item.color, item.votos.toString()]);
+            });
+
+             // Generar ticks del 0% al 100% en incrementos de 10%
+            const ticks = [];
+            for (let i = 0; i <= 10; i++) {
+                const valor = (totalHabilitados / 10) * i; // calcular cada 10%
+                ticks.push({ v: valor, f: `${i * 10}%` }); // { v: valor, f: '10%' }
+            }
+
+            const options = {
+                title: 'Distribución de Votos por Frente',
+                bars: 'horizontal',
+                hAxis: {
+                    title: 'Votos',
+                    minValue: 0,
+                    maxValue: totalHabilitados,
+                    ticks: ticks, // Añadir los ticks calculados
+                },
+                legend: { position: 'none' }
+            };
+
+            const chart = new google.visualization.BarChart(document.getElementById('chart2'));
+            chart.draw(data, options);
         }
 
     </script>
@@ -264,6 +339,62 @@
 
         window.addEventListener('resize', () => { drawChart(); });
     </script>
+
+    <!-- <script type="text/javascript" th:inline="javascript">
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(initializeChart);
+
+        function initializeChart() {
+            drawChart('general');  // Dibuja el gráfico inicial para el tab "General"
+        }
+
+        function drawChart() {
+            const datos = /*[[${datos}]]*/[];
+            const frentes = /*[[${frentes}]]*/[];
+            const colores = /*[[${colores}]]*/[];
+
+            console.log( "Datos :"+ datos);
+            console.log( "Frente :"+ frentes);
+            console.log( "Colores :"+ colores);
+            const chartData = [
+                ['Frente', 'Votos', { role: 'style' }, { role: 'annotation' }]
+            ];
+            for (let i = 0; i < frentes.length; i++) {
+                chartData.push([frentes[i], datos[i], colores[i], datos[i].toString()]);
+            }
+
+            const data = google.visualization.arrayToDataTable(chartData);
+
+            const options = {
+                title: 'Distribución de Votos por Frente',
+                bars: 'horizontal',
+                hAxis: {
+                    title: 'Votos',
+                    minValue: 0,
+                    maxValue: 9107,
+                    ticks: [
+                        { v: 0, f: '0%' },
+                        { v: 910.7, f: '10%' },
+                        { v: 1821.4, f: '20%' },
+                        { v: 2732.1, f: '30%' },
+                        { v: 3642.8, f: '40%' },
+                        { v: 4553.5, f: '50%' },
+                        { v: 5464.2, f: '60%' },
+                        { v: 6374.9, f: '70%' },
+                        { v: 7285.6, f: '80%' },
+                        { v: 8196.3, f: '90%' },
+                        { v: 9107, f: '100%' }
+                    ]
+                },
+                legend: { position: 'none' }
+            };
+
+            const chart = new google.visualization.BarChart(document.getElementById('chart2'));
+            chart.draw(data, options);
+        }
+
+        window.addEventListener('resize', () => { drawChart(); });
+    </script> -->
 
 </body>
 

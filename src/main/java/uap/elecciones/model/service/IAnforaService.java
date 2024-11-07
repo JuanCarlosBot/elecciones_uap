@@ -21,7 +21,7 @@ public interface IAnforaService {
 
 	public Object mesaPorFacultad(Long idMesa);
 
-	public Object votosGenerales(@Param("mesa") String mesa);
+	public Object votosGenerales(@Param("esNulo") boolean esNulo, @Param("nombreMesa") String nombreMesa);
 
 	public Object votosGeneral();
 
