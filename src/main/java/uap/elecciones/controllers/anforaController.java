@@ -86,6 +86,7 @@ public class anforaController {
 
             model.addAttribute("anfora", new Anfora());
             model.addAttribute("mesas", mesas);
+            model.addAttribute("anforas", anforaService.findAll());
             model.addAttribute("niveles", niveles);
 
             return "Anfora/anfora_vista";
