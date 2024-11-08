@@ -168,7 +168,7 @@ public class chartController {
             htmlTabla.append("<tr>");
             htmlTabla.append("<td>").append(frentesTabla.get(i)).append("</td>");
             htmlTabla.append("<td>").append(datosTabla.get(i)).append("</td>");
-            htmlTabla.append("<td>").append(porcentajes.get(i)).append("</td>");
+            htmlTabla.append("<td>").append(porcentajes.get(i)+" %").append("</td>");
             htmlTabla.append("</tr>");
         }
 
@@ -240,7 +240,7 @@ public class chartController {
             htmlTabla.append("<tr>");
             htmlTabla.append("<td>").append(frentesTabla.get(i)).append("</td>");
             htmlTabla.append("<td>").append(datosTabla.get(i)).append("</td>");
-            htmlTabla.append("<td>").append(porcentajes.get(i)).append("</td>");
+            htmlTabla.append("<td>").append(porcentajes.get(i)+" %").append("</td>");
             htmlTabla.append("</tr>");
         }
 
@@ -310,7 +310,7 @@ public class chartController {
             htmlTabla.append("<tr>");
             htmlTabla.append("<td>").append(frentesTabla.get(i)).append("</td>");
             htmlTabla.append("<td>").append(datosTabla.get(i)).append("</td>");
-            htmlTabla.append("<td>").append(porcentajes.get(i)).append("</td>");
+            htmlTabla.append("<td>").append(porcentajes.get(i)+" %").append("</td>");
             htmlTabla.append("</tr>");
         }
 

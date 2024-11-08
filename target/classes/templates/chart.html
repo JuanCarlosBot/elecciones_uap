@@ -114,7 +114,7 @@
                                 <tr th:each="dato, iterStat : ${datosTabla}">
                                     <td th:text="${frentesTabla[iterStat.index]}"></td>
                                     <td th:text="${dato}"></td>
-                                    <td th:text="${porcentajes[iterStat.index]}"></td>
+                                    <td th:text="${porcentajes[iterStat.index]+' %'}"></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -373,7 +373,7 @@
             }
 
             const options = {
-                title: 'Distribución de Votos por Frente',
+                title: 'Distribución de Votos',
                 bars: 'horizontal',
                 hAxis: {
                     title: 'Votos',
@@ -427,7 +427,7 @@
             const data = google.visualization.arrayToDataTable(chartData);
 
             const options = {
-                title: 'Distribución de Votos por Frente',
+                title: 'Distribución de Votos',
                 bars: 'horizontal',
                 hAxis: {
                     title: 'Votos',
