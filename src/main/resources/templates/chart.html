@@ -13,7 +13,7 @@
             padding: 10vh;
             /* Reduce los bordes en todos los lados */
             padding-top: 2vh;
-            background-color: azure;
+            background-color: aliceblue;
         }
 
         .header-container {
@@ -98,11 +98,12 @@
                     <div class="col-md-7">
 
                         <h2 class="text-center">Distribución de Votos</h2>
-                        <div id="chart" style="width: 100%; height: 500px;"></div>
+                        <div id="chart" style="width: 100%; height: 400px;"></div>
                     </div>
                     <div class="col-md-5">
-                        <br>
-                        <h3 class="text-center">Tabla de Resultados</h3>
+                        <div id="tablaGeneralDoc"></div>
+                        <!-- <br>
+                        <h3 class="text-center">Tabla de Resultados (Estudiantes)</h3>
                         <table class="table table-striped">
                             <thead>
                                 <tr>
@@ -118,7 +119,36 @@
                                     <td th:text="${porcentajes[iterStat.index]+' %'}"></td>
                                 </tr>
                             </tbody>
-                        </table>
+                        </table> -->
+                    </div>
+                </div>
+                <br>
+                <div class="row mt-4">
+                    <div class="col-md-7">
+
+                        <h2 class="text-center">Distribución de Votos</h2>
+                        <div id="chart5" style="width: 100%; height: 400px;"></div>
+                    </div>
+                    <div class="col-md-5">
+                        <div id="tablaGeneralEst"></div>
+                        <!-- <br>
+                        <h3 class="text-center">Tabla de Resultados (Docentes)</h3>
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Frente</th>
+                                    <th>Votos</th>
+                                    <th>%</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr th:each="dato, iterStat : ${datosTabla}">
+                                    <td th:text="${frentesTabla[iterStat.index]}"></td>
+                                    <td th:text="${dato}"></td>
+                                    <td th:text="${porcentajes[iterStat.index]+' %'}"></td>
+                                </tr>
+                            </tbody>
+                        </table> -->
                     </div>
                 </div>
             </div>
@@ -136,7 +166,7 @@
                             </select>
                         </div>
                         <h2 class="text-center">Distribución de Votos</h2>
-                        <div id="chart2" style="width: 100%; height: 500px;"></div>
+                        <div id="chart2" style="width: 100%; height: 400px;"></div>
                     </div>
                     <div class="col-md-5">
                         <div id="tablaEstDoc"></div>
@@ -173,7 +203,7 @@
                         </div>
 
                         <h2 class="text-center">Distribución de Votos</h2>
-                        <div id="chart3" style="width: 100%; height: 500px;"></div>
+                        <div id="chart3" style="width: 100%; height: 400px;"></div>
                     </div>
                     <div class="col-md-5">
                         <div id="tablaFacultad"></div>
@@ -204,14 +234,14 @@
                                     <label for="nombre">Carrera:</label>
                                     <select class="js-example-basic-single" name="lcarreras" id="lcarreras"
                                         style="width: 100%;" onchange="cargarTablaCarrera()">
-                                        <option value="" ></option>
+                                        <option value=""></option>
                                     </select>
                                 </div>
                             </div>
                         </div>
 
                         <h2 class="text-center">Distribución de Votos</h2>
-                        <div id="chart4" style="width: 100%; height: 500px;"></div>
+                        <div id="chart4" style="width: 100%; height: 400px;"></div>
                     </div>
                     <div class="col-md-5">
                         <div id="tablaCarrera"></div>
@@ -260,7 +290,7 @@
             $('.js-example-basic-single').select2({
                 placeholder: "Seleccione..."
             });
-
+            cargarTablaGeneral();
             cargarTablaPorMesa($('#tabla_resultado_mesa').val());
         });
         function cargarTablaPorMesa(idMesa) {
@@ -308,6 +338,25 @@
 
         }
 
+        function cargarTablaGeneral() {
+            $.ajax({
+                type: 'POST',
+                url: "/cargarGeneral",
+                contentType: "application/json",
+                data: JSON.stringify({}),  // Enviar un cuerpo vacío
+                success: function (response) {
+                    updateChart(response.chartDataDoc, response.totalHabilitadosDoc, 'chart');
+                    updateChart(response.chartDataEst, response.totalHabilitadosEst, 'chart5');
+                    $("#tablaGeneralDoc").html(response.htmlDoc);
+                    $("#tablaGeneralEst").html(response.htmlEst);
+                },
+                error: function (xhr, status, error) {
+                    console.error('Hubo un problema con la solicitud AJAX:', status, error);
+                }
+            });
+        }
+
+
         function cargarTablaEstDoc() {
 
             const sigla = $('#sigla').val();
@@ -317,7 +366,7 @@
                 type: 'POST',
                 url: "/cargarDatosEstDoc/" + sigla + "/" + isnull,  // Ruta del metodo del controlador en Spring Boot
                 success: function (response) {
-                    updateChart(response.chartData, response.totalHabilitados);
+                    updateChart(response.chartData, response.totalHabilitados, 'chart2');
                     $("#tablaEstDoc").html(response.html);
                 }, error: function (xhr, status, error) {
                     console.error('Hubo un problema con la solicitud AJAX:', status, error);
@@ -335,7 +384,7 @@
                 type: 'POST',
                 url: "/cargarDatosFacultad/" + id_facultad + "/" + sigla + "/" + isnull,  // Ruta del metodo del controlador en Spring Boot
                 success: function (response) {
-                    updateChart(response.chartData, response.totalHabilitados);
+                    updateChart(response.chartData, response.totalHabilitados, 'chart3');
                     $("#tablaFacultad").html(response.html);
                 }, error: function (xhr, status, error) {
                     console.error('Hubo un problema con la solicitud AJAX:', status, error);
@@ -351,7 +400,7 @@
                 type: 'POST',
                 url: "/cargarDatosCarrera/" + id_carrera,  // Ruta del metodo del controlador en Spring Boot
                 success: function (response) {
-                    updateChart(response.chartData, response.totalHabilitados);
+                    updateChart(response.chartData, response.totalHabilitados, 'chart4');
                     $("#tablaCarrera").html(response.html);
                 }, error: function (xhr, status, error) {
                     console.error('Hubo un problema con la solicitud AJAX:', status, error);
@@ -359,7 +408,7 @@
             });
         }
 
-        function updateChart(chartData, totalHabilitados) {
+        function updateChart(chartData, totalHabilitados, chartId) {
             const data = new google.visualization.DataTable();
             data.addColumn('string', 'Frente');
             data.addColumn('number', 'Votos');
@@ -375,7 +424,7 @@
             const ticks = [];
             for (let i = 0; i <= 10; i++) {
                 const valor = (totalHabilitados / 10) * i; // Calcular cada 10%
-                ticks.push({ v: valor, f: `${i * 10}%` }); // { v: valor, f: '10%' }
+                ticks.push({ v: valor, f: `${i * 10}%` });
             }
 
             const options = {
@@ -385,25 +434,10 @@
                     title: 'Votos',
                     minValue: 0,
                     maxValue: totalHabilitados,
-                    ticks: ticks, // Añadir los ticks calculados
+                    ticks: ticks,
                 },
                 legend: { position: 'none' }
             };
-
-            // Obtener la pestaña activa
-            var tabActiva = document.querySelector('.tab-pane.active');
-
-            // Determinar el ID del div para el gráfico según la pestaña activa
-            var chartId = '';
-            if (tabActiva) {
-                if (tabActiva.id === 'estDoc') {
-                    chartId = 'chart2';  // Gráfico en la pestaña de Estudiantes/Docentes
-                } else if (tabActiva.id === 'facultad') {
-                    chartId = 'chart3';  // Gráfico en la pestaña de Facultades
-                } else if (tabActiva.id === 'carrera') {
-                    chartId = 'chart4';  // Gráfico en la pestaña de Carreras
-                }
-            }
 
             // Generar el gráfico en el div correspondiente
             if (chartId) {
