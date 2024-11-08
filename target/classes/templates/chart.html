@@ -215,7 +215,7 @@
             $('.js-example-basic-single').select2({
                 placeholder: "Seleccione..."
             });
-            
+
             cargarTablaPorMesa($('#tabla_resultado_mesa').val());
         });
         function cargarTablaPorMesa(idMesa) {
@@ -412,62 +412,6 @@
 
         window.addEventListener('resize', () => { drawChart(); });
     </script>
-
-    <!-- <script type="text/javascript" th:inline="javascript">
-        google.charts.load('current', { 'packages': ['corechart'] });
-        google.charts.setOnLoadCallback(initializeChart);
-
-        function initializeChart() {
-            drawChart('general');  // Dibuja el gráfico inicial para el tab "General"
-        }
-
-        function drawChart() {
-            const datos = /*[[${datos}]]*/[];
-            const frentes = /*[[${frentes}]]*/[];
-            const colores = /*[[${colores}]]*/[];
-
-            console.log( "Datos :"+ datos);
-            console.log( "Frente :"+ frentes);
-            console.log( "Colores :"+ colores);
-            const chartData = [
-                ['Frente', 'Votos', { role: 'style' }, { role: 'annotation' }]
-            ];
-            for (let i = 0; i < frentes.length; i++) {
-                chartData.push([frentes[i], datos[i], colores[i], datos[i].toString()]);
-            }
-
-            const data = google.visualization.arrayToDataTable(chartData);
-
-            const options = {
-                title: 'Distribución de Votos por Frente',
-                bars: 'horizontal',
-                hAxis: {
-                    title: 'Votos',
-                    minValue: 0,
-                    maxValue: 9107,
-                    ticks: [
-                        { v: 0, f: '0%' },
-                        { v: 910.7, f: '10%' },
-                        { v: 1821.4, f: '20%' },
-                        { v: 2732.1, f: '30%' },
-                        { v: 3642.8, f: '40%' },
-                        { v: 4553.5, f: '50%' },
-                        { v: 5464.2, f: '60%' },
-                        { v: 6374.9, f: '70%' },
-                        { v: 7285.6, f: '80%' },
-                        { v: 8196.3, f: '90%' },
-                        { v: 9107, f: '100%' }
-                    ]
-                },
-                legend: { position: 'none' }
-            };
-
-            const chart = new google.visualization.BarChart(document.getElementById('chart2'));
-            chart.draw(data, options);
-        }
-
-        window.addEventListener('resize', () => { drawChart(); });
-    </script> -->
 
 </body>
 
