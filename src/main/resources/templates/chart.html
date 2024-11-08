@@ -14,11 +14,50 @@
             /* Reduce los bordes en todos los lados */
             padding-top: 2vh;
         }
+
+        .header-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .header-logo {
+            width: 100px;
+        }
+
+        h1.text-center {
+            font-family: 'Anton', sans-serif;
+            font-weight: bold;
+        }
+
+        .header-text h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+            border-top: 1px solid #ddd;
+            color: #777;
+            font-size: 0.9rem;
+        }
     </style>
 </head>
 
 <body>
 
+    <div class="header-container">
+        <img src="/img/logo/LOGO_UAP_NEGRO.webp" alt="Logo UAP Izquierda" class="header-logo">
+        <div class="header-text">
+            <h1 class="text-center">ELECCIÓN RECTOR-VICERECTOR 2025-2029</h1>
+            <h1 class="text-center">UNIVERSIDAD AMAZÓNICA DE PANDO</h1>
+        </div>
+        <img src="/img/logo/logoUsic1.png" alt="Logo UAP Derecha" class="header-logo">
+    </div>
     <div class="mt-5">
         <!-- <div>horizontal</div> -->
         <!-- Tabs de navegación -->
@@ -199,9 +238,10 @@
                 </div>
             </div>
         </div>
-
-
     </div>
+    <footer>
+        <p>&copy; 2024 Universidad Amazónica de Pando. Todos los derechos reservados.</p>
+    </footer>
 
     <!-- Scripts de Google Charts y Bootstrap -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
@@ -280,7 +320,7 @@
             const id_facultad = $('#facultades').val();
             const sigla = $('#siglaf').val();
             const isnull = (sigla === "D");
-            
+
             $.ajax({
                 type: 'POST',
                 url: "/cargarDatosFacultad/" + id_facultad + "/" + sigla + "/" + isnull,  // Ruta del metodo del controlador en Spring Boot
@@ -299,7 +339,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "/cargarDatosCarrera/" + id_carrera ,  // Ruta del metodo del controlador en Spring Boot
+                url: "/cargarDatosCarrera/" + id_carrera,  // Ruta del metodo del controlador en Spring Boot
                 success: function (response) {
                     updateChart(response.chartData, response.totalHabilitados);
                     $("#tablaCarrera").html(response.html);
