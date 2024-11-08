@@ -184,6 +184,7 @@ public class delegadoController {
             DelegadoDto dD = new DelegadoDto();
             dD.setNombre_tipo_delegado((String) delegad[7]);
             dD.setApellidos((String) delegad[4]);
+            dD.setTipo_persona((String)delegad[3]);
             delegadoDto.add(dD);
         }
         // Obtener la lista de votantes y mapear a DTOs
@@ -197,6 +198,14 @@ public class delegadoController {
             votantesDto.add(dD);
         }
         Mesa mesaa = mesaService.findOne(idMesa);
+        System.out.println("tipoooooooo  "+mesaa.getNombre_mesa().charAt(mesaa.getNombre_mesa().length()-1));
+        String tipo = ""+mesaa.getNombre_mesa().charAt(mesaa.getNombre_mesa().length()-1);
+        String RDRU="";
+        if (tipo.equals("D")) {
+            RDRU="RD";
+        }else if (tipo.equals("E")) {
+            RDRU="RU";
+        }
         try {
             PdfWriter writer = PdfWriter.getInstance(document, outputStream);
 
@@ -262,7 +271,7 @@ public class delegadoController {
                 table.setSpacingBefore(20f);
 
                 // Encabezados de la tabla
-                String[] headers = { "Nro", "Facultad", "Carrera", "R.D/R.U", "Apellidos y Nombres", "Firma" };
+                String[] headers = { "Nro", "Facultad", "Carrera", RDRU, "Apellidos y Nombres", "Firma" };
                 for (String header : headers) {
                     PdfPCell cell = new PdfPCell(new Phrase(header, negrita));
                     cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
