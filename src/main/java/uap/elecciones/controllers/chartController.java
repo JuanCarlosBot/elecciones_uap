@@ -110,7 +110,7 @@ public class chartController {
     }
 
     @PostMapping("/cargarCarreras/{id_facultad}")
-    public ResponseEntity<List<String[]>> cargarCarreras(@PathVariable("id_facultad") Long id_facultad) {
+    public ResponseEntity<List<String[]>> cargarCarreras(@PathVariable(name = "id_facultad",required = false) Long id_facultad) {
 
         List<String[]> listaCarrera = new ArrayList<>();
         List<Carrera> carreras = carreraService.listaCarrerasPorFacultad(id_facultad);
@@ -267,7 +267,7 @@ public class chartController {
     }
 
     @PostMapping("/cargarDatosCarrera/{id_carrera}")
-    public ResponseEntity<Map<String, Object>> cargarDatosCarrera(@PathVariable("id_carrera") Long id_carrera) {
+    public ResponseEntity<Map<String, Object>> cargarDatosCarrera(@PathVariable(name = "id_carrera",required = false) Long id_carrera) {
 
         // Generación de los datos
         Object[] resultado = (Object[]) anforaService.votosGeneralCarrera(id_carrera);

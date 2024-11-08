@@ -27,6 +27,7 @@
         .header-logo {
             width: 100px;
         }
+
         .header-logo-usic {
             width: 130px;
         }
@@ -203,7 +204,7 @@
                                     <label for="nombre">Carrera:</label>
                                     <select class="js-example-basic-single" name="lcarreras" id="lcarreras"
                                         style="width: 100%;" onchange="cargarTablaCarrera()">
-                                        <option value="" selected></option>
+                                        <option value="" ></option>
                                     </select>
                                 </div>
                             </div>
@@ -276,17 +277,16 @@
     <script>
 
         function listarCarreras() {
-
+            const facultadId = $('#lfacultad').val();
             $.ajax({
                 type: 'POST',
-                url: "/cargarCarreras/" + $('#lfacultad').val(),  // Ruta del metodo del controlador en Spring Boot
+                url: "/cargarCarreras/" + facultadId,  // Ruta del metodo del controlador en Spring Boot
                 success: function (response) {
 
                     const selectCarrera = $('#lcarreras');
                     selectCarrera.empty();  // Limpiar las opciones existentes
 
-                    response.forEach(carrera => {
-                        // user es un array de dos elementos: [id, nombreCompleto]
+                    response.forEach((carrera, index) => {
                         const option = $('<option></option>')
                             .val(carrera[0])  // El valor del option es el ID 
                             .text(carrera[1]);  // El texto del option es el nombre completo 
@@ -294,6 +294,12 @@
                         // Agregar la opción al <select>
                         selectCarrera.append(option);
                     });
+
+                    // Opcional: Seleccionar la primera opción y ejecutar `cargarTablaCarrera`
+                    if (response.length > 0) {
+                        selectCarrera.val(response[0][0]);  // Selecciona el primer ID de carrera
+                        cargarTablaCarrera();  // Llama cargarTablaCarrera solo después de haber llenado el select
+                    }
 
                 }, error: function (xhr, status, error) {
                     console.error('Hubo un problema con la solicitud AJAX:', status, error);
