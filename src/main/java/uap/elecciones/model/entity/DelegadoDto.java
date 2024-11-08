@@ -29,5 +29,9 @@ public class DelegadoDto {
         this.nombre_tipo_delegado = nombre_tipo_delegado;
         this.id_votante_habilitado = id_votante_habilitado;
     }
+
+    public DelegadoDto() {
+    }
+    
 }
 

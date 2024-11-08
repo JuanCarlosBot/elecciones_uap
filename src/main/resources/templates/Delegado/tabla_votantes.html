@@ -1,19 +1,29 @@
 <div class="card col-md-12">
+
     <div class="card-body">
-      <p class="card-text"><strong th:text="'UBICACIÓN: '+${mesa.ubicacion}+' - '+${mesa.descripcion}"></strong><th:block ></th:block></p>
+
+        <p class="card-text">
+            
+            <a class="btn btn-primary" th:href="@{'/delegado/generarPDFMesa/'+${mesa.id_mesa}}" target="_blank">
+                <strong th:text="'UBICACIÓN: '+${mesa.ubicacion}+' - '+${mesa.descripcion}+'  '"></strong>
+                <span style="font-size: 12px; color: rgb(204, 208, 200); font-weight: normal;"> (Imprimir)</span>
+                <strong></strong>
+            </a>
+        </p>
     </div>
-  </div>
+</div>
 <div class="card mt-3">
     <!-- <div class="card-header">
         <h4 class="card-title">Lista de Delegados de la Mesa</h4>
     </div> -->
     <div class="card-body">
         <div class="table-responsive">
-    
-            <table class="table" id="datatableV" data-toggle="table" data-pagination="true" data-search="true" data-show-columns="true"
-                data-show-pagination-switch="true" data-show-refresh="true" data-key-events="true" data-show-toggle="true"
-                data-resizable="true" data-cookie="true" data-cookie-id-table="saveId" data-show-export="true"
-                data-click-to-select="true" data-toolbar="#toolbar" style="width: 100%;">
+
+            <table class="table" id="datatableV" data-toggle="table" data-pagination="true" data-search="true"
+                data-show-columns="true" data-show-pagination-switch="true" data-show-refresh="true"
+                data-key-events="true" data-show-toggle="true" data-resizable="true" data-cookie="true"
+                data-cookie-id-table="saveId" data-show-export="true" data-click-to-select="true"
+                data-toolbar="#toolbar" style="width: 100%;">
                 <thead>
                     <tr>
                         <th>Nro</th>
@@ -41,6 +51,19 @@
 </div>
 
 <script>
+    function cargarVotantesOficial(mesa) {
+
+        $.ajax({
+            type: 'GET',
+            url: '/delegado/generarPDFMesa/' + mesa,
+            success: function (data) {
+                //$('#tablaVotantes').html(data);
+            },
+            error: function () {
+                console.log("Error al obtener la lista de votantes");
+            }
+        });
+    }
     $(document).ready(function () {
         $('#datatableV').DataTable({
             // Opciones de configuración de DataTables
@@ -70,7 +93,7 @@
                         columns: [0, 1, 2, 3, 4, 5, 6] // Indices de las columnas a exportar
                     }
                 },
-                {
+                /*{
                     extend: 'pdfHtml5',
                     text: ' Exportar a PDF',
                     title: 'Título del documento',
@@ -91,7 +114,7 @@
                         columns: [0, 1, 2, 3, 4, 5, 6] // Indices de las columnas a imprimir
                         // O usa: columns: '.class-name' para seleccionar columnas por clase
                     }
-                }
+                }*/
             ]
         });
     });
