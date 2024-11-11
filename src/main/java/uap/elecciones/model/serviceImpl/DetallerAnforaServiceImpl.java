@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.IDetalleAnforaDao;
-
 import uap.elecciones.model.entity.DetalleAnfora;
 import uap.elecciones.model.service.IDetalleAnforaService;
 
@@ -40,6 +39,11 @@ public class DetallerAnforaServiceImpl implements IDetalleAnforaService {
     @Override
     public List<Map<Object, String>> listaVotosPorCarrera(Long idCarrera) {
         return detalleAnforaDao.listaVotosPorCarrera(idCarrera);
+    }
+
+    @Override
+    public DetalleAnfora buscarDetalleporAnfora(Long id_anfora) {
+        return detalleAnforaDao.buscarDetalleporAnfora(id_anfora);
     }
     
 }

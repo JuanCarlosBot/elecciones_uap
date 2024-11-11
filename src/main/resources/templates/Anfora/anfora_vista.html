@@ -231,8 +231,8 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-3"></div>
-                        <form th:action="@{/admin/anfora_form_prueba}" method="post" id="miFormulario" class="adminpro-form" th:object="${anfora}">
-                            
+                        <form th:action="${anfora.id_anfora != null ? '/admin/actualizar' : '/admin/anfora_form_prueba'}" method="post" id="miFormulario" class="adminpro-form" th:object="${anfora}">
+                            <input type="hidden" name="id" th:value="${anfora.id_anfora}" />
                             <div class="col-lg-6">
                                 <div class="login-bg">
                                     <div class="row">
@@ -266,11 +266,14 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <select name="mesa" style="width: 100%" id="s1" class="form-control" required
-                                            onchange="mostrarImputs()">
+                                            <select name="mesa" style="width: 100%" id="s1" class="form-control" required onchange="mostrarImputs()">
                                                 <option selected disabled></option>
-                                                <option th:each="mesa : ${mesas}" th:value="${mesa.id_mesa}" th:text="${mesa.nombre_mesa}" th:if="${mesa.estado != 'COMPLETADO'}"></option>
-                                            </select>
+                                                <option th:each="mesa : ${mesas}"
+                                                        th:value="${mesa.id_mesa}"
+                                                        th:text="${mesa.nombre_mesa}"
+                                                        th:if="${mesa.estado != 'COMPLETADO'}">
+                                                </option>
+                                            </select>                                                                                       
                                         </div>
                                     </div>
                                     <div class="row">
@@ -280,11 +283,11 @@
                                             </div>
                                         </div>
                                         <div class="col-lg-8">
-                                            <select name="nivel" style="width: 100%" id="s2" class="form-control" required
-                                            onchange="mostrarImputs()">
-                                                <option selected disabled></option>
-                                                <option th:each="nivel : ${niveles}" th:value="${nivel.id_nivel}" th:text="${nivel.nombre_nivel}"></option>
-                                            </select>
+                                            <select name="nivel" id="s2" class="form-control" required onchange="mostrarImputs()">
+                                                <option th:each="nivel : ${niveles}" th:value="${nivel.id_nivel}" th:text="${nivel.nombre_nivel}" 
+                                                        th:selected="${anfora != null and anfora.conteo_total != null and anfora.conteo_total.nivel != null and anfora.conteo_total.nivel.id_nivel == nivel.id_nivel}">
+                                                </option>
+                                            </select>                                            
                                         </div>
                                     </div>
                                     <input id="cantidadV" type="hidden">
@@ -334,7 +337,7 @@
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="login-input-area">
-                                                <input type="text" id="vb" name="cant_voto_blanco" placeholder="Votos Blanco" onkeyup="calcularRestaYActualizarVV()" required/>
+                                                <input th:field="*{cant_voto_blanco}" id="vb" name="cant_voto_blanco" placeholder="Votos Blanco" onkeyup="calcularRestaYActualizarVV()" required/>
                                                 <i class="fa fa-user login-user"></i>
                                             </div>
                                         </div>
@@ -347,7 +350,7 @@
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="login-input-area">
-                                                <input type="text" id="vn" name="cant_voto_nulo" placeholder="Votos Nulos" onkeyup="calcularRestaYActualizarVV()" required/>
+                                                <input th:field="*{cant_voto_nulo}" id="vn" name="cant_voto_nulo" placeholder="Votos Nulos" onkeyup="calcularRestaYActualizarVV()" required/>
                                                 <i class="fa fa-user login-user"></i>
                                             </div>
                                         </div>
@@ -360,7 +363,7 @@
                                         </div>
                                         <div class="col-lg-8">
                                             <div class="login-input-area">
-                                                <input type="text" id="vv" name="cant_voto_valido" placeholder="Votos Validos" required/>
+                                                <input th:field="*{cant_voto_valido}" id="vv" name="cant_voto_valido" placeholder="Votos Validos" required/>
                                                 <i class="fa fa-user login-user"></i>
                                             </div>
                                         </div>
@@ -436,7 +439,7 @@
                                                                 
                                                                 <td style="text-align: center;">
                                                                     <a type="button"
-                                                                        th:href="${'../../../../admin/editar_frente/'+anf.id_anfora}"
+                                                                        th:href="${'../../../../admin/editar-anfora/'+anf.id_anfora}"
                                                                         class="btn btn-custon-rounded-three btn-success"> Editar</a>
                                                                     <!-- <a type="button"
                                                                         th:href="${'../../../../admin/eliminar_frente/'+f.id_frente}"

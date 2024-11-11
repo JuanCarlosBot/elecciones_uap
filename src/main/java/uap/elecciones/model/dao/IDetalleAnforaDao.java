@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
 import uap.elecciones.model.entity.DetalleAnfora;
-import uap.elecciones.model.entity.Mesa;
 
 
 
@@ -34,6 +33,9 @@ public interface IDetalleAnforaDao extends CrudRepository<DetalleAnfora,Long>{
                 "               LEFT JOIN mesa m ON a.id_mesa = m.id_mesa\n" + //
                 "               where ctc.carrera = ?1 ORDER BY m.nombre_mesa", nativeQuery = true)
     List<Object[]> listaVotosPorCarreraFrente(String nombre_carrera);
+
+    @Query(value = "select * from detalle_anfora d where d.id_anfora = ?1",nativeQuery = true)
+    DetalleAnfora buscarDetalleporAnfora(Long id_anfora);
 
 
 }

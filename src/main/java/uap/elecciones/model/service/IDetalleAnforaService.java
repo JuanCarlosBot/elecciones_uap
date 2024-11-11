@@ -16,4 +16,6 @@ public interface IDetalleAnforaService {
 	public void delete(Long id);
 
 	List<Map<Object, String>> listaVotosPorCarrera(Long idCarrera);
+	
+	DetalleAnfora buscarDetalleporAnfora(Long id_anfora);
 }

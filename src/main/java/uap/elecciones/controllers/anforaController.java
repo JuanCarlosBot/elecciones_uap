@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -229,15 +231,14 @@ public class anforaController {
                     conteoTotalCarrera.setNulo_total(cant_voto_nulo);
                     conteoTotalCarrera.setVoto_valido_total(cant_voto_valido);
                     conteoTotalCarrera.setCarrera(nombreCarrera);
-                    conteoTotalCarreraService.save(conteoTotalCarrera); 
+                    conteoTotalCarreraService.save(conteoTotalCarrera);
                 }
-               
 
                 for (Carrera carrera2 : carreraService.findAll()) {
-                    
-                ConteoTotalCarrera conteoTotalCarrera2 = new ConteoTotalCarrera();  
+
+                    ConteoTotalCarrera conteoTotalCarrera2 = new ConteoTotalCarrera();
                     conteoTotalCarrera2.setCarrera("FULL" + "-" + carrera2.getNombre_carrera());
-                    conteoTotalCarreraService.save(conteoTotalCarrera2);      
+                    conteoTotalCarreraService.save(conteoTotalCarrera2);
                 }
 
             } else {
@@ -245,80 +246,93 @@ public class anforaController {
                     for (ConteoTotalCarrera conteoTotalCarrera2 : listConteoCarrera) {
                         if (nombreFullCarrera.equals(conteoTotalCarrera2.getCarrera())) {
                             conteoTotalCarrera = conteoTotalCarrera2;
-                        }    
+                        }
                     }
-                }else{
+                } else {
                     for (ConteoTotalCarrera conteoTotalCarrera2 : listConteoCarrera) {
                         if (nombreCarrera.equals(conteoTotalCarrera2.getCarrera())) {
                             conteoTotalCarrera = conteoTotalCarrera2;
                         }
-    
+
                     }
-                }                
+                }
                 if (n.getId_nivel() == 3) {
                     if (nombreFullCarrera.equals(conteoTotalCarrera.getCarrera())) {
-                        //conteoTotalCarrera = conteoTotalCarrera2;
+                        // conteoTotalCarrera = conteoTotalCarrera2;
                         conteoTotalCarrera.setBlanco_total(conteoTotalCarrera.getBlanco_total() + cant_voto_blanco);
                         conteoTotalCarrera.setNulo_total(conteoTotalCarrera.getNulo_total() + cant_voto_nulo);
-                        conteoTotalCarrera.setVoto_valido_total(conteoTotalCarrera.getVoto_valido_total() + cant_voto_valido);
+                        conteoTotalCarrera
+                                .setVoto_valido_total(conteoTotalCarrera.getVoto_valido_total() + cant_voto_valido);
                         // conteoTotalCarrera.setCarrera("FULL" +"-"+nombreCarrera);
                         conteoTotalCarreraService.save(conteoTotalCarrera);
                         System.out.println("Entro en el igual FULL");
-                        
-                    }    
-                }else{
+
+                    }
+                } else {
                     if (nombreCarrera.equals(conteoTotalCarrera.getCarrera())) {
-                        //conteoTotalCarrera = conteoTotalCarrera2;
+                        // conteoTotalCarrera = conteoTotalCarrera2;
                         conteoTotalCarrera.setBlanco_total(conteoTotalCarrera.getBlanco_total() + cant_voto_blanco);
                         conteoTotalCarrera.setNulo_total(conteoTotalCarrera.getNulo_total() + cant_voto_nulo);
-                        conteoTotalCarrera.setVoto_valido_total(conteoTotalCarrera.getVoto_valido_total() + cant_voto_valido);
+                        conteoTotalCarrera
+                                .setVoto_valido_total(conteoTotalCarrera.getVoto_valido_total() + cant_voto_valido);
                         // conteoTotalCarrera.setCarrera("FULL" +"-"+nombreCarrera);
                         conteoTotalCarreraService.save(conteoTotalCarrera);
                         System.out.println("Entro en el igual CENTRO");
-                        
-                    } else {
-                        
-                            //conteoTotalCarrera = conteoTotalCarrera2;
-                            conteoTotalCarrera.setBlanco_total(conteoTotalCarrera.getBlanco_total() + cant_voto_blanco);
-                            conteoTotalCarrera.setNulo_total(conteoTotalCarrera.getNulo_total() + cant_voto_nulo);
-                            conteoTotalCarrera.setVoto_valido_total(conteoTotalCarrera.getVoto_valido_total() + cant_voto_valido);
-                            conteoTotalCarrera.setCarrera(nombreCarrera);
-                            conteoTotalCarreraService.save(conteoTotalCarrera);
-                            System.out.println("CREO un Nuevo CENTRO");
-                        
-                    }    
-                }
-                   
-                /*for (ConteoTotalCarrera conteoTotalCarrera2 : listConteoCarrera) {
 
-                    if (nombreFullCarrera.equals(conteoTotalCarrera2.getCarrera())) {
-                        System.out.println("Encontrado Full Carrera");
-                        conteoTotalCarrera = conteoTotalCarrera2;
-                    }else{
-                        System.out.println("No Encontrado Full Carrera");
+                    } else {
+
+                        // conteoTotalCarrera = conteoTotalCarrera2;
+                        conteoTotalCarrera.setBlanco_total(conteoTotalCarrera.getBlanco_total() + cant_voto_blanco);
+                        conteoTotalCarrera.setNulo_total(conteoTotalCarrera.getNulo_total() + cant_voto_nulo);
+                        conteoTotalCarrera
+                                .setVoto_valido_total(conteoTotalCarrera.getVoto_valido_total() + cant_voto_valido);
+                        conteoTotalCarrera.setCarrera(nombreCarrera);
+                        conteoTotalCarreraService.save(conteoTotalCarrera);
+                        System.out.println("CREO un Nuevo CENTRO");
+
                     }
-                }*/
+                }
+
+                /*
+                 * for (ConteoTotalCarrera conteoTotalCarrera2 : listConteoCarrera) {
+                 * 
+                 * if (nombreFullCarrera.equals(conteoTotalCarrera2.getCarrera())) {
+                 * System.out.println("Encontrado Full Carrera");
+                 * conteoTotalCarrera = conteoTotalCarrera2;
+                 * }else{
+                 * System.out.println("No Encontrado Full Carrera");
+                 * }
+                 * }
+                 */
 
             }
-            
-            System.out.println(">>>>>>>>>>>>   "+listConteoCarrera.size());
-            /*if (!nombreFullCarrera.equals(conteoTotalCarrera.getCarrera())) {
-                conteoTotalCarrera.setBlanco_total(conteoTotalCarrera.getBlanco_total() + cant_voto_blanco);
-                conteoTotalCarrera.setNulo_total(conteoTotalCarrera.getNulo_total() + cant_voto_nulo);
-                conteoTotalCarrera.setVoto_valido_total(conteoTotalCarrera.getVoto_valido_total() + cant_voto_valido);
-                conteoTotalCarrera.setCarrera("FULL" + "-" + nombreCarrera);
-                conteoTotalCarreraService.save(conteoTotalCarrera);
-                System.out.println("No entro en el igual FULL");
-            } else {
-                if (!nombreCarrera.equals(conteoTotalCarrera.getCarrera())) {
-                    conteoTotalCarrera.setBlanco_total(conteoTotalCarrera.getBlanco_total() + cant_voto_blanco);
-                    conteoTotalCarrera.setNulo_total(conteoTotalCarrera.getNulo_total() + cant_voto_nulo);
-                    conteoTotalCarrera.setVoto_valido_total(conteoTotalCarrera.getVoto_valido_total() + cant_voto_valido);
-                    conteoTotalCarrera.setCarrera(nombreCarrera);
-                    conteoTotalCarreraService.save(conteoTotalCarrera);
-                    System.out.println("No entro en el igual CENTRO");
-                }
-            }*/
+
+            System.out.println(">>>>>>>>>>>>   " + listConteoCarrera.size());
+            /*
+             * if (!nombreFullCarrera.equals(conteoTotalCarrera.getCarrera())) {
+             * conteoTotalCarrera.setBlanco_total(conteoTotalCarrera.getBlanco_total() +
+             * cant_voto_blanco);
+             * conteoTotalCarrera.setNulo_total(conteoTotalCarrera.getNulo_total() +
+             * cant_voto_nulo);
+             * conteoTotalCarrera.setVoto_valido_total(conteoTotalCarrera.
+             * getVoto_valido_total() + cant_voto_valido);
+             * conteoTotalCarrera.setCarrera("FULL" + "-" + nombreCarrera);
+             * conteoTotalCarreraService.save(conteoTotalCarrera);
+             * System.out.println("No entro en el igual FULL");
+             * } else {
+             * if (!nombreCarrera.equals(conteoTotalCarrera.getCarrera())) {
+             * conteoTotalCarrera.setBlanco_total(conteoTotalCarrera.getBlanco_total() +
+             * cant_voto_blanco);
+             * conteoTotalCarrera.setNulo_total(conteoTotalCarrera.getNulo_total() +
+             * cant_voto_nulo);
+             * conteoTotalCarrera.setVoto_valido_total(conteoTotalCarrera.
+             * getVoto_valido_total() + cant_voto_valido);
+             * conteoTotalCarrera.setCarrera(nombreCarrera);
+             * conteoTotalCarreraService.save(conteoTotalCarrera);
+             * System.out.println("No entro en el igual CENTRO");
+             * }
+             * }
+             */
 
             Anfora anfora = new Anfora();
             anfora.setCant_voto_blanco(cant_voto_blanco);
@@ -407,7 +421,6 @@ public class anforaController {
         }
     }
 
-
     @RequestMapping(value = "/anfora_form_prueba", method = RequestMethod.POST)
     private String anfora_form_pruea(
             @RequestParam("mesa") Long id_mesa,
@@ -416,9 +429,9 @@ public class anforaController {
             @RequestParam("cant_voto_nulo") int cant_voto_nulo,
             @RequestParam("cant_voto_blanco") int cant_voto_blanco,
             @RequestParam("cant_voto_valido") int cant_voto_valido,
-            //@RequestParam("cant_voto_habilitados") int cant_voto_habilitado,
+            // @RequestParam("cant_voto_habilitados") int cant_voto_habilitado,
             @RequestParam("votosDetAnfora") int[] votoFrentes,
-            RedirectAttributes flash, HttpServletRequest request) {
+            RedirectAttributes flash, HttpServletRequest request, Model model ) {
         if (request.getSession().getAttribute("usuario") != null) {
 
             Mesa mesa = mesaService.findOne(id_mesa);
@@ -426,18 +439,18 @@ public class anforaController {
             mesaService.save(mesa);
 
             List<AsignacionHabilitado> listaVotantesPorMesas = asignacionHabilitadoService
-                .lista_asignados_habilitados_por_mesa(id_mesa);
+                    .lista_asignados_habilitados_por_mesa(id_mesa);
             int cant = listaVotantesPorMesas.size();
             Anfora anfora = new Anfora();
             anfora.setCant_voto_blanco(cant_voto_blanco);
             anfora.setCant_voto_nulo(cant_voto_nulo);
             anfora.setCant_voto_valido(cant_voto_valido);
             anfora.setCant_voto_habilitado(cant);
-            anfora.setCant_voto_emitido(cant_voto_blanco+cant_voto_nulo+cant_voto_valido);
+            anfora.setCant_voto_emitido(cant_voto_blanco + cant_voto_nulo + cant_voto_valido);
             anfora.setMesa(mesa);
 
-            //anfora.setConteo_total(conteoTotal);
-            //anfora.setConteo_total_carrera(conteoTotalCarrera);
+            // anfora.setConteo_total(conteoTotal);
+            // anfora.setConteo_total_carrera(conteoTotalCarrera);
             anforaService.save(anfora);
 
             for (int i = 0; i < id_frente.length; i++) {
@@ -450,12 +463,91 @@ public class anforaController {
                 detalleAnfora.setAnfora(anfora);
                 detalleAnfora.setFrente(frente);
                 detalleAnfora.setCant_votantes(cantidadesVotantes);
-                
 
                 detalleAnforaService.save(detalleAnfora);
             }
-
+            model.addAttribute("anfora", anfora != null ? anfora : new Anfora());
             return "redirect:/admin/anfora";
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+    @GetMapping("/editar-anfora/{id}")
+    public String editarAnfora(@PathVariable("id") Long id, Model model, HttpServletRequest request) {
+        if (request.getSession().getAttribute("usuario") != null) {
+            Anfora anfora = anforaService.findOne(id); // Buscar ánfora por ID
+            List<Mesa> mesas = mesaService.findAll();
+            List<Nivel> niveles = nivelService.findAll();
+
+            if (anfora != null) {
+                model.addAttribute("anfora", anfora);
+                model.addAttribute("mesas", mesas);
+                model.addAttribute("niveles", niveles);
+                return "Anfora/anfora_vista"; // Vista para el formulario de edición
+            } else {
+                return "redirect:/admin/anfora";
+            }
+        } else {
+            return "redirect:/login";
+        }
+    }
+
+    @PostMapping("/actualizar")
+    public String actualizarAnfora(
+            @RequestParam("id") Long id,
+            @RequestParam("mesa") Long id_mesa,
+            @RequestParam("nivel") Long id_nivel,
+            @RequestParam("cant_voto_nulo") int cant_voto_nulo,
+            @RequestParam("cant_voto_blanco") int cant_voto_blanco,
+            @RequestParam("cant_voto_valido") int cant_voto_valido,
+            @RequestParam("id_f") Long[] id_frente, // Obtener los frentes
+            @RequestParam("votosDetAnfora") int[] votosDetAnfora, // Obtener las cantidades de votantes
+            RedirectAttributes flash, HttpServletRequest request) {
+
+        if (request.getSession().getAttribute("usuario") != null) {
+            Anfora anfora = anforaService.findOne(id);
+            if (anfora != null) {
+                Mesa mesa = mesaService.findOne(id_mesa);
+                Nivel nivel = nivelService.findOne(id_nivel);
+
+                // Actualizar los datos de la ánfora
+                anfora.setMesa(mesa);
+                anfora.setCant_voto_blanco(cant_voto_blanco);
+                anfora.setCant_voto_nulo(cant_voto_nulo);
+                anfora.setCant_voto_valido(cant_voto_valido);
+                anfora.setCant_voto_emitido(cant_voto_blanco + cant_voto_nulo + cant_voto_valido);
+
+                // Guardar cambios en la ánfora
+                anforaService.save(anfora);
+
+                // Actualizar los detalles de la ánfora sin eliminarlos
+                for (int i = 0; i < id_frente.length; i++) {
+                    Long idFrente = id_frente[i];
+                    int cantidadVotantes = votosDetAnfora[i];
+
+                    Frente frente = frenteService.findOne(idFrente);
+
+                    // Buscar el detalle existente
+                    DetalleAnfora detalleAnfora = detalleAnforaService.buscarDetalleporAnfora(id);
+
+
+                    detalleAnfora.setAnfora(anfora);
+                    detalleAnfora.setFrente(frente);
+                    
+                    // Actualizar la cantidad de votantes
+                    detalleAnfora.setCant_votantes(cantidadVotantes);
+
+                    // Guardar o actualizar el detalle
+                    detalleAnforaService.save(detalleAnfora);
+                }
+
+                flash.addFlashAttribute("succes", "Registro actualizado exitosamente");
+                return "redirect:/admin/anfora";
+            } else {
+                flash.addFlashAttribute("error", "Registro no encontrado");
+                return "redirect:/admin/anfora";
+            }
         } else {
             return "redirect:/login";
         }
