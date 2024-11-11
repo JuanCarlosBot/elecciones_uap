@@ -97,7 +97,12 @@ public interface IAnforaDao extends CrudRepository<Anfora, Long> {
                         (:esNulo = false and vh.id_estudiante is not null)
                 )
         ), 0) as total_habilitado,
-        count(m.id_mesa) as total_actas_computadas  
+        count(m.id_mesa) as total_actas_computadas,
+        (select count(m3.id_mesa) 
+        from mesa m3 
+        left join facultad f2 on f2.id_facultad = m3.if_facultad
+        where f2.id_facultad = :idFacultad 
+        and m3.nombre_mesa like concat('%', :sigla, '%')) as total_actas_habilitadas  
         from anfora a
         inner join mesa m on a.id_mesa = m.id_mesa
         inner join facultad f on m.if_facultad = f.id_facultad
@@ -122,7 +127,12 @@ public interface IAnforaDao extends CrudRepository<Anfora, Long> {
                 left join carrera_estudiante ce on ce.id_estudiante = e.id_estudiante
                 left join carrera c2 on c2.id_carrera = ce.id_carrera
                 where vh.id_estudiante is not null and c2.id_carrera = :id_carrera) as total_habilitado,
-                count(m.id_mesa) as total_actas_computadas 
+                count(m.id_mesa) as total_actas_computadas,
+                (
+                SELECT COUNT(m3.id_mesa) 
+                FROM mesa m3 
+                WHERE m3.id_carrera = :id_carrera 
+                ) AS total_actas_habilitadas 
         from anfora a, mesa m, carrera c 
         where a.id_mesa = m.id_mesa and m.id_carrera = c.id_carrera 
         and c.id_carrera = :id_carrera and m.estado = 'COMPLETADO'
