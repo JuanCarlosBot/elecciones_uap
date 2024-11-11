@@ -12,4 +12,8 @@ public interface IEstudianteService {
 	public Estudiante findOne(Long id);
 
 	public void delete(Long id);
+
+	Estudiante buscarEstudiantePorRu(String ru);
+
+	List<Object[]> listarEstudiantePorRU(String ru);
 }

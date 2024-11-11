@@ -1,0 +1,40 @@
+<input type="hidden" id="idAsistencia" th:if="${asistencia != null}" th:value="${asistencia.id_asistencia}">
+<div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">Datos:</h5>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+    <div class="card" style="width: 100%;">
+        <div class="card-body">
+            <ul class="list-group">
+                <li class="list-group-item"><strong>Apellidos y Nombres</strong>
+                    <p th:text="${person.persona.apellidos}"></p>
+                </li>
+                <li class="list-group-item"> <strong>C.I.</strong>
+                    <p th:text="${person.persona.ci}"></p>
+                </li>
+                <li class="list-group-item" th:if="${tipo == 'ESTUDIANTE'}"> <strong>R.U.</strong>
+                    <p th:text="${person.ru}"></p>
+                </li>
+                <li class="list-group-item" th:if="${tipo == 'DOCENTE'}"> <strong>R.D.</strong>
+                    <p th:text="${person.rd}"></p>
+                </li>
+                <li class="list-group-item" th:if="${asistencia != null}">
+                    <strong>Asistencia: </strong>
+                    <p class="badge bg-success" th:text="${asistencia.estado}"></p>
+                </li>
+                <li class="list-group-item" th:if="${asistencia != null}">
+                    <strong>Hora de Registro</strong>
+                    <p th:text="${#dates.format(asistencia.fechaRegistro, 'dd/MM/yyyy hh:mm a')}"></p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="modal-footer justify-content-center" id="btnMarcar">
+    <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button> -->
+    <button type="button" class="btn btn-primary" th:if="${tipo == 'ESTUDIANTE' && asistencia == null}"
+     th:onclick="marcarAsistencia([[${person.ru}]], [[${tipo}]])">Marcar Asistencia</button>
+    <button type="button" class="btn btn-primary" th:if="${tipo == 'DOCENTE' && asistencia == null}"
+    th:onclick="marcarAsistencia([[${person.rd}]], [[${tipo}]])">Marcar Asistencia</button>
+</div>

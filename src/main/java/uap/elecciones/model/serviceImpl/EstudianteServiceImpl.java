@@ -38,5 +38,17 @@ public class EstudianteServiceImpl implements IEstudianteService{
         // TODO Auto-generated method stub
         estudianteDao.deleteById(id);
     }
+
+    @Override
+    public Estudiante buscarEstudiantePorRu(String ru) {
+        // TODO Auto-generated method stub
+        return estudianteDao.buscarEstudiantePorRu(ru);
+    }
+
+    @Override
+    public List<Object[]> listarEstudiantePorRU(String ru) {
+        // TODO Auto-generated method stub
+        return estudianteDao.listarEstudiantePorRU(ru);
+    }
     
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import uap.elecciones.model.dao.IDocenteDao;
 import uap.elecciones.model.entity.Docente;
+import uap.elecciones.model.entity.DocenteDto;
 import uap.elecciones.model.service.IDocenteService;
 
 @Service
@@ -38,5 +39,23 @@ public class DocenteServiceImpl implements IDocenteService{
         // TODO Auto-generated method stub
         docenteDao.deleteById(id);
     }
-    
+
+    @Override
+    public Docente buscarDocentePorRd(String rd) {
+        // TODO Auto-generated method stub
+        return docenteDao.buscarDocentePorRd(rd);
+    }
+
+    @Override
+    public Docente buscarDocentePorIdPersona(Long id) {
+        // TODO Auto-generated method stub
+        return docenteDao.buscarDocentePorIdPersona(id);
+    }
+
+    @Override
+    public List<Object[]> listarDocentePorCI(String ci) {
+        // TODO Auto-generated method stub
+        return docenteDao.listarDocentePorCI(ci);
+    }
+
 }

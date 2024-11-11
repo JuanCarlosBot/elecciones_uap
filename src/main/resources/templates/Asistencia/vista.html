@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../../../bootstrap-5.0.2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../../../mdbootstrap/css/mdb.min.css">
+    <link href="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.min.css
+" rel="stylesheet">
+</head>
+
+<body>
+    <style>
+        .labelMDB {
+            color: #919191;
+        }
+    </style>
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-header">
+
+            </div>
+            <div class="card-body">
+                <nav>
+                    <div class="nav nav-tabs nav-justified mb-3" id="nav-tab" role="tablist">
+                        <button class="nav-link active" id="nav-home-tab" data-bs-toggle="tab"
+                            data-bs-target="#nav-home" type="button" role="tab" aria-controls="nav-home"
+                            aria-selected="true">Docente</button>
+                        <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile"
+                            type="button" role="tab" aria-controls="nav-profile"
+                            aria-selected="false">Estudiante</button>
+                    </div>
+                </nav>
+                <div class="tab-content" id="nav-tabContent">
+                    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                        <div class="row mb-3">
+                            <div class="col-md-12">
+                                <label for="">C.I. DOCENTE</label>
+                                <div class="form-outline">
+                                    <input type="text" class="form-control" id="ciDocente"
+                                        onkeyup="buscarPersonaCi()" />
+                                    <label class="form-label labelMDB" for="form12">C.I.</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-6" id="resultadoBusquedaCiDocente">
+                                <!-- <button class="btn btn-success" style="width: 100%;" data-bs-toggle="modal"
+                                        data-bs-target="#exampleModal">Buscar</button> -->
+                            </div>
+                        </div>
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div class="tab-pane fade show active" id="nav-home" role="tabpanel"
+                            aria-labelledby="nav-home-tab">
+                            <form th:action="@{/asistencia/buscar}" method="post" id="formularioEstudiante"
+                                class="adminpro-form" enctype="multipart/form-data">
+                                <input type="hidden" name="tipo" value="ESTUDIANTE">
+                                <div class="row mb-3">
+                                    <div class="col-md-12">
+                                        <label for="">R.U. ESTUDIANTE</label>
+                                        <div class="form-outline">
+                                            <input type="text" class="form-control" name="codigo" id="ru"
+                                                onkeyup="buscarPersonaCiEst()" />
+                                            <label class="form-label labelMDB">R.U.</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row d-flex justify-content-center">
+                                    <div class="col-md-6" id="resultadoBusquedaCiEstudiante">
+                                        <!-- <button class="btn btn-success" style="width: 100%;" data-bs-toggle="modal"
+                                            data-bs-target="#exampleModal">Buscar</button> -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content" id="contenidoModal">
+                <div class="spinner-border m-5 d-flex justify-content-center" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="
+https://cdn.jsdelivr.net/npm/sweetalert2@11.14.5/dist/sweetalert2.all.min.js
+"></script>
+    <script src="../../../../mdbootstrap/js/mdb.min.js"></script>
+    <script src="../../../../bootstrap-5.0.2-dist/js/bootstrap.min.js"></script>
+    <script>
+        document.querySelectorAll('.form-outline').forEach((formOutline) => {
+            new mdb.Input(formOutline).init();
+        });
+
+        $('#formularioDocente').submit(function (event) {
+            event.preventDefault();
+            // if (this.checkValidity() === false) {
+            //     $(this).addClass('was-validated');
+            //     return;
+            // }
+            var form = $(this)[0];
+            var formData = new FormData(form);
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                contentType: false,  // No establecer el tipo de contenido aquí
+                processData: false,  // No procesar los datos
+                success: function (data) {
+                    //     data.forEach(function (fila) {
+                    //         $('#resultadoBusquedaCiDocente').append(`
+                    // <li class="list-group-item"><strong>Apellidos y Nombres</strong>
+                    //     <p th:text="${fila[]}"></p>
+                    // </li>
+                    //     `);
+                    //     });
+
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire(
+                        'Imposible Registrar!',
+                        'Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error,
+                        'error'
+                    );
+                    console.error(error);
+                    // Manejo de errores
+                }
+            });
+        });
+
+        $('#formularioEstudiante').submit(function (event) {
+            event.preventDefault();
+            // if (this.checkValidity() === false) {
+            //     $(this).addClass('was-validated');
+            //     return;
+            // }
+            var form = $(this)[0];
+            var formData = new FormData(form);
+
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: formData,
+                contentType: false,  // No establecer el tipo de contenido aquí
+                processData: false,  // No procesar los datos
+                success: function (response) {
+                    $('#contenidoModal').html(response);
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire(
+                        'Imposible Registrar!',
+                        'Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error,
+                        'error'
+                    );
+                    console.error(error);
+                    // Manejo de errores
+                }
+            });
+        });
+
+        function buscarDocenteCi() {
+            $.ajax({
+                type: 'POST',
+                url: $(this).attr('action'),
+                data: '/asistencia/buscarDocenteCi/' + $('#ciDocente').val(),
+                success: function (response) {
+                    $('#contenidoModal').html(response);
+                },
+                error: function (xhr, status, error) {
+                    Swal.fire(
+                        'Imposible Registrar!',
+                        'Ha ocurrido un error. Por favor, intenta nuevamente.' + xhr, status, error,
+                        'error'
+                    );
+                    console.error(error);
+                    // Manejo de errores
+                }
+            });
+
+        }
+
+    </script>
+
+
+    <script>
+        // function buscarPersonaCi() {
+        //     getContent();
+        //     $('#ciDocente').change(getContent);
+        //     function getContent() {
+        //         var url = "/asistencia/buscador/personaCi/" + $('#ciDocente').val();
+        //         $('#resultadoBusquedaCiDocente').load(url);
+        //     }
+        // }
+
+        function buscarPersonaCi() {
+            $('#resultadoBusquedaCiDocente').html(`
+                <div class="spinner-border m-5 d-flex justify-content-center" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                `);
+            $.ajax({
+                type: 'GET',
+                url: '/asistencia/buscador/personaCi/' + $('#ciDocente').val(),
+                success: function (response) {
+                    $('#resultadoBusquedaCiDocente').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                    // Manejo de errores
+                }
+            });
+        }
+
+        function buscarPersonaCiEst() {
+            $('#resultadoBusquedaCiDocente').html(`
+                <div class="spinner-border m-5 d-flex justify-content-center" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                `);
+            $.ajax({
+                type: 'GET',
+                url: '/asistencia/buscador/personaCiEst/' + $('#ru').val(),
+                success: function (response) {
+                    $('#resultadoBusquedaCiEstudiante').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                    // Manejo de errores
+                }
+            });
+        }
+
+        function modalDocente(idPersona) {
+            $('#contenidoModal').html(`
+                <div class="spinner-border m-5 d-flex justify-content-center" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                `);
+            $.ajax({
+                type: 'POST',
+                url: '/asistencia/buscarDocenteModal/' + idPersona,
+                success: function (response) {
+                    $('#contenidoModal').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                    // Manejo de errores
+                }
+            });
+        }
+
+        function modalEstudiante(ru) {
+            $('#contenidoModal').html(`
+                <div class="spinner-border m-5 d-flex justify-content-center" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                `);
+            $.ajax({
+                type: 'POST',
+                url: '/asistencia/buscarEstudianteModal/' + ru,
+                success: function (response) {
+                    $('#contenidoModal').html(response);
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                    // Manejo de errores
+                }
+            });
+        }
+
+        function marcarAsistencia(codigo, tipo) {
+            $('#btnMarcar').html(`
+                        <button class="btn btn-primary" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        Registrando...
+                        </button>
+                    `);
+            $.ajax({
+                type: 'POST',
+                url: '/asistencia/marcarAsistencia/' + codigo + '/' + tipo,
+                success: function (response) {
+                    $('#btnMarcar').html(`
+                        <span class="badge bg-success" type="button">
+                            Marcado
+                        </span>
+                    `);
+                    Swal.fire(
+                        'Registrado!',
+                        response,
+                        'success'
+                    );
+                },
+                error: function (xhr, status, error) {
+                    console.error(error);
+                    // Manejo de errores
+                }
+            });
+        }
+    </script>
+</body>
+
+</html>

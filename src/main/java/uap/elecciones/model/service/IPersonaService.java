@@ -12,4 +12,6 @@ public interface IPersonaService {
 	public Persona findOne(Long id);
 
 	public void delete(Long id);
+
+	List<Persona> listarPersonasPorCI(String ci);
 }

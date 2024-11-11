@@ -1,0 +1,5 @@
+<ul class="list-group">
+    <a type="button" class="list-group-item list-group-item-action" th:each="p, iterStat : ${personas}"
+        th:text="${p.nombreCompleto}" th:onclick="modalDocente([[${p.idPersona}]])" data-bs-toggle="modal"
+        data-bs-target="#exampleModal"></a>
+</ul>
