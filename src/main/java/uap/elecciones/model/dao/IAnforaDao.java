@@ -57,18 +57,20 @@ public interface IAnforaDao extends CrudRepository<Anfora, Long> {
 
         @Query(value = """
         select 
-        sum(a.cant_voto_nulo) as total_voto_nulo,
-        sum(a.cant_voto_blanco) as total_voto_blanco,
-        sum(a.cant_voto_valido) as total_voto_valido,
-        sum(a.cant_voto_habilitado) as total_voto_habilitado,
-        sum(a.cant_voto_emitido) as total_voto_emitido,
-        (select count(ah.id_asignacion_habilitado)
-        from asignacion_habilitado ah 
-        join mesa m2 on ah.id_mesa = m2.id_mesa) as total_habilitado,
-        count(m.id_mesa) as total_actas_computadas 
+                sum(a.cant_voto_nulo) as total_voto_nulo,
+                sum(a.cant_voto_blanco) as total_voto_blanco,
+                sum(a.cant_voto_valido) as total_voto_valido,
+                sum(a.cant_voto_habilitado) as total_voto_habilitado,
+                sum(a.cant_voto_emitido) as total_voto_emitido,
+                (select count(ah.id_asignacion_habilitado)
+                from asignacion_habilitado ah 
+                join mesa m2 on ah.id_mesa = m2.id_mesa) as total_habilitado,
+                count(m.id_mesa) as total_actas_computadas,
+                (select count(m3.id_mesa) from mesa m3) as total_actas_habilitadas
         from anfora a
         join mesa m on a.id_mesa = m.id_mesa
-        where m.estado = 'COMPLETADO'""", nativeQuery = true)
+        where m.estado = 'COMPLETADO'"""
+        , nativeQuery = true)
         public Object votosGeneral();
 
         @Query(value = """

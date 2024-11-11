@@ -183,7 +183,7 @@ public class chartController {
                 .map(dato -> Math.round((dato / totalVotosDocentes) * 50 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
 
-                System.out.println(porcentajesDocentes);
+                // System.out.println(porcentajesDocentes);
         List<Double> porcentajesEstudiantes = datosTablaEstudiantes.stream()
                 .map(dato -> Math.round((dato / totalVotosEstudiantes) * 50 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
@@ -214,9 +214,13 @@ public class chartController {
         porcentajesEstudiantes.set(lastIndexEstudiantesActas,
             Math.round((datosTablaEstudiantes.get(lastIndexEstudiantesActas) / (double) totalActasEstudiantesBase) * 100 * 1000.0) / 1000.0);
         
+        
+        List<Double> totalPorcentaje = new ArrayList<>();
+        List<Integer> totalDatos = new ArrayList<>();
+
         // Construir el HTML de la tabla
         StringBuilder htmlTabla = new StringBuilder();
-        htmlTabla.append("<h3 class='text-center'>Tabla de Resultados (Docente)</h3>");
+        htmlTabla.append("<h3 class='text-center'>Tabla de Resultados (Docente) / 50 %</h3>");
         htmlTabla.append("<table class='table table-striped'>");
         htmlTabla.append("<thead><tr><th>Frente</th><th>Votos</th><th>%</th></tr></thead>");
         htmlTabla.append("<tbody>");
@@ -227,13 +231,14 @@ public class chartController {
             htmlTabla.append("<td>").append(datosTablaDocentes.get(i)).append("</td>");
             htmlTabla.append("<td>").append(porcentajesDocentes.get(i)+" %").append("</td>");
             htmlTabla.append("</tr>");
+            
         }
 
         htmlTabla.append("</tbody>");
         htmlTabla.append("</table>");
 
         StringBuilder htmlTablaEst = new StringBuilder();
-        htmlTablaEst.append("<h3 class='text-center'>Tabla de Resultados (Estudiantes)</h3>");
+        htmlTablaEst.append("<h3 class='text-center'>Tabla de Resultados (Estudiantes) / 50 %</h3>");
         htmlTablaEst.append("<table class='table table-striped'>");
         htmlTablaEst.append("<thead><tr><th>Frente</th><th>Votos</th><th>%</th></tr></thead>");
         htmlTablaEst.append("<tbody>");
@@ -242,12 +247,42 @@ public class chartController {
             htmlTablaEst.append("<tr>");
             htmlTablaEst.append("<td>").append(frentesTablaEstudiantes.get(i)).append("</td>");
             htmlTablaEst.append("<td>").append(datosTablaEstudiantes.get(i)).append("</td>");
-            htmlTablaEst.append("<td>").append(porcentajesEstudiantes.get(i)+" %").append("</td>");
+            htmlTablaEst.append("<td>").append(porcentajesEstudiantes.get(i) + " %").append("</td>");
             htmlTablaEst.append("</tr>");
+        
+            // Sumar datos normalmente
+            totalDatos.add(datosTablaDocentes.get(i) + datosTablaEstudiantes.get(i));
+        
+            // Evitar la suma en totalPorcentaje solo para los últimos dos índices
+            if (i < datosTablaEstudiantes.size() - 2) {
+                totalPorcentaje.add(porcentajesDocentes.get(i) + porcentajesEstudiantes.get(i));
+            } else {
+                // Solo agregar el porcentaje de estudiantes sin sumar
+                totalPorcentaje.add(porcentajesEstudiantes.get(i));
+            }
         }
 
+        // System.out.println(totalPorcentaje);
+        // System.out.println(totalDatos);
         htmlTablaEst.append("</tbody>");
         htmlTablaEst.append("</table>");
+
+        StringBuilder htmlTablaTotalGeneral = new StringBuilder();
+        htmlTablaTotalGeneral.append("<h3 class='text-center'>Tabla de Resultados</h3>");
+        htmlTablaTotalGeneral.append("<table class='table table-striped'>");
+        htmlTablaTotalGeneral.append("<thead><tr><th>Frente</th><th>%</th></tr></thead>");
+        htmlTablaTotalGeneral.append("<tbody>");
+
+        for (int i = 0; i < totalPorcentaje.size(); i++) {
+            htmlTablaTotalGeneral.append("<tr>");
+            htmlTablaTotalGeneral.append("<td>").append(frentesTablaEstudiantes.get(i)).append("</td>");
+            // htmlTablaTotalGeneral.append("<td>").append(totalDatos.get(i)).append("</td>");
+            htmlTablaTotalGeneral.append("<td>").append(String.format("%.3f", totalPorcentaje.get(i))).append(" %").append("</td>");
+            htmlTablaTotalGeneral.append("</tr>");
+        }
+
+        htmlTablaTotalGeneral.append("</tbody>");
+        htmlTablaTotalGeneral.append("</table>");
 
         // Datos para el gráfico
         List<Map<String, Object>> chartData = new ArrayList<>();
@@ -272,6 +307,7 @@ public class chartController {
         Map<String, Object> response = new HashMap<>();
         response.put("htmlDoc", htmlTabla.toString()); // HTML de la tabla generado
         response.put("htmlEst", htmlTablaEst.toString()); // HTML de la tabla generado
+        response.put("htmlTotalGeneral", htmlTablaTotalGeneral.toString()); // HTML de la tabla generado
         response.put("chartDataDoc", chartData); // Datos para el gráfico
         response.put("chartDataEst", chartDataEst); // Datos para el gráfico
         response.put("totalHabilitadosDoc", Integer.parseInt(resultadoDocentes[5].toString())); // Total de Habilitados
@@ -280,6 +316,94 @@ public class chartController {
         return ResponseEntity.ok(response);
     }
     
+    @PostMapping("/cargarGeneralTotal")
+    public ResponseEntity<Map<String, Object>> cargarGeneralTotal(Model model) {
+
+        // Generación de los datos
+        Object[] resultado = (Object[]) anforaService.votosGeneral();
+        List<Integer> datos = Arrays.asList(
+            resultado != null && resultado.length > 2 && resultado[2] != null ? Integer.parseInt(resultado[2].toString()) : 0,
+            resultado != null && resultado.length > 0 && resultado[0] != null ? Integer.parseInt(resultado[0].toString()) : 0,
+            resultado != null && resultado.length > 1 && resultado[1] != null ? Integer.parseInt(resultado[1].toString()) : 0
+        );
+        List<String> frentes = new ArrayList<>();
+        for (Frente f : frenteService.findAll()) {
+            frentes.add(f.getNombre_frente());
+        }
+        frentes.add("NULOS");
+        frentes.add("BLANCOS");
+        List<String> colores = Arrays.asList("#008000", "#dedede", "#f1f592");
+
+        String nulos = "Nulos", blancos = "Blancos", validos = "Válidos", emitidos = "Emitidos",
+                habilitados = "Habilitados",actas = "Actas Computadas" , actas_habilitadas = "Actas Habilitadas";
+
+        List<String> frentesTabla = new ArrayList<>(frentes);
+        frentesTabla.addAll(Arrays.asList(validos.toUpperCase(), emitidos.toUpperCase(), habilitados.toUpperCase(),
+        actas.toUpperCase(), actas_habilitadas.toUpperCase()));
+
+        List<Integer> datosTabla = new ArrayList<>(datos);
+        // datosTabla.add(Integer.parseInt(resultado[0].toString()));
+        // datosTabla.add(Integer.parseInt(resultado[1].toString()));
+        datosTabla.add(resultado != null && resultado.length > 2 && resultado[2] != null ? Integer.parseInt(resultado[2].toString()) : 0);
+        datosTabla.add(resultado != null && resultado.length > 4 && resultado[4] != null ? Integer.parseInt(resultado[4].toString()) : 0);
+        datosTabla.add(resultado != null && resultado.length > 5 && resultado[5] != null ? Integer.parseInt(resultado[5].toString()) : 0);
+        datosTabla.add(resultado != null && resultado.length > 6 && resultado[6] != null ? Integer.parseInt(resultado[6].toString()) : 0);
+        datosTabla.add(resultado != null && resultado.length > 7 && resultado[7] != null ? Integer.parseInt(resultado[7].toString()) : 0);
+
+
+        double totalVotos = Integer.parseInt(resultado[5].toString());
+        List<Double> porcentajes = datosTabla.stream()
+                .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
+                .collect(Collectors.toList());
+
+        int totalActas = Integer.parseInt(resultado[7].toString());
+
+        int lastIndexActasComputadas = porcentajes.size() - 2;
+
+        int lastIndexActasHabilitas = porcentajes.size() - 1;
+
+        porcentajes.set(lastIndexActasComputadas,
+            Math.round((datosTabla.get(lastIndexActasComputadas) / (double) totalActas) * 100 * 1000.0) / 1000.0);
+
+        porcentajes.set(lastIndexActasHabilitas,
+            Math.round((datosTabla.get(lastIndexActasHabilitas) / (double) totalActas) * 100 * 1000.0) / 1000.0);
+
+        // Construir el HTML de la tabla
+        StringBuilder htmlTabla = new StringBuilder();
+        htmlTabla.append("<h3 class='text-center'>Tabla de Resultados General ( 100 % )</h3>");
+        htmlTabla.append("<table class='table table-striped'>");
+        htmlTabla.append("<thead><tr><th>Frente</th><th>Votos</th><th>%</th></tr></thead>");
+        htmlTabla.append("<tbody>");
+
+        for (int i = 0; i < datosTabla.size(); i++) {
+            htmlTabla.append("<tr>");
+            htmlTabla.append("<td>").append(frentesTabla.get(i)).append("</td>");
+            htmlTabla.append("<td>").append(datosTabla.get(i)).append("</td>");
+            htmlTabla.append("<td>").append(porcentajes.get(i)+" %").append("</td>");
+            htmlTabla.append("</tr>");
+        }
+
+        htmlTabla.append("</tbody>");
+        htmlTabla.append("</table>");
+
+        // Datos para el gráfico
+        List<Map<String, Object>> chartData = new ArrayList<>();
+        for (int i = 0; i < frentes.size(); i++) {
+            Map<String, Object> dataPoint = new HashMap<>();
+            dataPoint.put("frente", frentes.get(i));
+            dataPoint.put("votos", datos.get(i));
+            dataPoint.put("color", colores.get(i % colores.size()));
+            chartData.add(dataPoint);
+        }
+
+        // Crear la respuesta JSON
+        Map<String, Object> response = new HashMap<>();
+        response.put("html", htmlTabla.toString()); // HTML de la tabla generado
+        response.put("chartData", chartData); // Datos para el gráfico
+        response.put("totalHabilitados", Integer.parseInt(resultado[5].toString())); // Total de Habilitados
+
+        return ResponseEntity.ok(response); // Devuelve la respuesta como JSON
+    }
 
     @PostMapping("/cargarCarreras/{id_facultad}")
     public ResponseEntity<List<String[]>> cargarCarreras(@PathVariable(name = "id_facultad",required = false) Long id_facultad) {

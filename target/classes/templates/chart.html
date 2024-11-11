@@ -69,7 +69,7 @@
         <ul class="nav nav-tabs" id="resultadosTabs" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="resultados-tab" data-toggle="tab" href="#resultados" role="tab"
-                    aria-controls="resultados" aria-selected="true">General</a>
+                    aria-controls="resultados" aria-selected="true" >General</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#estDoc" role="tab" aria-controls="estDoc"
@@ -94,32 +94,16 @@
         <div class="tab-content" id="resultadosTabsContent">
             <!-- Pestaña de Resultados -->
             <div class="tab-pane fade show active" id="resultados" role="tabpanel" aria-labelledby="resultados-tab">
+              
                 <div class="row mt-4">
                     <div class="col-md-7">
 
                         <h2 class="text-center">Distribución de Votos</h2>
-                        <div id="chart" style="width: 100%; height: 400px;"></div>
+                        <div id="chart6" style="width: 100%; height: 450px;"></div>
                     </div>
                     <div class="col-md-5">
-                        <div id="tablaGeneralDoc"></div>
-                        <!-- <br>
-                        <h3 class="text-center">Tabla de Resultados (Estudiantes)</h3>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Frente</th>
-                                    <th>Votos</th>
-                                    <th>%</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="dato, iterStat : ${datosTabla}">
-                                    <td th:text="${frentesTabla[iterStat.index]}"></td>
-                                    <td th:text="${dato}"></td>
-                                    <td th:text="${porcentajes[iterStat.index]+' %'}"></td>
-                                </tr>
-                            </tbody>
-                        </table> -->
+                        <div id="tablaGeneralTotal"></div>
+                       
                     </div>
                 </div>
                 <br>
@@ -127,28 +111,23 @@
                     <div class="col-md-7">
 
                         <h2 class="text-center">Distribución de Votos</h2>
-                        <div id="chart5" style="width: 100%; height: 400px;"></div>
+                        <div id="chart" style="width: 100%; height: 450px;"></div>
+                    </div>
+                    <div class="col-md-5">
+                        <div id="tablaGeneralDoc"></div>
+                     
+                    </div>
+                </div>
+                <br>
+                <div class="row mt-4">
+                    <div class="col-md-7">
+
+                        <h2 class="text-center">Distribución de Votos</h2>
+                        <div id="chart5" style="width: 100%; height: 450px;"></div>
                     </div>
                     <div class="col-md-5">
                         <div id="tablaGeneralEst"></div>
-                        <!-- <br>
-                        <h3 class="text-center">Tabla de Resultados (Docentes)</h3>
-                        <table class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Frente</th>
-                                    <th>Votos</th>
-                                    <th>%</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="dato, iterStat : ${datosTabla}">
-                                    <td th:text="${frentesTabla[iterStat.index]}"></td>
-                                    <td th:text="${dato}"></td>
-                                    <td th:text="${porcentajes[iterStat.index]+' %'}"></td>
-                                </tr>
-                            </tbody>
-                        </table> -->
+                       
                     </div>
                 </div>
             </div>
@@ -290,6 +269,7 @@
             $('.js-example-basic-single').select2({
                 placeholder: "Seleccione..."
             });
+            cargarGeneraTotal();
             cargarTablaGeneral();
             cargarTablaPorMesa($('#tabla_resultado_mesa').val());
         });
@@ -338,6 +318,20 @@
 
         }
 
+        function cargarGeneraTotal(){
+
+            $.ajax({
+                type: 'POST',
+                url: "/cargarGeneralTotal",  // Ruta del metodo del controlador en Spring Boot
+                success: function (response) {
+                    updateChart(response.chartData, response.totalHabilitados, 'chart6');
+                    // $("#tablaGeneralTotal").html(response.html);
+                }, error: function (xhr, status, error) {
+                    console.error('Hubo un problema con la solicitud AJAX:', status, error);
+                }
+            });
+        }
+
         function cargarTablaGeneral() {
             $.ajax({
                 type: 'POST',
@@ -349,6 +343,7 @@
                     updateChart(response.chartDataEst, response.totalHabilitadosEst, 'chart5');
                     $("#tablaGeneralDoc").html(response.htmlDoc);
                     $("#tablaGeneralEst").html(response.htmlEst);
+                    $("#tablaGeneralTotal").html(response.htmlTotalGeneral);
                 },
                 error: function (xhr, status, error) {
                     console.error('Hubo un problema con la solicitud AJAX:', status, error);
