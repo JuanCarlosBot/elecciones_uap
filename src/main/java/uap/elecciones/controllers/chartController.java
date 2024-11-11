@@ -176,8 +176,8 @@ public class chartController {
         datosTablaEstudiantes.add(resultadoEstudiantes[7] != null ? Integer.parseInt(resultadoEstudiantes[7].toString()) : 0);
     
 
-        double totalVotosDocentes = Integer.parseInt(resultadoDocentes[5].toString());
-        double totalVotosEstudiantes = Integer.parseInt(resultadoEstudiantes[5].toString());
+        double totalVotosDocentes = Integer.parseInt(resultadoDocentes[4].toString());
+        double totalVotosEstudiantes = Integer.parseInt(resultadoEstudiantes[4].toString());
 
         List<Double> porcentajesDocentes = datosTablaDocentes.stream()
                 .map(dato -> Math.round((dato / totalVotosDocentes) * 50 * 1000.0) / 1000.0)
@@ -186,6 +186,15 @@ public class chartController {
                 // System.out.println(porcentajesDocentes);
         List<Double> porcentajesEstudiantes = datosTablaEstudiantes.stream()
                 .map(dato -> Math.round((dato / totalVotosEstudiantes) * 50 * 1000.0) / 1000.0)
+                .collect(Collectors.toList());
+
+        List<Double> porcentajesDocentes100 = datosTablaDocentes.stream()
+                .map(dato -> Math.round((dato / totalVotosDocentes) * 100 * 1000.0) / 1000.0)
+                .collect(Collectors.toList());
+
+                // System.out.println(porcentajesDocentes);
+        List<Double> porcentajesEstudiantes100 = datosTablaEstudiantes.stream()
+                .map(dato -> Math.round((dato / totalVotosEstudiantes) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
 
         // Obtener el valor que se usará para el último índice
@@ -202,6 +211,12 @@ public class chartController {
         int lastIndexDocentesActas = porcentajesDocentes.size() - 1;
         int lastIndexEstudiantesActas = porcentajesEstudiantes.size() - 1;
 
+        int lastIndexDocentes100 = porcentajesDocentes100.size() - 2;
+        int lastIndexEstudiantes100 = porcentajesEstudiantes100.size() - 2;
+
+        int lastIndexDocentesActas100 = porcentajesDocentes100.size() - 1;
+        int lastIndexEstudiantesActas100 = porcentajesEstudiantes100.size() - 1;
+
         porcentajesDocentes.set(lastIndexDocentes,
             Math.round((datosTablaDocentes.get(lastIndexDocentes) / (double) totalActasDocentesBase) * 100 * 1000.0) / 1000.0);
 
@@ -213,6 +228,18 @@ public class chartController {
 
         porcentajesEstudiantes.set(lastIndexEstudiantesActas,
             Math.round((datosTablaEstudiantes.get(lastIndexEstudiantesActas) / (double) totalActasEstudiantesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesDocentes100.set(lastIndexDocentes100,
+            Math.round((datosTablaDocentes.get(lastIndexDocentes100) / (double) totalActasDocentesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesDocentes100.set(lastIndexDocentesActas100,
+            Math.round((datosTablaDocentes.get(lastIndexDocentesActas100) / (double) totalActasDocentesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesEstudiantes100.set(lastIndexEstudiantes100,
+            Math.round((datosTablaEstudiantes.get(lastIndexEstudiantes100) / (double) totalActasEstudiantesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesEstudiantes100.set(lastIndexEstudiantesActas100,
+            Math.round((datosTablaEstudiantes.get(lastIndexEstudiantesActas100) / (double) totalActasEstudiantesBase) * 100 * 1000.0) / 1000.0);
         
         
         List<Double> totalPorcentaje = new ArrayList<>();
@@ -222,7 +249,7 @@ public class chartController {
         StringBuilder htmlTabla = new StringBuilder();
         htmlTabla.append("<h3 class='text-center'>Tabla de Resultados (Docente) / 50 %</h3>");
         htmlTabla.append("<table class='table table-striped'>");
-        htmlTabla.append("<thead><tr><th>Frente</th><th>Votos</th><th>%</th></tr></thead>");
+        htmlTabla.append("<thead><tr><th>Frente</th><th>Votos</th><th> 50 %</th><th> 100 %</th></tr></thead>");
         htmlTabla.append("<tbody>");
 
         for (int i = 0; i < datosTablaDocentes.size(); i++) {
@@ -230,6 +257,7 @@ public class chartController {
             htmlTabla.append("<td>").append(frentesTablaDocentes.get(i)).append("</td>");
             htmlTabla.append("<td>").append(datosTablaDocentes.get(i)).append("</td>");
             htmlTabla.append("<td>").append(porcentajesDocentes.get(i)+" %").append("</td>");
+            htmlTabla.append("<td>").append(porcentajesDocentes100.get(i)+" %").append("</td>");
             htmlTabla.append("</tr>");
             
         }
@@ -240,7 +268,7 @@ public class chartController {
         StringBuilder htmlTablaEst = new StringBuilder();
         htmlTablaEst.append("<h3 class='text-center'>Tabla de Resultados (Estudiantes) / 50 %</h3>");
         htmlTablaEst.append("<table class='table table-striped'>");
-        htmlTablaEst.append("<thead><tr><th>Frente</th><th>Votos</th><th>%</th></tr></thead>");
+        htmlTablaEst.append("<thead><tr><th>Frente</th><th>Votos</th><th> 50 %</th><th> 100 %</th></tr></thead>");
         htmlTablaEst.append("<tbody>");
 
         for (int i = 0; i < datosTablaEstudiantes.size(); i++) {
@@ -248,6 +276,7 @@ public class chartController {
             htmlTablaEst.append("<td>").append(frentesTablaEstudiantes.get(i)).append("</td>");
             htmlTablaEst.append("<td>").append(datosTablaEstudiantes.get(i)).append("</td>");
             htmlTablaEst.append("<td>").append(porcentajesEstudiantes.get(i) + " %").append("</td>");
+            htmlTablaEst.append("<td>").append(porcentajesEstudiantes100.get(i) + " %").append("</td>");
             htmlTablaEst.append("</tr>");
         
             // Sumar datos normalmente
@@ -270,10 +299,10 @@ public class chartController {
         StringBuilder htmlTablaTotalGeneral = new StringBuilder();
         htmlTablaTotalGeneral.append("<h3 class='text-center'>Tabla de Resultados</h3>");
         htmlTablaTotalGeneral.append("<table class='table table-striped'>");
-        htmlTablaTotalGeneral.append("<thead><tr><th>Frente</th><th>%</th></tr></thead>");
+        htmlTablaTotalGeneral.append("<thead><tr><th>Frente</th><th> 100 %</th></tr></thead>");
         htmlTablaTotalGeneral.append("<tbody>");
 
-        for (int i = 0; i < totalPorcentaje.size(); i++) {
+        for (int i = 0; i < totalPorcentaje.size() -3 ; i++) {
             htmlTablaTotalGeneral.append("<tr>");
             htmlTablaTotalGeneral.append("<td>").append(frentesTablaEstudiantes.get(i)).append("</td>");
             // htmlTablaTotalGeneral.append("<td>").append(totalDatos.get(i)).append("</td>");
@@ -351,7 +380,7 @@ public class chartController {
         datosTabla.add(resultado != null && resultado.length > 7 && resultado[7] != null ? Integer.parseInt(resultado[7].toString()) : 0);
 
 
-        double totalVotos = Integer.parseInt(resultado[5].toString());
+        double totalVotos = Integer.parseInt(resultado[4].toString());
         List<Double> porcentajes = datosTabla.stream()
                 .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
@@ -455,7 +484,7 @@ public class chartController {
         datosTabla.add(resultado != null && resultado.length > 7 && resultado[7] != null ? Integer.parseInt(resultado[7].toString()) : 0);
 
 
-        double totalVotos = Integer.parseInt(resultado[5].toString());
+        double totalVotos = Integer.parseInt(resultado[4].toString());
         List<Double> porcentajes = datosTabla.stream()
                 .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
@@ -544,7 +573,7 @@ public class chartController {
         datosTabla.add(resultado != null && resultado.length > 6 && resultado[6] != null ? Integer.parseInt(resultado[6].toString()) : 0);
         datosTabla.add(resultado != null && resultado.length > 7 && resultado[7] != null ? Integer.parseInt(resultado[7].toString()) : 0);
 
-        double totalVotos = Integer.parseInt(resultado[5].toString());
+        double totalVotos = Integer.parseInt(resultado[4].toString());
         List<Double> porcentajes = datosTabla.stream()
                 .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
@@ -633,7 +662,7 @@ public class chartController {
         datosTabla.add(resultado != null && resultado.length > 7 && resultado[7] != null ? Integer.parseInt(resultado[7].toString()) : 0);
 
 
-        double totalVotos = Integer.parseInt(resultado[5].toString());
+        double totalVotos = Integer.parseInt(resultado[4].toString());
         List<Double> porcentajes = datosTabla.stream()
                 .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
