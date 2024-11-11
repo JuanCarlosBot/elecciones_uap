@@ -271,7 +271,8 @@
                                                 <option th:each="mesa : ${mesas}"
                                                         th:value="${mesa.id_mesa}"
                                                         th:text="${mesa.nombre_mesa}"
-                                                        th:if="${mesa.estado != 'COMPLETADO'}">
+                                                        th:if="${anfora.id_anfora != null ? mesa.estado == 'COMPLETADO' : mesa.estado != 'COMPLETADO'}"
+                                                        th:selected="${anfora.id_anfora != null and anfora.mesa != null and anfora.mesa.id_mesa == mesa.id_mesa}">
                                                 </option>
                                             </select>                                                                                       
                                         </div>
