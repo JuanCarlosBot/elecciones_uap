@@ -7,12 +7,12 @@
     
     <!-- Header top area start-->
     <div class="wrapper-pro">
-        <div th:replace="Layout/layout :: preloader"></div>
-        <div th:replace="Layout/layout :: left_sidebar" class="left-sidebar-pro">
+        <div th:replace="~{Layout/layout :: preloader}"></div>
+        <div th:replace="~{Layout/layout :: left_sidebar}" class="left-sidebar-pro">
         </div>
         <!-- Header top area start-->
         <div class="content-inner-all">
-            <div th:replace="Layout/layout :: header" class="header-top-area">
+            <div th:replace="~{Layout/layout :: header}" class="header-top-area">
             </div>
             <!-- Header top area end-->
             <!-- Breadcome start-->
@@ -46,7 +46,7 @@
             </div>
             <!-- Breadcome End-->
             <!-- Mobile Menu start -->
-            <div th:replace="Layout/layout :: mobile" class="mobile-menu-area">
+            <div th:replace="~{Layout/layout :: mobile}" class="mobile-menu-area">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -231,7 +231,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="sparkline13-list shadow-reset">
-                            <div th:replace="Layout/layout :: alert"></div>
+                            <div th:replace="~{Layout/layout :: alert}"></div>
                             <div class="sparkline13-hd">
                                 <div class="main-sparkline13-hd">
                                     <h1>LISTA <span class="table-project-n">DE</span> USUARIOS</h1>
@@ -298,11 +298,11 @@
         </div>
     </div>
     <!-- Footer Start-->
-    <div th:replace="Layout/layout :: footer" class="footer-copyright-area">
+    <div th:replace="~{Layout/layout :: footer}" class="footer-copyright-area">
     </div>
     <!-- Footer End-->
 
-    <div th:replace="Layout/layout :: scripts"></div>
+    <div th:replace="~{Layout/layout :: scripts}"></div>
     
 </body>
 

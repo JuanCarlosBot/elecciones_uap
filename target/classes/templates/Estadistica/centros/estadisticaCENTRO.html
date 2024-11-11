@@ -17,7 +17,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="sparkline13-list shadow-reset">
-                                <div th:replace="Layout/layout :: alert"></div>
+                                <div th:replace="~{Layout/layout :: alert}"></div>
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
                                         <h1> ESTADISTICA DE ELECCIONES PARA CENTRO  <th:block th:if="${carrera != null}" th:text="${' - ' + carrera.nombre_carrera}"> </th:block>
@@ -44,7 +44,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="sparkline13-list shadow-reset">
-                                <div th:replace="Layout/layout :: alert"></div>
+                                <div th:replace="~{Layout/layout :: alert}"></div>
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
                                         <h1>INFORMACION ELECCION PARA CENTRO <th:block th:if="${facultad != null}" th:text="${' - ' + facultad.nombre_facultad}"> </th:block>
@@ -339,11 +339,11 @@
         </div>
     </div>
     <!-- Footer Start-->
-    <div th:replace="Layout/layout :: footer" class="footer-copyright-area">
+    <div th:replace="~{Layout/layout :: footer}" class="footer-copyright-area">
     </div>
     <!-- Footer End-->
 
-    <div th:replace="Layout/layout :: scripts"></div>
+    <div th:replace="~{Layout/layout :: scripts}"></div>
 
 </body>
 

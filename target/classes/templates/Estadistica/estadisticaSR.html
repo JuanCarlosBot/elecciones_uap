@@ -10,9 +10,9 @@
 <BR>
     <div class="wrapper-pro">
     <!--BORRAR 3
-        <div th:replace="Layout/layout :: preloader"></div>
+        <div th:replace="~{Layout/layout :: preloader}"></div>
         
-        <div th:replace="Layout/layout :: left_sidebar" class="left-sidebar-pro">
+        <div th:replace="~{Layout/layout :: left_sidebar}" class="left-sidebar-pro">
      -->
         </div>
    
@@ -20,7 +20,7 @@
         <div>
 
 <!--BORRAR2 
-            <div th:replace="Layout/layout :: header" class="header-top-area">
+            <div th:replace="~{Layout/layout :: header}" class="header-top-area">
             </div>
     -->      
             <!-- Header top area end-->
@@ -53,7 +53,7 @@
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="sparkline13-list shadow-reset">
-                                <div th:replace="Layout/layout :: alert"></div>
+                                <div th:replace="~{Layout/layout :: alert}"></div>
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
                                         <h1>ESTADISTICA DE ELECCIONES PARA CENTRO INTERNO DE SR</h1>
@@ -79,7 +79,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="sparkline13-list shadow-reset">
-                                <div th:replace="Layout/layout :: alert"></div>
+                                <div th:replace="~{Layout/layout :: alert}"></div>
                                 <div class="sparkline13-hd">
                                     <div class="main-sparkline13-hd">
                                         <h1>INFORMACION ELECCION PARA CENTRO INTERNO DE SR</h1>
@@ -357,11 +357,11 @@
         </div>
     </div>
     <!-- Footer Start-->
-    <div th:replace="Layout/layout :: footer" class="footer-copyright-area">
+    <div th:replace="~{Layout/layout :: footer}" class="footer-copyright-area">
     </div>
     <!-- Footer End-->
 
-    <div th:replace="Layout/layout :: scripts"></div>
+    <div th:replace="~{Layout/layout :: scripts}"></div>
 
 </body>
 

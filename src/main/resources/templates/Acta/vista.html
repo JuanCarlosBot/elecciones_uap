@@ -40,12 +40,12 @@
 
     <!-- Header top area start-->
     <div class="wrapper-pro">
-        <div th:replace="Layout/layout :: preloader"></div>
-        <div th:replace="Layout/layout :: left_sidebar" class="left-sidebar-pro">
+        <div th:replace="~{Layout/layout :: preloader}"></div>
+        <div th:replace="~{Layout/layout :: left_sidebar}" class="left-sidebar-pro">
         </div>
         <!-- Header top area start-->
         <div class="content-inner-all">
-            <div th:replace="Layout/layout :: header" class="header-top-area">
+            <div th:replace="~{Layout/layout :: header}" class="header-top-area">
             </div>
             <!-- Header top area end-->
             <!-- Breadcome start-->
@@ -79,7 +79,7 @@
             </div>
             <!-- Breadcome End-->
             <!-- Mobile Menu start -->
-            <div th:replace="Layout/layout :: mobile" class="mobile-menu-area">
+            <div th:replace="~{Layout/layout :: mobile}" class="mobile-menu-area">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -281,7 +281,7 @@
                                 <div class="login-bg">
                                     <div class="row">
                                         <div class="col-lg-12">
-                                            <div th:replace="Layout/layout :: alert"></div>
+                                            <div th:replace="~{Layout/layout :: alert}"></div>
                                             <div class="logo">
                                                 <a href="#"><img src="../../../../img/logo/UAP_DIGITAL_NORMAL.webp"
                                                         alt="" width="300" height="200" />
@@ -428,7 +428,7 @@
     </div>
 
     <!-- Footer Start-->
-    <div th:replace="Layout/layout :: footer" class="footer-copyright-area">
+    <div th:replace="~{Layout/layout :: footer}" class="footer-copyright-area">
     </div>
     <!-- Footer End-->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -461,7 +461,7 @@
         });
     </script>
 
-    <div th:replace="Layout/layout :: scripts"></div>
+    <div th:replace="~{Layout/layout :: scripts}"></div>
     <script th:if="${edit == null}">
         $('.select2').empty();
     </script>
