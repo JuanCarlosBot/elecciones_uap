@@ -57,9 +57,9 @@ public class chartController {
     @RequestMapping(value = "/resultados", method = RequestMethod.GET)
     private String getResultados(Model model) {
 
-        Object[] resultado = (Object[]) anforaService.votosGeneral();
-        List<Integer> datos = Arrays.asList(Integer.parseInt(resultado[2].toString()),
-                Integer.parseInt(resultado[0].toString()), Integer.parseInt(resultado[1].toString()));
+        // Object[] resultado = (Object[]) anforaService.votosGeneral();
+        // List<Integer> datos = Arrays.asList(Integer.parseInt(resultado[2].toString()),
+        //         Integer.parseInt(resultado[0].toString()), Integer.parseInt(resultado[1].toString()));
         List<String> frentes = new ArrayList<>(); // Ejemplo de nombres de frentes
         for (Frente f : frenteService.findAll()) {
             frentes.add(f.getNombre_frente());
@@ -77,27 +77,27 @@ public class chartController {
         }
         // frentesTabla.add(nulos);
         // frentesTabla.add(blancos);
-        frentesTabla.add(validos.toUpperCase());
-        frentesTabla.add(emitidos.toUpperCase());
-        frentesTabla.add(habiltiados.toUpperCase());
+        // frentesTabla.add(validos.toUpperCase());
+        // frentesTabla.add(emitidos.toUpperCase());
+        // frentesTabla.add(habiltiados.toUpperCase());
 
         List<Integer> datosTabla = new ArrayList<>(); // Ejemplo de datos de votos
 
-        for (int i = 0; i < datos.size(); i++) {
-            datosTabla.add(datos.get(i));
-        }
+        // for (int i = 0; i < datos.size(); i++) {
+        //     datosTabla.add(datos.get(i));
+        // }
 
         // datosTabla.add(Integer.parseInt(resultado[0].toString()));
         // datosTabla.add(Integer.parseInt(resultado[1].toString()));
-        datosTabla.add(Integer.parseInt(resultado[2].toString()));
-        datosTabla.add(Integer.parseInt(resultado[4].toString()));
-        datosTabla.add(Integer.parseInt(resultado[5].toString()));
+        // datosTabla.add(Integer.parseInt(resultado[2].toString()));
+        // datosTabla.add(Integer.parseInt(resultado[4].toString()));
+        // datosTabla.add(Integer.parseInt(resultado[5].toString()));
 
         // double totalVotos = datosTabla.stream().mapToInt(Integer::intValue).sum();
-        double totalVotos = Integer.parseInt(resultado[5].toString());// Total Habilitados
-        List<Double> porcentajes = datosTabla.stream()
-                .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0) // Redondea a dos decimales
-                .collect(Collectors.toList());
+        // double totalVotos = Integer.parseInt(resultado[5].toString());// Total Habilitados
+        // List<Double> porcentajes = datosTabla.stream()
+        //         .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0) // Redondea a dos decimales
+        //         .collect(Collectors.toList());
         // Añadir al modelo
         model.addAttribute("mesas", mesas);
         // model.addAttribute("datos", datos);
@@ -115,14 +115,22 @@ public class chartController {
     public ResponseEntity<Map<String, Object>> cargarGeneral(@RequestBody String entity) {
 
         // Generación de los datos
+        
         Object[] resultadoDocentes = (Object[]) anforaService.votosGenerales(true, "D");
         Object[] resultadoEstudiantes = (Object[]) anforaService.votosGenerales(false, "E");
 
-        List<Integer> datosDocentes = Arrays.asList(Integer.parseInt(resultadoDocentes[2].toString()),
-                Integer.parseInt(resultadoDocentes[0].toString()), Integer.parseInt(resultadoDocentes[1].toString()));
+        // Validar que los resultados no sean nulos y asignar valores predeterminados en caso necesario
+        List<Integer> datosDocentes = Arrays.asList(
+            resultadoDocentes[2] != null ? Integer.parseInt(resultadoDocentes[2].toString()) : 0,
+            resultadoDocentes[0] != null ? Integer.parseInt(resultadoDocentes[0].toString()) : 0,
+            resultadoDocentes[1] != null ? Integer.parseInt(resultadoDocentes[1].toString()) : 0
+        );
 
-        List<Integer> datosEstudiantes = Arrays.asList(Integer.parseInt(resultadoEstudiantes[2].toString()),
-                Integer.parseInt(resultadoEstudiantes[0].toString()), Integer.parseInt(resultadoEstudiantes[1].toString()));
+        List<Integer> datosEstudiantes = Arrays.asList(
+            resultadoEstudiantes[2] != null ? Integer.parseInt(resultadoEstudiantes[2].toString()) : 0,
+            resultadoEstudiantes[0] != null ? Integer.parseInt(resultadoEstudiantes[0].toString()) : 0,
+            resultadoEstudiantes[1] != null ? Integer.parseInt(resultadoEstudiantes[1].toString()) : 0
+        );
 
         List<String> frentesDocentes = new ArrayList<>();
         List<String> frentesEstudiantes = new ArrayList<>();
@@ -155,17 +163,18 @@ public class chartController {
         List<Integer> datosTablaEstudiantes = new ArrayList<>(datosEstudiantes);
         // datosTabla.add(Integer.parseInt(resultado[0].toString()));
         // datosTabla.add(Integer.parseInt(resultado[1].toString()));
-        datosTablaDocentes.add(Integer.parseInt(resultadoDocentes[2].toString()));
-        datosTablaDocentes.add(Integer.parseInt(resultadoDocentes[4].toString()));
-        datosTablaDocentes.add(Integer.parseInt(resultadoDocentes[5].toString()));
-        datosTablaDocentes.add(Integer.parseInt(resultadoDocentes[6].toString()));
-        datosTablaDocentes.add(Integer.parseInt(resultadoDocentes[7].toString()));
-
-        datosTablaEstudiantes.add(Integer.parseInt(resultadoEstudiantes[2].toString()));
-        datosTablaEstudiantes.add(Integer.parseInt(resultadoEstudiantes[4].toString()));
-        datosTablaEstudiantes.add(Integer.parseInt(resultadoEstudiantes[5].toString()));
-        datosTablaEstudiantes.add(Integer.parseInt(resultadoEstudiantes[6].toString()));
-        datosTablaEstudiantes.add(Integer.parseInt(resultadoEstudiantes[7].toString()));
+        datosTablaDocentes.add(resultadoDocentes[2] != null ? Integer.parseInt(resultadoDocentes[2].toString()) : 0);
+        datosTablaDocentes.add(resultadoDocentes[4] != null ? Integer.parseInt(resultadoDocentes[4].toString()) : 0);
+        datosTablaDocentes.add(resultadoDocentes[5] != null ? Integer.parseInt(resultadoDocentes[5].toString()) : 0);
+        datosTablaDocentes.add(resultadoDocentes[6] != null ? Integer.parseInt(resultadoDocentes[6].toString()) : 0);
+        datosTablaDocentes.add(resultadoDocentes[7] != null ? Integer.parseInt(resultadoDocentes[7].toString()) : 0);
+    
+        datosTablaEstudiantes.add(resultadoEstudiantes[2] != null ? Integer.parseInt(resultadoEstudiantes[2].toString()) : 0);
+        datosTablaEstudiantes.add(resultadoEstudiantes[4] != null ? Integer.parseInt(resultadoEstudiantes[4].toString()) : 0);
+        datosTablaEstudiantes.add(resultadoEstudiantes[5] != null ? Integer.parseInt(resultadoEstudiantes[5].toString()) : 0);
+        datosTablaEstudiantes.add(resultadoEstudiantes[6] != null ? Integer.parseInt(resultadoEstudiantes[6].toString()) : 0);
+        datosTablaEstudiantes.add(resultadoEstudiantes[7] != null ? Integer.parseInt(resultadoEstudiantes[7].toString()) : 0);
+    
 
         double totalVotosDocentes = Integer.parseInt(resultadoDocentes[5].toString());
         double totalVotosEstudiantes = Integer.parseInt(resultadoEstudiantes[5].toString());
@@ -369,8 +378,11 @@ public class chartController {
 
         // Generación de los datos
         Object[] resultado = (Object[]) anforaService.votosGeneralFacultad(id_facultad, sigla, isNul);
-        List<Integer> datos = Arrays.asList(Integer.parseInt(resultado[2].toString()),
-                Integer.parseInt(resultado[0].toString()), Integer.parseInt(resultado[1].toString()));
+        List<Integer> datos = Arrays.asList(
+            resultado != null && resultado.length > 2 && resultado[2] != null ? Integer.parseInt(resultado[2].toString()) : 0,
+            resultado != null && resultado.length > 0 && resultado[0] != null ? Integer.parseInt(resultado[0].toString()) : 0,
+            resultado != null && resultado.length > 1 && resultado[1] != null ? Integer.parseInt(resultado[1].toString()) : 0
+        );
         List<String> frentes = new ArrayList<>();
         for (Frente f : frenteService.findAll()) {
             frentes.add(f.getNombre_frente());
@@ -388,10 +400,10 @@ public class chartController {
         List<Integer> datosTabla = new ArrayList<>(datos);
         // datosTabla.add(Integer.parseInt(resultado[0].toString()));
         // datosTabla.add(Integer.parseInt(resultado[1].toString()));
-        datosTabla.add(Integer.parseInt(resultado[2].toString()));
-        datosTabla.add(Integer.parseInt(resultado[4].toString()));
-        datosTabla.add(Integer.parseInt(resultado[5].toString()));
-        datosTabla.add(Integer.parseInt(resultado[6].toString()));
+        datosTabla.add(resultado != null && resultado.length > 2 && resultado[2] != null ? Integer.parseInt(resultado[2].toString()) : 0);
+        datosTabla.add(resultado != null && resultado.length > 4 && resultado[4] != null ? Integer.parseInt(resultado[4].toString()) : 0);
+        datosTabla.add(resultado != null && resultado.length > 5 && resultado[5] != null ? Integer.parseInt(resultado[5].toString()) : 0);
+        datosTabla.add(resultado != null && resultado.length > 6 && resultado[6] != null ? Integer.parseInt(resultado[6].toString()) : 0);
 
         double totalVotos = Integer.parseInt(resultado[5].toString());
         List<Double> porcentajes = datosTabla.stream()
