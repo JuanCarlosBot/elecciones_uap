@@ -9,6 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.imageio.ImageIO;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 // import org.apache.poi.ss.usermodel.BorderStyle;
 // import org.apache.poi.ss.usermodel.Cell;
 // import org.apache.poi.ss.usermodel.CellStyle;
@@ -62,6 +68,20 @@ import com.itextpdf.text.pdf.PdfWriter;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
+import com.itextpdf.text.Image;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import com.itextpdf.text.pdf.PdfContentByte;
+import java.awt.Graphics2D;
+import java.awt.Color;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 
 @Controller
 @RequestMapping("/delegado")
@@ -184,29 +204,72 @@ public class delegadoController {
             DelegadoDto dD = new DelegadoDto();
             dD.setNombre_tipo_delegado((String) delegad[7]);
             dD.setApellidos((String) delegad[4]);
-            dD.setTipo_persona((String)delegad[3]);
+            dD.setTipo_persona((String) delegad[3]);
             delegadoDto.add(dD);
         }
         // Obtener la lista de votantes y mapear a DTOs
         List<Object[]> votantesMesa = habilitadoService.lista_votantes_por_mesa(idMesa);
         List<DelegadoDto> votantesDto = new ArrayList<>();
         for (Object[] votante : votantesMesa) {
-            DelegadoDto dD = new DelegadoDto();            
-            dD.setNombre_facultad((String) votante[0]);dD.setNombre_carrera((String) votante[1]);            
-            dD.setRu_rd((String) votante[2]);dD.setTipo_persona((String) votante[3]);            
-            dD.setApellidos((String) votante[4]);dD.setNombre_mesa((String) votante[5]);
+            DelegadoDto dD = new DelegadoDto();
+            dD.setNombre_facultad((String) votante[0]);
+            dD.setNombre_carrera((String) votante[1]);
+            dD.setRu_rd((String) votante[2]);
+            dD.setTipo_persona((String) votante[3]);
+            dD.setApellidos((String) votante[4]);
+            dD.setNombre_mesa((String) votante[5]);
             votantesDto.add(dD);
         }
         Mesa mesaa = mesaService.findOne(idMesa);
-        System.out.println("tipoooooooo  "+mesaa.getNombre_mesa().charAt(mesaa.getNombre_mesa().length()-1));
-        String tipo = ""+mesaa.getNombre_mesa().charAt(mesaa.getNombre_mesa().length()-1);
-        String RDRU="";
+        System.out.println("tipoooooooo  " + mesaa.getNombre_mesa().charAt(mesaa.getNombre_mesa().length() - 1));
+        String tipo = "" + mesaa.getNombre_mesa().charAt(mesaa.getNombre_mesa().length() - 1);
+        String RDRU = "";
         if (tipo.equals("D")) {
-            RDRU="RD";
-        }else if (tipo.equals("E")) {
-            RDRU="RU";
+            RDRU = "RD";
+        } else if (tipo.equals("E")) {
+            RDRU = "RU";
         }
+        /*
+         * // Definir datos del gráfico
+         * String[] candidatos = {"MNR", "MAS", "Podemos"};
+         * int[] votos = {235, 300, 500};
+         * int totalVotos = 1200;
+         * String[] colores = {"#000fff", "#000000", "#ffffff"};
+         * 
+         * // Crear el dataset
+         * DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+         * for (int i = 0; i < candidatos.length; i++) {
+         * dataset.addValue(votos[i], "Votos", candidatos[i]);
+         * }
+         * 
+         * // Crear el gráfico de barras horizontal
+         * JFreeChart chart = ChartFactory.createBarChart(
+         * "Resultados de Votación", // Título del gráfico
+         * "Candidato", // Etiqueta del eje X
+         * "Votos", // Etiqueta del eje Y
+         * dataset, // Dataset
+         * PlotOrientation.HORIZONTAL, // Orientación horizontal
+         * true, // Leyenda
+         * true, // Herramientas
+         * false // URLs
+         * );
+         */
+
         try {
+            /*
+             * // Personalizar colores
+             * chart.getCategoryPlot().getRenderer().setSeriesPaint(0,
+             * Color.decode(colores[0])); // MNR
+             * chart.getCategoryPlot().getRenderer().setSeriesPaint(1,
+             * Color.decode(colores[1])); // MAS
+             * chart.getCategoryPlot().getRenderer().setSeriesPaint(2,
+             * Color.decode(colores[2])); // Podemos
+             * // Convertir el gráfico a imagen (PNG)
+             * BufferedImage chartImage = chart.createBufferedImage(500, 300);
+             * ByteArrayOutputStream imageStream = new ByteArrayOutputStream();
+             * ImageIO.write(chartImage, "png", imageStream);
+             * Image chartImg = Image.getInstance(imageStream.toByteArray());
+             */
             PdfWriter writer = PdfWriter.getInstance(document, outputStream);
 
             // Definir evento para fondo de cada página
@@ -235,19 +298,32 @@ public class delegadoController {
             Font normal = new Font(base, 8);
 
             document.open();
-            String titu = mesaa.getNombre_mesa()+" - "+mesaa.getUbicacion()+" - "+mesaa.getDescripcion();
-            Paragraph titulo = new Paragraph(titu,negritaTit);
+
+            /*
+             * // Título del documento
+             * String tituu = "Resultados de Votación";
+             * Paragraph titulou = new Paragraph(tituu, negritaTit);
+             * titulou.setAlignment(Element.ALIGN_CENTER);
+             * document.add(titulou);
+             * 
+             * // Agregar el gráfico como imagen al documento
+             * chartImg.scaleToFit(500, 300);
+             * document.add(chartImg); // Agregar la imagen del gráfico al documento PDF
+             */
+
+            String titu = mesaa.getNombre_mesa() + " - " + mesaa.getUbicacion() + " - " + mesaa.getDescripcion();
+            Paragraph titulo = new Paragraph(titu, negritaTit);
             titulo.setAlignment(Element.ALIGN_CENTER);
             titulo.setSpacingBefore(0);// salto de filas antes de parrafo
             titulo.setSpacingAfter(1);// salto de filas despues de parrafo
             document.add(titulo);
-            Paragraph titulo2 = new Paragraph("Habilitados: "+votantesDto.size(),negritaTit);
+            Paragraph titulo2 = new Paragraph("Habilitados: " + votantesDto.size(), negritaTit);
             titulo2.setAlignment(Element.ALIGN_CENTER);
             document.add(titulo2);
             titulo.setAlignment(Element.ALIGN_CENTER);
             // Crear tabla
             if (!votantesMesa.isEmpty()) {
-                //titulo y jurados
+                // titulo y jurados
                 PdfPTable table1 = new PdfPTable(3); // Número de columnas
                 float[] columnWidths1 = { 0.7f, 2.5f, 5f }; // Ajusta los valores según tus necesidades
                 table1.setWidths(columnWidths1);
@@ -263,7 +339,7 @@ public class delegadoController {
                     table1.addCell(new PdfPCell(new Phrase(vot.getApellidos(), normal)));
                 }
                 document.add(table1);
-                //lista de votantes
+                // lista de votantes
                 PdfPTable table = new PdfPTable(6); // Número de columnas
                 float[] columnWidths = { 0.7f, 2.5f, 2.5f, 1.2f, 4f, 2f }; // Ajusta los valores según tus necesidades
                 table.setWidths(columnWidths);

@@ -125,7 +125,7 @@
                     <ul class="nav navbar-nav left-sidebar-menu-pro">
                         <li class="nav-item">
                             <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-home"></i> 
+                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-home"></i>
                                 <span class="mini-dn">Inicio</span> <span class="indicator-right-menu mini-dn"><i
                                         class="fa indicator-mn fa-angle-left"></i></span></a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
@@ -133,12 +133,16 @@
 
                             </div>
                         </li>
-                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
+                        <li class="nav-item">
+                            <a href="#" th:if="${session.usuario.id_usuario ==1}"
                                 data-toggle="dropdown" role="button" aria-expanded="false"
-                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-edit"></i> <span
-                                    class="mini-dn">Usuario</span>
-                                <span class="indicator-right-menu mini-dn"><i
-                                        class="fa indicator-mn fa-angle-left"></i></span></a>
+                                class="nav-link dropdown-toggle">
+                                <i class="fa big-icon fa-edit"></i> 
+                                <span class="mini-dn">Usuario</span>
+                                <span class="indicator-right-menu mini-dn">
+                                    <i class="fa indicator-mn fa-angle-left"></i>
+                                </span>
+                            </a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                 <a th:href="${'../../../../admin/usuario'}" class="dropdown-item">Registro Usuario</a>
                                 <a th:href="${'../../../../admin/lista_usuarios'}" class="dropdown-item">Lista
@@ -147,9 +151,12 @@
                                 <!-- <a th:href="${'../../../../admin/lista_personas'}" class="dropdown-item">Lista Personas</a> -->
                             </div>
                         </li>
-                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
+                        <li th:if="${session.usuario.id_usuario ==1}" class="nav-item">
+                            <a href="#"
                                 data-toggle="dropdown" role="button" aria-expanded="false"
-                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span
+                                class="nav-link dropdown-toggle">
+                                <i class="fa big-icon fa-pie-chart"></i> 
+                                <span
                                     class="mini-dn">Asignacion</span>
                                 <span class="indicator-right-menu mini-dn"><i
                                         class="fa indicator-mn fa-angle-left"></i></span></a>
@@ -162,27 +169,18 @@
                                 <a th:href="${'../../../../acta/ventana'}" class="dropdown-item">Registro Acta</a>
                             </div>
                         </li>
-                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
-                            data-toggle="dropdown" role="button" aria-expanded="false"
-                            class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span
-                                class="mini-dn">Asignar Votantes a Mesa</span>
-                            <span class="indicator-right-menu mini-dn"><i
-                                    class="fa indicator-mn fa-angle-left"></i></span></a>
-                        <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
-                            <a th:href="${'../../../../admin/mesa_votante_fac'}" class="dropdown-item">Por Facultad</a>
-                            <a th:href="${'../../../../admin/mesa_votante_carr'}" class="dropdown-item">Por Carrera</a>
-                            
-                        </div>
-                    </li>
-                        <li class="nav-item"><a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
-                                class="nav-link dropdown-toggle"><i class="fa big-icon fa-bar-chart-o"></i> <span
+                        <li class="nav-item">
+                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
+                                class="nav-link dropdown-toggle">
+                                <i class="fa big-icon fa-bar-chart-o"></i> 
+                                <span
                                     class="mini-dn">Universidad</span> <span class="indicator-right-menu mini-dn"><i
                                         class="fa indicator-mn fa-angle-left"></i></span></a>
                             <div role="menu" class="dropdown-menu left-menu-dropdown animated flipInX">
                                 <!-- <a th:href="${'../../../../admin/carrera'}" class="dropdown-item">Carrera</a>
                                 <a th:href="${'../../../../admin/facultad'}" class="dropdown-item">Facultad</a> -->
                                 <!-- <a th:href="${'../../../../admin/lista_facultades_sorteo'}" class="dropdown-item">Sorteo</a> -->
-                                <a th:href="${'../../../../admin/lista_facultades'}" class="dropdown-item">Lista
+                                <a th:href="${'../../../../admin/lista_facultades'}" class="dropdown-item">
                                     Facultades</a>
                             </div>
                         </li>
@@ -207,7 +205,7 @@
                                 <a th:href="${'../../../../admin/estadisticaFUL/10'}">Estadistica FUL SR</a>
                             </div>
                         </li>-->
-                        <li class="nav-item">
+                        <!--<li class="nav-item">
                             <a href="#" class="dropdown-item dropdown-toggle" data-bs-toggle="dropdown"
                             data-bs-auto-close="outside">
                             <i class="fa big-icon fa-pie-chart"></i> <span class="mini-dn">centr</span>
@@ -235,9 +233,9 @@
                                 </div>
                             </li>
                         </ul>
-                    </li>
+                    </li>-->
 
-                        <li th:if="${session.usuario.id_usuario != 2}" th:each="facultad : ${facultades}"
+                        <!--<li th:if="${session.usuario.id_usuario != 2}" th:each="facultad : ${facultades}"
                             class="nav-item">
                             <a href="#" data-toggle="dropdown" role="button" aria-expanded="false"
                                 class="nav-link dropdown-toggle">
@@ -256,7 +254,7 @@
                         </li>
 
 
-                        <!--<li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
+                        <li th:if="${session.usuario.id_usuario != 2}" class="nav-item"><a href="#"
                                 data-toggle="dropdown" role="button" aria-expanded="false"
                                 class="nav-link dropdown-toggle"><i class="fa big-icon fa-pie-chart"></i> <span
                                     class="mini-dn">Elecciones Centro 2024</span>
@@ -337,7 +335,8 @@
                             <div class="col-lg-6 col-md-1 col-sm-1 col-xs-12">
                                 <div class="header-top-menu tabl-d-n">
                                     <ul class="nav navbar-nav mai-top-nav">
-                                        <li class="nav-item"><a th:href="${'../../../../admin/inicio'}"
+                                        <li class="nav-item">
+                                            <a th:href="${'../../../../admin/inicio'}"
                                                 class="nav-link">INICIO</a>
                                         </li>
                                         <!-- <li class="nav-item dropdown">
@@ -396,15 +395,18 @@
                             <div class="mobile-menu">
                                 <nav id="dropdown">
                                     <ul class="mobile-menu-nav">
-                                        <li><a data-toggle="collapse" data-target="#Charts" href="#">Inicio 
-                                            <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <li><a data-toggle="collapse" data-target="#Charts" href="#">Inicio
+                                                <span
+                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/inicio'}">Menu Principal</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse" data-target="#demo" href="#">Usuario 
-                                            <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse"
+                                                data-target="#demo" href="#">Usuario
+                                                <span
+                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="demo" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/usuario'}">Registro Usuario</a>
                                                 </li>
@@ -415,8 +417,10 @@
                                                 </li>
                                             </ul>
                                         </li>
-                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse" data-target="#others" href="#">Asignacion 
-                                                <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                        <li th:if="${session.usuario.id_usuario != 2}"><a data-toggle="collapse"
+                                                data-target="#others" href="#">Asignacion
+                                                <span
+                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="others" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/frente'}">Registro Frente</a>
                                                 </li>
@@ -430,15 +434,16 @@
                                             </ul>
                                         </li>
                                         <li><a data-toggle="collapse" data-target="#Miscellaneousmob"
-                                                href="#">Universidad <span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
+                                                href="#">Universidad <span
+                                                    class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="Miscellaneousmob" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/lista_facultades'}">Lista
                                                         Facultades</a>
                                                 </li>
                                             </ul>
                                         </li>
-                                        
-                                        <li><a data-toggle="collapse" data-target="#Chartsmob" href="#">Elecciones
+
+                                        <!--<li><a data-toggle="collapse" data-target="#Chartsmob" href="#">Elecciones
                                                 2024<span class="admin-project-icon adminpro-icon adminpro-down-arrow"></span></a>
                                             <ul id="Chartsmob" class="collapse dropdown-header-top">
                                                 <li><a th:href="${'../../../../admin/estadisticaFUL'}">Estadistica
@@ -476,7 +481,7 @@
                                                 </li>
                                             </ul>
                                         </li>
-
+                                    -->
                                     </ul>
                                     <!--<li><a data-toggle="collapse" data-target="#Chartsmob" href="#">Elecciones Centro
                                             2024 <span
@@ -523,11 +528,12 @@
     </div>
     <!-- Footer Start-->
     <div th:fragment="footer" class="footer-copyright-area" style="background-color: rgb(28, 28, 168);">
-        <div class="container-fluid" >
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="footer-copy-right" >
-                        <p style="color: rgb(203, 13, 13);">Copyright &#169; 2024 / <a href="#"><b style="color: rgb(203, 13, 13);">Unidad De Sistemas De
+                    <div class="footer-copy-right">
+                        <p style="color: rgb(203, 13, 13);">Copyright &#169; 2024 / <a href="#"><b
+                                    style="color: rgb(203, 13, 13);">Unidad De Sistemas De
                                     Información y Comunicación</b></a>.</p>
                     </div>
                 </div>
@@ -653,8 +659,8 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"
             integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF"
             crossorigin="anonymous"></script>
-            
-            
+
+
     </div>
 
 </body>
