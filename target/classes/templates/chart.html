@@ -10,10 +10,15 @@
 
     <style>
         body {
-            padding: 10vh;
+            padding: 2vh;
             /* Reduce los bordes en todos los lados */
-            padding-top: 2vh;
+            /* padding-top: 2vh; */
             background-color: aliceblue;
+        }
+
+        .container {
+            max-width: 100%;
+            /* Usa todo el ancho disponible */
         }
 
         .header-container {
@@ -50,204 +55,222 @@
             color: #504f4f;
             font-size: 0.9rem;
         }
+
+        @media (max-width: 768px) {
+
+            .header-logo,
+            .header-logo-usic {
+                width: 60px;
+            }
+
+            .header-container {
+                text-align: center;
+                padding: 10px;
+            }
+
+            h1.text-center {
+                font-size: 1.3rem;
+            }
+        }
     </style>
 </head>
 
 <body>
-
-    <div class="header-container">
-        <img src="/img/logo/uap.png" alt="Logo UAP Izquierda" class="header-logo">
-        <div class="header-text">
-            <h1 class="text-center">ELECCIÓN RECTOR-VICERECTOR 2025-2029</h1>
-            <h1 class="text-center">UNIVERSIDAD AMAZÓNICA DE PANDO</h1>
+    <div class="container">
+        <div class="header-container">
+            <img src="/img/logo/uap.png" alt="Logo UAP Izquierda" class="header-logo">
+            <div class="header-text">
+                <h1 class="text-center">ELECCIÓN RECTOR-VICERECTOR 2025-2029</h1>
+                <h1 class="text-center">UNIVERSIDAD AMAZÓNICA DE PANDO</h1>
+            </div>
+            <img src="/img/logo/logoUsic1.png" alt="Logo UAP Derecha" class="header-logo-usic">
         </div>
-        <img src="/img/logo/logoUsic1.png" alt="Logo UAP Derecha" class="header-logo-usic">
-    </div>
-    <div class="mt-5">
-        <!-- <div>horizontal</div> -->
-        <!-- Tabs de navegación -->
-        <ul class="nav nav-tabs" id="resultadosTabs" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="resultados-tab" data-toggle="tab" href="#resultados" role="tab"
-                    aria-controls="resultados" aria-selected="true" >General</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#estDoc" role="tab" aria-controls="estDoc"
-                    aria-selected="false">Estudiantes / Docentes</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#facultad" role="tab"
-                    aria-controls="facultad" aria-selected="false">Facultad</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#carrera" role="tab"
-                    aria-controls="carrera" aria-selected="false">Carrera</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#mesa" role="tab" aria-controls="carrera"
-                    aria-selected="false">Mesa</a>
-            </li>
+        <div class="mt-5">
+            <!-- <div>horizontal</div> -->
+            <!-- Tabs de navegación -->
+            <ul class="nav nav-tabs" id="resultadosTabs" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="resultados-tab" data-toggle="tab" href="#resultados" role="tab"
+                        aria-controls="resultados" aria-selected="true">General</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#estDoc" role="tab"
+                        aria-controls="estDoc" aria-selected="false">Estudiantes / Docentes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#facultad" role="tab"
+                        aria-controls="facultad" aria-selected="false">Facultad</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#carrera" role="tab"
+                        aria-controls="carrera" aria-selected="false">Carrera</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#mesa" role="tab"
+                        aria-controls="carrera" aria-selected="false">Mesa</a>
+                </li>
 
-        </ul>
+            </ul>
 
-        <!-- Contenido de las pestañas -->
-        <div class="tab-content" id="resultadosTabsContent">
-            <!-- Pestaña de Resultados -->
-            <div class="tab-pane fade show active" id="resultados" role="tabpanel" aria-labelledby="resultados-tab">
-              
-                <div class="row mt-4">
-                    <div class="col-md-7">
+            <!-- Contenido de las pestañas -->
+            <div class="tab-content" id="resultadosTabsContent">
+                <!-- Pestaña de Resultados -->
+                <div class="tab-pane fade show active" id="resultados" role="tabpanel" aria-labelledby="resultados-tab">
 
-                        <h2 class="text-center">Distribución de Votos</h2>
-                        <div id="chart6" style="width: 100%; height: 450px;"></div>
-                    </div>
-                    <div class="col-md-5">
-                        <div id="tablaGeneralTotal"></div>
-                       
-                    </div>
-                </div>
-                <br>
-                <div class="row mt-4">
-                    <div class="col-md-7">
+                    <div class="row mt-4">
+                        <div class="col-md-7">
 
-                        <h2 class="text-center">Distribución de Votos</h2>
-                        <div id="chart" style="width: 100%; height: 450px;"></div>
-                    </div>
-                    <div class="col-md-5">
-                        <div id="tablaGeneralDoc"></div>
-                     
-                    </div>
-                </div>
-                <br>
-                <div class="row mt-4">
-                    <div class="col-md-7">
-
-                        <h2 class="text-center">Distribución de Votos</h2>
-                        <div id="chart5" style="width: 100%; height: 450px;"></div>
-                    </div>
-                    <div class="col-md-5">
-                        <div id="tablaGeneralEst"></div>
-                       
-                    </div>
-                </div>
-            </div>
-
-            <div class="tab-pane fade" id="estDoc" role="tabpanel" aria-labelledby="estDoc-tab">
-                <div class="row mt-4">
-                    <div class="col-md-7">
-                        <div class="form-group">
-                            <label for="nombre">Estudiante / Docente :</label>
-                            <select class="js-example-basic-single" name="sigla" id="sigla" style="width: 100%;"
-                                onchange="cargarTablaEstDoc()">
-                                <option value="" selected></option>
-                                <option value="E">Estudiante</option>
-                                <option value="D">Docente</option>
-                            </select>
+                            <h2 class="text-center">Distribución de Votos</h2>
+                            <div id="chart6" style="width: 100%; height: 450px;"></div>
                         </div>
-                        <h2 class="text-center">Distribución de Votos</h2>
-                        <div id="chart2" style="width: 100%; height: 400px;"></div>
+                        <div class="col-md-5">
+                            <div id="tablaGeneralTotal"></div>
+
+                        </div>
                     </div>
-                    <div class="col-md-5">
-                        <div id="tablaEstDoc"></div>
+                    <br>
+                    <div class="row mt-4">
+                        <div class="col-md-7">
+
+                            <h2 class="text-center">Distribución de Votos</h2>
+                            <div id="chart" style="width: 100%; height: 450px;"></div>
+                        </div>
+                        <div class="col-md-5">
+                            <div id="tablaGeneralDoc"></div>
+
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row mt-4">
+                        <div class="col-md-7">
+
+                            <h2 class="text-center">Distribución de Votos</h2>
+                            <div id="chart5" style="width: 100%; height: 450px;"></div>
+                        </div>
+                        <div class="col-md-5">
+                            <div id="tablaGeneralEst"></div>
+
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="tab-pane fade" id="facultad" role="tabpanel" aria-labelledby="facultad-tab">
-                <div class="row mt-4">
-                    <div class="col-md-7">
-                        <div class="row">
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="nombre">Facultad:</label>
-                                    <select class="js-example-basic-single" name="facultades" id="facultades"
-                                        style="width: 100%;" onchange="cargarTablaFacultad()">
-                                        <option value="" selected></option>
-                                        <option th:each="f : ${facultades}" th:value="${f.id_facultad}"
-                                            th:text="${f.nombre_facultad}">Alabama</option>
-                                    </select>
+                <div class="tab-pane fade" id="estDoc" role="tabpanel" aria-labelledby="estDoc-tab">
+                    <div class="row mt-4">
+                        <div class="col-md-7">
+                            <div class="form-group">
+                                <label for="nombre">Estudiante / Docente :</label>
+                                <select class="js-example-basic-single" name="sigla" id="sigla" style="width: 100%;"
+                                    onchange="cargarTablaEstDoc()">
+                                    <option value="" selected></option>
+                                    <option value="E">Estudiante</option>
+                                    <option value="D">Docente</option>
+                                </select>
+                            </div>
+                            <h2 class="text-center">Distribución de Votos</h2>
+                            <div id="chart2" style="width: 100%; height: 400px;"></div>
+                        </div>
+                        <div class="col-md-5">
+                            <div id="tablaEstDoc"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="facultad" role="tabpanel" aria-labelledby="facultad-tab">
+                    <div class="row mt-4">
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="nombre">Facultad:</label>
+                                        <select class="js-example-basic-single" name="facultades" id="facultades"
+                                            style="width: 100%;" onchange="cargarTablaFacultad()">
+                                            <option value="" selected></option>
+                                            <option th:each="f : ${facultades}" th:value="${f.id_facultad}"
+                                                th:text="${f.nombre_facultad}">Alabama</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label for="nombre">Estudiante / Docente :</label>
+                                        <select class="js-example-basic-single" name="siglaf" id="siglaf"
+                                            style="width: 100%;" onchange="cargarTablaFacultad()">
+                                            <option value="" selected>Estudiante</option>
+                                            <option value="E">Estudiante</option>
+                                            <option value="D">Docente</option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-6">
-                                <div class="form-group">
-                                    <label for="nombre">Estudiante / Docente :</label>
-                                    <select class="js-example-basic-single" name="siglaf" id="siglaf"
-                                        style="width: 100%;" onchange="cargarTablaFacultad()">
-                                        <option value="" selected>Estudiante</option>
-                                        <option value="E">Estudiante</option>
-                                        <option value="D">Docente</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
 
-                        <h2 class="text-center">Distribución de Votos</h2>
-                        <div id="chart3" style="width: 100%; height: 400px;"></div>
+                            <h2 class="text-center">Distribución de Votos</h2>
+                            <div id="chart3" style="width: 100%; height: 400px;"></div>
+                        </div>
+                        <div class="col-md-5">
+                            <div id="tablaFacultad"></div>
+                        </div>
                     </div>
-                    <div class="col-md-5">
-                        <div id="tablaFacultad"></div>
-                    </div>
+
                 </div>
 
-            </div>
+                <div class="tab-pane fade" id="carrera" role="tabpanel" aria-labelledby="carrera-tab">
+                    <div class="row mt-4">
 
-            <div class="tab-pane fade" id="carrera" role="tabpanel" aria-labelledby="carrera-tab">
-                <div class="row mt-4">
-
-                    <div class="col-md-7">
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="nombre">Facultad:</label>
-                                    <select class="js-example-basic-single" name="lfacultad" id="lfacultad"
-                                        style="width: 100%;" onchange="listarCarreras()">
-                                        <option value="" selected></option>
-                                        <option th:each="f : ${facultades}" th:value="${f.id_facultad}"
-                                            th:text="${f.nombre_facultad}">Alabama
-                                        </option>
-                                    </select>
+                        <div class="col-md-7">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="nombre">Facultad:</label>
+                                        <select class="js-example-basic-single" name="lfacultad" id="lfacultad"
+                                            style="width: 100%;" onchange="listarCarreras()">
+                                            <option value="" selected></option>
+                                            <option th:each="f : ${facultades}" th:value="${f.id_facultad}"
+                                                th:text="${f.nombre_facultad}">Alabama
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label for="nombre">Carrera:</label>
+                                        <select class="js-example-basic-single" name="lcarreras" id="lcarreras"
+                                            style="width: 100%;" onchange="cargarTablaCarrera()">
+                                            <option value=""></option>
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-lg-6">
-                                <div class="form-group">
-                                    <label for="nombre">Carrera:</label>
-                                    <select class="js-example-basic-single" name="lcarreras" id="lcarreras"
-                                        style="width: 100%;" onchange="cargarTablaCarrera()">
-                                        <option value=""></option>
-                                    </select>
-                                </div>
-                            </div>
+
+                            <h2 class="text-center">Distribución de Votos</h2>
+                            <div id="chart4" style="width: 100%; height: 400px;"></div>
                         </div>
+                        <div class="col-md-5">
+                            <div id="tablaCarrera"></div>
 
-                        <h2 class="text-center">Distribución de Votos</h2>
-                        <div id="chart4" style="width: 100%; height: 400px;"></div>
+                        </div>
                     </div>
-                    <div class="col-md-5">
-                        <div id="tablaCarrera"></div>
 
-                    </div>
                 </div>
 
-            </div>
-
-            <!-- Pestaña de Mesa -->
-            <div class="tab-pane fade" id="mesa" role="tabpanel" aria-labelledby="facultad-mesa">
-                <div class="row mt-4">
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <label for="nombre">Mesa:</label>
-                            <select class="js-example-basic-single" style="width: 100%;"
-                                onchange="cargarTablaPorMesa(this.value)" id="tabla_resultado_mesa">
-                                <option value="" selected></option>
-                                <option th:each="m : ${mesas}" th:value="${m.id_mesa}"
-                                    th:if="${m.estado == 'COMPLETADO'}" th:text="${m.nombre_mesa}">Alabama</option>
-                            </select>
+                <!-- Pestaña de Mesa -->
+                <div class="tab-pane fade" id="mesa" role="tabpanel" aria-labelledby="facultad-mesa">
+                    <div class="row mt-4">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="nombre">Mesa:</label>
+                                <select class="js-example-basic-single" style="width: 100%;"
+                                    onchange="cargarTablaPorMesa(this.value)" id="tabla_resultado_mesa">
+                                    <option value="" selected></option>
+                                    <option th:each="m : ${mesas}" th:value="${m.id_mesa}"
+                                        th:if="${m.estado == 'COMPLETADO'}" th:text="${m.nombre_mesa}">Alabama</option>
+                                </select>
+                            </div>
+                            <h2 class="text-center">ACTA ELECTORAL POR MESA</h2>
                         </div>
-                        <h2 class="text-center">ACTA ELECTORAL POR MESA</h2>
-                    </div>
 
-                    <div class="col-md-12">
-                        <div id="tablaRegistros"></div>
+                        <div class="col-md-12">
+                            <div id="tablaRegistros"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -318,7 +341,7 @@
 
         }
 
-        function cargarGeneraTotal(){
+        function cargarGeneraTotal() {
 
             $.ajax({
                 type: 'POST',
