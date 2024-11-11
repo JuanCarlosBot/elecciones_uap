@@ -143,13 +143,13 @@ public class chartController {
         List<String> colores = Arrays.asList("#008000", "#dedede", "#f1f592");
 
         String nulos = "Nulos", blancos = "Blancos", validos = "Válidos", emitidos = "Emitidos",
-                habilitados = "Habilitados";
+                habilitados = "Habilitados", actas = "Actas Computadas" , actas_habilitadas = "Actas Habilitadas";
 
         List<String> frentesTablaDocentes = new ArrayList<>(frentesDocentes);
         List<String> frentesTablaEstudiantes = new ArrayList<>(frentesEstudiantes);
 
-        frentesTablaDocentes.addAll(Arrays.asList(validos.toUpperCase(), emitidos.toUpperCase(), habilitados.toUpperCase()));
-        frentesTablaEstudiantes.addAll(Arrays.asList(validos.toUpperCase(), emitidos.toUpperCase(), habilitados.toUpperCase()));
+        frentesTablaDocentes.addAll(Arrays.asList(validos.toUpperCase(), emitidos.toUpperCase(), habilitados.toUpperCase(), actas.toUpperCase(), actas_habilitadas.toUpperCase()));
+        frentesTablaEstudiantes.addAll(Arrays.asList(validos.toUpperCase(), emitidos.toUpperCase(), habilitados.toUpperCase(),actas.toUpperCase(),actas_habilitadas.toUpperCase()));
 
         List<Integer> datosTablaDocentes = new ArrayList<>(datosDocentes);
         List<Integer> datosTablaEstudiantes = new ArrayList<>(datosEstudiantes);
@@ -158,10 +158,14 @@ public class chartController {
         datosTablaDocentes.add(Integer.parseInt(resultadoDocentes[2].toString()));
         datosTablaDocentes.add(Integer.parseInt(resultadoDocentes[4].toString()));
         datosTablaDocentes.add(Integer.parseInt(resultadoDocentes[5].toString()));
+        datosTablaDocentes.add(Integer.parseInt(resultadoDocentes[6].toString()));
+        datosTablaDocentes.add(Integer.parseInt(resultadoDocentes[7].toString()));
 
         datosTablaEstudiantes.add(Integer.parseInt(resultadoEstudiantes[2].toString()));
         datosTablaEstudiantes.add(Integer.parseInt(resultadoEstudiantes[4].toString()));
         datosTablaEstudiantes.add(Integer.parseInt(resultadoEstudiantes[5].toString()));
+        datosTablaEstudiantes.add(Integer.parseInt(resultadoEstudiantes[6].toString()));
+        datosTablaEstudiantes.add(Integer.parseInt(resultadoEstudiantes[7].toString()));
 
         double totalVotosDocentes = Integer.parseInt(resultadoDocentes[5].toString());
         double totalVotosEstudiantes = Integer.parseInt(resultadoEstudiantes[5].toString());
@@ -170,9 +174,39 @@ public class chartController {
                 .map(dato -> Math.round((dato / totalVotosDocentes) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
 
+                System.out.println(porcentajesDocentes);
         List<Double> porcentajesEstudiantes = datosTablaEstudiantes.stream()
                 .map(dato -> Math.round((dato / totalVotosEstudiantes) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
+
+        // Obtener el valor que se usará para el último índice
+        int totalEstudiantesBase = Integer.parseInt(resultadoEstudiantes[6].toString());
+        int totalDocentesBase = Integer.parseInt(resultadoDocentes[6].toString());
+
+        int totalActasEstudiantesBase = Integer.parseInt(resultadoEstudiantes[7].toString());
+        int totalActasDocentesBase = Integer.parseInt(resultadoDocentes[7].toString());
+
+        // Reemplazar el último índice en ambas listas con el cálculo basado en totalEstudiantesBase
+        int lastIndexDocentes = porcentajesDocentes.size() - 2;
+        int lastIndexEstudiantes = porcentajesEstudiantes.size() - 2;
+
+        int lastIndexDocentesActas = porcentajesDocentes.size() - 1;
+        int lastIndexEstudiantesActas = porcentajesEstudiantes.size() - 1;
+
+        System.out.println(lastIndexDocentes);
+        System.out.println(lastIndexEstudiantes);
+
+        porcentajesDocentes.set(lastIndexDocentes,
+            Math.round((datosTablaDocentes.get(lastIndexDocentes) / (double) totalActasDocentesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesDocentes.set(lastIndexDocentesActas,
+            Math.round((datosTablaDocentes.get(lastIndexDocentesActas) / (double) totalActasDocentesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesEstudiantes.set(lastIndexEstudiantes,
+            Math.round((datosTablaEstudiantes.get(lastIndexEstudiantes) / (double) totalActasEstudiantesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesEstudiantes.set(lastIndexEstudiantesActas,
+            Math.round((datosTablaEstudiantes.get(lastIndexEstudiantesActas) / (double) totalActasEstudiantesBase) * 100 * 1000.0) / 1000.0);
         
         // Construir el HTML de la tabla
         StringBuilder htmlTabla = new StringBuilder();
@@ -346,10 +380,10 @@ public class chartController {
         List<String> colores = Arrays.asList("#008000", "#dedede", "#f1f592");
 
         String nulos = "Nulos", blancos = "Blancos", validos = "Válidos", emitidos = "Emitidos",
-                habilitados = "Habilitados";
+                habilitados = "Habilitados" , actas = "Actas Computadas";
 
         List<String> frentesTabla = new ArrayList<>(frentes);
-        frentesTabla.addAll(Arrays.asList(validos.toUpperCase(), emitidos.toUpperCase(), habilitados.toUpperCase()));
+        frentesTabla.addAll(Arrays.asList(validos.toUpperCase(), emitidos.toUpperCase(), habilitados.toUpperCase(), actas.toUpperCase()));
 
         List<Integer> datosTabla = new ArrayList<>(datos);
         // datosTabla.add(Integer.parseInt(resultado[0].toString()));
@@ -357,11 +391,21 @@ public class chartController {
         datosTabla.add(Integer.parseInt(resultado[2].toString()));
         datosTabla.add(Integer.parseInt(resultado[4].toString()));
         datosTabla.add(Integer.parseInt(resultado[5].toString()));
+        datosTabla.add(Integer.parseInt(resultado[6].toString()));
 
         double totalVotos = Integer.parseInt(resultado[5].toString());
         List<Double> porcentajes = datosTabla.stream()
                 .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
+
+         // Obtener el valor que se usará para el último índice
+         int totalActas = Integer.parseInt(resultado[6].toString());
+ 
+         // Reemplazar el último índice en ambas listas con el cálculo basado en totalEstudiantesBase
+         int lastIndex = porcentajes.size() - 1;
+ 
+         porcentajes.set(lastIndex,
+             Math.round((datosTabla.get(lastIndex) / (double) totalActas) * 100 * 1000.0) / 1000.0);
 
         // Construir el HTML de la tabla
         StringBuilder htmlTabla = new StringBuilder();

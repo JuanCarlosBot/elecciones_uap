@@ -42,10 +42,15 @@ public interface IAnforaDao extends CrudRepository<Anfora, Long> {
                 left join mesa m2 on ah.id_mesa = m2.id_mesa 
                 left join votante_habilitado vh on vh.id_votante_habilitado = ah.id_votante_habilitado
                 where (vh.id_estudiante is null and :esNulo = true) 
-                or (vh.id_estudiante is not null and :esNulo = false)) as total_habilitado
+                or (vh.id_estudiante is not null and :esNulo = false)) as total_habilitado,
+                count(m.id_mesa) as total_actas_computadas,
+                (select count(m3.id_mesa) 
+                from mesa m3
+                where m3.nombre_mesa like concat('%', :nombreMesa, '%')
+                ) as total_actas_habilitadas
         from anfora a
         join mesa m on a.id_mesa = m.id_mesa
-        where m.nombre_mesa like concat('%', :nombreMesa, '%')
+        where m.nombre_mesa like concat('%', :nombreMesa, '%') and m.estado = 'COMPLETADO'
         """, nativeQuery = true)
         public Object votosGenerales(@Param("esNulo") boolean esNulo, @Param("nombreMesa") String nombreMesa);
 
@@ -59,7 +64,8 @@ public interface IAnforaDao extends CrudRepository<Anfora, Long> {
         sum(a.cant_voto_emitido) as total_voto_emitido,
         (select count(ah.id_asignacion_habilitado)
         from asignacion_habilitado ah 
-        join mesa m2 on ah.id_mesa = m2.id_mesa) as total_habilitado
+        join mesa m2 on ah.id_mesa = m2.id_mesa) as total_habilitado,
+        count(m.id_mesa) as total_actas_computadas 
         from anfora a
         join mesa m on a.id_mesa = m.id_mesa
         where m.estado = 'COMPLETADO'""", nativeQuery = true)
@@ -90,12 +96,13 @@ public interface IAnforaDao extends CrudRepository<Anfora, Long> {
                         or 
                         (:esNulo = false and vh.id_estudiante is not null)
                 )
-        ), 0) as total_habilitado
+        ), 0) as total_habilitado,
+        count(m.id_mesa) as total_actas_computadas  
         from anfora a
         inner join mesa m on a.id_mesa = m.id_mesa
         inner join facultad f on m.if_facultad = f.id_facultad
         where f.id_facultad = :idFacultad 
-        and m.nombre_mesa like concat('%', :sigla, '%');
+        and m.nombre_mesa like concat('%', :sigla, '%') and m.estado = 'COMPLETADO';
         """, nativeQuery = true)
         public Object votosGeneralFacultad(@Param("idFacultad") Long idFacultad, @Param("sigla") String sigla , @Param("esNulo")Boolean esNulo);
 
@@ -114,10 +121,11 @@ public interface IAnforaDao extends CrudRepository<Anfora, Long> {
                 left join estudiante e on e.id_estudiante = vh.id_estudiante
                 left join carrera_estudiante ce on ce.id_estudiante = e.id_estudiante
                 left join carrera c2 on c2.id_carrera = ce.id_carrera
-                where vh.id_estudiante is not null and c2.id_carrera = :id_carrera) as total_habilitado
+                where vh.id_estudiante is not null and c2.id_carrera = :id_carrera) as total_habilitado,
+                count(m.id_mesa) as total_actas_computadas 
         from anfora a, mesa m, carrera c 
         where a.id_mesa = m.id_mesa and m.id_carrera = c.id_carrera 
-        and c.id_carrera = :id_carrera
+        and c.id_carrera = :id_carrera and m.estado = 'COMPLETADO'
         """,nativeQuery = true)
         public Object votosGeneralCarrera(@Param("id_carrera")Long id_carrera);
 }
