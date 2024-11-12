@@ -298,6 +298,11 @@
             cargarTablaGeneral();
             // cargarTablaPorMesa($('#tabla_resultado_mesa').val());
         });
+
+    </script>
+
+    <script>
+
         function cargarTablaPorMesa(idMesa) {
             $.ajax({
                 type: 'POST',
@@ -307,9 +312,6 @@
                 }
             });
         }
-    </script>
-
-    <script>
 
         function listarCarreras() {
             const facultadId = $('#lfacultad').val();
