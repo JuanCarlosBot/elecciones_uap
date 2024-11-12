@@ -365,7 +365,7 @@ public class chartController {
             // htmlTablaTotalGeneral.append("<td>").append(totalDatos.get(i)).append("</td>");
             htmlTablaTotalGeneral.append("<td>").append(String.format("%.3f", totalPorcentaje.get(i))).append(" %").append("</td>");
             htmlTablaTotalGeneral.append("</tr>");
-            System.out.println(totalPorcentaje.get(i));
+            // System.out.println(totalPorcentaje.get(i));
         }
 
         htmlTablaTotalGeneral.append("</tbody>");
