@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -27,7 +28,6 @@ import uap.elecciones.model.service.ICarreraService;
 import uap.elecciones.model.service.IFacultadService;
 import uap.elecciones.model.service.IFrenteService;
 import uap.elecciones.model.service.IMesaService;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
@@ -786,7 +786,7 @@ public class chartController {
         // System.out.println(acta.getRutaArchivo() + "DOCUMENTO");
 
         String nulos = "Nulos", blancos = "Blancos", validos = "Válidos", emitidos = "Emitidos",
-                habiltiados = "Habilitados";
+        noEmitido = "No Emitido", habiltiados = "Habilitados";
 
         List<String> frentesTabla = new ArrayList<>(); // Ejemplo de datos de votos
         for (int i = 0; i < frentes.size(); i++) {
@@ -796,7 +796,9 @@ public class chartController {
         frentesTabla.add(blancos);
         frentesTabla.add(validos);
         frentesTabla.add(emitidos);
+        frentesTabla.add(noEmitido);
         frentesTabla.add(habiltiados);
+        
 
         List<Integer> datosTabla = new ArrayList<>(); // Ejemplo de datos de votos
 
@@ -804,9 +806,12 @@ public class chartController {
         datosTabla.add(Integer.parseInt(resultadoMesa[0].toString()));
         datosTabla.add(Integer.parseInt(resultadoMesa[1].toString()));
         datosTabla.add(Integer.parseInt(resultadoMesa[2].toString()));
-        datosTabla.add(Integer.parseInt(resultadoMesa[3].toString()));
         datosTabla.add(Integer.parseInt(resultadoMesa[4].toString()));
-
+        datosTabla.add(Integer.parseInt(resultadoMesa[5].toString()));
+        datosTabla.add(Integer.parseInt(resultadoMesa[3].toString()));
+        
+        System.out.println(frentesTabla+"frente");
+        System.out.println(datosTabla+"resultados");
         model.addAttribute("acta", acta);
         model.addAttribute("datosTabla", datosTabla);
         model.addAttribute("frentesTabla", frentesTabla);
