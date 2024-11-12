@@ -176,10 +176,10 @@ public class chartController {
         datosTablaEstudiantes.add(resultadoEstudiantes[7] != null ? Integer.parseInt(resultadoEstudiantes[7].toString()) : 0);
     
 
-        double totalVotosDocentes = (resultadoDocentes[4] != null) ? Double.parseDouble(resultadoDocentes[4].toString()) : 0.0;
-        double totalVotosEstudiantes = (resultadoEstudiantes[4] != null) ? Double.parseDouble(resultadoEstudiantes[4].toString()) : 0.0;
-        double totalVotosDocentesHabilitados = (resultadoDocentes[5] != null) ? Double.parseDouble(resultadoDocentes[5].toString()) : 0.0;
-        double totalVotosEstudiantesHabilitados = (resultadoEstudiantes[5] != null) ? Double.parseDouble(resultadoEstudiantes[5].toString()) : 0.0;
+        double totalVotosDocentes = (resultadoDocentes[4] != null) ? Double.parseDouble(resultadoDocentes[4].toString()) : 0;
+        double totalVotosEstudiantes = (resultadoEstudiantes[4] != null) ? Double.parseDouble(resultadoEstudiantes[4].toString()) : 0;
+        double totalVotosDocentesHabilitados = (resultadoDocentes[5] != null) ? Double.parseDouble(resultadoDocentes[5].toString()) : Double.parseDouble(resultadoEstudiantes[5].toString());
+        double totalVotosEstudiantesHabilitados = (resultadoEstudiantes[5] != null) ? Double.parseDouble(resultadoEstudiantes[5].toString()) : Double.parseDouble(resultadoEstudiantes[5].toString());
 
 
         List<Double> porcentajesDocentes = datosTablaDocentes.stream()
@@ -365,6 +365,7 @@ public class chartController {
             // htmlTablaTotalGeneral.append("<td>").append(totalDatos.get(i)).append("</td>");
             htmlTablaTotalGeneral.append("<td>").append(String.format("%.3f", totalPorcentaje.get(i))).append(" %").append("</td>");
             htmlTablaTotalGeneral.append("</tr>");
+            System.out.println(totalPorcentaje.get(i));
         }
 
         htmlTablaTotalGeneral.append("</tbody>");
