@@ -47,7 +47,15 @@ public interface IAnforaDao extends CrudRepository<Anfora, Long> {
                 (select count(m3.id_mesa) 
                 from mesa m3
                 where m3.nombre_mesa like concat('%', :nombreMesa, '%')
-                ) as total_actas_habilitadas
+                ) as total_actas_habilitadas,
+                ((select count(ah.id_asignacion_habilitado)
+                from asignacion_habilitado ah 
+                left join mesa m2 on ah.id_mesa = m2.id_mesa 
+                left join votante_habilitado vh on vh.id_votante_habilitado = ah.id_votante_habilitado
+                where 
+                        (vh.id_estudiante is null and :esNulo = true) 
+                        or (vh.id_estudiante is not null and :esNulo = false)
+                )  - sum(a.cant_voto_emitido)) as no_emitido
         from anfora a
         join mesa m on a.id_mesa = m.id_mesa
         where m.nombre_mesa like concat('%', :nombreMesa, '%') and m.estado = 'COMPLETADO'

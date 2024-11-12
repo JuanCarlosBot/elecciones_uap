@@ -150,14 +150,14 @@ public class chartController {
 
         List<String> colores = Arrays.asList("#008000", "#dedede", "#f1f592");
 
-        String nulos = "Nulos", blancos = "Blancos", validos = "Válidos", emitidos = "Emitidos",
+        String nulos = "Nulos", noEmitido = "No Emitidos", validos = "Válidos", emitidos = "Emitidos",
                 habilitados = "Habilitados", actas = "Actas Computadas" , actas_habilitadas = "Actas Habilitadas";
 
         List<String> frentesTablaDocentes = new ArrayList<>(frentesDocentes);
         List<String> frentesTablaEstudiantes = new ArrayList<>(frentesEstudiantes);
 
-        frentesTablaDocentes.addAll(Arrays.asList(validos.toUpperCase(), emitidos.toUpperCase(), habilitados.toUpperCase(), actas.toUpperCase(), actas_habilitadas.toUpperCase()));
-        frentesTablaEstudiantes.addAll(Arrays.asList(validos.toUpperCase(), emitidos.toUpperCase(), habilitados.toUpperCase(),actas.toUpperCase(),actas_habilitadas.toUpperCase()));
+        frentesTablaDocentes.addAll(Arrays.asList(validos.toUpperCase(), emitidos.toUpperCase(),noEmitido.toUpperCase(), habilitados.toUpperCase(), actas.toUpperCase(), actas_habilitadas.toUpperCase()));
+        frentesTablaEstudiantes.addAll(Arrays.asList(validos.toUpperCase(), emitidos.toUpperCase(),noEmitido.toUpperCase(), habilitados.toUpperCase(),actas.toUpperCase(),actas_habilitadas.toUpperCase()));
 
         List<Integer> datosTablaDocentes = new ArrayList<>(datosDocentes);
         List<Integer> datosTablaEstudiantes = new ArrayList<>(datosEstudiantes);
@@ -165,19 +165,21 @@ public class chartController {
         // datosTabla.add(Integer.parseInt(resultado[1].toString()));
         datosTablaDocentes.add(resultadoDocentes[2] != null ? Integer.parseInt(resultadoDocentes[2].toString()) : 0);
         datosTablaDocentes.add(resultadoDocentes[4] != null ? Integer.parseInt(resultadoDocentes[4].toString()) : 0);
+        datosTablaDocentes.add(resultadoDocentes[8] != null ? Integer.parseInt(resultadoDocentes[8].toString()) : 0);
         datosTablaDocentes.add(resultadoDocentes[5] != null ? Integer.parseInt(resultadoDocentes[5].toString()) : 0);
         datosTablaDocentes.add(resultadoDocentes[6] != null ? Integer.parseInt(resultadoDocentes[6].toString()) : 0);
         datosTablaDocentes.add(resultadoDocentes[7] != null ? Integer.parseInt(resultadoDocentes[7].toString()) : 0);
     
         datosTablaEstudiantes.add(resultadoEstudiantes[2] != null ? Integer.parseInt(resultadoEstudiantes[2].toString()) : 0);
         datosTablaEstudiantes.add(resultadoEstudiantes[4] != null ? Integer.parseInt(resultadoEstudiantes[4].toString()) : 0);
+        datosTablaEstudiantes.add(resultadoEstudiantes[8] != null ? Integer.parseInt(resultadoEstudiantes[8].toString()) : 0);
         datosTablaEstudiantes.add(resultadoEstudiantes[5] != null ? Integer.parseInt(resultadoEstudiantes[5].toString()) : 0);
         datosTablaEstudiantes.add(resultadoEstudiantes[6] != null ? Integer.parseInt(resultadoEstudiantes[6].toString()) : 0);
         datosTablaEstudiantes.add(resultadoEstudiantes[7] != null ? Integer.parseInt(resultadoEstudiantes[7].toString()) : 0);
     
 
-        double totalVotosDocentes = (resultadoDocentes[4] != null) ? Double.parseDouble(resultadoDocentes[4].toString()) : 0;
-        double totalVotosEstudiantes = (resultadoEstudiantes[4] != null) ? Double.parseDouble(resultadoEstudiantes[4].toString()) : 0;
+        double totalVotosDocentes = (resultadoDocentes[4] != null) ? Double.parseDouble(resultadoDocentes[5].toString()) : 0;
+        double totalVotosEstudiantes = (resultadoEstudiantes[4] != null) ? Double.parseDouble(resultadoEstudiantes[5].toString()) : 0;
         double totalVotosDocentesHabilitados = (resultadoDocentes[5] != null) ? Double.parseDouble(resultadoDocentes[5].toString()) : Double.parseDouble(resultadoEstudiantes[5].toString());
         double totalVotosEstudiantesHabilitados = (resultadoEstudiantes[5] != null) ? Double.parseDouble(resultadoEstudiantes[5].toString()) : Double.parseDouble(resultadoEstudiantes[5].toString());
 
