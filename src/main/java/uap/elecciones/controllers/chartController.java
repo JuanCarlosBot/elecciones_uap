@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.thymeleaf.spring6.SpringTemplateEngine;
@@ -28,6 +27,7 @@ import uap.elecciones.model.service.ICarreraService;
 import uap.elecciones.model.service.IFacultadService;
 import uap.elecciones.model.service.IFrenteService;
 import uap.elecciones.model.service.IMesaService;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @Controller
@@ -176,11 +176,11 @@ public class chartController {
         datosTablaEstudiantes.add(resultadoEstudiantes[7] != null ? Integer.parseInt(resultadoEstudiantes[7].toString()) : 0);
     
 
-        double totalVotosDocentes = Integer.parseInt(resultadoDocentes[4].toString());
-        double totalVotosEstudiantes = Integer.parseInt(resultadoEstudiantes[4].toString());
+        double totalVotosDocentes = (resultadoDocentes[4] != null) ? Double.parseDouble(resultadoDocentes[4].toString()) : 0.0;
+        double totalVotosEstudiantes = (resultadoEstudiantes[4] != null) ? Double.parseDouble(resultadoEstudiantes[4].toString()) : 0.0;
+        double totalVotosDocentesHabilitados = (resultadoDocentes[5] != null) ? Double.parseDouble(resultadoDocentes[5].toString()) : 0.0;
+        double totalVotosEstudiantesHabilitados = (resultadoEstudiantes[5] != null) ? Double.parseDouble(resultadoEstudiantes[5].toString()) : 0.0;
 
-        double totalVotosDocentesHabilitados = Integer.parseInt(resultadoDocentes[5].toString());
-        double totalVotosEstudiantesHabilitados = Integer.parseInt(resultadoEstudiantes[5].toString());
 
         List<Double> porcentajesDocentes = datosTablaDocentes.stream()
                 .map(dato -> Math.round((dato / totalVotosDocentes) * 50 * 1000.0) / 1000.0)
@@ -437,12 +437,13 @@ public class chartController {
         datosTabla.add(resultado != null && resultado.length > 7 && resultado[7] != null ? Integer.parseInt(resultado[7].toString()) : 0);
 
 
-        double totalVotos = Integer.parseInt(resultado[4].toString());
+        double totalVotos = (resultado != null && resultado.length > 4 && resultado[4] != null) ? Integer.parseInt(resultado[4].toString()) : 0.0;
+
         List<Double> porcentajes = datosTabla.stream()
                 .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
 
-        int totalActas = Integer.parseInt(resultado[7].toString());
+        int totalActas = (resultado != null && resultado.length > 7 && resultado[7] != null) ? Integer.parseInt(resultado[7].toString()) : 1;
 
         int lastIndexActasComputadas = porcentajes.size() - 2;
 
@@ -541,12 +542,13 @@ public class chartController {
         datosTabla.add(resultado != null && resultado.length > 7 && resultado[7] != null ? Integer.parseInt(resultado[7].toString()) : 0);
 
 
-        double totalVotos = Integer.parseInt(resultado[4].toString());
+        double totalVotos = (resultado != null && resultado.length > 4 && resultado[4] != null) ? Integer.parseInt(resultado[4].toString()) : Integer.parseInt(resultado[5].toString());
+
         List<Double> porcentajes = datosTabla.stream()
                 .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
 
-        int totalActas = Integer.parseInt(resultado[7].toString());
+        int totalActas = (resultado != null && resultado.length > 7 && resultado[7] != null) ? Integer.parseInt(resultado[7].toString()) : 0;
 
         int lastIndexActasComputadas = porcentajes.size() - 2;
 
@@ -630,12 +632,12 @@ public class chartController {
         datosTabla.add(resultado != null && resultado.length > 6 && resultado[6] != null ? Integer.parseInt(resultado[6].toString()) : 0);
         datosTabla.add(resultado != null && resultado.length > 7 && resultado[7] != null ? Integer.parseInt(resultado[7].toString()) : 0);
 
-        double totalVotos = Integer.parseInt(resultado[4].toString());
+        double totalVotos = (resultado != null && resultado.length > 4 && resultado[4] != null) ? Integer.parseInt(resultado[4].toString()) : Integer.parseInt(resultado[5].toString());
         List<Double> porcentajes = datosTabla.stream()
                 .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
 
-        int totalActas = Integer.parseInt(resultado[7].toString());
+        int totalActas = (resultado != null && resultado.length > 7 && resultado[7] != null) ? Integer.parseInt(resultado[7].toString()) : 0;
 
         int lastIndexActasComputadas = porcentajes.size() - 2;
 
@@ -719,12 +721,12 @@ public class chartController {
         datosTabla.add(resultado != null && resultado.length > 7 && resultado[7] != null ? Integer.parseInt(resultado[7].toString()) : 0);
 
 
-        double totalVotos = Integer.parseInt(resultado[4].toString());
+        double totalVotos = (resultado != null && resultado.length > 4 && resultado[4] != null) ? Integer.parseInt(resultado[4].toString()) : Integer.parseInt(resultado[5].toString());
         List<Double> porcentajes = datosTabla.stream()
                 .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
 
-        int totalActas = Integer.parseInt(resultado[7].toString());
+        int totalActas = (resultado != null && resultado.length > 7 && resultado[7] != null) ? Integer.parseInt(resultado[7].toString()) : 0;
 
         int lastIndexActasComputadas = porcentajes.size() - 2;
 
@@ -786,7 +788,7 @@ public class chartController {
         // System.out.println(acta.getRutaArchivo() + "DOCUMENTO");
 
         String nulos = "Nulos", blancos = "Blancos", validos = "Válidos", emitidos = "Emitidos",
-        noEmitido = "No Emitido", habiltiados = "Habilitados";
+                habiltiados = "Habilitados";
 
         List<String> frentesTabla = new ArrayList<>(); // Ejemplo de datos de votos
         for (int i = 0; i < frentes.size(); i++) {
@@ -796,9 +798,7 @@ public class chartController {
         frentesTabla.add(blancos);
         frentesTabla.add(validos);
         frentesTabla.add(emitidos);
-        frentesTabla.add(noEmitido);
         frentesTabla.add(habiltiados);
-        
 
         List<Integer> datosTabla = new ArrayList<>(); // Ejemplo de datos de votos
 
@@ -806,12 +806,9 @@ public class chartController {
         datosTabla.add(Integer.parseInt(resultadoMesa[0].toString()));
         datosTabla.add(Integer.parseInt(resultadoMesa[1].toString()));
         datosTabla.add(Integer.parseInt(resultadoMesa[2].toString()));
-        datosTabla.add(Integer.parseInt(resultadoMesa[4].toString()));
-        datosTabla.add(Integer.parseInt(resultadoMesa[5].toString()));
         datosTabla.add(Integer.parseInt(resultadoMesa[3].toString()));
-        
-        System.out.println(frentesTabla+"frente");
-        System.out.println(datosTabla+"resultados");
+        datosTabla.add(Integer.parseInt(resultadoMesa[4].toString()));
+
         model.addAttribute("acta", acta);
         model.addAttribute("datosTabla", datosTabla);
         model.addAttribute("frentesTabla", frentesTabla);
