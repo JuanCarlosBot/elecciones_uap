@@ -179,6 +179,9 @@ public class chartController {
         double totalVotosDocentes = Integer.parseInt(resultadoDocentes[4].toString());
         double totalVotosEstudiantes = Integer.parseInt(resultadoEstudiantes[4].toString());
 
+        double totalVotosDocentesHabilitados = Integer.parseInt(resultadoDocentes[5].toString());
+        double totalVotosEstudiantesHabilitados = Integer.parseInt(resultadoEstudiantes[5].toString());
+
         List<Double> porcentajesDocentes = datosTablaDocentes.stream()
                 .map(dato -> Math.round((dato / totalVotosDocentes) * 50 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
@@ -186,6 +189,24 @@ public class chartController {
                 // System.out.println(porcentajesDocentes);
         List<Double> porcentajesEstudiantes = datosTablaEstudiantes.stream()
                 .map(dato -> Math.round((dato / totalVotosEstudiantes) * 50 * 1000.0) / 1000.0)
+                .collect(Collectors.toList());
+
+        List<Double> porcentajesDocentesHabilitados = datosTablaDocentes.stream()
+                .map(dato -> Math.round((dato / totalVotosDocentesHabilitados) * 50 * 1000.0) / 1000.0)
+                .collect(Collectors.toList());
+
+                // System.out.println(porcentajesDocentes);
+        List<Double> porcentajesEstudiantesHabilitados = datosTablaEstudiantes.stream()
+                .map(dato -> Math.round((dato / totalVotosEstudiantesHabilitados) * 50 * 1000.0) / 1000.0)
+                .collect(Collectors.toList());
+
+        List<Double> porcentajesDocentesHabilitados100 = datosTablaDocentes.stream()
+                .map(dato -> Math.round((dato / totalVotosDocentesHabilitados) * 100 * 1000.0) / 1000.0)
+                .collect(Collectors.toList());
+
+                // System.out.println(porcentajesDocentes);
+        List<Double> porcentajesEstudiantesHabilitados100 = datosTablaEstudiantes.stream()
+                .map(dato -> Math.round((dato / totalVotosEstudiantesHabilitados) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
 
         List<Double> porcentajesDocentes100 = datosTablaDocentes.stream()
@@ -205,6 +226,12 @@ public class chartController {
         int totalActasDocentesBase = Integer.parseInt(resultadoDocentes[7].toString());
 
         // Reemplazar el último índice en ambas listas con el cálculo basado en totalEstudiantesBase
+        int lastIndexDocentesHabilitados = porcentajesDocentesHabilitados.size() - 2;
+        int lastIndexEstudiantesHabiltiados = porcentajesEstudiantesHabilitados.size() - 2;
+
+        int lastIndexDocentesActasHabiltiados = porcentajesDocentesHabilitados.size() - 1;
+        int lastIndexEstudiantesActasHabiltiados = porcentajesEstudiantesHabilitados.size() - 1;
+
         int lastIndexDocentes = porcentajesDocentes.size() - 2;
         int lastIndexEstudiantes = porcentajesEstudiantes.size() - 2;
 
@@ -216,6 +243,36 @@ public class chartController {
 
         int lastIndexDocentesActas100 = porcentajesDocentes100.size() - 1;
         int lastIndexEstudiantesActas100 = porcentajesEstudiantes100.size() - 1;
+
+        int lastIndexDocentesHabilitados100 = porcentajesDocentesHabilitados100.size() - 2;
+        int lastIndexEstudiantesHabilitados100 = porcentajesEstudiantesHabilitados100.size() - 2;
+
+        int lastIndexDocentesActasHabilitados100 = porcentajesDocentesHabilitados100.size() - 1;
+        int lastIndexEstudiantesActasHabilitados100 = porcentajesEstudiantesHabilitados100.size() - 1;
+
+        porcentajesDocentesHabilitados.set(lastIndexDocentesHabilitados,
+            Math.round((datosTablaDocentes.get(lastIndexDocentesHabilitados) / (double) totalActasDocentesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesDocentesHabilitados.set(lastIndexDocentesActasHabiltiados,
+            Math.round((datosTablaDocentes.get(lastIndexDocentesActasHabiltiados) / (double) totalActasDocentesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesEstudiantesHabilitados.set(lastIndexEstudiantesHabiltiados,
+            Math.round((datosTablaEstudiantes.get(lastIndexEstudiantesHabiltiados) / (double) totalActasEstudiantesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesEstudiantesHabilitados.set(lastIndexEstudiantesActasHabiltiados,
+            Math.round((datosTablaEstudiantes.get(lastIndexEstudiantesActasHabiltiados) / (double) totalActasEstudiantesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesDocentesHabilitados100.set(lastIndexDocentesHabilitados100,
+            Math.round((datosTablaDocentes.get(lastIndexDocentesHabilitados100) / (double) totalActasDocentesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesDocentesHabilitados100.set(lastIndexDocentesActasHabilitados100,
+            Math.round((datosTablaDocentes.get(lastIndexDocentesActasHabilitados100) / (double) totalActasDocentesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesEstudiantesHabilitados100.set(lastIndexEstudiantesHabilitados100,
+            Math.round((datosTablaEstudiantes.get(lastIndexEstudiantesHabilitados100) / (double) totalActasEstudiantesBase) * 100 * 1000.0) / 1000.0);
+
+        porcentajesEstudiantesHabilitados100.set(lastIndexEstudiantesActasHabilitados100,
+            Math.round((datosTablaEstudiantes.get(lastIndexEstudiantesActasHabilitados100) / (double) totalActasEstudiantesBase) * 100 * 1000.0) / 1000.0);
 
         porcentajesDocentes.set(lastIndexDocentes,
             Math.round((datosTablaDocentes.get(lastIndexDocentes) / (double) totalActasDocentesBase) * 100 * 1000.0) / 1000.0);
@@ -256,8 +313,8 @@ public class chartController {
             htmlTabla.append("<tr>");
             htmlTabla.append("<td>").append(frentesTablaDocentes.get(i)).append("</td>");
             htmlTabla.append("<td>").append(datosTablaDocentes.get(i)).append("</td>");
-            htmlTabla.append("<td>").append(porcentajesDocentes.get(i)+" %").append("</td>");
-            htmlTabla.append("<td>").append(porcentajesDocentes100.get(i)+" %").append("</td>");
+            htmlTabla.append("<td>").append(porcentajesDocentesHabilitados.get(i)+" %").append("</td>");
+            htmlTabla.append("<td>").append(porcentajesDocentesHabilitados100.get(i)+" %").append("</td>");
             htmlTabla.append("</tr>");
             
         }
@@ -275,8 +332,8 @@ public class chartController {
             htmlTablaEst.append("<tr>");
             htmlTablaEst.append("<td>").append(frentesTablaEstudiantes.get(i)).append("</td>");
             htmlTablaEst.append("<td>").append(datosTablaEstudiantes.get(i)).append("</td>");
-            htmlTablaEst.append("<td>").append(porcentajesEstudiantes.get(i) + " %").append("</td>");
-            htmlTablaEst.append("<td>").append(porcentajesEstudiantes100.get(i) + " %").append("</td>");
+            htmlTablaEst.append("<td>").append(porcentajesEstudiantesHabilitados.get(i) + " %").append("</td>");
+            htmlTablaEst.append("<td>").append(porcentajesEstudiantesHabilitados100.get(i) + " %").append("</td>");
             htmlTablaEst.append("</tr>");
         
             // Sumar datos normalmente
