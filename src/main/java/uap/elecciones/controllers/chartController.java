@@ -437,7 +437,7 @@ public class chartController {
         datosTabla.add(resultado != null && resultado.length > 7 && resultado[7] != null ? Integer.parseInt(resultado[7].toString()) : 0);
 
 
-        double totalVotos = (resultado != null && resultado.length > 4 && resultado[4] != null) ? Integer.parseInt(resultado[4].toString()) : 0.0;
+        double totalVotos = (resultado != null && resultado.length > 4 && resultado[4] != null) ? Integer.parseInt(resultado[5].toString()) : 0.0;
 
         List<Double> porcentajes = datosTabla.stream()
                 .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
@@ -542,7 +542,7 @@ public class chartController {
         datosTabla.add(resultado != null && resultado.length > 7 && resultado[7] != null ? Integer.parseInt(resultado[7].toString()) : 0);
 
 
-        double totalVotos = (resultado != null && resultado.length > 4 && resultado[4] != null) ? Integer.parseInt(resultado[4].toString()) : Integer.parseInt(resultado[5].toString());
+        double totalVotos = (resultado != null && resultado.length > 4 && resultado[4] != null) ? Integer.parseInt(resultado[5].toString()) : Integer.parseInt(resultado[5].toString());
 
         List<Double> porcentajes = datosTabla.stream()
                 .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
@@ -632,7 +632,7 @@ public class chartController {
         datosTabla.add(resultado != null && resultado.length > 6 && resultado[6] != null ? Integer.parseInt(resultado[6].toString()) : 0);
         datosTabla.add(resultado != null && resultado.length > 7 && resultado[7] != null ? Integer.parseInt(resultado[7].toString()) : 0);
 
-        double totalVotos = (resultado != null && resultado.length > 4 && resultado[4] != null) ? Integer.parseInt(resultado[4].toString()) : Integer.parseInt(resultado[5].toString());
+        double totalVotos = (resultado != null && resultado.length > 4 && resultado[4] != null) ? Integer.parseInt(resultado[5].toString()) : Integer.parseInt(resultado[5].toString());
         List<Double> porcentajes = datosTabla.stream()
                 .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
@@ -721,7 +721,7 @@ public class chartController {
         datosTabla.add(resultado != null && resultado.length > 7 && resultado[7] != null ? Integer.parseInt(resultado[7].toString()) : 0);
 
 
-        double totalVotos = (resultado != null && resultado.length > 4 && resultado[4] != null) ? Integer.parseInt(resultado[4].toString()) : Integer.parseInt(resultado[5].toString());
+        double totalVotos = (resultado != null && resultado.length > 4 && resultado[4] != null) ? Integer.parseInt(resultado[5].toString()) : Integer.parseInt(resultado[5].toString());
         List<Double> porcentajes = datosTabla.stream()
                 .map(dato -> Math.round((dato / totalVotos) * 100 * 1000.0) / 1000.0)
                 .collect(Collectors.toList());
