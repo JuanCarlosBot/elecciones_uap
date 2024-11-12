@@ -83,7 +83,7 @@
                 <h1 class="text-center">ELECCIÓN RECTOR-VICERECTOR 2025-2029</h1>
                 <h1 class="text-center">UNIVERSIDAD AMAZÓNICA DE PANDO</h1>
             </div>
-            <img src="/img/logo/logoUsic1.png" alt="Logo UAP Derecha" class="header-logo-usic">
+            <img src="/img/logo/LOGO COMITE_Mesa de trabajo 1.png" alt="Logo UAP Derecha" class="header-logo-usic">
         </div>
         <div class="mt-5">
             <!-- <div>horizontal</div> -->
@@ -120,7 +120,7 @@
                     <div class="row mt-4">
                         <div class="col-md-7">
 
-                            <h2 class="text-center">Distribución de Votos</h2>
+                            <h2 class="text-center">Ponderación de Votos</h2>
                             <div id="chart6" style="width: 100%; height: 450px;"></div>
                         </div>
                         <div class="col-md-5">
@@ -292,7 +292,7 @@
             $('.js-example-basic-single').select2({
                 placeholder: "Seleccione..."
             });
-            cargarGeneraTotal();
+            // cargarGeneraTotal();
             cargarTablaGeneral();
             // cargarTablaPorMesa($('#tabla_resultado_mesa').val());
         });
@@ -349,6 +349,7 @@
                 success: function (response) {
                     updateChart(response.chartData, response.totalHabilitados, 'chart6');
                     // $("#tablaGeneralTotal").html(response.html);
+                    console.log(response.chartData);
                 }, error: function (xhr, status, error) {
                     console.error('Hubo un problema con la solicitud AJAX:', status, error);
                 }
@@ -364,6 +365,7 @@
                 success: function (response) {
                     updateChart(response.chartDataDoc, response.totalHabilitadosDoc, 'chart');
                     updateChart(response.chartDataEst, response.totalHabilitadosEst, 'chart5');
+                    updateChart(response.chartDataTotal, 100, 'chart6');
                     $("#tablaGeneralDoc").html(response.htmlDoc);
                     $("#tablaGeneralEst").html(response.htmlEst);
                     $("#tablaGeneralTotal").html(response.htmlTotalGeneral);
