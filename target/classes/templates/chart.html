@@ -69,6 +69,7 @@
         #chart6Torta {
             width: 100%;
             height: 450px;
+            
         }
 
         /* Ajusta la altura de la gráfica para adaptarse mejor a diferentes tamaños de pantalla */
@@ -80,7 +81,6 @@
             /* Limita la altura máxima para pantallas grandes */
         }
 
-    
 
         @media (max-width: 768px) {
 
@@ -330,7 +330,7 @@
             google.charts.load('current', {
                 packages: ['corechart', 'bar']
             });
-    
+
             // Asegurarse de que el código solo se ejecute cuando Google Charts esté listo
             google.charts.setOnLoadCallback(function () {
                 $('.js-example-basic-single').select2({
@@ -339,10 +339,10 @@
                 // cargarGeneraTotal();
                 cargarTablaGeneral();
                 // cargarTablaPorMesa($('#tabla_resultado_mesa').val());
-    
+
                 $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
                     const target = $(e.target).attr("href"); // Obtiene el ID del tab destino
-    
+
                     if (target === "#pie-chart") {
                         // Llama a la función updatePieChart nuevamente para redibujar el gráfico de torta
                         $.ajax({
@@ -433,6 +433,8 @@
                     updateChart(response.chartDataEst, response.totalHabilitadosEst, 'chart5');
                     updateChart(response.chartDataTotal, 100, 'chart6');
                     updatePieChart(response.chartDataTotal, 'chart6Torta')
+                    console.log(response.chartDataTotal);
+
                     $("#tablaGeneralDoc").html(response.htmlDoc);
                     $("#tablaGeneralEst").html(response.htmlEst);
                     $("#tablaGeneralTotal").html(response.htmlTotalGeneral);
@@ -443,7 +445,6 @@
                 }
             });
         }
-
 
         function cargarTablaEstDoc() {
 
@@ -504,9 +505,19 @@
             data.addColumn({ type: 'string', role: 'annotation' });
 
             // Agregar los datos recibidos al DataTable de Google Charts
-            chartData.forEach(item => {
-                data.addRow([item.frente, item.votos, item.color, item.votos.toString()]);
-            });
+            // Validación según el chartId
+            if (chartId === 'chart6') {
+                // Si el chartId es 'chart6', agregar el símbolo de '%' a los votos
+                chartData.forEach(item => {
+                    data.addRow([item.frente, item.votos, item.color, item.votos.toString() + " %"]);
+                });
+            } else {
+                // En otros casos, agregar los votos sin el símbolo de '%'
+                chartData.forEach(item => {
+                    data.addRow([item.frente, item.votos, item.color, item.votos.toString()]);
+                });
+            }
+
 
             // Generar ticks del 0% al 100% en incrementos de 10%
             const ticks = [];
@@ -523,8 +534,12 @@
                     minValue: 0,
                     maxValue: totalHabilitados,
                     ticks: ticks,
+                    textStyle: {
+                        color: 'black' // Cambiar color de los textos del eje horizontal a blanco
+                    }
                 },
-                legend: { position: 'none' }
+                legend: { position: 'none' },
+
             };
 
             // Generar el gráfico en el div correspondiente
@@ -545,14 +560,21 @@
                 data.addRow([item.frente, item.votos]);
             });
 
+            // Crear un formateador para los porcentajes
+            const formatter = new google.visualization.NumberFormat({ pattern: '#,#0 %' });
+            formatter.format(data, 1); // Formatear la segunda columna (valores de los votos)
+
             // Opciones del gráfico de torta
             const options = {
                 title: 'Ponderación de Votos',
-                pieHole: 0.4, // Agrega un agujero en el centro para un gráfico de tipo "donut" (opcional)
+                pieHole: 0.3, // Agrega un agujero en el centro para un gráfico de tipo "donut" (opcional)
                 legend: { position: 'right' },
                 pieSliceText: 'value', // Muestra el valor en cada sección
                 colors: chartData.map(item => item.color), // Colores personalizados para cada sección
                 // Ajustar el tamaño dinámicamente en función de la ventana
+                slices: chartData.map((item, index) => ({
+                    textStyle: { color: 'black', fontSize: 15 }, // Cambiar color del texto (puedes modificar esto)
+                })),
                 width: '100%',
                 height: Math.max(300, window.innerHeight * 0.4) // 40% de la altura de la pantalla, con un mínimo de 300px
             };
@@ -564,55 +586,6 @@
             }
         }
 
-    </script>
-
-    <script type="text/javascript" th:inline="javascript">
-        // google.charts.load('current', { 'packages': ['corechart'] });
-        // google.charts.setOnLoadCallback(drawChart);
-
-        // function drawChart() {
-        //     const datos = /*[[${datos}]]*/[];
-        //     const frentes = /*[[${frentes}]]*/[];
-        //     const colores = /*[[${colores}]]*/[];
-
-        //     const chartData = [
-        //         ['Frente', 'Votos', { role: 'style' }, { role: 'annotation' }]
-        //     ];
-        //     for (let i = 0; i < frentes.length; i++) {
-        //         chartData.push([frentes[i], datos[i], colores[i], datos[i].toString()]);
-        //     }
-
-        //     const data = google.visualization.arrayToDataTable(chartData);
-
-        //     const options = {
-        //         title: 'Distribución de Votos',
-        //         bars: 'horizontal',
-        //         hAxis: {
-        //             title: 'Votos',
-        //             minValue: 0,
-        //             maxValue: 9107,
-        //             ticks: [
-        //                 { v: 0, f: '0%' },
-        //                 { v: 910.7, f: '10%' },
-        //                 { v: 1821.4, f: '20%' },
-        //                 { v: 2732.1, f: '30%' },
-        //                 { v: 3642.8, f: '40%' },
-        //                 { v: 4553.5, f: '50%' },
-        //                 { v: 5464.2, f: '60%' },
-        //                 { v: 6374.9, f: '70%' },
-        //                 { v: 7285.6, f: '80%' },
-        //                 { v: 8196.3, f: '90%' },
-        //                 { v: 9107, f: '100%' }
-        //             ]
-        //         },
-        //         legend: { position: 'none' }
-        //     };
-
-        //     const chart = new google.visualization.BarChart(document.getElementById('chart'));
-        //     chart.draw(data, options);
-        // }
-
-        // window.addEventListener('resize', () => { drawChart(); });
     </script>
 
 </body>

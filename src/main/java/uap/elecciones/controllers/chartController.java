@@ -438,7 +438,7 @@ public class chartController {
             Map<String, Object> dataPoint = new HashMap<>();
             dataPoint.put("frente", frentesEstudiantes.get(i));
             BigDecimal valorRedondeado = BigDecimal.valueOf(totalPorcentaje.get(i))
-                    .setScale(3, RoundingMode.HALF_UP); // Redondear a 3 decimales
+                    .setScale(2, RoundingMode.HALF_UP); // Redondear a 3 decimales
             dataPoint.put("votos", valorRedondeado.doubleValue()); // Convertir a double si es necesario
             dataPoint.put("color", colores.get(i % colores.size()));
             chartDataTotal.add(dataPoint);
