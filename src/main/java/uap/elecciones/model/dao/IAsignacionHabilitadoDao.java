@@ -259,7 +259,14 @@ ORDER BY td.id_tipo_delegado ASC;
          WHERE vh2.id_votante_habilitado = vh.id_votante_habilitado),
         p.apellidos
     ) AS apellidos,
-    m.nombre_mesa
+    m.nombre_mesa,
+    COALESCE(
+        (SELECT d3.celular 
+         FROM votante_habilitado vh3
+         LEFT JOIN docente d3 ON vh3.id_docente = d3.id_docente
+         WHERE vh3.id_votante_habilitado = vh.id_votante_habilitado),
+        e.celular
+    ) AS celular
 FROM votante_habilitado vh
 LEFT JOIN asignacion_habilitado ah ON ah.id_votante_habilitado = vh.id_votante_habilitado
 LEFT JOIN estudiante e ON vh.id_estudiante = e.id_estudiante

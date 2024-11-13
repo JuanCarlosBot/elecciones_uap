@@ -6,7 +6,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.imageio.ImageIO;
@@ -30,7 +32,9 @@ import org.jfree.data.category.DefaultCategoryDataset;
 // import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,9 +44,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import uap.elecciones.model.entity.Delegado;
 import uap.elecciones.model.entity.DelegadoDto;
+import uap.elecciones.model.entity.Docente;
+import uap.elecciones.model.entity.Estudiante;
 import uap.elecciones.model.entity.Mesa;
 import uap.elecciones.model.service.DelegadoService;
 import uap.elecciones.model.service.IAsignacionHabilitadoService;
+import uap.elecciones.model.service.IDocenteService;
+import uap.elecciones.model.service.IEstudianteService;
 import uap.elecciones.model.service.IFacultadService;
 import uap.elecciones.model.service.IMesaService;
 import uap.elecciones.model.service.TipoDelegadoService;
@@ -50,6 +58,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.client.RestTemplate;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -65,6 +74,7 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -101,6 +111,12 @@ public class delegadoController {
 
     @Autowired
     private IAsignacionHabilitadoService habilitadoService;
+
+    @Autowired
+    private IDocenteService docenteService;
+
+    @Autowired
+    private IEstudianteService estudianteService;
 
     @GetMapping("/ventana")
     public String ventana(Model model, HttpServletRequest request) {
@@ -190,6 +206,75 @@ public class delegadoController {
 
         model.addAttribute("votantes", votantesMesa);
         return "Delegado/tabla_votantes";
+    }
+
+    @GetMapping(value = "/pruebaE")
+    public String pruebaE() {
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-api-key", "key 70c8b6fc339aa5e6312dd42edf0636558948bb6008f1a0f867885d5e60e26c57");
+
+        String url = "http://190.129.216.246:9993/v1/service/api/ae7ce0054d4c4f38a4a92bf1c0422b55";
+        Map<String, String> requestBody = new HashMap<>();
+        int j = 1;
+        for (Docente docent : docenteService.findAll()) {
+            String rd = docent.getRd();// "245";
+            requestBody.put("rd", rd);
+
+            HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<Map> resp = restTemplate.exchange(url, HttpMethod.POST, requestEntity, Map.class);
+
+            if (resp.getBody().get("status").toString().equals("200")) {
+                Map<String, Object> data = (Map) resp.getBody().get("data");
+                System.out.println(j++ + "," + docent.getPersona().getApellidos() + "," + data.get("rd").toString()
+                        + "," + data.get("celular").toString());
+                // System.out.println("EL CELULAR DE DOCENTE ES " +
+                // data.get("celular").toString());
+            }
+        }
+        return "redirect:/delegado/prueba";
+    }
+
+    @GetMapping(value = "/pruebaD")
+    public ResponseEntity<Map<String, Object>> prueba() {
+        Map<String, Object> response = new HashMap<>();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        headers.set("x-api-key", "key 70c8b6fc339aa5e6312dd42edf0636558948bb6008f1a0f867885d5e60e26c57");
+
+        String url = "http://190.129.216.246:9993/v1/service/api/cee024514f4e4b1f970bfb2b6486b421";
+        List<Map<String, String>> lista = new ArrayList<>(); // Lista de mapas para almacenar los datos
+
+        int j = 1;
+        for (Estudiante estudiante : estudianteService.findAll()) {
+            String ru = estudiante.getRu();
+            Map<String, String> requestBody = new HashMap<>();
+            requestBody.put("ru", ru);
+
+            HttpEntity<Map<String, String>> requestEntity = new HttpEntity<>(requestBody, headers);
+            RestTemplate restTemplate = new RestTemplate();
+            ResponseEntity<Map> resp = restTemplate.exchange(url, HttpMethod.POST, requestEntity, Map.class);
+
+            // Verifica si la respuesta es exitosa y procesa los datos
+            if (resp.getBody() != null && "200".equals(resp.getBody().get("status").toString())) {
+                Map<String, Object> data = (Map<String, Object>) resp.getBody().get("data");
+
+                // Crear un mapa con los datos del estudiante
+                Map<String, String> estudianteData = new HashMap<>();
+                estudianteData.put("numero", String.valueOf(j++));
+                estudianteData.put("apellidos", estudiante.getPersona().getApellidos());
+                estudianteData.put("ru", data.get("ru").toString());
+                estudianteData.put("celular", data.get("celular").toString());
+
+                lista.add(estudianteData); // Agrega los datos del estudiante a la lista
+            }
+        }
+
+        // Añadir la lista a la respuesta JSON
+        response.put("estudiantes", lista);
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping(value = "/generarPDFMesa/{idMesa}", produces = MediaType.APPLICATION_PDF_VALUE)

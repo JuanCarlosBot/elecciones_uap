@@ -43,6 +43,8 @@ public class Estudiante implements Serializable {
     @Column
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha_registro;
+    @Column
+    private String celular;
 
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToOne(fetch = FetchType.LAZY)
