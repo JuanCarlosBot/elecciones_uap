@@ -1,0 +1,92 @@
+body {
+    padding: 2vh;
+    /* Reduce los bordes en todos los lados */
+    /* padding-top: 2vh; */
+    background-color: aliceblue;
+}
+
+.container {
+    max-width: 100%;
+    /* Usa todo el ancho disponible */
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.header-logo {
+    width: 100px;
+}
+
+.header-logo-usic {
+    width: 150px;
+    height: 130px;
+}
+
+h1.text-center {
+    font-family: 'Anton', sans-serif;
+    font-weight: bold;
+}
+
+.header-text h1 {
+    margin: 0;
+    font-size: 2rem;
+}
+
+footer {
+    text-align: center;
+    padding: 1rem;
+    margin-top: 2rem;
+    border-top: 1px solid #ddd;
+    color: #504f4f;
+    font-size: 0.9rem;
+}
+
+.nav-tabs .nav-item .nav-link {
+    cursor: pointer;
+}
+
+.tab-pane {
+    padding-top: 15px;
+}
+
+#chart6,
+#chart6Torta {
+    width: 100%;
+    height: 450px;
+    
+}
+
+/* Ajusta la altura de la gráfica para adaptarse mejor a diferentes tamaños de pantalla */
+#chart6Torta {
+    width: 100%;
+    height: 50vh;
+    /* Ocupa el 50% de la altura de la pantalla en cualquier dispositivo */
+    max-height: 450px;
+    /* Limita la altura máxima para pantallas grandes */
+}
+
+
+@media (max-width: 768px) {
+
+    .header-logo {
+        width: 60px;
+    }
+
+    .header-logo-usic {
+        width: 80px;
+    }
+
+    .header-container {
+        text-align: center;
+        padding: 10px;
+    }
+
+    h1.text-center {
+        font-size: 1.3rem;
+    }
+}
