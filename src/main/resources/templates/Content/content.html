@@ -65,7 +65,7 @@
         <ul class="list-group col-md-12 mt-3" style="font-size: 18px;">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <strong>Jurado Electoral: </strong><span
-                    th:text="${estudiante[5] != null ? 'Sì eres Jurado' : 'No eres Jurado'}"></span>
+                    th:text="${estudiante[8] != null ? 'Sì eres Jurado' : 'No eres Jurado'}"></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center"
                 th:if="${estudiante[8] != null}">
@@ -133,7 +133,7 @@
         <ul class="list-group col-md-12 mt-3" style="font-size: 18px;">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <strong>Jurado Electoral: </strong><span
-                    th:text="${docente[5] != null ? 'Sì eres Jurado' : 'No eres Jurado'}"></span>
+                    th:text="${docente[8] != null ? 'Sì eres Jurado' : 'No eres Jurado'}"></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center" th:if="${docente[8] != null}">
                 <strong>Jurado de la: </strong><span
