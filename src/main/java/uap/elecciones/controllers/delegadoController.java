@@ -181,7 +181,8 @@ public class delegadoController {
                         (Long) arr[5], // id_persona
                         (String) arr[6], // nombre_mesa
                         (String) arr[7], // nombre_tipo_delegado
-                        (Long) arr[8] // id_votante_habilitado
+                        (Long) arr[8], // id_votante_habilitado
+                        (String) ""
                 ))
                 .collect(Collectors.toList());
 
@@ -303,6 +304,7 @@ public class delegadoController {
             dD.setTipo_persona((String) votante[3]);
             dD.setApellidos((String) votante[4]);
             dD.setNombre_mesa((String) votante[5]);
+            dD.setCelular((String)votante[6]);
             votantesDto.add(dD);
         }
         Mesa mesaa = mesaService.findOne(idMesa);
@@ -425,14 +427,14 @@ public class delegadoController {
                 }
                 document.add(table1);
                 // lista de votantes
-                PdfPTable table = new PdfPTable(6); // Número de columnas
-                float[] columnWidths = { 0.7f, 2.5f, 2.5f, 1.2f, 4f, 2f }; // Ajusta los valores según tus necesidades
+                PdfPTable table = new PdfPTable(7); // Número de columnas
+                float[] columnWidths = { 0.7f, 2.5f, 2.5f, 1.2f, 4f, 2f, 2f }; // Ajusta los valores según tus necesidades
                 table.setWidths(columnWidths);
                 table.setWidthPercentage(100);
                 table.setSpacingBefore(20f);
 
                 // Encabezados de la tabla
-                String[] headers = { "Nro", "Facultad", "Carrera", RDRU, "Apellidos y Nombres", "Firma" };
+                String[] headers = { "Nro", "Facultad", "Carrera", RDRU, "Apellidos y Nombres", "Celular", "Firma" };
                 for (String header : headers) {
                     PdfPCell cell = new PdfPCell(new Phrase(header, negrita));
                     cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
@@ -451,6 +453,7 @@ public class delegadoController {
                     table.addCell(new PdfPCell(new Phrase(vot.getNombre_carrera(), normal)));
                     table.addCell(new PdfPCell(new Phrase(vot.getRu_rd(), normal)));
                     table.addCell(new PdfPCell(new Phrase(vot.getApellidos(), normal)));
+                    table.addCell(new PdfPCell(new Phrase(vot.getCelular(), normal)));
                     table.addCell(new PdfPCell(new Phrase("", normal))); // Firma vacía
                 }
                 document.add(table);
@@ -509,7 +512,8 @@ public class delegadoController {
                         (Long) arr[5], // id_persona
                         (String) arr[6], // nombre_mesa
                         (String) arr[7], // nombre_tipo_delegado
-                        (Long) arr[8] // id_votante_habilitado
+                        (Long) arr[8], // id_votante_habilitado
+                        (String) ""
                 ))
                 .collect(Collectors.toList());
 

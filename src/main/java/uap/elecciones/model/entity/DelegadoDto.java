@@ -15,10 +15,11 @@ public class DelegadoDto {
     private String nombre_mesa;
     private String nombre_tipo_delegado;
     private Long id_votante_habilitado;
+    private String celular;
 
     public DelegadoDto(String nombre_facultad, String nombre_carrera, String ru_rd, String tipo_persona, String apellidos,
                        Long id_persona, String nombre_mesa, String nombre_tipo_delegado,
-                       Long id_votante_habilitado) {
+                       Long id_votante_habilitado, String celular) {
         this.nombre_facultad = nombre_facultad;
         this.nombre_carrera = nombre_carrera;
         this.ru_rd = ru_rd;
@@ -28,6 +29,7 @@ public class DelegadoDto {
         this.nombre_mesa = nombre_mesa;
         this.nombre_tipo_delegado = nombre_tipo_delegado;
         this.id_votante_habilitado = id_votante_habilitado;
+        this.celular = celular;
     }
 
     public DelegadoDto() {
