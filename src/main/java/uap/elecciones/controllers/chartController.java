@@ -295,29 +295,29 @@ public class chartController {
 
                 // Reemplazar el último índice en ambas listas con el cálculo basado en
                 // totalEstudiantesBase
-                int lastIndexDocentesHabilitados = porcentajesDocentesHabilitados.size() - 3;
-                int lastIndexEstudiantesHabiltiados = porcentajesEstudiantesHabilitados.size() - 3;
+                int lastIndexDocentesHabilitados = porcentajesDocentesHabilitados.size() - 2;
+                int lastIndexEstudiantesHabiltiados = porcentajesEstudiantesHabilitados.size() - 2;
 
-                int lastIndexDocentesActasHabiltiados = porcentajesDocentesHabilitados.size() - 2;
-                int lastIndexEstudiantesActasHabiltiados = porcentajesEstudiantesHabilitados.size() - 2;
+                int lastIndexDocentesActasHabiltiados = porcentajesDocentesHabilitados.size() - 1;
+                int lastIndexEstudiantesActasHabiltiados = porcentajesEstudiantesHabilitados.size() - 1;
 
-                int lastIndexDocentes = porcentajesDocentes.size() - 3;
-                int lastIndexEstudiantes = porcentajesEstudiantes.size() - 3;
+                int lastIndexDocentes = porcentajesDocentes.size() - 2;
+                int lastIndexEstudiantes = porcentajesEstudiantes.size() - 2;
 
-                int lastIndexDocentesActas = porcentajesDocentes.size() - 2;
-                int lastIndexEstudiantesActas = porcentajesEstudiantes.size() - 2;
+                int lastIndexDocentesActas = porcentajesDocentes.size() - 1;
+                int lastIndexEstudiantesActas = porcentajesEstudiantes.size() - 1;
 
-                int lastIndexDocentes100 = porcentajesDocentes100.size() - 3;
-                int lastIndexEstudiantes100 = porcentajesEstudiantes100.size() - 3;
+                int lastIndexDocentes100 = porcentajesDocentes100.size() - 2;
+                int lastIndexEstudiantes100 = porcentajesEstudiantes100.size() - 2;
 
-                int lastIndexDocentesActas100 = porcentajesDocentes100.size() - 2;
-                int lastIndexEstudiantesActas100 = porcentajesEstudiantes100.size() - 2;
+                int lastIndexDocentesActas100 = porcentajesDocentes100.size() - 1;
+                int lastIndexEstudiantesActas100 = porcentajesEstudiantes100.size() - 1;
 
-                int lastIndexDocentesHabilitados100 = porcentajesDocentesHabilitados100.size() - 3;
-                int lastIndexEstudiantesHabilitados100 = porcentajesEstudiantesHabilitados100.size() - 3;
+                int lastIndexDocentesHabilitados100 = porcentajesDocentesHabilitados100.size() - 2;
+                int lastIndexEstudiantesHabilitados100 = porcentajesEstudiantesHabilitados100.size() - 2;
 
-                int lastIndexDocentesActasHabilitados100 = porcentajesDocentesHabilitados100.size() - 2;
-                int lastIndexEstudiantesActasHabilitados100 = porcentajesEstudiantesHabilitados100.size() - 2;
+                int lastIndexDocentesActasHabilitados100 = porcentajesDocentesHabilitados100.size() - 1;
+                int lastIndexEstudiantesActasHabilitados100 = porcentajesEstudiantesHabilitados100.size() - 1;
 
                 porcentajesDocentesHabilitados.set(lastIndexDocentesHabilitados,
                                 Math.round((datosTablaDocentes.get(lastIndexDocentesHabilitados)
