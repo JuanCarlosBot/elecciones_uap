@@ -50,6 +50,23 @@ footer {
     cursor: pointer;
 }
 
+/* Cambia el color de fondo cuando el tab está activo */
+.nav-tabs .nav-link.active {
+    background-color: #007bff; /* Cambia a tu color preferido */
+    color: white;
+}
+
+/* Opcional: cambia el color del texto de los tabs no activos */
+.nav-tabs .nav-link {
+    color: #333; /* Color de texto para tabs no seleccionados */
+}
+
+/* Opcional: cambiar el color al pasar el ratón */
+.nav-tabs .nav-link:hover {
+    background-color: #ff0000;
+    color: #ffffff; /* Cambia a tu color preferido */
+}
+
 .tab-pane {
     padding-top: 15px;
 }

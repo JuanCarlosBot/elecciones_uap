@@ -71,7 +71,7 @@ function cargarTablaGeneral() {
             $("#tablaGeneralEst").html(response.htmlEst);
             $("#tablaGeneralTotal").html(response.htmlTotalGeneral);
             $("#suma").html("RENOVACION + BLANCOS : " +response.suma_validos_blanco +" %");
-            console.log(response.suma_validos_blanco);
+            // console.log(response.suma_validos_blanco);
 
         },
         error: function (xhr, status, error) {
@@ -137,7 +137,7 @@ function updateChart(chartData, totalHabilitados, chartId) {
     data.addColumn('number', 'Votos');
     data.addColumn({ type: 'string', role: 'style' });
     data.addColumn({ type: 'string', role: 'annotation' });
-
+    var titulo ;
     // Agregar los datos recibidos al DataTable de Google Charts
     // Validación según el chartId
     if (chartId === 'chart6') {
@@ -145,11 +145,13 @@ function updateChart(chartData, totalHabilitados, chartId) {
         chartData.forEach(item => {
             data.addRow([item.frente, item.votos, item.color, item.votos.toString() + " %"]);
         });
+        titulo = "Ponderación de Votos"
     } else {
         // En otros casos, agregar los votos sin el símbolo de '%'
         chartData.forEach(item => {
             data.addRow([item.frente, item.votos, item.color, item.votos.toString()]);
         });
+        titulo = "Distribución de Votos"
     }
 
 
@@ -161,7 +163,11 @@ function updateChart(chartData, totalHabilitados, chartId) {
     }
 
     const options = {
-        title: 'Distribución de Votos',
+        title: titulo,
+        titleTextStyle: {
+            fontSize: 16, // Tamaño de fuente para el título
+            bold: true,   // Negrita
+        },
         bars: 'horizontal',
         hAxis: {
             title: 'Votos',
@@ -211,20 +217,29 @@ function updatePieChart(chartData, chartId) {
     // Crear un formateador para los porcentajes
     const formatter = new google.visualization.NumberFormat({ pattern: '#,#0 %' });
     formatter.format(data, 1); // Formatear la segunda columna (valores de los votos)
-
     // Opciones del gráfico de torta
     const options = {
         title: 'Ponderación de Votos',
+        titleTextStyle: {
+            fontSize: 16, // Tamaño de fuente para el título
+            bold: true,   // Negrita
+        },
         pieHole: 0.3, // Agrega un agujero en el centro para un gráfico de tipo "donut" (opcional)
         legend: { position: 'right' },
         pieSliceText: 'value', // Muestra el valor en cada sección
         colors: chartData.map(item => item.color), // Colores personalizados para cada sección
         // Ajustar el tamaño dinámicamente en función de la ventana
         slices: chartData.map((item, index) => ({
-            textStyle: { color: 'black', fontSize: 16 , bold: true, }, // Cambiar color del texto (puedes modificar esto)
+            textStyle: { 
+                color: 'black', 
+                fontSize: window.innerWidth < 600 ? 10 : 16, // Tamaño de fuente ajustado para pantallas pequeñas
+                bold: true 
+            }
         })),
         width: '100%',
-        height: Math.max(300, window.innerHeight * 0.4) // 40% de la altura de la pantalla, con un mínimo de 300px
+        height: window.innerWidth < 600 
+            ? Math.max(300, window.innerHeight * 0.3) // Menor altura para pantallas pequeñas
+            : Math.max(450, window.innerHeight * 0.4) // Altura para pantallas más grandes
     };
 
     // Generar el gráfico en el div correspondiente

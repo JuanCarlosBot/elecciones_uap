@@ -72,7 +72,7 @@
                                     <div id="chart6" style="width: 100%; height: 450px;"></div>
                                 </div>
                                 <div class="tab-pane fade" id="pie-chart" role="tabpanel" aria-labelledby="pie-tab">
-                                    <div id="chart6Torta" style="width: 100%; height: 100%;"></div>
+                                    <div id="chart6Torta" style="width: 100%; height: 450px;"></div>
                                 </div>
                             </div>
                         </div>
@@ -233,45 +233,8 @@
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <script>
-        $(document).ready(function () {
-            google.charts.load('current', {
-                packages: ['corechart', 'bar']
-            });
-
-            // Asegurarse de que el código solo se ejecute cuando Google Charts esté listo
-            google.charts.setOnLoadCallback(function () {
-                $('.js-example-basic-single').select2({
-                    placeholder: "Seleccione..."
-                });
-                // cargarGeneraTotal();
-                cargarTablaGeneral();
-                // cargarTablaPorMesa($('#tabla_resultado_mesa').val());
-
-                $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
-                    const target = $(e.target).attr("href"); // Obtiene el ID del tab destino
-
-                    if (target === "#pie-chart") {
-                        // Llama a la función updatePieChart nuevamente para redibujar el gráfico de torta
-                        $.ajax({
-                            type: 'POST',
-                            url: "/cargarGeneral",
-                            contentType: "application/json",
-                            data: JSON.stringify({}),
-                            success: function (response) {
-                                updatePieChart(response.chartDataTotal, 'chart6Torta');
-                            },
-                            error: function (xhr, status, error) {
-                                console.error('Hubo un problema con la solicitud AJAX:', status, error);
-                            }
-                        });
-                    }
-                });
-            });
-        });
-    </script>
-
-  <script src="../../../../js/controlResultado.js"></script>
+    <script src="../../../../js/controlResultadoLoad.js"></script>
+    <script src="../../../../js/controlResultado.js"></script>
 
 </body>
 
