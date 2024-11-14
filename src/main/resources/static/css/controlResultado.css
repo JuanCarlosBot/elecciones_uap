@@ -1,8 +1,18 @@
 body {
     padding: 2vh;
-    /* Reduce los bordes en todos los lados */
-    /* padding-top: 2vh; */
     background-color: aliceblue;
+    position: relative; /* Necesario para posicionar la imagen */
+}
+
+.watermark {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 500px; /* Ajusta el ancho de la imagen */
+    height: auto; /* Mantiene la proporción de la imagen */
+    opacity: 0.1; /* Ajusta la opacidad según sea necesario */
+    pointer-events: none; /* Evita que la imagen interfiera con otros elementos */
 }
 
 .container {
@@ -85,6 +95,12 @@ footer {
     /* Ocupa el 50% de la altura de la pantalla en cualquier dispositivo */
     max-height: 450px;
     /* Limita la altura máxima para pantallas grandes */
+}
+
+.chart-container {
+    background-color: rgba(255, 255, 255, 0.5); /* Fondo blanco con 50% de transparencia */
+    padding: 10px; /* Opcional: añadir relleno para que el gráfico no quede pegado a los bordes */
+    border-radius: 8px; /* Opcional: esquinas redondeadas */
 }
 
 

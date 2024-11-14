@@ -168,6 +168,9 @@ function updateChart(chartData, totalHabilitados, chartId) {
             fontSize: 16, // Tamaño de fuente para el título
             bold: true,   // Negrita
         },
+        backgroundColor: {
+            fill: 'rgba(255, 255, 255, 0.1)', // Fondo blanco transparente
+        },
         bars: 'horizontal',
         hAxis: {
             title: 'Votos',
