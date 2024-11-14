@@ -70,6 +70,8 @@ function cargarTablaGeneral() {
             $("#tablaGeneralDoc").html(response.htmlDoc);
             $("#tablaGeneralEst").html(response.htmlEst);
             $("#tablaGeneralTotal").html(response.htmlTotalGeneral);
+            $("#suma").html("RENOVACION + BLANCOS : " +response.suma_validos_blanco +" %");
+            console.log(response.suma_validos_blanco);
 
         },
         error: function (xhr, status, error) {
@@ -170,6 +172,20 @@ function updateChart(chartData, totalHabilitados, chartId) {
                 color: 'black' // Cambiar color de los textos del eje horizontal a blanco
             }
         },
+        vAxis: {
+            textStyle: {
+                fontSize: 16,      // Tamaño del texto
+                bold: true,        // Grosor del texto en negrita
+                color: '#000000',  // Color del texto
+            }
+        },
+        annotations: {
+            textStyle: {
+                fontSize: 16,      // Tamaño del texto
+                bold: true,        // Grosor del texto en negrita
+                color: '#000000',  // Color del texto
+            }
+        },
         legend: { position: 'none' },
 
     };
@@ -205,7 +221,7 @@ function updatePieChart(chartData, chartId) {
         colors: chartData.map(item => item.color), // Colores personalizados para cada sección
         // Ajustar el tamaño dinámicamente en función de la ventana
         slices: chartData.map((item, index) => ({
-            textStyle: { color: 'black', fontSize: 15 }, // Cambiar color del texto (puedes modificar esto)
+            textStyle: { color: 'black', fontSize: 16 , bold: true, }, // Cambiar color del texto (puedes modificar esto)
         })),
         width: '100%',
         height: Math.max(300, window.innerHeight * 0.4) // 40% de la altura de la pantalla, con un mínimo de 300px

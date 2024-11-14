@@ -55,7 +55,8 @@ public interface IAnforaDao extends CrudRepository<Anfora, Long> {
                 where 
                         (vh.id_estudiante is null and :esNulo = true) 
                         or (vh.id_estudiante is not null and :esNulo = false)
-                )  - sum(a.cant_voto_emitido)) as no_emitido
+                )  - sum(a.cant_voto_emitido)) as no_emitido,
+                (sum(a.cant_voto_valido) + sum(a.cant_voto_blanco)) as suma_valido_blanco
         from anfora a
         join mesa m on a.id_mesa = m.id_mesa
         where m.nombre_mesa like concat('%', :nombreMesa, '%') and m.estado = 'COMPLETADO'
