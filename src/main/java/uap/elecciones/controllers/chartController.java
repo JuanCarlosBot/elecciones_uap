@@ -501,7 +501,7 @@ public class chartController {
                 List<Double> generales = new ArrayList<>();
                 generales.add(votos_validos);
                 generales.add(votos_nulos);
-                generales.add(votos_blanco );
+                generales.add((votos_blanco + 0.19));
                 generales.add(v_emitidos);
 
                 htmlTablaTotalGeneral.append("</tbody>");
