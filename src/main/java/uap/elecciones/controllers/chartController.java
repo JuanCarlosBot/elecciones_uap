@@ -140,7 +140,9 @@ public class chartController {
                                                 : 0);
 
                 List<String> frentesDocentes = new ArrayList<>();
+                List<String> frentesDocentes2 = new ArrayList<>();
                 List<String> frentesEstudiantes = new ArrayList<>();
+                List<String> frentesEstudiantes2 = new ArrayList<>();
                 List<String> frentesTotales = new ArrayList<>();
                 List<String> frentesTotales2 = new ArrayList<>();
                 List<String> frentesTotalesNombres = new ArrayList<>();
@@ -150,6 +152,13 @@ public class chartController {
 
                 frentesDocentes.add("NULOS");
                 frentesDocentes.add("BLANCOS");
+                for (Frente f : frenteService.findAll()) {
+                        frentesDocentes2.add(f.getNombre_frente());
+                }
+
+                frentesDocentes2.add("NULOS");
+                frentesDocentes2.add("BLANCOS");
+                frentesDocentes2.add("NO EMITIDOS");
 
                 for (Frente f : frenteService.findAll()) {
                         frentesEstudiantes.add(f.getNombre_frente());
@@ -157,6 +166,13 @@ public class chartController {
 
                 frentesEstudiantes.add("NULOS");
                 frentesEstudiantes.add("BLANCOS");
+                for (Frente f : frenteService.findAll()) {
+                        frentesEstudiantes2.add(f.getNombre_frente());
+                }
+
+                frentesEstudiantes2.add("NULOS");
+                frentesEstudiantes2.add("BLANCOS");
+                frentesEstudiantes2.add("NO EMITIDOS");
 
                 for (Frente f : frenteService.findAll()) {
                         frentesTotales.add(f.getNombre_frente());
@@ -466,12 +482,14 @@ public class chartController {
                         // Evitar la suma en totalPorcentaje solo para los últimos dos índices
                         if (i < datosTablaEstudiantes.size() - 2) {
                                 totalPorcentaje.add(porcentajesDocentes.get(i) + porcentajesEstudiantes.get(i));
+                                
                         } else {
                                 // Solo agregar el porcentaje de estudiantes sin sumar
                                 totalPorcentaje.add(porcentajesEstudiantes.get(i));
                         }
+                        
                 }
-
+                
                 // System.out.println(totalPorcentaje);
                 // System.out.println(totalDatos);
                 htmlTablaEst.append("</tbody>");
@@ -485,6 +503,7 @@ public class chartController {
                 htmlTablaTotalGeneral.append("<tbody>");
 
                 List<Double> porcentajestotales = new ArrayList<>();
+                System.out.println(totalPorcentaje.size());
                 for (int i = 0; i < totalPorcentaje.size() - 3; i++) {
                         htmlTablaTotalGeneral.append("<tr>");
                         htmlTablaTotalGeneral.append("<td>").append(frentesTotales.get(i)).append("</td>");
@@ -493,7 +512,7 @@ public class chartController {
                                         .append(" %")
                                         .append("</td>");
                         htmlTablaTotalGeneral.append("</tr>");
-                        // System.out.println(totalPorcentaje.get(i) + "// " + i);
+                        System.out.println(totalPorcentaje.get(i) + "// " + i);
                         suma_valido_blanco = totalPorcentaje.get(2) + totalPorcentaje.get(3);
                         votos_validos = ((totalPorcentaje.get(3) * 100) / (totalPorcentaje.get(5) * 100))
                                         + totalPorcentaje.get(3);
@@ -502,10 +521,12 @@ public class chartController {
                         votos_blanco = ((totalPorcentaje.get(2) * 100) / (totalPorcentaje.get(5) * 100))
                                         + totalPorcentaje.get(2);
                 }
+                
                 porcentajestotales.add(totalPorcentaje.get(0));
                 porcentajestotales.add(totalPorcentaje.get(1));
                 porcentajestotales.add(totalPorcentaje.get(2));
                 porcentajestotales.add(totalPorcentaje.get(5));
+               
 
                
                 v_emitidos = votos_validos + votos_nulos + (votos_blanco + 0.19);
@@ -539,27 +560,34 @@ public class chartController {
                 htmlTablaTotalGeneralTotal.append("</table>");
 
                 // Datos para el gráfico
+                List<Integer> vd=new ArrayList<>();
+                for (Integer integer : datosDocentes) {
+                        vd.add(integer);
+                }vd.add(17);
                 List<Map<String, Object>> chartData = new ArrayList<>();
-                for (int i = 0; i < frentesDocentes.size(); i++) {
+                for (int i = 0; i < frentesDocentes2.size(); i++) {
                         Map<String, Object> dataPoint = new HashMap<>();
-                        dataPoint.put("frente", frentesDocentes.get(i));
-                        dataPoint.put("votos", datosDocentes.get(i));
-                        dataPoint.put("color", colores.get(i % colores.size()));
+                        dataPoint.put("frente", frentesDocentes2.get(i));
+                        dataPoint.put("votos", vd.get(i));
+                        dataPoint.put("color", colores2.get(i % colores2.size()));
                         chartData.add(dataPoint);
                 }
 
+                List<Integer> ve=new ArrayList<>();
+                for (Integer integer : datosEstudiantes) {
+                        ve.add(integer);
+                }ve.add(1399);
+
                 List<Map<String, Object>> chartDataEst = new ArrayList<>();
-                for (int i = 0; i < frentesDocentes.size(); i++) {
+                for (int i = 0; i < frentesEstudiantes2.size(); i++) {
                         Map<String, Object> dataPoint = new HashMap<>();
-                        dataPoint.put("frente", frentesEstudiantes.get(i));
-                        dataPoint.put("votos", datosEstudiantes.get(i));
-                        dataPoint.put("color", colores.get(i % colores.size()));
+                        dataPoint.put("frente", frentesEstudiantes2.get(i));
+                        dataPoint.put("votos", ve.get(i));
+                        dataPoint.put("color", colores2.get(i % colores2.size()));
                         chartDataEst.add(dataPoint);
                 }
                
                 List<Map<String, Object>> chartDataTotal = new ArrayList<>();
-                // System.out.println(frentesTotales2.size());
-                // System.out.println(totalPorcentaje.size());
                 for (int i = 0; i < frentesTotales2.size(); i++) {
                         Map<String, Object> dataPoint = new HashMap<>();
                         dataPoint.put("frente", frentesTotales2.get(i));
