@@ -64,12 +64,14 @@ function cargarTablaGeneral() {
         success: function (response) {
             updateChart(response.chartDataDoc, response.totalHabilitadosDoc, 'chart');
             updateChart(response.chartDataEst, response.totalHabilitadosEst, 'chart5');
-            updateChart(response.chartDataTotal, 100, 'chart6');
+            updateChart(response.chartDataTotal, 100, 'chart6'); 
+            updateChart(response.chartDataTotalGeneral, 100, 'chartTotalGeneral'); 
             updatePieChart(response.chartDataTotal, 'chart6Torta')
 
             $("#tablaGeneralDoc").html(response.htmlDoc);
             $("#tablaGeneralEst").html(response.htmlEst);
             $("#tablaGeneralTotal").html(response.htmlTotalGeneral);
+            $("#tablaGeneralTotal2").html(response.htmlTotalGeneralTotal);
             $("#suma").html("RENOVACION + BLANCOS : " +response.suma_validos_blanco +" %");
             // console.log(response.suma_validos_blanco);
 

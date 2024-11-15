@@ -27,8 +27,12 @@
             <!-- Tabs de navegación -->
             <ul class="nav nav-tabs" id="resultadosTabs" role="tablist">
                 <li class="nav-item">
-                    <a class="nav-link active" id="resultados-tab" data-toggle="tab" href="#resultados" role="tab"
-                        aria-controls="resultados" aria-selected="true">General</a>
+                    <a class="nav-link active" id="resultados-tab" data-toggle="tab" href="#resultadosOficial" role="tab"
+                        aria-controls="resultados" aria-selected="true">General Emitidos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="resultados-tab" data-toggle="tab" href="#resultados" role="tab"
+                        aria-controls="resultados" aria-selected="true">General con detalle</a>
                 </li>
                 <!-- <li class="nav-item">
                     <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#estDoc" role="tab"
@@ -52,7 +56,40 @@
             <!-- Contenido de las pestañas -->
             <div class="tab-content" id="resultadosTabsContent">
                 <!-- Pestaña de Resultados -->
-                <div class="tab-pane fade show active" id="resultados" role="tabpanel" aria-labelledby="resultados-tab">
+                <div class="tab-pane fade show active" id="resultadosOficial" role="tabpanel" aria-labelledby="resultados-tab">
+                    -<div class="row mt-4">
+                        <div class="col-lg-8 col-md-12">
+                            <h2 class="text-center mb-3">Ponderación de Votos</h2>
+                            <div id="chartTotalGeneral" style="width: 100%; height: 450px;" class="chart-container"></div>
+                        
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div id="tablaGeneralTotal2"></div>
+                        </div>
+                    </div>
+                    <br>-
+                    <!-- <div class="row mt-4">
+                        <div class="col-lg-8 col-md-12">
+                            <h2 class="text-center mb-3">Distribución de Votos (Docentes)</h2>
+                            <div id="chartDocentes" style="width: 100%; height: 450px;"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div id="tablaGeneralDoc"></div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row mt-4">
+                        <div class="col-lg-8 col-md-12">
+                            <h2 class="text-center mb-3">Distribución de Votos (Estudiantes)</h2>
+                            <div id="chartEstudiantes" style="width: 100%; height: 450px;"></div>
+                        </div>
+                        <div class="col-lg-4 col-md-12">
+                            <div id="tablaGeneralEst"></div>
+                        </div>
+                    </div> -->
+                </div>
+                <!-- Pestaña de Resultados -->
+                <div class="tab-pane fade" id="resultados" role="tabpanel" aria-labelledby="resultados-tab">
                     <div class="row mt-4">
                         <div class="col-lg-8 col-md-12">
                             <h2 class="text-center mb-3">Ponderación de Votos</h2>

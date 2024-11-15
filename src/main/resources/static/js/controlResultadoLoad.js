@@ -3,16 +3,15 @@ $(document).ready(function () {
         packages: ['corechart', 'bar']
     });
 
+    // cargarTablaGeneral();
     // Asegurarse de que el código solo se ejecute cuando Google Charts esté listo
     google.charts.setOnLoadCallback(function () {
         $('.js-example-basic-single').select2({
             placeholder: "Seleccione..."
         });
-        // cargarGeneraTotal();
         cargarTablaGeneral();
 
-        setInterval(cargarTablaGeneral, 25000);
-        // cargarTablaPorMesa($('#tabla_resultado_mesa').val());
+        // setInterval(cargarTablaGeneral, 25000);
 
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             const target = $(e.target).attr("href"); // Obtiene el ID del tab destino
@@ -27,6 +26,7 @@ $(document).ready(function () {
                     success: function (response) {
                         updateChart(response.chartDataDoc, response.totalHabilitadosDoc, 'chart');
                         updateChart(response.chartDataEst, response.totalHabilitadosEst, 'chart5');
+                        // updateChart(response.chartDataTotalGeneral, 100, 'chartTotalGeneral');
                         updatePieChart(response.chartDataTotal, 'chart6Torta');
                     },
                     error: function (xhr, status, error) {
@@ -34,6 +34,7 @@ $(document).ready(function () {
                     }
                 });
             }else{
+
                 $.ajax({
                     type: 'POST',
                     url: "/cargarGeneral",
@@ -50,5 +51,6 @@ $(document).ready(function () {
                 }); 
             }
         });
+
     });
 });
