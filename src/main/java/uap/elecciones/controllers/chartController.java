@@ -493,7 +493,7 @@ public class chartController {
                                         .append(" %")
                                         .append("</td>");
                         htmlTablaTotalGeneral.append("</tr>");
-                        System.out.println(totalPorcentaje.get(i) + "// " + i);
+                        // System.out.println(totalPorcentaje.get(i) + "// " + i);
                         suma_valido_blanco = totalPorcentaje.get(2) + totalPorcentaje.get(3);
                         votos_validos = ((totalPorcentaje.get(3) * 100) / (totalPorcentaje.get(5) * 100))
                                         + totalPorcentaje.get(3);
@@ -558,8 +558,8 @@ public class chartController {
                 }
                
                 List<Map<String, Object>> chartDataTotal = new ArrayList<>();
-                System.out.println(frentesTotales2.size());
-                System.out.println(totalPorcentaje.size());
+                // System.out.println(frentesTotales2.size());
+                // System.out.println(totalPorcentaje.size());
                 for (int i = 0; i < frentesTotales2.size(); i++) {
                         Map<String, Object> dataPoint = new HashMap<>();
                         dataPoint.put("frente", frentesTotales2.get(i));
