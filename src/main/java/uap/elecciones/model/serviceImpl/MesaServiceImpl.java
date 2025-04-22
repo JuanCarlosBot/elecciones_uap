@@ -84,6 +84,11 @@ public class MesaServiceImpl implements IMesaService{
     public Object listarMesasyActas(Long idMesa) {
         return mesaDao.listarMesasyActas(idMesa);
     }
+
+    @Override
+    public List<Mesa> findByCarrera(Long idCarrera) {
+        return mesaDao.mesasPorCarrera(idCarrera);
+    }
     
     
 }

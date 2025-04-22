@@ -27,4 +27,6 @@ public interface IMesaService {
 
 	Object listarMesasyActas(Long idMesa);
 
+	public List<Mesa> findByCarrera(Long idCarrera);
+
 }

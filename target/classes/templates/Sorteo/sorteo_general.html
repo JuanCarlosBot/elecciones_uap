@@ -19,82 +19,60 @@
 
 <body>
 
-    <div class=" mt-5">
-        <div>horizontal</div>
+    <div class=" mt-1">
+        <div><h3 class="text-center">DELEGADOS SORTEADOS POR MESAS</h3></div>
         <!-- Tabs de navegación -->
-        <ul class="nav nav-tabs" id="resultadosTabs" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="resultados-tab" data-toggle="tab" href="#resultados" role="tab"
-                    aria-controls="resultados" aria-selected="true">Resultados</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="consulta-tab" data-toggle="tab" href="#consulta" role="tab"
-                    aria-controls="consulta" aria-selected="false">Consulta</a>
-            </li>
-        </ul>
-
-        <!-- Contenido de las pestañas -->
-        <div class="tab-content" id="resultadosTabsContent">
-            <!-- Pestaña de Resultados -->
-            <div class="tab-pane fade show active" id="resultados" role="tabpanel" aria-labelledby="resultados-tab">
-                <div class="row mt-4">
-                    <div class="col-md-3">
-                        <form th:action="@{/admin/sorteando}" method="POST">
-                            <h2 class="text-center">Nuevo sorteo de delegados</h2>
-                            <div class="form-group">
-                                <label for="opcion">Mesas:</label>
-                                <select class="form-control select2" name="id_mesa" id="">
-                                    <option value="Seleccionar"></option>
-                                    <option th:each="m:${mesas}" th:text="${m.nombre_mesa}" th:value="${m.id_mesa}">
-                                    </option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <input type="submit" class="btn btn-primary btn-block" value="Sortear">
-                            </div>
-                        </form>
-
+        <div class="row mt-4">
+            <div class="col-md-3 border rounded shadow p-3 bg-white" >
+                <form th:action="@{/admin/sorteando}" method="POST">
+                    <h2 class="text-center">Nuevo sorteo de delegados</h2>
+                    <div class="form-group">
+                        <label for="opcion">Mesas:</label>
+                        <select class="form-control select2" name="id_mesa" id="">
+                            <option value="Seleccionar"></option>
+                            <option th:each="m:${mesas}" th:text="${'Mesa '+m.nombre_mesa}" th:value="${m.id_mesa}">
+                            </option>
+                        </select>
                     </div>
-                    <div class="col-md-9">
-                        <h3 class="text-center">Delegados sorteados por mesas</h3>
-                        <table id="tablaResultados" class="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Frente</th>
-                                    <th>Votos</th>
-                                    <th>%</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr th:each="d:${delegados}">
-                                    <td th:text="${d.id_delegado}"></td>
-                                    <td th:text="${d.mesa.id_mesa}"></td>
-                                    <td ></td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary btn-block" value="Sortear">
                     </div>
-                </div>
+                </form>
+
             </div>
-
-            <!-- Pestaña de Consulta -->
-            <div class="tab-pane fade" id="consulta" role="tabpanel" aria-labelledby="consulta-tab">
-                <div class="row mt-4">
-                    <div class="col-md-6 offset-md-3">
-                        <h3 class="text-center">Formulario de Consulta</h3>
-                        <form action="#" method="POST">
-                            <div class="form-group">
-                                <label for="nombre">Nombre:</label>
-                                <input type="text" class="form-control" id="nombre" name="nombre">
-                            </div>
-                            <div class="form-group">
-                                <label for="consulta">Consulta:</label>
-                                <textarea class="form-control" id="consulta" name="consulta" rows="3"></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Enviar Consulta</button>
-                        </form>
-                    </div>
-                </div>
+            <div class="col-md-9 border rounded shadow p-3 bg-white">
+                
+                <table id="tablaResultados" class="table table-striped small">
+                    <thead>
+                        <tr>
+                            
+                            <th>RU/RD</th>
+                            <th>NOMBRES</th>
+                            <th>ROL</th>
+                            <th>MESA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="d:${delegados}">
+                            <td> 
+                                <span th:if="${d.tipoDelegado.id_tipo_delegado == 1} or ${d.tipoDelegado.id_tipo_delegado == 2}" th:text="${'rd '+d.votanteHabilitado.docente.rd}"></span>
+                                <span th:if="${d.tipoDelegado.id_tipo_delegado == 3}" th:text="${'ru '+d.votanteHabilitado.estudiante.ru}"></span>
+                                
+                            </td>
+                            <td> 
+                                <span th:if="${d.tipoDelegado.id_tipo_delegado == 1} or ${d.tipoDelegado.id_tipo_delegado == 2}" th:text="${d.votanteHabilitado.docente.persona.apellidos}"></span>
+                                <span th:if="${d.tipoDelegado.id_tipo_delegado == 3}" th:text="${d.votanteHabilitado.estudiante.persona.apellidos}"></span>
+                                
+                            </td>
+                            <td> 
+                                <span th:if="${d.tipoDelegado.id_tipo_delegado == 1} or ${d.tipoDelegado.id_tipo_delegado == 2}" th:text="${d.tipoDelegado.nombre_tipo_delegado}"></span>
+                                <span th:if="${d.tipoDelegado.id_tipo_delegado == 3}" th:text="${d.tipoDelegado.nombre_tipo_delegado}"></span>
+                                
+                            </td>
+                            <td th:text="${'Mesa '+d.mesa.nombre_mesa}"></td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
 
@@ -134,17 +112,17 @@
                     {
                         extend: 'excelHtml5',
                         text: 'Exportar a Excel',
-                        className: 'btn btn-success'
+                        className: 'btn btn-secondary'
                     },
                     {
                         extend: 'pdfHtml5',
                         text: 'Exportar a PDF',
-                        className: 'btn btn-danger'
+                        className: 'btn btn-secondary'
                     },
                     {
                         extend: 'csvHtml5',
                         text: 'Exportar a CSV',
-                        className: 'btn btn-primary'
+                        className: 'btn btn-secondary'
                     },
                     {
                         extend: 'print',

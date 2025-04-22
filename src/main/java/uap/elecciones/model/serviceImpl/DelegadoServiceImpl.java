@@ -39,5 +39,15 @@ public class DelegadoServiceImpl implements DelegadoService{
     public List<Delegado> listarDelegadosPorIdMesa(Long idMesa) {
         return dao.listarDelegadosPorIdMesa(idMesa);
     }
+
+    @Override
+    public void saveAll(List<Delegado> delegados) {
+        dao.saveAll(delegados);
+    }
+
+    @Override
+    public List<Delegado> findAllOrderByMesaAndTipo() {
+        return dao.findAllOrderByMesaAndTipo();
+    }
     
 }

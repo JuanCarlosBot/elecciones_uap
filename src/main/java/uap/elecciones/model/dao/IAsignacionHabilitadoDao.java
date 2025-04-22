@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import uap.elecciones.model.entity.AsignacionHabilitado;
 import uap.elecciones.model.entity.DelegadoDto;
+import uap.elecciones.model.entity.Mesa;
 
 public interface IAsignacionHabilitadoDao extends CrudRepository<AsignacionHabilitado,Long>{
     
@@ -279,6 +281,10 @@ WHERE m.id_mesa = ?1
 ORDER BY p.apellidos ASC;
     """,nativeQuery = true)
     public List<Object[]> lista_votantes_por_mesa(Long id_mesa);
+
+
+    @Query("SELECT a FROM AsignacionHabilitado a WHERE a.mesa IN :mesas")
+    List<AsignacionHabilitado> findByMesaIn(@Param("mesas") List<Mesa> mesas);
 
 }
 

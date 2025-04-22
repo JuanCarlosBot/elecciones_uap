@@ -10,9 +10,13 @@ public interface DelegadoService {
 
     public void save(Delegado entidad);
 
+    public void saveAll(List<Delegado> delegados);
+
     public Delegado findOne(Long id);
 
     public void delete(Long id);
 
     List<Delegado> listarDelegadosPorIdMesa(Long idMesa);
+
+    List<Delegado> findAllOrderByMesaAndTipo();
 }

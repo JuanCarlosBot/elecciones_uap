@@ -4,6 +4,7 @@ import java.util.List;
 
 import uap.elecciones.model.entity.AsignacionHabilitado;
 import uap.elecciones.model.entity.DelegadoDto;
+import uap.elecciones.model.entity.Mesa;
 
 public interface IAsignacionHabilitadoService {
     public List<AsignacionHabilitado> findAll();
@@ -35,5 +36,9 @@ public interface IAsignacionHabilitadoService {
 	List<AsignacionHabilitado> listaHabilitadosMesas(Long id_mesa);
 
 	public List<Object[]> lista_votantes_por_mesa(Long id_mesa);
+
+	List<AsignacionHabilitado> lista_asignados_habilitados_por_mesa(Long id_mesa);
+
+	public List<AsignacionHabilitado> findByMesas(List<Mesa> mesas);
 
 }

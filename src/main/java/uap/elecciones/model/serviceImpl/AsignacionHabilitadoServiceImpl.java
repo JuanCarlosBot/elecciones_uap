@@ -10,6 +10,7 @@ import com.itextpdf.text.pdf.PdfStructTreeController.returnType;
 import uap.elecciones.model.dao.IAsignacionHabilitadoDao;
 import uap.elecciones.model.entity.AsignacionHabilitado;
 import uap.elecciones.model.entity.DelegadoDto;
+import uap.elecciones.model.entity.Mesa;
 import uap.elecciones.model.service.IAsignacionHabilitadoService;
 
 @Service
@@ -99,6 +100,16 @@ public class AsignacionHabilitadoServiceImpl implements IAsignacionHabilitadoSer
     @Override
     public List<Object[]> lista_votantes_por_mesa(Long id_mesa) {
         return asignacionHabilitadoDao.lista_votantes_por_mesa(id_mesa);
+    }
+
+    @Override
+    public List<AsignacionHabilitado> lista_asignados_habilitados_por_mesa(Long id_mesa) {
+        return asignacionHabilitadoDao.lista_asignados_habilitados_por_mesa(id_mesa);
+    }
+
+    @Override
+    public List<AsignacionHabilitado> findByMesas(List<Mesa> mesas) {
+        return asignacionHabilitadoDao.findByMesaIn(mesas);
     }
 
 }
