@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -67,14 +68,79 @@ public class sorteoController {
     }
 
     @PostMapping(value = "/sorteando")
+    public String sorteandodelegados(@RequestParam(name = "id_mesa") Long idMesa, Model model) {
+        Mesa mesa = mesaService.findOne(idMesa);
+        Carrera carrera = mesa.getCarrera();
+        List<Mesa> mesasCarrera = mesaService.findByCarrera(carrera.getId_carrera());
+        // Obtener habilitados de todas las mesas de la carrera
+        List<AsignacionHabilitado> habilitadosCarrera = asignacionHabilitadoService.findByMesas(mesasCarrera);
+        // Habilitados de la misma mesa (solo para estudiantes si la mesa es estudiantil)
+        List<AsignacionHabilitado> habilitadosMismaMesa = habilitadosCarrera.stream()
+                .filter(a -> a.getMesa().getId_mesa().equals(idMesa))
+                .collect(Collectors.toList());
+        // Determinar si la mesa es de estudiantes o de docentes (según nombre o algún otro criterio)
+        boolean esMesaEstudiantil = mesa.getNombre_mesa().toUpperCase().startsWith("E");
+        // Separar estudiantes y docentes
+        List<VotanteHabilitado> estudiantes = new ArrayList<>();
+        List<VotanteHabilitado> docentes = new ArrayList<>();
+
+        for (AsignacionHabilitado asignado : habilitadosCarrera) {
+            VotanteHabilitado vh = asignado.getVotante_habilitado();
+            if (vh.getDocente() != null) {
+                docentes.add(vh); // Docentes de toda la carrera
+            }
+        }
+        List<AsignacionHabilitado> fuenteEstudiantes = esMesaEstudiantil ? habilitadosMismaMesa : habilitadosCarrera;
+        for (AsignacionHabilitado asignado : fuenteEstudiantes) {
+            VotanteHabilitado vh = asignado.getVotante_habilitado();
+            if (vh.getEstudiante() != null) {
+                estudiantes.add(vh); // Estudiantes según lógica de la mesa
+            }
+        }
+        // Excluir los que ya fueron sorteados
+        List<Long> idsVotantesDelegados = delegadoService.findAll().stream().map(d -> d.getVotanteHabilitado().getId_votante_habilitado()).collect(Collectors.toList());
+
+        docentes = docentes.stream().filter(vh -> !idsVotantesDelegados.contains(vh.getId_votante_habilitado())).collect(Collectors.toList());
+        estudiantes = estudiantes.stream().filter(vh -> !idsVotantesDelegados.contains(vh.getId_votante_habilitado())).collect(Collectors.toList());
+
+        // Tipos de delegado
+        TipoDelegado presidenteTipo = tipoDelegadoService.findOne(1L);
+        TipoDelegado delegadoDocenteTipo = tipoDelegadoService.findOne(2L);
+        TipoDelegado delegadoEstudianteTipo = tipoDelegadoService.findOne(3L);
+
+        Random random = new Random();
+        List<Delegado> nuevosDelegados = new ArrayList<>();
+
+        if (!docentes.isEmpty()) {
+            VotanteHabilitado presidente = docentes.remove(random.nextInt(docentes.size()));
+            nuevosDelegados.add(crearDelegado(mesa, presidente, presidenteTipo));
+        }
+        for (int i = 0; i < 2 && !docentes.isEmpty(); i++) {
+            VotanteHabilitado vh = docentes.remove(random.nextInt(docentes.size()));
+            nuevosDelegados.add(crearDelegado(mesa, vh, delegadoDocenteTipo));
+        }
+        for (int i = 0; i < 2 && !estudiantes.isEmpty(); i++) {
+            VotanteHabilitado vh = estudiantes.remove(random.nextInt(estudiantes.size()));
+            nuevosDelegados.add(crearDelegado(mesa, vh, delegadoEstudianteTipo));
+        }
+        delegadoService.saveAll(nuevosDelegados);
+        model.addAttribute("mensaje", "Sorteo realizado correctamente.");
+        return "redirect:/admin/sorteo";
+    }
+
+    private Delegado crearDelegado(Mesa mesa, VotanteHabilitado votante, TipoDelegado tipo) {
+        Delegado delegado = new Delegado();
+        delegado.setMesa(mesa);
+        delegado.setVotanteHabilitado(votante);
+        delegado.setTipoDelegado(tipo);
+        return delegado;
+    }
+
+    /*@PostMapping(value = "/sorteando")
 public String sorteandodelegados(@RequestParam(name = "id_mesa") Long idMesa, Model model) {
     Mesa mesa = mesaService.findOne(idMesa);
     Carrera carrera = mesa.getCarrera();
-
-    // Obtener todas las mesas de la carrera
     List<Mesa> mesasCarrera = mesaService.findByCarrera(carrera.getId_carrera());
-
-    // Obtener todos los habilitados de esas mesas
     List<AsignacionHabilitado> habilitadosCarrera = asignacionHabilitadoService.findByMesas(mesasCarrera);
 
     List<VotanteHabilitado> estudiantes = new ArrayList<>();
@@ -88,201 +154,36 @@ public String sorteandodelegados(@RequestParam(name = "id_mesa") Long idMesa, Mo
             docentes.add(vh);
         }
     }
-
-    // Obtener tipos de delegado
     TipoDelegado presidenteTipo = tipoDelegadoService.findOne(1L); // Presidente
     TipoDelegado delegadoDocenteTipo = tipoDelegadoService.findOne(2L);
     TipoDelegado delegadoEstudianteTipo = tipoDelegadoService.findOne(3L);
 
     Random random = new Random();
     List<Delegado> nuevosDelegados = new ArrayList<>();
-
-    // Elegir presidente (docente)
     if (!docentes.isEmpty()) {
         VotanteHabilitado presidente = docentes.remove(random.nextInt(docentes.size()));
         nuevosDelegados.add(crearDelegado(mesa, presidente, presidenteTipo));
     }
-
-    // 2 delegados docentes
     for (int i = 0; i < 2 && !docentes.isEmpty(); i++) {
         VotanteHabilitado vh = docentes.remove(random.nextInt(docentes.size()));
         nuevosDelegados.add(crearDelegado(mesa, vh, delegadoDocenteTipo));
     }
-
-    // 2 delegados estudiantes
     for (int i = 0; i < 2 && !estudiantes.isEmpty(); i++) {
         VotanteHabilitado vh = estudiantes.remove(random.nextInt(estudiantes.size()));
         nuevosDelegados.add(crearDelegado(mesa, vh, delegadoEstudianteTipo));
     }
-
     delegadoService.saveAll(nuevosDelegados);
-
     model.addAttribute("mensaje", "Sorteo realizado correctamente.");
     return "redirect:/admin/sorteo";
 }
 
-/*
-    @PostMapping(value = "/sorteando")
-    public String sorteandoDelegados(@RequestParam(name = "id_mesa") Long idMesa, Model model) {
-        System.out.println(idMesa+" iddddddddddd");
-        Mesa mesa = mesaService.findOne(idMesa); // Asegúrate de tener este método en tu servicio
-        System.out.println(mesa.getNombre_mesa());
-        List<AsignacionHabilitado> habilitados = asignacionHabilitadoService.lista_asignados_habilitados_por_mesa(idMesa);
-        System.out.println(habilitados.size());
-
-        // Separar habilitados entre estudiantes y docentes
-        List<VotanteHabilitado> estudiantes = new ArrayList<>();
-        List<VotanteHabilitado> docentes = new ArrayList<>();
-
-        for (AsignacionHabilitado asignado : habilitados) {
-            VotanteHabilitado vh = asignado.getVotante_habilitado();
-            if (vh.getEstudiante() != null) {
-                estudiantes.add(vh);
-            } else if (vh.getDocente() != null) {
-                docentes.add(vh);
-            }
-        }
-
-        // Obtener tipos de delegado
-        TipoDelegado presidenteTipo = tipoDelegadoService.findOne(1L); // Presidente
-        TipoDelegado delegadoDocenteTipo = tipoDelegadoService.findOne(2L);
-        TipoDelegado delegadoEstudianteTipo = tipoDelegadoService.findOne(3L);
-
-        Random random = new Random();
-        List<Delegado> nuevosDelegados = new ArrayList<>();
-
-        // Elegir presidente (de los docentes)
-        if (!docentes.isEmpty()) {
-            VotanteHabilitado presidente = docentes.remove(random.nextInt(docentes.size()));
-            nuevosDelegados.add(crearDelegado(mesa, presidente, presidenteTipo));
-        }
-
-        // Elegir 2 delegados docentes
-        for (int i = 0; i < 2 && !docentes.isEmpty(); i++) {
-            VotanteHabilitado vh = docentes.remove(random.nextInt(docentes.size()));
-            nuevosDelegados.add(crearDelegado(mesa, vh, delegadoDocenteTipo));
-        }
-
-        // Elegir 2 delegados estudiantes
-        for (int i = 0; i < 2 && !estudiantes.isEmpty(); i++) {
-            VotanteHabilitado vh = estudiantes.remove(random.nextInt(estudiantes.size()));
-            nuevosDelegados.add(crearDelegado(mesa, vh, delegadoEstudianteTipo));
-        }
-
-        // Guardar delegados
-        delegadoService.saveAll(nuevosDelegados);
-
-        model.addAttribute("mensaje", "Sorteo realizado correctamente.");
-        return "redirect:/admin/sorteo"; // Ajusta según tu vista
-    }
-*/
-    // Método auxiliar para crear delegados
     private Delegado crearDelegado(Mesa mesa, VotanteHabilitado votante, TipoDelegado tipo) {
         Delegado delegado = new Delegado();
         delegado.setMesa(mesa);
         delegado.setVotanteHabilitado(votante);
         delegado.setTipoDelegado(tipo);
         return delegado;
-    }
-
-    @PostMapping(value = "/sorteandoss")
-    public String sorteando(@RequestParam(name = "id_mesa") Long id_mesa, Model model) {
-        Object carre = mesaService.mesaPorCarrera(id_mesa);
-        Object[] carreraArray = (Object[]) carre;
-        Long idMesa = (Long) carreraArray[0];
-        Mesa mesa = mesaService.findOne(idMesa);
-        Long idCarrera = (Long) carreraArray[4];
-        Carrera carrera = carreraService.findOne(idCarrera);
-        Facultad facultad = facultadService.findOne(carrera.getFacultad().getId_facultad());
-
-        List<AsignacionHabilitado> asHabilitados = asignacionHabilitadoService.listaHabilitadosMesas(id_mesa);
-        List<Long> idVH = asignacionHabilitadoService.listaDocentesFac(facultad.getId_facultad());
-
-        System.out.println("cantidad votantes estudiantes " + asHabilitados.size());
-        System.out.println("cantidad de mesas por fac " + idVH.size());
-        List<VotanteHabilitado> vhb = new ArrayList<>();
-        try {
-            for (Long long1 : idVH) {
-                VotanteHabilitado v = votanteHabilitadoService.findOne(long1);
-                boolean esDelegado = false;
-
-                for (AsignacionHabilitado ahh : v.getAsignacion_habilitado()) {
-                    if ("Delegado".equals(ahh.getDelegado())) {
-                        esDelegado = true;
-                        break; // Si encontramos un "Delegado", dejamos de buscar en esta lista
-                    }
-                }
-                // Si no encontramos "Delegado", agregamos el votante a la lista
-                if (!esDelegado) {
-                    if (!"DelegadoOficial".equals(v.getEstado_delegado())) {
-                        vhb.add(v);
-                    }
-                    
-                }
-            }
-            Random random = new Random();
-            List<VotanteHabilitado> idsAleatorios = new ArrayList<>();
-
-            int tamañoLista = vhb.size();
-            System.out.println("sin sortear  " + tamañoLista);
-            List<VotanteHabilitado> copiaLista = new ArrayList<>(vhb); // Copia para evitar modificaciones
-
-            if (tamañoLista >= 3) {
-                for (int i = 0; i < 3; i++) {
-                    int indiceAleatorio = random.nextInt(tamañoLista);
-                    VotanteHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar repetición
-                    idsAleatorios.add(seleccionado);
-
-                }
-            } else if (tamañoLista < 3) {
-                for (int i = 0; i < tamañoLista; i++) {
-                    int indiceAleatorio = random.nextInt(tamañoLista);
-                    VotanteHabilitado seleccionado = copiaLista.remove(indiceAleatorio); // Eliminar para evitar repetición
-                    idsAleatorios.add(seleccionado);
-                }
-            }
-            List<TipoDelegado> tipoDelegados = tipoDelegadoService.findAll();
-            
-            
-            List<VotanteHabilitado> vexistente = new ArrayList<>();
-            List<Delegado> nuevos = new ArrayList<>();
-            for (AsignacionHabilitado asignacionHabilitado : mesa.getAsignacionHabilitados()) {
-                if ("Delegado".equals(asignacionHabilitado.getDelegado()) || "v".equals(asignacionHabilitado.getDelegado())) {
-                    vexistente.add(asignacionHabilitado.getVotante_habilitado());
-                    Delegado dele = new Delegado();
-                    dele.setVotanteHabilitado(asignacionHabilitado.getVotante_habilitado());
-                    dele.setMesa(mesa);
-                    dele.setTipoDelegado(tipoDelegados.get(2));
-                    delegadoService.save(dele);
-                    System.out.println("delegados estudiantes  : "+asignacionHabilitado.getVotante_habilitado().getEstudiante().getPersona().getApellidos());
-                }
-                
-            }
-            
-            for (VotanteHabilitado vh : idsAleatorios) {
-                
-
-                Delegado delegado = new Delegado();
-                delegado.setVotanteHabilitado(vh);
-                delegado.setMesa(mesa);
-                delegado.setTipoDelegado(tipoDelegados.get(1));
-                delegadoService.save(delegado);
-                VotanteHabilitado votHab = votanteHabilitadoService.findOne(vh.getId_votante_habilitado());
-                votHab.setEstado_delegado("DelegadoOficial");
-                votanteHabilitadoService.save(votHab);
-                System.out.println(delegado.getMesa().getNombre_mesa() + " "
-                        + delegado.getVotanteHabilitado().getDocente().getPersona().getApellidos() + " "
-                        + delegado.getTipoDelegado().getNombre_tipo_delegado());
-                      
-            }
-            
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return "redirect:/admin/sorteo";
-    }
+    }*/
 
     @RequestMapping(value = "/form_sorteo", method = RequestMethod.POST)
     public String realizar_sorteo(RedirectAttributes flash,
