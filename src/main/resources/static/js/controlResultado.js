@@ -34,7 +34,7 @@ function listarCarreras() {
             }
 
         }, error: function (xhr, status, error) {
-            console.error('Hubo un problema con la solicitud AJAX:', status, error);
+            console.error('Hubo un problema con la solicitud AJAX carreras:', status, error);
         }
     });
 
@@ -50,7 +50,7 @@ function cargarGeneraTotal() {
             // $("#tablaGeneralTotal").html(response.html);
             console.log(response.chartData);
         }, error: function (xhr, status, error) {
-            console.error('Hubo un problema con la solicitud AJAX:', status, error);
+            console.error('Hubo un problema con la solicitud AJAX general:', status, error);
         }
     });
 }
@@ -77,7 +77,7 @@ function cargarTablaGeneral() {
 
         },
         error: function (xhr, status, error) {
-            console.error('Hubo un problema con la solicitud AJAX:', status, error);
+            console.error('Hubo un problema con la solicitud AJAX tabla:', status, error);
         }
     });
 }
@@ -94,7 +94,7 @@ function cargarTablaEstDoc() {
             updateChart(response.chartData, response.totalHabilitados, 'chart2');
             $("#tablaEstDoc").html(response.html);
         }, error: function (xhr, status, error) {
-            console.error('Hubo un problema con la solicitud AJAX:', status, error);
+            console.error('Hubo un problema con la solicitud AJAX estDoc:', status, error);
         }
     });
 }
@@ -112,7 +112,7 @@ function cargarTablaFacultad() {
             updateChart(response.chartData, response.totalHabilitados, 'chart3');
             $("#tablaFacultad").html(response.html);
         }, error: function (xhr, status, error) {
-            console.error('Hubo un problema con la solicitud AJAX:', status, error);
+            console.error('Hubo un problema con la solicitud AJAX facultad:', status, error);
         }
     });
 }
@@ -128,7 +128,7 @@ function cargarTablaCarrera() {
             updateChart(response.chartData, response.totalHabilitados, 'chart4');
             $("#tablaCarrera").html(response.html);
         }, error: function (xhr, status, error) {
-            console.error('Hubo un problema con la solicitud AJAX:', status, error);
+            console.error('Hubo un problema con la solicitud AJAX tbla carrer:', status, error);
         }
     });
 }
