@@ -70,5 +70,11 @@ public class AnforaServiceImpl implements IAnforaService{
         return anforaDao.votosGeneralCarrera(id_carrera);
     }
 
+    @Override
+    public Object votoGeneralPorfente(Long id_frente) {
+        // TODO Auto-generated method stub
+        return anforaDao.votoGeneralPorfente(id_frente);
+    }
+
 
 }

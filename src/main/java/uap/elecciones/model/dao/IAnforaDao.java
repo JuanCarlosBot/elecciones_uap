@@ -142,4 +142,10 @@ public interface IAnforaDao extends CrudRepository<Anfora, Long> {
         and c.id_carrera = :id_carrera and m.estado = 'COMPLETADO'
         """,nativeQuery = true)
         public Object votosGeneralCarrera(@Param("id_carrera")Long id_carrera);
+
+        @Query(value="""
+                select sum(da.cant_votantes) from mesa m , anfora a ,detalle_anfora da
+		where m.id_mesa = a.id_mesa and a.id_anfora =da.id_anfora and da.id_frente = :id_frente and m.nombre_mesa like concat('%', :estamento, '%');
+        """, nativeQuery = true)
+        public Object votoGeneralPorfente(@Param("id_frente")Long id_frente, @Param("estamento") String estamento);
 }

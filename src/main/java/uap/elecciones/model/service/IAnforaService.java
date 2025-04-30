@@ -29,4 +29,6 @@ public interface IAnforaService {
 
 	public Object votosGeneralCarrera(@Param("Idcarrera")Long id_carrera);
 
+	public Object votoGeneralPorfente(@Param("id_frente")Long id_frente);
+
 }
